@@ -1,0 +1,454 @@
+@charset "utf-8";
+
+/*-------------------------------
+	基本設定
+-------------------------------*/
+
+/*----- フォント設定 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baskervville&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600&display=swap');
+
+
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	line-height: 1.846153;
+	word-wrap: break-word;
+}
+
+html {
+	font-size: 62.5%;
+	width: 100%;
+	height: 100%;
+}
+
+body {
+	opacity: 0;
+	width: 100%;
+	font-size: 1.3rem;
+	letter-spacing: 0;
+	font-weight: 500;
+	-webkit-text-size-adjust: 100%;
+	color: #39385d;
+	z-index: 5000;
+	position: relative;
+	/* font-family: '游ゴシック Medium', '游ゴシック体', 'Yu Gothic Medium', YuGothic, 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif; */
+	font-family: 'Noto Sans JP', 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+}
+
+/*----- フォント */
+.font {
+	font-family: 'Baskervville', serif;
+}
+
+.mincho {
+	font-family: 'Noto Serif JP', serif;
+}
+
+/*----- 画像関連 */
+img {
+	height: auto;
+	vertical-align: bottom;
+}
+
+/* SVG表示されないとき */
+.svg {
+	line-height: 1;
+	display: block;
+}
+
+.svg img {
+	display: block;
+	width: 100%;
+	height: auto;
+	line-height: 1;
+}
+
+/* object-fit */
+.obj-img img {
+	object-fit: cover;
+	font-family: 'object-fit: cover;';
+}
+
+/*----- ホバー系 */
+a {
+	transition: .3s all ease;
+	color: #39385d;
+}
+
+*:not(.not-a)>a:hover {
+	opacity: 0.6;
+}
+
+/* 画像拡大 */
+.hover_zoom img {
+	transition: .3s all ease;
+}
+
+.hover_zoom:hover img {
+	transform: scale(1.2);
+}
+
+/*----- コンテンツ */
+.main {
+	padding-top: 10rem;
+	padding-bottom: 10rem;
+}
+
+.fullwidth {
+	padding-left: 2.5rem;
+	padding-right: 2.5rem;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.maxwidth {
+	width: 100%;
+	max-width: 70rem;
+	padding-left: 2.5rem;
+	padding-right: 2.5rem;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.maxwidth460 {
+	width: 100%;
+	max-width: 51rem;
+	padding-left: 2.5rem;
+	padding-right: 2.5rem;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/*----- フォームリセット */
+.C-form input {
+	padding: 0;
+}
+
+.C-form input:not(input[type="date"], input[type="time"]),
+.C-form button,
+.C-form select,
+.C-form textarea {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background: transparent;
+	border: none;
+	border-radius: 0;
+	font: inherit;
+	outline: none;
+}
+
+.C-form input[type="date"] {
+	border: none;
+	border-radius: 0;
+	font: inherit;
+	outline: none;
+}
+
+.C-form input[type="time"] {
+	border: none;
+	border-radius: 0;
+	font: inherit;
+	outline: none;
+}
+
+/*----- アニメーション */
+.view {
+	opacity: 0;
+	transform: translate(0, 0.7rem);
+	transition: all 750ms;
+}
+
+.view.scrollin {
+	opacity: 1;
+	transform: translate(0, 0);
+}
+
+.view2 {
+	overflow: hidden;
+	position: relative;
+}
+
+.view2:after {
+	content: "";
+	display: block;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	position: absolute;
+	background: #fff;
+	transition: all ease-in-out 750ms;
+}
+
+.view2.scrollin2:after {
+	left: 100%;
+}
+
+@media screen and (min-width:501px),
+print {
+
+	a[href^="tel:"] {
+		pointer-events: none;
+	}
+
+}
+
+@media screen and (max-width:900px),
+print {
+
+	.C-form input,
+	.C-form button,
+	.C-form select,
+	.C-form textarea {
+		font-size: medium !important;
+	}
+
+}
+
+@media screen and (max-width:500px),
+print {
+
+	html {
+		font-size: 2.666666vw;
+	}
+
+	body {
+		font-size: 1.4rem;
+		padding: 1rem;
+	}
+
+}
+
+
+/*-------------------------------
+	パーツ
+-------------------------------*/
+
+/*----- 見出し */
+/* 大見出し */
+.sec-title {}
+
+/* 中見出し */
+.sec-subtitle {}
+
+/*----- ボタン */
+.Button {
+	width: 100%;
+	max-width: 39.6rem;
+	height: 6.2rem;
+	border-radius: 3.1rem !important;
+	padding: 0;
+	overflow: hidden;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	cursor: pointer;
+}
+
+.Button a,
+.Button span {
+	width: 100%;
+	height: 100%;
+	font-size: 1.4rem;
+	letter-spacing: .08em;
+	color: #39395c;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	opacity: 1 !important;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background: #b1c7cf;
+}
+
+.Button span::after {
+	width: .8rem;
+	height: 1rem;
+	right: 3.5rem;
+	top: calc(50% - .5rem);
+	position: absolute;
+	background-image: url(../images/common/icon_arrow-blue.svg);
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+	display: block;
+	content: "";
+}
+
+@media screen and (min-width:501px),
+print {}
+
+@media screen and (max-width:500px),
+print {
+
+	.Button {
+		max-width: 100%;
+		height: 5.2rem;
+		border-radius: 2.6rem !important;
+	}
+
+}
+
+
+
+/*-------------------------------
+	フォーム関連
+-------------------------------*/
+
+/*----- 名前 */
+.C-form-block--name__text {
+	width: 100%;
+	font-size: 1.4rem;
+	padding-left: 1.4rem;
+	line-height: 1.5;
+	display: flex;
+	align-items: baseline;
+	justify-content: flex-start;
+}
+
+.C-form-block--name__text span {
+	font-size: 1.8rem;
+	margin-right: .25rem;
+	line-height: 1.2;
+	display: block;
+}
+
+/*----- クーポンのご利用 */
+.C-form-block--couponno {
+	display: none;
+}
+
+.C-form-block--couponno.on {
+	display: block;
+}
+
+.C-form-block--couponcode {
+	display: none;
+}
+
+.C-form-block--couponcode.on {
+	display: block;
+}
+
+.C-form-block--couponcode-list {
+	margin-top: 1rem;
+	font-size: 1.2rem;
+	line-height: 1.5;
+	color: rgba(57, 57, 92, .75);
+}
+
+.C-form-block--couponcode-list__item {
+	line-height: 1.5;
+}
+
+.C-form-block--couponcode-list__item::before {
+	line-height: 1.5;
+}
+
+/*------ 注文内容 */
+.C-price {
+	width: calc(100% - 6rem);
+	padding: 3.5rem 4rem;
+	border: 1px solid rgba(204, 206, 213, .35);
+	background: rgba(255, 255, 255, .2);
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.C-price__title {
+	font-size: 2rem;
+	margin-bottom: 1.5rem;
+	line-height: 1;
+	font-weight: 700;
+}
+
+.C-price-block__wrap {
+	padding-bottom: 1rem;
+	margin-bottom: 1rem;
+	border-bottom: 1px solid rgba(57, 57, 92, .6);
+}
+
+.C-price-block {
+	width: 100%;
+	font-size: 1.4rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.C-price-block--minus * {
+	color: #c72442;
+}
+
+.C-price-last {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.C-price-last__title,
+.C-price-last__text span {
+	font-size: 2rem;
+	font-weight: 700;
+	line-height: 1;
+}
+
+.C-price-last__text {
+	font-weight: 700;
+	font-size: 1.4rem;
+}
+
+.C-price-last__text span {
+	margin-right: .25rem;
+}
+
+@media screen and (min-width:501px),
+print {}
+
+@media screen and (max-width:500px),
+print {
+
+	/*----- 名前 */
+	.C-form-block--name__text span {
+		font-size: 1.6rem;
+	}
+
+	/*------ 注文内容 */
+	.C-price {
+		width: 100%;
+		padding: 2.5rem 3rem 2rem;
+	}
+
+	.C-price__title {
+		font-size: 1.8rem;
+		margin-bottom: 2rem;
+	}
+
+	.C-price-block__wrap {
+		padding-bottom: .8rem;
+		margin-bottom: 1rem;
+	}
+
+	.C-price-last__title {
+		font-size: 1.8rem;
+	}
+
+	.C-price-last__text {
+		font-weight: 700;
+		font-size: 1.4rem;
+	}
+
+	.C-price-last__text span {
+		font-size: 2.2rem;
+		margin-right: .25rem;
+	}
+
+}

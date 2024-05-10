@@ -1,0 +1,26 @@
+@charset "utf-8";
+
+/*-------------------------------
+	common.css
+-------------------------------*/
+
+@media screen and (min-width:501px) , print{
+
+}
+@media screen and (max-width:500px) , print{
+
+}
+
+
+
+/*-------------------------------
+	フォーム
+-------------------------------*/
+
+@media screen and (max-width:500px) , print{
+
+	.C-form-line--last::before{
+		display: none;
+	}
+
+}

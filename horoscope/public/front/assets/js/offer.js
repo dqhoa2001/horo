@@ -1,0 +1,12 @@
+// $(window).on('load',function(){
+//     $(".C-form-notice-content").mCustomScrollbar({
+//         callbacks:{
+//             onTotalScroll:function(){
+//                 $(this).addClass('end');
+//             },
+//             onScroll:function(){
+//                 $(this).removeClass('end');
+//             }
+//         }
+//     });
+// });

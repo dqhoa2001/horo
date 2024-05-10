@@ -1,0 +1,90 @@
+@charset "utf-8";
+
+.page0{
+    /* background-image: url(../images/bg_cover2.jpg);
+    background-image: image-set(url(../images/bg_cover2.jpg) 1x, url(../images/bg_cover2@2x.jpg) 2x);
+    background-image: -webkit-image-set(url(../images/bg_cover2.jpg) 1x, url(../images/bg_cover2@2x.jpg) 2x); */
+    background-image: url(../images/bg_cover_2_front_3mm.png);
+    /* background-image: image-set(url(../images/bg_cover_2_front_3mm.png) 1x, url(../images/bg_cover_2_front_3mm.png) 2x);
+    background-image: -webkit-image-set(url(../images/bg_cover_2_front_3mm.png) 1x, url(../images/bg_cover_2_front_3mm.png) 2x); */
+}
+.page0-header{
+    margin-bottom: 3.5rem;
+}
+.page0-header__logo{
+    width: 5rem;
+    margin-bottom: .5rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+.page0-header__logo img{
+    width: 100%;
+}
+.page0-header__name{
+    font-size: 1.9rem;
+    letter-spacing: .333em;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    color: #fff;
+}
+/* .page0-header__catchcopy{
+    font-size: 2.3rem;
+    font-size: 2.8rem;
+    color: #fff;
+} */
+.page0-header__catchcopy{
+    width: 31.5rem;
+}
+.page0-header__catchcopy img{
+    width: 100%;
+}
+.page0-pdftitle{
+    width: 100%;
+    max-width: 43rem;
+    margin-bottom: 3rem;
+    transform: translate(3rem, 0);
+}
+.page0-pdftitle img{
+    width: 100%;
+}
+.page0-footer__text{
+    font-size: 1.8rem;
+    margin-bottom: .5rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: #fff;
+}
+.page0-footer__name{
+    font-size: 1.8rem;
+    /* min-width: 25.5rem;
+    padding: .5rem 1rem;
+    min-height: 3.2rem;
+    border-radius: 1.6rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff; */
+    position: absolute;
+    top: 74rem;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+
+/*-------------------------------
+	ページ42（背表紙）
+-------------------------------*/
+
+.page42{
+    background-size: cover;
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-image: url(../images/bg_cover2.jpg);
+    background-image: image-set(url(../images/bg_cover2.jpg) 1x, url(../images/bg_cover2@2x.jpg) 2x);
+    background-image: -webkit-image-set(url(../images/bg_cover2.jpg) 1x, url(../images/bg_cover2@2x.jpg) 2x);
+}
+.page42__text{
+    color: #fff;
+}

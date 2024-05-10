@@ -1,0 +1,270 @@
+@charset "utf-8";
+
+/*-------------------------------
+	common.css
+-------------------------------*/
+
+.Pageframe-main input,
+.Pageframe-main button,
+.Pageframe-main select:not(.Pageframe-main-header-language__inner),
+.Pageframe-main textarea{
+    color: #386280;
+}
+.Pageframe-main-header__pagename::before{
+	width: 2.5rem;
+	height: 2.5rem;
+	top: calc(50% - 1.25rem);
+	background-image: url(../images/familyhoroscope/icon_mark-pagename.svg);
+}
+
+.Pageframe-main__inner *,
+.C-popup--horoscope *,
+.C-popup--horoscope-delete{
+    color: #386280;
+}
+.Pageframe-main__title{
+    max-width: 35.7rem;
+}
+.Pageframe-main__title::after{
+    width: 7.8rem;
+    height: 7.1rem;
+    top: 0;
+    right: -9rem;
+    background-image: url(../images/familyhoroscope/icon_title.svg);
+}
+.Pageframe-main__firstmessage::after,
+.C-popup--horoscope__title::after,
+.C-popup--horoscope-delete__title::after{
+    background-image: url(../images/familyhoroscope/icon_content-mark.svg);
+}
+.C-horoscope-create__text::before{
+    background-image: url(../images/familyhoroscope/icon_moon.svg);
+}
+.C-horoscope-form-block-wrap .C-horoscope-form-block:not(:last-child){
+    border-right: 1px solid #386280;
+}
+.C-horoscope-form-block:not(.C-horoscope-form-block--half){
+	border-bottom: 1px solid #386280;
+}
+.C-horoscope-form-block__title::before{
+    border: 1px solid #386280;
+}
+.C-horoscope-form-block--half .C-horoscope-form-field{
+    border-bottom: 1px solid #386280;
+}
+
+/*----- ホロスコープ一覧 */
+.C-user-list-block a::after{
+    background-image: url(../images/common/icon_arrow-ligthblue.svg);
+}
+.C-user-list-block__item:not(:last-child){
+	border-right: 1px solid rgba(56,98,128,.5);
+}
+.C-user-list-block__title::before,
+.C-user-list-block__item::before{
+    color: rgba(56,98,128,.5);
+}
+
+/*----- ホロスコープ詳細 */
+.C-user-list__change span{
+    color: rgba(56,98,128,.4);
+    margin-left: 1.0rem;
+}
+
+.C-user-list-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.C-horoscope-detail__title{
+    color: rgba(56,98,128,.6);
+}
+.C-horoscope-detail__inner::after{
+	background: rgba(204,206,213,.35);
+}
+.C-horoscope-detail__position__title--taiyo::before{
+    background-image: url(../images/familyhoroscope/icon_taiyo.svg);
+}
+.C-horoscope-detail__position__title--tsuki::before{
+    background-image: url(../images/familyhoroscope/icon_tsuki.svg);
+}
+.C-horoscope-detail__position__title--suisei::before{
+    background-image: url(../images/familyhoroscope/icon_suisei.svg);
+}
+.C-horoscope-detail__position__title--kinsei::before{
+    background-image: url(../images/familyhoroscope/icon_kinsei.svg);
+}
+.C-horoscope-detail__position__title--kasei::before{
+    background-image: url(../images/familyhoroscope/icon_kasei.svg);
+}
+.C-horoscope-detail__position__title--mokusei::before{
+    background-image: url(../images/familyhoroscope/icon_mokusei.svg);
+}
+.C-horoscope-detail__position__title--dosei::before{
+    background-image: url(../images/familyhoroscope/icon_dosei.svg);
+}
+.C-horoscope-detail__position__title--tennousei::before{
+    background-image: url(../images/familyhoroscope/icon_tennousei.svg);
+}
+.C-horoscope-detail__position__title--kaiousei::before{
+    background-image: url(../images/familyhoroscope/icon_kaiousei.svg);
+}
+.C-horoscope-detail__position__title--meiousei::before{
+    background-image: url(../images/familyhoroscope/icon_meiousei.svg);
+}
+.C-horoscope-detail__position__title--dragonhead::before{
+    background-image: url(../images/familyhoroscope/icon_dragonhead.svg);
+}
+.C-horoscope-detail__position__title--kiron::before{
+    background-image: url(../images/familyhoroscope/icon_kiron.svg);
+}
+.C-horoscope-detail__position__title--ririsu::before{
+    background-image: url(../images/familyhoroscope/icon_ririsu.svg);
+}
+
+.C-horoscope-detail__position__text--otome::before{
+    background-image: url(../images/familyhoroscope/icon_otome.svg);
+}
+.C-horoscope-detail__position__text--hutago::before{
+    background-image: url(../images/familyhoroscope/icon_hutago.svg);
+}
+.C-horoscope-detail__position__text--ite::before{
+    background-image: url(../images/familyhoroscope/icon_ite.svg);
+}
+.C-horoscope-detail__position__text--mizugame::before{
+    background-image: url(../images/familyhoroscope/icon_mizugame.svg);
+}
+.C-horoscope-detail__position__text--oushi::before{
+    background-image: url(../images/familyhoroscope/icon_oushi.svg);
+}
+.C-horoscope-detail__position__text--sasori::before{
+    background-image: url(../images/familyhoroscope/icon_sasori.svg);
+}
+.C-horoscope-detail__position__text--shishi::before{
+    background-image: url(../images/familyhoroscope/icon_shishi.svg);
+}
+.C-horoscope-detail__position__text--yagi::before{
+    background-image: url(../images/familyhoroscope/icon_yagi.svg);
+}
+.C-horoscope-detail__position__text--kani::before{
+    background-image: url(../images/familyhoroscope/icon_kani.svg);
+}
+.C-horoscope-detail__position__text--uo::before{
+    background-image: url(../images/familyhoroscope/icon_uo.svg);
+}
+.C-horoscope-detail__position__text--ohitsuji::before{
+    background-image: url(../images/familyhoroscope/icon_ohitsuji.svg);
+}
+.C-horoscope-detail__position__text--tenbin::before{
+    background-image: url(../images/familyhoroscope/icon_tenbin.svg);
+}
+
+@media screen and (width >= 1600px) , print{
+
+}
+@media screen and (max-width:1188px) , print{
+
+}
+@media screen and (max-width:1128px) , print{
+
+}
+@media screen and (min-width:501px) and (max-width:750px) , print{
+
+	/*----- ホロスコープ一覧 */
+	.C-user-list-block__item:nth-of-type(4){
+        border-top: 1px solid rgba(56,98,128,.5);
+    }
+
+}
+@media screen and (max-width:500px) , print{
+
+    .Pageframe-main__title{
+        max-width: 18.1rem;
+    }
+    .Pageframe-main__title::after{
+        top: 2.5rem;
+    }
+
+	/*----- ホロスコープ一覧 */
+	.C-user-list-block__item:nth-of-type(4){
+        border-top: 1px solid #386280;
+    }
+
+}
+
+
+
+/*-------------------------------
+	家族のホロスコープ（TOP）
+-------------------------------*/
+
+@media screen and (width >= 1600px) , print{
+
+}
+@media screen and (max-width:1188px) , print{
+
+}
+@media screen and (max-width:1128px) , print{
+
+}
+@media screen and (max-width:500px) , print{
+
+}
+
+
+
+/*-------------------------------
+	家族のホロスコープ（作成画面）
+-------------------------------*/
+
+.Myhoroscope--create .Pageframe-main__title::after{
+    width: 10.7rem;
+    height: 10.7rem;
+    right: -12.5rem;
+    background-image: url(../images/familyhoroscope/icon_title-create.svg);
+}
+@media screen and (width >= 1600px) , print{
+
+}
+@media screen and (max-width:1188px) , print{
+
+}
+@media screen and (max-width:1128px) , print{
+
+}
+@media screen and (max-width:500px) , print{
+
+}
+
+
+
+/*-------------------------------
+	家族のホロスコープ（詳細）
+-------------------------------*/
+
+.Familyhoroscope--detail .Pageframe-main__title{
+    margin-bottom: 4.5rem;
+}
+.Familyhoroscope--detail .Pageframe-main__body::before{
+    display: none;
+}
+@media screen and (width >= 1600px) , print{
+
+}
+@media screen and (max-width:1188px) , print{
+
+}
+@media screen and (max-width:1128px) , print{
+
+}
+@media screen and (max-width:500px) , print{
+
+    /*----- 戻るボタン */
+    .C-back a::before{
+        background-image: url(../images/common/icon_circle-arrow-lightblue.svg);
+    }
+    .C-back span{
+        color: #386280;
+    }
+
+}

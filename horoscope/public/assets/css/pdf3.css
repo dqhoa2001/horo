@@ -1,0 +1,81 @@
+@charset "utf-8";
+
+.page0{
+    /* background-image: url(../images/bg_cover3.jpg);
+    background-image: image-set(url(../images/bg_cover3.jpg) 1x, url(../images/bg_cover3@2x.jpg) 2x);
+    background-image: -webkit-image-set(url(../images/bg_cover3.jpg) 1x, url(../images/bg_cover3@2x.jpg) 2x); */
+    background-image: url(../images/bg_cover_3_front_3mm.png);
+    /* background-image: image-set(url(../images/bg_cover3.jpg) 1x, url(../images/bg_cover3@2x.jpg) 2x);
+    background-image: -webkit-image-set(url(../images/bg_cover3.jpg) 1x, url(../images/bg_cover3@2x.jpg) 2x); */
+}
+.page0-header{
+    padding-top: 9rem;
+    margin-bottom: 2rem;
+}
+.page0-header__logo{
+    width: 5rem;
+    margin-bottom: .5rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+.page0-header__logo img{
+    width: 100%;
+}
+/* .page0-header__catchcopy{
+    font-size: 2.3rem;
+    font-size: 2.3rem;
+    color: #92a4ab;
+} */
+.page0-header__catchcopy{
+    width: 26.8rem;
+}
+.page0-header__catchcopy img{
+    width: 100%;
+}
+.page0-pdftitle{
+    width: 100%;
+    max-width: 33.7rem;
+    transform: translate(2.2rem, 0);
+    margin-bottom: 2rem;
+}
+.page0-pdftitle img{
+    width: 100%;
+}
+.page0-footer__text{
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #595757;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+}
+.page0-footer__name{
+    font-size: 1.8rem;
+    /* min-width: 25.5rem;
+    padding-top: 1rem;
+    min-height: 3.2rem;
+    border-radius: 1.6rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center; */
+    position: absolute;
+    top: 71.9rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #91a3ab;
+}
+
+
+
+/*-------------------------------
+	ページ42（背表紙）
+-------------------------------*/
+
+.page42{
+    background-size: cover;
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-image: url(../images/bg_cover3.jpg);
+    background-image: image-set(url(../images/bg_cover3.jpg) 1x, url(../images/bg_cover3@2x.jpg) 2x);
+    background-image: -webkit-image-set(url(../images/bg_cover3.jpg) 1x, url(../images/bg_cover3@2x.jpg) 2x);
+}

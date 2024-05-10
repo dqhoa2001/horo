@@ -1,0 +1,154 @@
+<html>
+<HEAD>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+  <TITLE>Astrological Natal Chart by Allen Edwall</TITLE>
+  <META name="description" content="Generate your free natal horoscope report/interpretation">
+  <META name="keywords" content="free astrology programs, software, natal horoscope interpretations, Astro123, AstroWin, MatchMkr, relationships, composite, synastry, astrodynes, cosmodynes, transits, midpoints, keywords, Allen Edwall, study aids, charts">
+
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" 
+    type="text/css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"
+    tyep="text/css"/>
+
+  <link rel="stylesheet" type="text/css" href="stylex.css"/>
+
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <!--
+  <script type="text/javascript" src="jquery.validate.js"></script>  
+  <script type="text/javascript" src="jquery.validate.japlugin.js"></script>
+  -->
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+  <!-- Google Maps APIを読み込む -->
+  <script type="text/javascript"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8uqcA4bO2DQO2IRfqi8PCc__dtt4tnEA">
+  </script>
+
+  <!-- initialize()関数を定義 -->
+  <!--
+  <script type="text/javascript">
+
+    // Mapオブジェクトに地図表示要素情報とオプション情報を渡し、インスタンス生成
+    var map;
+
+    $(document).ready(function(){
+
+      // 地図を表示する際のオプションを設定
+      var mapOptions = {
+        center: new google.maps.LatLng( 36.205, 138.253),
+        zoom: 6,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+
+      // 入力フォームにもデフォルトの緯度経度をセット
+      // $("#lng1").val(36.205);
+      // $("#lat1").val(138.253);
+
+      map = new google.maps.Map($("#map_canvas")[0], mapOptions);
+
+      // var infoWindow = new google.maps.InfoWindow({map: map});
+
+      // Try HTML5 geolocation.
+      if (navigator.geolocation && location.protocol == 'https') {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          var pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+
+          // infoWindow.setPosition(pos);
+          // infoWindow.setContent('Location found.');
+          map.setCenter(pos);
+        }, function(err) {
+          console.log(err);
+
+          handleLocationError( err, true, infoWindow, map.getCenter());
+        });
+      } else {
+        // Browser doesn't support Geolocation
+        // handleLocationError( "", false, infoWindow, map.getCenter());
+        // codeAddress('日本');
+      }
+
+      map.addListener('center_changed', function() {
+        // 入力フォームにマップから緯度経度取得して設定
+
+        console.log( map.getCenter() );
+        $("#lat").val( map.getCenter().lat );        
+        $("#lng").val( map.getCenter().lng );
+      });
+
+    
+      // 地名で検索ボタンのハンドリング
+      $(".map-search").on('click', function(){
+        console.log( $("#nameOfBirthplace").val() );
+        if ($("#nameOfBirthplace").val()) {
+          codeAddress($("#nameOfBirthplace").val());
+        }
+      });
+    });
+
+    function handleLocationError( response, okka, infoW, pos ) {
+      console.log("エラーが起きました. response="+response.msg);
+    }
+
+    function handleCenterChange(newcenter) {
+
+    }
+
+    function codeAddress(address) {
+      var geocoder = new google.maps.Geocoder();
+      // geocoder.geocode()メソッドを実行 
+      geocoder.geocode( { 'address': address}, function(results, status) {
+        
+        // ジオコーディングが成功した場合
+        if (status == google.maps.GeocoderStatus.OK) {
+
+          // google.maps.Map()コンストラクタに定義されているsetCenter()メソッドで
+          // 変換した緯度・経度情報を地図の中心に表示
+          map.setCenter(results[0].geometry.location);
+          
+          $("#lat").val(map.getCenter().lat);      
+          $("#lng").val(map.getCenter().lng);
+
+          // 地図上に目印となるマーカーを設定います。
+          // google.maps.Marker()コンストラクタにマーカーを設置するMapオブジェクトと
+          // 変換した緯度・経度情報を渡してインスタンスを生成
+          // →マーカー詳細
+          var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location
+          });
+
+        // ジオコーディングが成功しなかった場合
+        } else {
+          console.log('Geocode was not successful for the following reason: ' + status);
+        }
+      });
+    }    
+
+  </script>
+  -->
+  <STYLE type='text/css'>
+    header {
+      
+    }
+    .container {
+    	background-color : white;
+    }
+  </STYLE>
+</HEAD>
+
+
+
+</div>
+
+<BODY TEXT="#000000" LINK="#0000FF" VLINK="#ff0000" bgcolor="">
+  <header>
+	  <div class="jumbotron" style="min-height:250px; background:transparent;">
+	  </div>
+  </header>
+  <div class="container">
+
+
