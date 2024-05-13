@@ -1,36 +1,88 @@
-2.dockerの設定
- dockerのコンテナを作成
- docker-compose -f docker-compose.yml up -d --build
- ・horoscopeのコンテナの中に入る
- docker exec -it horoscope bash
- ・コンテナの中で以下を実行する
- php artisan key:generate
- php artisan migrate
- php artisan db:seed
- chmod +x /var/www/Modules/Horoscope/Http/Actions/Predict/sweph/ephe/swetest
- exit
-3: client
-  cd horoscope/Modules/Horoscope
-  composer install
-  npm install
-  npm run build
-4: admin
-  cd horoscope
-  composer install
-  npm install
-  npm run build
------------以上-----------
-◯ link
-・http://localhost:8080/user/login（client）
-・http://localhost:8080/admin/login (admin)
+# Hướng dẫn cài đặt và triển khai ứng dụng Horoscope
 
+## 1. Cài đặt Docker và Triển khai ứng dụng
 
-・現在のレスポンス受取URLは以下のようになっています。変更する場合は、製本直送様に直接ご連絡ください。
-※確認環境↓
-レスポンス受取URL：https://stg-horoscorp-uranai.4sis.site/api/bookbinding_result
-テスト注文の際はリクエストパラメータでtestmode 1,を指定して送信（toggle_test_shippingsテーブルで制御しています）
-※本番環境↓
-結果レスポンスの受け取りURL：https://mypage.hoshinomai.jp/api/bookbinding_result
-テスト注文の際はリクエストパラメータでtestmode 0,を指定して送信（toggle_test_shippingsテーブルで制御しています）
+1. Tạo container Docker:
+    ```bash
+    docker-compose -f docker-compose.yml up -d --build
+    ```
 
-```
+2. Truy cập vào container `horoscope`:
+    ```bash
+    docker exec -it horoscope bash
+    ```
+
+3. Trong container, chạy các lệnh sau:
+    ```bash
+    php artisan key:generate
+    php artisan migrate
+    php artisan db:seed
+    chmod +x /var/www/Modules/Horoscope/Http/Actions/Predict/sweph/ephe/swetest
+    exit
+    ```
+
+## 2. Cài đặt và xây dựng Client
+
+1. Di chuyển đến thư mục `horoscope/Modules/Horoscope`:
+    ```bash
+    cd horoscope/Modules/Horoscope
+    ```
+
+2. Cài đặt các dependencies PHP:
+    ```bash
+    composer install
+    ```
+
+3. Cài đặt các dependencies JavaScript:
+    ```bash
+    npm install
+    ```
+
+4. Xây dựng ứng dụng Client:
+    ```bash
+    npm run build
+    ```
+
+## 3. Cài đặt và xây dựng Admin
+
+1. Di chuyển đến thư mục `horoscope`:
+    ```bash
+    cd horoscope
+    ```
+
+2. Cài đặt các dependencies PHP:
+    ```bash
+    composer install
+    ```
+
+3. Cài đặt các dependencies JavaScript:
+    ```bash
+    npm install
+    ```
+
+4. Xây dựng ứng dụng Admin:
+    ```bash
+    npm run build
+    ```
+
+## 4. Link
+
+- Client: [http://localhost:8080/user/login](http://localhost:8080/user/login)
+- Admin: [http://localhost:8080/admin/login](http://localhost:8080/admin/login)
+
+## 5. Môi trường Phát triển
+
+- Client URL: [https://stg-horoscorp-uranai.4sis.site/](https://stg-horoscorp-uranai.4sis.site/)
+- Admin URL: [https://stg-horoscorp-uranai.4sis.site/admin/login](https://stg-horoscorp-uranai.4sis.site/admin/login)
+- Tài khoản Client:
+    - Email: user1@test.com
+    - Mật khẩu: 123123123Mm
+- Tài khoản Admin:
+    - Email: admin1@test.com
+    - Mật khẩu: 11111111
+
+## 6. Tính năng thanh toán
+
+- Thẻ Stripe Thử nghiệm:
+    - Thành công: 4242 4242 4242 4242
+    - Thất bại: 4000 0000 0000 0341
