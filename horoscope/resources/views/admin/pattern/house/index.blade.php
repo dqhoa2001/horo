@@ -48,6 +48,8 @@
                 <th class="text-center" style="width: 8%">@lang('table.house_name')</th>
                 <th class="text-center">@lang('table.content')</th>
                 <th class="text-center">@lang('table.content_en')</th>
+                <th class="text-center">@lang('table.content_solar')</th>
+                <th class="text-center">@lang('table.content_en')</th>
                 <th  class="text-center">@lang('table.action')</th>
             </tr>
         </x-slot>
@@ -65,6 +67,8 @@
                         @endif
                         <td class="text-left text-truncate" style="max-width: 320px">{!! nl2br(e($pattern->content)) !!}</td>
                         <td class="text-left text-truncate" style="max-width: 320px">{!! nl2br(e($pattern->content_en)) !!}</td>
+                        <td class="text-left">{!! nl2br(e($pattern->content_solar)) !!}</td>
+                        <td class="text-left">{!! nl2br(e($pattern->content_solar_en)) !!}</td>
                         <td class="text-center">
                             <div class="btn-group">
                             <a href={{ route('admin.pattern.house-view', $pattern->id) }}>
