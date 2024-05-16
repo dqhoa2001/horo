@@ -37,28 +37,28 @@ class MySolarHoroscopeController extends Controller
     }
 
     // マイホロスコープ作成画面
-    public function create(): View
-    {
-        // return view('user.my_horoscopes.create');
-        $defaultBirthDay = auth()->guard('user')->user()->birthday;
-        return view('user.my_horoscopes.create', [
-            'defaultBirthDay' => $defaultBirthDay,
-        ]);
-    }
+    // public function create(): View
+    // {
+    //     // return view('user.my_horoscopes.create');
+    //     $defaultBirthDay = auth()->guard('user')->user()->birthday;
+    //     return view('user.my_horoscopes.create', [
+    //         'defaultBirthDay' => $defaultBirthDay,
+    //     ]);
+    // }
 
     // 登録処理
-    public function store(StoreRequest $request): RedirectResponse
-    {
-        // ホロスコープ生成なデータを作成
-        try {
-            MyHoroscopeService::createOrUpdateHoroscope($request->substitutable());
-        } catch (\Throwable $th) {
-            \Log::warning("ホロスコープの生成に失敗しました。原因：{$th->getMessage()}");
-            return back()->with('flash_alert', 'ホロスコープの生成に失敗しました。時間をあけて再度お試しください。')->withInput();
-        }
+    // public function store(StoreRequest $request): RedirectResponse
+    // {
+    //     // ホロスコープ生成なデータを作成
+    //     try {
+    //         MyHoroscopeService::createOrUpdateHoroscope($request->substitutable());
+    //     } catch (\Throwable $th) {
+    //         \Log::warning("ホロスコープの生成に失敗しました。原因：{$th->getMessage()}");
+    //         return back()->with('flash_alert', 'ホロスコープの生成に失敗しました。時間をあけて再度お試しください。')->withInput();
+    //     }
 
-        return to_route('user.my_horoscopes.edit')->with('status', 'ホロスコープを作成しました！');
-    }
+    //     return to_route('user.my_horoscopes.edit')->with('status', 'ホロスコープを作成しました！');
+    // }
 
     // 編集フォーム表示
     public function edit(): View
@@ -67,7 +67,7 @@ class MySolarHoroscopeController extends Controller
         // ホロスコープ生成なデータを作成
         $formData = [
             "name" => $user->name1 . $user->name2,
-            "year" => $user->solar_date,
+            "year" => $user->solar_date ?? now()->year,
             "month" => $user->birthday->format('m'),
             "day" => $user->birthday->format('d'),
             "hour" => $user->birthday_time->format('H'),
@@ -129,10 +129,10 @@ class MySolarHoroscopeController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(MyHoroscope $myHoroscope)
-    {
-        $myHoroscope->delete();
+    // public function destroy(MyHoroscope $myHoroscope)
+    // {
+    //     $myHoroscope->delete();
 
-        return to_route('user.my_horoscopes.index')->with('status', '削除しました');
-    }
+    //     return to_route('user.my_horoscopes.index')->with('status', '削除しました');
+    // }
 }

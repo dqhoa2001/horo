@@ -132,8 +132,8 @@ Route::middleware(['auth:user', 'verified'])->group(static function () {
     });
     //MySolarHoroscope
     Route::controller(MySolarHoroscopeController::class)->prefix('my_solar_horoscopes')->name('my_solar_horoscopes.')->group(static function () {
-        Route::get('create', 'create')->name('create');
-        Route::post('store', 'store')->name('store');
+        // Route::get('create', 'create')->name('create');
+        // Route::post('store', 'store')->name('store');
         Route::get('edit', 'edit')->name('edit');
         Route::patch('update', 'update')->name('update');
     });

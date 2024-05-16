@@ -39,7 +39,7 @@
                     @endif
                     <span>Solar <br class="sp">Horoscope</span></a>
                 </li>
-                <li class="header-nav__item header-nav__item--appraisal"><a href="{{ route('user.appraisals.index') }}"><span>Solar Preview</span></a></li>
+                <li class="header-nav__item header-nav__item--appraisal"><a href="{{ route('user.appraisals.index') }}"><span>Solar Appraisals</span></a></li>
                 <li class="header-nav__item header-nav__item--familyhoroscope"><a href="{{ route('user.families.index') }}"><span>家族の<br class="sp">ホロスコープ</span></a></li>
                 <li class="header-nav__item header-nav__item--familyappraisal"><a href="{{ route('user.family_appraisals.index') }}"><span>家族の<br class="sp">個人鑑定</span></a></li>
                 {{-- <li class="header-nav__item header-nav__item--familyappraisal"><a href="{{ route('user.bookbindings.create') }}"><span>製本のお申し込み</span></a></li> --}}

@@ -181,7 +181,7 @@
         },
         mounted() {
             // 年月日を設定
-            let oldYear = @json(old('birth_year', $solarDate->format('Y') ?? ''));
+            let oldYear = @json(old('birth_year', $solarDate->format('Y') ?? now()->year));
             this.setYear(oldYear);
         }
     }).mount('#popup-horoscope');
