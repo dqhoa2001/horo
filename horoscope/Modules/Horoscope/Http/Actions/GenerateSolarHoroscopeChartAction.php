@@ -19,6 +19,7 @@ use Modules\Horoscope\Enums\AngleEnum;
 
 class GenerateSolarHoroscopeChartAction
 {
+    protected Carbon $solarDate;
     /**
      * @param GenerateImageAction $generateImageAction
      * @param GetListWheelAction $getListWheelAction
@@ -89,7 +90,8 @@ class GenerateSolarHoroscopeChartAction
             'status' => true,
             'image' => $image,
             'degreeData' => $degreeData,
-            'explain' => $explainData
+            'explain' => $explainData,
+            'solarDate' => $this->solarDate
         ]);
     }
 
@@ -120,7 +122,7 @@ class GenerateSolarHoroscopeChartAction
             $dayOfBirthSolarDegrees = $this->calculateSolarDegrees($swephSolarData);
             $counter++;
         } while ($dayOfBirthSolarDegrees !== $dayOfBirthDegrees);
-
+        $this->solarDate = $solarDate;
         return $this->predictDayOfBirthAction->execute(
             $solarDate->format('d.m.Y'),
             $solarDate->format('H:i'),
