@@ -49,6 +49,8 @@
                 <th class="text-center" style="width: 8%">@lang('table.title_en')</th>
                 <th class="text-center">@lang('table.content')</th>
                 <th class="text-center">@lang('table.content_en')</th>
+                <th class="text-center">@lang('table.content_solar')</th>
+                <th class="text-center">@lang('table.content_solar_en')</th>
                 {{-- <th>@lang('title.published')</th> --}}
                 <th  class="text-center">@lang('table.action')</th>
             </tr>
@@ -69,6 +71,8 @@
                         <td class="text-left text-truncate" style="max-width: 150px">{{ $pattern->title_en }}</td>
                         <td class="text-left text-truncate" style="max-width: 220px">{!! nl2br(e($pattern->content)) !!}</td>
                         <td class="text-left text-truncate" style="max-width: 220px">{!! nl2br(e($pattern->content_en)) !!}</td>
+                        <td class="text-left text-truncate" style="max-width: 220px">{!! nl2br(e($pattern->content_solar)) !!}</td>
+                        <td class="text-left text-truncate" style="max-width: 220px">{!! nl2br(e($pattern->content_solar_en)) !!}</td>
                         <td class="text-center">
                             <div class="btn-group">
                                 <a href="{{ route('admin.pattern.sabian-view', $pattern->id) }}">
