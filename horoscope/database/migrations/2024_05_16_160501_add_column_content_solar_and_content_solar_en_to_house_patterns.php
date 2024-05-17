@@ -23,8 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('h_house_patterns', function (Blueprint $table) {
-            $table->text('content_solar');
-            $table->string('content_solar_en');
+            $table->dropColumn('content_solar');
+            $table->dropColumn('content_solar_en');
         });
     }
 };
