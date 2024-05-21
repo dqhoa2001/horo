@@ -19,6 +19,8 @@ class AspectPattern extends Model
         'to_planet_id',
         'content',
         'content_en',
+        'content_solar',
+        'content_solar_en',
     ];
 
     function aspect(): HasOne
