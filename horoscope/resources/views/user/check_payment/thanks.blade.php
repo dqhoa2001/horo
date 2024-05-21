@@ -25,6 +25,11 @@
                 しばらく経ってもメールが届かない場合は、入力頂いたメールアドレスが間違っているか、迷惑メールフォルダに振り分けられている可能性がございます。<br>
                 ご確認お願いします。
             </p>
+            <p class="C-form__message C-form-line C-form-line--first">
+                <span class="C-form__message__req"> ▼ログインはこちら</span><br>
+                <a href="{{ route('user.login') }}">{{ route('user.login') }}</a><br>
+                ※メインページに戻ってください。
+            </p>
         </div>
 
     </section>

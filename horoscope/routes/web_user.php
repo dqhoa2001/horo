@@ -20,6 +20,7 @@ use App\Http\Controllers\User\OfferAppraisalController;
 use App\Http\Controllers\User\ContactController;
 use App\Http\Controllers\User\Auth\VerificationController;
 use App\Http\Controllers\User\FamilyAppraisalController;
+use App\Http\Controllers\User\CheckPaymentController;
 
 //会員登録しないでホロスコープ
 Route::prefix('horoscopes')->name('horoscopes.')->group(static function () {
@@ -48,6 +49,21 @@ Route::prefix('offer_appraisals')->name('offer_appraisals.')->group(static funct
 
     // Route::get('complete/{appraisal_apply}', [OfferAppraisalController::class, 'complete'])->name('complete');
     Route::get('thanks', [OfferAppraisalController::class, 'thanks'])->name('thanks');
+});
+
+Route::prefix('check_payment')->name('check_payment.')->group(static function () {
+    //鑑定作成画面
+    Route::get('create', [CheckPaymentController::class, 'create'])->name('create');
+
+    //鑑定確認画面
+    Route::post('confirm', [CheckPaymentController::class, 'confirm'])->name('confirm');
+    Route::post('back', [CheckPaymentController::class, 'back'])->name('back');
+
+    //鑑定登録処理
+    Route::post('apply', [CheckPaymentController::class, 'apply'])->name('apply');
+
+    // Route::get('complete/{appraisal_apply}', [CheckPaymentController::class, 'complete'])->name('complete');
+    Route::get('thanks', [CheckPaymentController::class, 'thanks'])->name('thanks');
 });
 
 // ログイン認証関連
@@ -131,7 +147,7 @@ Route::middleware(['auth:user', 'verified'])->group(static function () {
         Route::patch('update', 'update')->name('update');
     });
     //MySolarHoroscope
-    Route::controller(MySolarHoroscopeController::class)->prefix('my_solar_horoscopes')->name('my_solar_horoscopes.')->group(static function () {
+    Route::controller(MySolarHoroscopeController::class)->prefix('my_solar_horoscopes')->name('my_solar_horoscopes.')->middleware(['auth:user', 'check.horoscope.payment'])->group(static function () {
         // Route::get('create', 'create')->name('create');
         // Route::post('store', 'store')->name('store');
         Route::get('edit', 'edit')->name('edit');

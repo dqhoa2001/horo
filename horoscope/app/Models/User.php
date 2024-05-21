@@ -183,6 +183,13 @@ class User extends Authenticatable implements MustVerifyEmail
         return false;
     }
 
+    public function hasPaidForMyHoroscope(): bool
+    {
+        return $this->appraisalClaims()
+                    ->where('is_paid', true)
+                    ->exists();
+    }
+
     // 製本の申し込みをしているかどうか
     public function isHasBookbinding(): bool
     {
@@ -240,5 +247,5 @@ class User extends Authenticatable implements MustVerifyEmail
         }
 
         return true;
-    } 
+    }
 }
