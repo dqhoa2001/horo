@@ -54,7 +54,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
         'is_admin' => 'boolean',
-        'solar_date'=>'int',
     ];
 
     public const DEMY_USER = 1;

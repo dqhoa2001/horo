@@ -33,9 +33,7 @@ class HousePatternRepository extends EloquentRepository
                     $keyword = $selectedValues['keyword'];
                     $query->where(static function ($subQuery) use ($keyword) {
                         $subQuery->where('content', 'LIKE', '%' . $keyword . '%')
-                            ->orWhere('content_en', 'LIKE', '%' . $keyword . '%')
-                            ->orWhere('content_solar', 'LIKE', '%' . $keyword . '%')
-                            ->orWhere('content_solar_en', 'LIKE', '%' . $keyword . '%');
+                            ->orWhere('content_en', 'LIKE', '%' . $keyword . '%');
                     });
                 }
             })
