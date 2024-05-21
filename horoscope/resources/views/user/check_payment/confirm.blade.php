@@ -27,11 +27,7 @@
 
 		<form method="POST" action="{{ route('user.check_payment.apply') }}" id="offer-appraisal-apply-form">
 			@csrf
-			<input type="hidden" name="name1" value="{{ $data['name1'] }}">
-			<input type="hidden" name="name2" value="{{ $data['name2'] }}">
-			<input type="hidden" name="kana1" value="{{ $data['kana1'] }}">
-			<input type="hidden" name="kana2" value="{{ $data['kana2'] }}">
-			<input type="hidden" name="email" value="{{ $data['email'] }}">
+
 			<input type="hidden" name="target_type" value="{{ $data['target_type'] }}">
 
 			{{-- 家族の場合 --}}
@@ -41,15 +37,6 @@
 			<input type="hidden" name="family_name2" value="{{ $data['family_name2'] }}">
 			@endif
 
-			<input type="hidden" name="birth_year" value="{{ $data['birth_year'] }}">
-			<input type="hidden" name="birth_month" value="{{ $data['birth_month'] }}">
-			<input type="hidden" name="birth_day" value="{{ $data['birth_day'] }}">
-			<input type="hidden" name="birthday" value="{{ $data['birthday'] }}">
-			<input type="hidden" name="birthday_time" value="{{ $data['birthday_time'] }}">
-			<input type="hidden" name="birthday_prefectures" value="{{ $data['birthday_prefectures'] }}">
-			<input type="hidden" name="longitude" value="{{ $data['longitude'] }}">
-			<input type="hidden" name="latitude" value="{{ $data['latitude'] }}">
-			<input type="hidden" name="timezone" value="{{ $data['timezone'] }}">
 			<input type="hidden" name="is_bookbinding" value="{{ $data['is_bookbinding'] }}">
 
 			{{-- 製本 --}}
@@ -75,28 +62,7 @@
 			<input type="hidden" name="total_amount" value="{{ $data['total_amount'] }}">
 
 			<div class="C-form-block__wrap">
-				<dl class="C-form-block C-form-block--name">
-					<dt class="C-form-block__title C-form-block__title--req">お名前</dt>
-					<dd class="C-form-block__body C-form-block__body--two">
-						{{ $data['name1'] }}{{ $data['name2'] }}
-					</dd>
-				</dl>
-				<dl class="C-form-block C-form-block--kana">
-					<dt class="C-form-block__title C-form-block__title--req">フリガナ</dt>
-					<dd class="C-form-block__body C-form-block__body--two">
-						{{ $data['kana1'] }}{{ $data['kana2'] }}
-					</dd>
-				</dl>
-				<dl class="C-form-block">
-					<dt class="C-form-block__title C-form-block__title--req">メールアドレス</dt>
-					<dd class="C-form-block__body C-form-block__body--two">
-						{{ $data['email'] }}
-					</dd>
-					<dd>
-						<p style="color: red">※メールアドレスが間違っていると鑑定結果が見れない可能性があります。<br>必ずメールアドレスが正しいかご確認ください。</p>
-					</dd>
-				</dl>
-				
+
 				<dl class="C-form-block">
 					<dt class="C-form-block__title C-form-block__title--req">個人鑑定の対象者</dt>
 					<dd class="C-form-block__body C-form-block-child">
@@ -119,61 +85,7 @@
 					</dd>
 					@endif
 				</dl>
-				<dl class="C-form-block C-form-block--birthdata">
-					<dt class="C-form-block__title C-form-block__title--req">出生情報</dt>
-					<dd class="C-form-block__body">
-						<dl class="C-form-block__notes">
-							<dd class="C-form-block__notes__body">
-							お客様の出生情報入力ミスによるものは修正・返品ができません。<br>
-							別途製本費用をお支払いいただき作り直しになりますので、出生情報はよくご確認ください。
-							</dd>
-						</dl>
-						<dl class="C-form-block-child C-form-block--birth">
-							<dt class="C-form-block__title">生年月日</dt>
-							<dd class="C-form-block__body C-form-block__body--half">
-								{{-- {{ $data['birthday'] }} --}}
-								{{ $data['birthday']->format('Y年m月d日') }}
-							</dd>
-						</dl>
-						<dl class="C-form-block-child C-form-block--time">
-							<dt class="C-form-block__title">時刻</dt>
-							<dd class="C-form-block__body C-form-block__body--half">
-								{{ $data['birthday_time'] }}
-							</dd>
-						</dl>
-						<dl class="C-form-block-child C-form-block--birthplace">
-							<dt class="C-form-block__title">生まれた場所</dt>
-							<dd class="C-form-block__body C-form-block__body--two">
-								{{ $data['birthday_prefectures'] }}
-							</dd>
-						</dl>
-						{{-- 経度 --}}
-						<dl class="C-form-block-child">
-							<dt class="C-form-block__title">経度</dt>
-							<dd class="C-form-block__body C-form-block__body--half">
-								{{ $data['longitude'] }}
-							</dd>
-						</dl>
-						{{-- 緯度 --}}
-						<dl class="C-form-block-child">
-							<dt class="C-form-block__title">緯度</dt>
-							<dd class="C-form-block__body C-form-block__body--half">
-								{{ $data['latitude'] }}
-							</dd>
-						</dl>
-						{{-- timezone --}}
-						<dl class="C-form-block-child">
-							<dt class="C-form-block__title">タイムゾーン</dt>
-							<dd class="C-form-block__body C-form-block__body--half">
-								@foreach (Modules\Horoscope\Enums\Time::Time as $item)
-									@if($item['value'] === $data['timezone'])
-										{{ $item['label'] }}
-									@endif
-								@endforeach
-							</dd>
-						</dl>
-					</dd>
-				</dl>
+
 				<dl class="C-form-block C-form-block--hope">
 					<dt class="C-form-block__title C-form-block__title--req">製本の希望</dt>
 					<dd class="C-form-block__body">

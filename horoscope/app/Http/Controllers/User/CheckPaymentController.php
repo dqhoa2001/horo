@@ -118,7 +118,8 @@ class CheckPaymentController extends Controller
                 //家族の場合
                 if ((int) $request->target_type === TargetType::FAMILY->value) {
                     $contentType = AppraisalClaim::FAMILY;
-                    $user = UserService::create($request);
+                    // $user = UserService::create($request);
+                $user = auth()->guard('user')->user();
                     $family = FamilyService::createForAppraosal($request, $user);
                     $appraisalApply = AppraisalApplyService::create($request, Family::class, $family->id);
 
@@ -131,7 +132,8 @@ class CheckPaymentController extends Controller
                 //ユーザー自身の場合
                 } else {
                     $contentType = AppraisalClaim::PERSONAL;
-                    $user = UserService::createUserAndHoroscope($request);
+                    // $user = UserService::createUserAndHoroscope($request);
+                $user = auth()->guard('user')->user();
                     $appraisalApply = AppraisalApplyService::create($request, User::class, $user->id);
                     //製本の場合
                     if ((int) $request->is_bookbinding === Bookbinding::BOOKBINDING) {
@@ -155,7 +157,8 @@ class CheckPaymentController extends Controller
             //家族の場合
             if ((int) $request->target_type === TargetType::FAMILY->value) {
                 $contentType = AppraisalClaim::FAMILY;
-                $user = UserService::create($request);
+                // $user = UserService::create($request);
+                $user = auth()->guard('user')->user();
                 $family = FamilyService::createForAppraosal($request, $user);
                 $appraisalApply = AppraisalApplyService::create($request, Family::class, $family->id);
                 if ((int) $request->is_bookbinding === Bookbinding::BOOKBINDING) {
@@ -167,7 +170,8 @@ class CheckPaymentController extends Controller
             //ユーザー自身の場合
             } else {
                 $contentType = AppraisalClaim::PERSONAL;
-                $user = UserService::createUserAndHoroscope($request);
+                // $user = UserService::createUserAndHoroscope($request);
+                $user = auth()->guard('user')->user();
                 $appraisalApply = AppraisalApplyService::create($request, User::class, $user->id);
                 if ((int) $request->is_bookbinding === Bookbinding::BOOKBINDING) {
                     $bookbindingUserApply = BookbindingUserApplyService::create($request, $appraisalApply);
