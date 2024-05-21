@@ -9,9 +9,6 @@
       @case(str_contains(Request::url(), 'popup'))
       マイページ
       @break
-      @case(str_contains(Request::url(), 'solar'))
-      太陽回帰
-      @break
       @case(str_contains(Request::url(), 'horoscope'))
       MYホロスコープチャート
       @break

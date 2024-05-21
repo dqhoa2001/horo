@@ -26,8 +26,6 @@ class ZodiacPatternRequest extends FormRequest
             'planet_id' => 'required',
             'content' => 'required|max_mb:575',
             'content_en' => 'nullable|max:370',
-            'content_solar' => 'required|max_mb:575',
-            'content_solar_en' => 'nullable|max:370',
         ];
     }
 
@@ -40,10 +38,6 @@ class ZodiacPatternRequest extends FormRequest
             'content.required' => __('message.required', ['attribute' => __('form.content_japanese')]),
             'content_en.max' => __('message.max', ['attribute' => __('form.content_english'), 'max' => 370]),
             'content.max_mb' => __('message.max_mb', ['attribute' => __('form.content_japanese'), 'max' => 575]),
-            'content_solar_en.required' => __('message.required', ['attribute' => __('form.content_english')]),
-            'content_solar.required' => __('message.required', ['attribute' => __('form.content_japanese')]),
-            'content_solar_en.max' => __('message.max', ['attribute' => __('form.content_english'), 'max' => 370]),
-            'content_en.max_mb' => __('message.max_mb', ['attribute' => __('form.content_japanese'), 'max' => 575]),
         ];
     }
 }

@@ -20,7 +20,6 @@ return [
     'content_japanese' => '内容（日）',
     'content_english' => '内容（英）',
     'content_pattern' => 'パターン内容',
-    'content_solar_pattern' => 'コンテンツの太陽パターン',
     # button
     'create' => '作成',
     'update' => '更新',
