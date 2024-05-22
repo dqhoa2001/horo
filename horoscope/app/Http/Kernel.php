@@ -70,6 +70,5 @@ class Kernel extends HttpKernel
 
     protected $routeMiddleware = [
         'verified' => \App\Http\Middleware\RedirectIfNotVerified::class,
-        'check.horoscope.payment' => \App\Http\Middleware\CheckHoroscopePayment::class,
     ];
 }
