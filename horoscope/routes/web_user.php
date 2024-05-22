@@ -15,6 +15,7 @@ use App\Http\Controllers\User\Auth\ResetPasswordController;
 use App\Http\Controllers\User\Auth\ForgotPasswordController;
 use App\Http\Controllers\User\FamilyController;
 use App\Http\Controllers\User\MyHoroscopeController;
+use App\Http\Controllers\User\MySolarHoroscopeController;
 use App\Http\Controllers\User\OfferAppraisalController;
 use App\Http\Controllers\User\ContactController;
 use App\Http\Controllers\User\Auth\VerificationController;
@@ -126,6 +127,13 @@ Route::middleware(['auth:user', 'verified'])->group(static function () {
     Route::controller(MyHoroscopeController::class)->prefix('my_horoscopes')->name('my_horoscopes.')->group(static function () {
         Route::get('create', 'create')->name('create');
         Route::post('store', 'store')->name('store');
+        Route::get('edit', 'edit')->name('edit');
+        Route::patch('update', 'update')->name('update');
+    });
+    //MySolarHoroscope
+    Route::controller(MySolarHoroscopeController::class)->prefix('my_solar_horoscopes')->name('my_solar_horoscopes.')->group(static function () {
+        // Route::get('create', 'create')->name('create');
+        // Route::post('store', 'store')->name('store');
         Route::get('edit', 'edit')->name('edit');
         Route::patch('update', 'update')->name('update');
     });
