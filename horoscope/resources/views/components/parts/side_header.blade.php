@@ -49,13 +49,15 @@
                     @else
                         <a href="{{ route('user.my_horoscopes.create') }}">
                     @endif
-                    <span>Solar <br class="sp">Horoscope Hung</span></a>
+                    <span>Solar <br class="sp">Horoscope</span></a>
                 </li>
                 <li class="header-nav__item header-nav__item--appraisal">
                     @if ($user->hasPaidForSolar())
                         <a href="{{ route('user.appraisals.index') }}">
-                    @else
-                        <a href="{{ route('user.check_payment_solar.create') }}" onclick="alert('Bạn cần thanh toán để truy cập vào trang này.')">
+                    @elseif (!$user->hasPaidForMyHoroscope() && !$user->hasPaidForSolar())
+                        <a href="{{ route('user.check_payment.create') }}" onclick="alert('Bạn cần thanh toán để truy cập vào trang Horo này.')">
+                    @elseif ($user->hasPaidForMyHoroscope() && !$user->hasPaidForSolar())
+                        <a href="{{ route('user.check_payment_solar.create') }}" onclick="alert('Bạn cần thanh toán để truy cập vào trang Solar này.')">
                     @endif
                     <span>Solar Appraisals</span></a>
                 </li>

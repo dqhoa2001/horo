@@ -131,8 +131,8 @@ class CheckPaymentSolarController extends Controller
                     }
                 //ユーザー自身の場合
                 } else {
-                    $contentType = SolarClaim::PERSONAL;
-
+                    $contentType = SolarClaim::SOLAR;
+                    
                     // $user = UserService::createUserAndHoroscope($request);
                 $user = auth()->guard('user')->user();
                     $solarApply = SolarApplyService::create($request, User::class, $user->id);
