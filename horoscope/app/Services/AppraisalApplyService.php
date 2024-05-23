@@ -33,17 +33,17 @@ class AppraisalApplyService
     //支払い履歴の登録処理
     public static function create(Request $request, string $referenceType, int $referenceId): AppraisalApply
     {
-        // $appraisalApply = AppraisalApply::create([
-        //     'reference_type' => $referenceType,
-        //     'reference_id' => $referenceId,
-        //     'birthday' => $request->birthday,
-        //     'birthday_prefectures' => $request->birthday_prefectures,
-        //     'birthday_city' => $request->birthday_city ?? null,
-        //     'birthday_time' => $request->birthday_time,
-        //     'longitude' => $request->longitude,
-        //     'latitude' => $request->latitude,
-        //     'timezome' => $request->timezone,
-        // ]);
+        $appraisalApply = AppraisalApply::create([
+            'reference_type' => $referenceType,
+            'reference_id' => $referenceId,
+            'birthday' => $request->birthday,
+            'birthday_prefectures' => $request->birthday_prefectures,
+            'birthday_city' => $request->birthday_city ?? null,
+            'birthday_time' => $request->birthday_time,
+            'longitude' => $request->longitude,
+            'latitude' => $request->latitude,
+            'timezome' => $request->timezone,
+        ]);
 
         $user = auth()->guard('user')->user();
         $formData = [
