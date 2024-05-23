@@ -320,6 +320,115 @@
                                         </td>
                                     </tr>
                                 @endforeach
+
+                                <!-- Loop for solarClaims -->
+                                @foreach ($user->solarClaims as $solarClaim)
+                                <tr>
+                                    <td class="text-nowrap px-2 text-center">
+                                        <a href="{{ route('admin.solar_applies.edit', $solarClaim->solarApply) }}" class="btn btn-success btn-sm">編集</a>
+                                    </td>
+                                    <td class="text-nowrap px-2 text-center">{{ $solarClaim->id }}</td>
+                                    <td class="text-nowrap px-2 text-center">
+                                        <form action="{{ route('admin.users.change_pay_status', $solarClaim) }}" method="POST" class="mb-0" id="change-pay-form{{ $solarClaim->id }}">
+                                            @csrf
+                                            @method('PATCH')
+                                            <select name="pay_status" id="pay_status" class="form-control @error('pay_status') is-invalid @enderror {{ $solarClaim->getPayStatusColor() }} text-center" @change="confirmSubmit({{ $solarClaim->id }});">
+                                                @foreach(\App\Models\SolarClaim::PAY_STATUSES as $k => $v)
+                                                <option value="{{ $v }}" @if($solarClaim->is_paid === $v ) selected @elseif($loop->iteration == 1) selected @endif>
+                                                    {{ $k }}
+                                                </option>
+                                                @endforeach
+                                            </select>
+                                        </form>
+                                    </td>
+                                    <td class="text-nowrap px-2 text-center">{{ $solarClaim->getContentTypeText() }}・{{ $solarClaim->solarApply->reference->full_name ?? '' }}</td>
+                                    <td class="text-nowrap px-2 text-center">{{ $solarClaim->purchase_date->format('Y年m月d日') }}</td>
+                                    <td class="text-nowrap px-2 text-center">{{ number_format($solarClaim->price) }}円</td>
+                                    <td class="text-nowrap px-2 text-center">{{ $solarClaim->getPaymentTypeText() }}</td>
+                                    <td class="text-nowrap px-2 text-center">
+                                        @if ($solarClaim->isBookbinding() && $solarClaim->bookbinding_user_apply_id)
+                                        <form action="{{ route('admin.solar_applies.download_pdf', $solarClaim->bookbindingUserApply) }}" method="POST" class="mb-0">
+                                            @csrf
+                                            <button type="submit" class="btn btn-success btn-sm">ダウンロード</button>
+                                        </form>
+                                        @endif
+                                    </td>
+                                    <td class="text-nowrap px-2 text-center">
+                                        @if ($solarClaim->isBookbinding() && $solarClaim->bookbinding_user_apply_id)
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#claimModal{{ $solarClaim->id }}">
+                                            送付先情報
+                                        </button>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="claimModal{{ $solarClaim->id }}" tabindex="-1" aria-labelledby="claimModal{{ $solarClaim->id }}Label" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="claimModal{{ $solarClaim->id }}Label">送付先情報</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="form-body">
+                                                            <div class="row">
+                                                                <div class="col-md-5 text-md-end">
+                                                                    <label for="first_name" class="col-form-label">名前</label>
+                                                                </div>
+                                                                <div class="col-md-2 align-self-center">
+                                                                    {{ $solarClaim->bookbindingUserApply->name }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-body">
+                                                            <div class="row">
+                                                                <div class="col-md-5 text-md-end">
+                                                                    <label for="first_name" class="col-form-label">郵便番号</label>
+                                                                </div>
+                                                                <div class="col-md-2 align-self-center">
+                                                                    {{ $solarClaim->bookbindingUserApply->post_number }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-body">
+                                                            <div class="row">
+                                                                <div class="col-md-5 text-md-end">
+                                                                    <label for="first_name" class="col-form-label">住所</label>
+                                                                </div>
+                                                                <div class="col-md-5 align-self-center text-md-start text-wrap">
+                                                                    {{ $solarClaim->bookbindingUserApply->address }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-body">
+                                                            <div class="row">
+                                                                <div class="col-md-5 text-md-end">
+                                                                    <label for="first_name" class="col-form-label">建物・マンション名</label>
+                                                                </div>
+                                                                <div class="col-md-5 align-self-center text-md-start text-wrap">
+                                                                    {{ $solarClaim->bookbindingUserApply->building }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-body">
+                                                            <div class="row">
+                                                                <div class="col-md-5 text-md-end">
+                                                                    <label for="first_name" class="col-form-label">電話番号</label>
+                                                                </div>
+                                                                <div class="col-md-2 align-self-center">
+                                                                    {{ $solarClaim->bookbindingUserApply->tel }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endif
+                                    </td>
+                                </tr>
+                                @endforeach
                             </x-slot>
                         </x-parts.basic_table_layout>
                     </div>
