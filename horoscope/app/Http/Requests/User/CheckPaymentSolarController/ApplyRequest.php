@@ -29,6 +29,7 @@ class ApplyRequest extends FormRequest
     public function rules()
     {
         return [
+            'birthday' => ['date', new ValidBirthDate()],
             'target_type' => ['required'],
             'relationship' => ['string', 'max:255', Rule::requiredIf($this->input('target_type') === TargetType::FAMILY)],
             'family_name1' => ['string', 'max:255', Rule::requiredIf($this->input('target_type') === TargetType::FAMILY)],

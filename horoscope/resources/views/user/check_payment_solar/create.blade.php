@@ -38,6 +38,27 @@
                             @csrf
                             <div class="C-form-block__wrap">
 
+                            				{{-- 出生情報 --}}
+				<dl class="C-form-block C-form-block--birthdata">
+					<dt class="C-form-block__title C-form-block__title--req">出生情報</dt>
+					<dd class="C-form-block__body">
+						<dl class="C-form-block-child C-form-block--birth">
+							<dt class="C-form-block__title">Năm mua mặt trời hồi quy</dt>
+							<div>
+								<div style="display: flex">
+									<dd class="C-form-block__select">
+										<select id="select_year" name="solar_date" @change="setDay">
+											<option value="">年</option>
+										</select>
+										@include('components.form.error', ['name' => 'solar_date', 'class' => 'text-danger'])
+									</dd>
+
+								</div>
+							</div>
+						</dl>
+						</dd>
+				</dl>
+
                                 {{-- 個人鑑定の対象者 --}}
                                 <dl class="C-form-block C-form-block--target">
                                     <dt class="C-form-block__title C-form-block__title--req">個人鑑定の対象者</dt>
@@ -459,12 +480,13 @@
 		this.updateMapAndMarker(initialAddress);
 
 		// 年月日を設定
-		let oldYear = @json(old('birth_year', $request->birth_year ?? ''));
-		let oldMonth = @json(old('birth_month', $request->birth_month ?? ''));
-		let oldDay = @json(old('birth_day', $request->birth_day ?? ''));
+		let oldYear = @json(old('solar_date', $request->solar_date ?? ''));
+		// let oldYear = @json(old('birth_year', $request->birth_year ?? ''));
+		// let oldMonth = @json(old('birth_month', $request->birth_month ?? ''));
+		// let oldDay = @json(old('birth_day', $request->birth_day ?? ''));
 		this.setYear(oldYear);
-		this.setMonth(oldMonth);
-		this.setDay(oldDay);
+		// this.setMonth(oldMonth);
+		// this.setDay(oldDay);
     }
 
 }).mount('#Offer');

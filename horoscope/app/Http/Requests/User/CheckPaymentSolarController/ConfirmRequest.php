@@ -31,6 +31,7 @@ class ConfirmRequest extends FormRequest
     public function rules()
     {
         return [
+            'solar_date' => ['required', 'integer', 'between:1900,2100'],
             'target_type' => ['required'],
             'relationship' => ['string', 'max:255', Rule::requiredIf($this->input('target_type') === TargetType::FAMILY)],
             'family_name1' => ['string', 'max:255', Rule::requiredIf($this->input('target_type') === TargetType::FAMILY)],
@@ -64,6 +65,7 @@ class ConfirmRequest extends FormRequest
     {
 
         return $this->only([
+            'solar_date',
             'target_type',
             'relationship',
             'family_name1',

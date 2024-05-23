@@ -37,6 +37,7 @@
 			<input type="hidden" name="family_name2" value="{{ $data['family_name2'] }}">
 			@endif
 
+			<input type="hidden" name="solar_date" value="{{ $data['solar_date'] }}">
 			<input type="hidden" name="is_bookbinding" value="{{ $data['is_bookbinding'] }}">
 
 			{{-- 製本 --}}
@@ -169,16 +170,45 @@
 				</dl>
 				@endif
 
+                <dl class="C-form-block C-form-block--birthdata">
+					<dt class="C-form-block__title C-form-block__title--req">出生情報</dt>
+					<dd class="C-form-block__body">
+						<dl class="C-form-block__notes">
+							<dd class="C-form-block__notes__body">
+							Thông tin năm khách hàng mua mặt trời hồi quy
+							</dd>
+						</dl>
+						<dl class="C-form-block-child C-form-block--birth">
+                            <dt class="C-form-block__title">生年月日</dt>
+                            <dd class="C-form-block__body C-form-block__body--half">
+                                {{-- {{ $data['birthday'] }} --}}
+                                @if (is_string($data['solar_date']))
+                                    @php
+                                        $date = \DateTime::createFromFormat('Y', $data['solar_date']);
+                                    @endphp
+                                    @if ($date)
+                                        {{ $date->format('Y年m月d日') }}
+                                    @else
+                                        <span>Error: Invalid date format</span>
+                                    @endif
+                                @else
+                                    {{ $data['solar_date']->format('Y年m月d日') }}
+                                @endif
+                            </dd>
+                        </dl>
+					</dd>
+				</dl>
+
 				@if($data['coupon_code'])
 				<dl class="C-form-block C-form-block--coupon-wrap">
-					<dd class="C-form-block__body">
+					<ddlass="C-form-block__body">
 						<dl class="C-form-block-child C-form-block--hasbutton C-form-block--couponcode on">
 							<dt class="C-form-block__title">使用するクーポン</dt>
 							<dd class="C-form-block__body">
 								{{ isset($data['coupon_code']) && $data['coupon_code'] ? $data['coupon_code'] : '-' }}
 							</dd>
 						</dl>
-					</dd>
+					</ddlass=>
 				</dl>
 				@endif
 

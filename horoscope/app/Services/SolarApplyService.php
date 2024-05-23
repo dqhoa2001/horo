@@ -36,13 +36,7 @@ class SolarApplyService
         $solarApply = SolarApply::create([
             'reference_type' => $referenceType,
             'reference_id' => $referenceId,
-            'birthday' => $request->birthday,
-            'birthday_prefectures' => $request->birthday_prefectures,
-            'birthday_city' => $request->birthday_city ?? null,
-            'birthday_time' => $request->birthday_time,
-            'longitude' => $request->longitude,
-            'latitude' => $request->latitude,
-            'timezome' => $request->timezone,
+            'solar_date' => $request->solar_date,
         ]);
 
         return $solarApply;
@@ -53,15 +47,7 @@ class SolarApplyService
     {
         $formData = [
             "name" => auth()->guard('user')->user()->name1 . auth()->guard('user')->user()->name2,
-            "year" => $solarApply->birthday->format('Y'),
-            "month" => $solarApply->birthday->format('m'),
-            "day" => $solarApply->birthday->format('d'),
-            "hour" => $solarApply->birthday_time->format('H'),
-            "minute" => $solarApply->birthday_time->format('i'),
-            "longitude" => $solarApply->longitude,
-            "latitude" => $solarApply->latitude,
-            "map-city" => $solarApply->birthday_prefectures,
-            "timezone" => $solarApply->timezome, //海外展開時にはここが変更できるようにする。現在は日本のみ
+            "year" => $solarApply->solar_date->format('Y'),
             "background" => 'normal', //仮
         ];
 
