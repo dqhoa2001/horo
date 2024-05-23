@@ -42,6 +42,7 @@ class AppraisalApplyController extends Controller
     // 鑑定編集
     public function edit(AppraisalApply $appraisalApply): View
     {
+        // dd($appraisalApply);
         return view('admin.appraisal_applies.edit', [
             'appraisalApply' => $appraisalApply,
         ]);
@@ -72,7 +73,7 @@ class AppraisalApplyController extends Controller
     public function downloadPdf(BookbindingUserApply $bookbindingUserApply): BinaryFileResponse
     {
         $pdfData = $this->appraisalApplyService->makeBook($bookbindingUserApply);
-        
+
         return response()->download($pdfData['pdfFilePath'], $pdfData['fileName']);
     }
 

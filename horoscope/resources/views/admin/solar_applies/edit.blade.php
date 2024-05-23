@@ -3,17 +3,17 @@
         <div class="row justify-content-center" id="admin-appraisal-edit">
             <x-parts.admin_basic_card_layout>
                 <x-slot name="cardHeader">
-                    <h4 class="my-2">{{ $appraisalApply->withTrashedApplyReference()->full_name }}さんの鑑定編集</h4>
+                    <h4 class="my-2">{{ $solarApply->withTrashedApplyReference()->full_name }}さんの鑑定編集</h4>
                     <div class="d-flex align-items-center">
                         <label for="editEnable" class="me-3">
                             <input type="checkbox" id="editEnable" name="editEnable" value="1" v-model="editEnable">
                             編集を許可する
                         </label>
-                        <a href="{{ route('admin.appraisal_applies.redirect_users_edit', $appraisalApply) }}" class="btn btn-outline-secondary">会員情報に戻る</a>
+                        <a href="{{ route('admin.solar_appraisal_applies.redirect_users_edit', $solarApply) }}" class="btn btn-outline-secondary">会員情報に戻る</a>
                     </div>
                 </x-slot>
                 <x-slot name="cardBody">
-                    <form action="{{ route('admin.appraisal_applies.update', $appraisalApply) }}" method="POST" onsubmit="return false;">
+                    <form action="{{ route('admin.solar_appraisal_applies.update', $solarApply) }}" method="POST" onsubmit="return false;">
                         @csrf
                         @method('PATCH')
 
@@ -24,10 +24,10 @@
                                         <label for="last_name" class="col-form-label">生年月日</label>
                                     </div>
                                     <div class="col-md-6 align-self-center" style="width: 165px">
-                                        <input type="date" name="birthday" id="birthday" 
+                                        <input type="date" name="birthday" id="birthday"
                                                 value="{{ old('birthday', $appraisalApply->birthday->format('Y-m-d')) }}"
-                                                max="9999-12-31" 
-                                                class="form-control form-control-date @error('birthday') is-invalid @enderror" 
+                                                max="9999-12-31"
+                                                class="form-control form-control-date @error('birthday') is-invalid @enderror"
                                                 :disabled="!editEnable">
                                         @include('components.form.error', ['name' => 'birthday', 'class' => 'text-danger'])
                                     </div>
@@ -37,9 +37,9 @@
                                         <label for="last_name" class="col-form-label">時刻</label>
                                     </div>
                                     <div class="col-md-6 align-self-center"  style="width: 130px">
-                                        <input type="time" name="birthday_time" id="birthday_time" 
+                                        <input type="time" name="birthday_time" id="birthday_time"
                                                 value="{{ old('birthday_time', $appraisalApply->birthday_time->format('H:i')) }}"
-                                                class="form-control form-control-date @error('birthday_time') is-invalid @enderror" 
+                                                class="form-control form-control-date @error('birthday_time') is-invalid @enderror"
                                                 :disabled="!editEnable">
                                         @include('components.form.error', ['name' => 'birthday_time', 'class' => 'text-danger'])
                                     </div>
@@ -49,15 +49,15 @@
                                         <label for="last_name" class="col-form-label">生まれた場所</label>
                                     </div>
                                     <div class="col-md-6 align-self-center">
-                                        <input type="text" name="birthday_prefectures" id="birthday_prefectures" 
+                                        <input type="text" name="birthday_prefectures" id="birthday_prefectures"
                                                 value="{{ old('birthday_prefectures', $appraisalApply->birthday_prefectures) }}"
-                                                class="form-control form-control-date @error('birthday_prefectures') is-invalid @enderror" 
+                                                class="form-control form-control-date @error('birthday_prefectures') is-invalid @enderror"
                                                 :disabled="!editEnable"
                                                 @input="handleInputChange">
                                         @include('components.form.error', ['name' => 'birthday_prefectures', 'class' => 'text-danger'])
                                     </div>
                                 </div>
-                                
+
                                 <div class="row mb-3">
                                     <div class="col-md-6 mx-auto">
                                         <div id="map" style="height: 250px; width:100%"></div>
@@ -85,7 +85,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                
+
                                 <div class="row mb-3">
                                     <div class="col-md-5 text-md-end">
                                         <label for="last_name" class="col-form-label">タイムゾーン</label>
@@ -93,10 +93,10 @@
                                     <div class="col-md-6 align-self-center">
                                         <select name="timezome" :disabled="!editEnable">
                                             @foreach (Modules\Horoscope\Enums\Time::Time as $item)
-                                                <option value='{{ $item['value'] }}' 
+                                                <option value='{{ $item['value'] }}'
                                                 @if ($appraisalApply->timezome)
                                                     @if ($appraisalApply->timezome == $item['value'])
-                                                        selected 
+                                                        selected
                                                     @endif
                                                 @else
                                                     @if (array_key_exists('selected', $item) && $item['selected'])
@@ -156,7 +156,7 @@
                             } else {
                                 this.map.setCenter(results[0].geometry.location);
                             }
-        
+
                             if (!this.marker) {
                                 this.marker = new google.maps.Marker({
                                     position: results[0].geometry.location,
@@ -166,7 +166,7 @@
                             } else {
                                 this.marker.setPosition(results[0].geometry.location);
                             }
-        
+
                             const changeLng = results[0].geometry.location.lng();
                             const changeLat = results[0].geometry.location.lat();
                             document.getElementById('map-longitude').value = changeLng;

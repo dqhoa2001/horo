@@ -324,9 +324,11 @@
                                 <!-- Loop for solarClaims -->
                                 @foreach ($user->solarClaims as $solarClaim)
                                 <tr>
+
                                     <td class="text-nowrap px-2 text-center">
-                                        <a href="{{ route('admin.solar_applies.edit', $solarClaim->solarApply) }}" class="btn btn-success btn-sm">編集</a>
+                                        <a href="{{ route('admin.solar_appraisal_applies.edit', $solarClaim->solarApply) }}" class="btn btn-success btn-sm">編集</a>
                                     </td>
+
                                     <td class="text-nowrap px-2 text-center">{{ $solarClaim->id }}</td>
                                     <td class="text-nowrap px-2 text-center">
                                         <form action="{{ route('admin.users.change_pay_status', $solarClaim) }}" method="POST" class="mb-0" id="change-pay-form{{ $solarClaim->id }}">
