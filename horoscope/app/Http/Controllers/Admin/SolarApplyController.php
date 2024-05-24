@@ -53,11 +53,8 @@ class SolarApplyController extends Controller
     {
             //  dd($request->all());
         $solarApply->update($request->substitutable());
-
         $solarApply->reference()->update($request->substitutable());
-
         return back()->with('status', '更新しました');
-
     }
 
     // 会員編集画面にリダイレクト
