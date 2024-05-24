@@ -41,8 +41,20 @@ class UpdateRequest extends FormRequest
     // 生年月日の未来日のチェック
     public function withValidator(Validator $validator): void
     {
+        // $validator->after(function ($validator) {
+        //     ValidBirthDate::validateBirthDate($validator, $this->birth_year, $this->birth_month, $this->birth_day);
+        // });
         $validator->after(function ($validator) {
-            ValidBirthDate::validateBirthDate($validator, $this->birth_year, $this->birth_month, $this->birth_day);
+            $validator->after(function ($validator) {
+                $birth_year = $this->input('birth_year');
+                $birth_month = $this->input('birth_month');
+                $birth_day = $this->input('birth_day');
+
+                // Kiểm tra các giá trị không null trước khi gọi validateBirthDate
+                if (isset($birth_year) && isset($birth_month) && isset($birth_day)) {
+                    ValidBirthDate::validateBirthDate($validator, (int) $birth_year, (int) $birth_month, (int) $birth_day);
+                }
+            });
         });
     }
 
@@ -59,5 +71,20 @@ class UpdateRequest extends FormRequest
             'latitude',
             'timezone',
         ]);
+    }
+
+    public function messages()
+    {
+        return [
+            'birth_year.required' => 'Năm sinh là bắt buộc.',
+            'birth_month.required' => 'Tháng sinh là bắt buộc.',
+            'birth_day.required' => 'Ngày sinh là bắt buộc.',
+            'birth_year.integer' => 'Năm sinh phải là số nguyên.',
+            'birth_month.integer' => 'Tháng sinh phải là số nguyên.',
+            'birth_day.integer' => 'Ngày sinh phải là số nguyên.',
+            'birth_year.between' => 'Năm sinh phải nằm trong khoảng từ 1900 đến 2100.',
+            'birth_month.between' => 'Tháng sinh phải nằm trong khoảng từ 1 đến 12.',
+            'birth_day.between' => 'Ngày sinh phải nằm trong khoảng từ 1 đến 31.',
+        ];
     }
 }
