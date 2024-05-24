@@ -72,19 +72,4 @@ class UpdateRequest extends FormRequest
             'timezone',
         ]);
     }
-
-    public function messages()
-    {
-        return [
-            'birth_year.required' => 'Năm sinh là bắt buộc.',
-            'birth_month.required' => 'Tháng sinh là bắt buộc.',
-            'birth_day.required' => 'Ngày sinh là bắt buộc.',
-            'birth_year.integer' => 'Năm sinh phải là số nguyên.',
-            'birth_month.integer' => 'Tháng sinh phải là số nguyên.',
-            'birth_day.integer' => 'Ngày sinh phải là số nguyên.',
-            'birth_year.between' => 'Năm sinh phải nằm trong khoảng từ 1900 đến 2100.',
-            'birth_month.between' => 'Tháng sinh phải nằm trong khoảng từ 1 đến 12.',
-            'birth_day.between' => 'Ngày sinh phải nằm trong khoảng từ 1 đến 31.',
-        ];
-    }
 }
