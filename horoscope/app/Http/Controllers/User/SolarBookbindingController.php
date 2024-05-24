@@ -22,18 +22,11 @@ class SolarBookbindingController extends Controller
         $user = auth()->guard('user')->user();
 
         // 最新の個人鑑定申し込みを取得
-        $personalAppraisal = $user->solarApplies()->whereHas('solarClaim', static function ($query) {
+        $solarPersonalAppraisal = $user->solarApplies()->whereHas('solarClaim', static function ($query) {
             $query->where('is_paid', true);
-        })->orderBy('id', 'desc')->first();
-
+        })->orderBy('id', 'desc')->get();
+        // dd($personalAppraisal);
         // 家族の個人鑑定を取得
-        $familyAppraisals = $user->families->map(static function ($family) {
-            return $family->appraisalApplies()->whereHas('appraisalClaim', static function ($query) {
-                $query->where('is_paid', true);
-            })->orderBy('id', 'desc')->first();
-        })->filter(static function ($family) {
-            return null !== $family;
-        });
 
         //個人鑑定製本済数
         $personalBookbindingUserAppliesCount = 0;
@@ -44,29 +37,11 @@ class SolarBookbindingController extends Controller
                 }
             }
         }
-
-        //家族の個人鑑定製本済数
-        $familyBookbindingUserAppliesCount = [];
-        foreach ($user->families as $family) {
-            $count = 0;
-            if (isset($family->appraisalApplies)) {
-                foreach ($family->appraisalApplies as $appraisalApply) {
-                    if (isset($appraisalApply->bookbindingUserApplies)) {
-                        foreach ($appraisalApply->bookbindingUserApplies as $bookbindingUserApply) {
-                            $count += 1;
-                        }
-                    }
-                }
-            }
-            $familyBookbindingUserAppliesCount = $familyBookbindingUserAppliesCount + [$family->id => $count];
-        }
-
-        return view('user.bookbindings.create', [
+        // dd($solarPersonalAppraisal);
+        return view('user.solar_bookbindings.create', [
             'bookbinding' => Bookbinding::where('is_enabled', true)->first(),
-            'personalAppraisal' => $personalAppraisal,
-            'familyAppraisals' => $familyAppraisals,
+            'solarPersonalAppraisal' => $solarPersonalAppraisal,
             'personalBookbindingUserAppliesCount' => $personalBookbindingUserAppliesCount,
-            'familyBookbindingUserAppliesCount' => $familyBookbindingUserAppliesCount,
         ]);
     }
 

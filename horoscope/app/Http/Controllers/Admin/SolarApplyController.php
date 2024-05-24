@@ -25,6 +25,7 @@ use Modules\Horoscope\Http\Actions\GenerateHoroscopeChartAction;
 use App\Http\Requests\Admin\SolarApplyController\UpdateRequest;
 use App\Models\BookbindingUserApply;
 use App\Services\SolarApplyService;
+use Session;
 
 class SolarApplyController extends Controller
 {
@@ -43,18 +44,20 @@ class SolarApplyController extends Controller
     public function edit(SolarApply $solarApply): View
     {
         return view('admin.solar_applies.edit', [
-            'SolarApply' => $solarApply,
+            'solarApply' => $solarApply,
         ]);
     }
 
     // 鑑定更新
     public function update(UpdateRequest $request, SolarApply $solarApply): RedirectResponse
     {
+            //  dd($request->all());
         $solarApply->update($request->substitutable());
 
         $solarApply->reference()->update($request->substitutable());
 
         return back()->with('status', '更新しました');
+
     }
 
     // 会員編集画面にリダイレクト

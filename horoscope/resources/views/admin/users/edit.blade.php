@@ -326,7 +326,7 @@
                                 <tr>
 
                                     <td class="text-nowrap px-2 text-center">
-                                        <a href="{{ route('admin.solar_appraisal_applies.edit', $solarClaim->solarApply) }}" class="btn btn-success btn-sm">編集</a>
+                                        <a href="{{ route('admin.solar_applies.edit', $solarClaim->solarApply) }}" class="btn btn-success btn-sm">編集</a>
                                     </td>
 
                                     <td class="text-nowrap px-2 text-center">{{ $solarClaim->id }}</td>

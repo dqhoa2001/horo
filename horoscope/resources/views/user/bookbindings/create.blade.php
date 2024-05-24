@@ -64,7 +64,7 @@
 									<p class="Personal-appraisal__notice-text"><a href="https://hoshinomai.jp/book-service" target="_blank" rel="noopener noreferrer">製本の詳細はこちら</a></p>
 								</dd>
 							</dl>
-							
+
 							@include('components.form.error', ['name' => 'pdf_types','class' => 'text-danger'])
 							@include('components.form.error', ['name' => 'bookbinding_names','class' => 'text-danger'])
 
@@ -95,7 +95,7 @@
 											<div class="C-form-block__checkbox original_checkbox" style="margin-bottom: 20px">
 												<label class="C-form-block__checkbox__item" for="masterCheckbox">
 													<input type="checkbox"
-															name="master_checkbox" 
+															name="master_checkbox"
 															id="masterCheckbox"
 															v-model="masterCheckbox">
 													<span class="C-form-block__checkbox__text">
@@ -111,10 +111,10 @@
 												{{-- ----------------------個人--------------↓ --}}
 												@if ($personalAppraisal !== null)
 													<div class="C-form-block__checkbox original_checkbox" style="margin-bottom: 20px">
-														<label class="C-form-block__checkbox__item" for="checkbox{{ $personalAppraisal->id }}">			
-															<input type="checkbox" 
-																	name="appraisal_apply_ids[]" 
-																	value="{{ $personalAppraisal->id }}" 
+														<label class="C-form-block__checkbox__item" for="checkbox{{ $personalAppraisal->id }}">
+															<input type="checkbox"
+																	name="appraisal_apply_ids[]"
+																	value="{{ $personalAppraisal->id }}"
 																	id="checkbox{{ $personalAppraisal->id }}"
 																	v-model="selectedAppraisals"
 																	>
@@ -131,14 +131,14 @@
 														</label>
 													</div>
 													<!-- ご希望の表紙デザイン -->
-													<dl class="C-form-block C-form-block--cash" 
-														style="display: none;" 
+													<dl class="C-form-block C-form-block--cash"
+														style="display: none;"
 														id="pdf_dom-{{ $personalAppraisal->id }}">
 														<dt class="C-form-block__title C-form-block__title--req">表紙デザイン</dt>
 														<div style="display: flex; align-items:center;">
 															@foreach(App\Models\AppraisalApply::PDF_TYPE as $k => $v)
 															<label for="pdf_type-{{ $v }}-{{ $personalAppraisal->id }}" class="@error('pdf_types') is-invalid @enderror" style="display: flex; margin-right:10px;">
-																<input type="radio" 
+																<input type="radio"
 																	name="pdf_type-{{ $personalAppraisal->id }}"
 																	id="pdf_type-{{ $v }}-{{ $personalAppraisal->id }}"
 																	value="{{ $k }}"
@@ -189,10 +189,10 @@
 												@if ($familyAppraisals->isNotEmpty())
 													@foreach ($familyAppraisals as $familyAppraisal)
 													<div class="C-form-block__checkbox original_checkbox" style="margin-bottom: 20px">
-														<label class="C-form-block__checkbox__item" for="checkbox{{ $familyAppraisal->id }}">			
-															<input type="checkbox" 
-																	name="appraisal_apply_ids[]" 
-																	value="{{ $familyAppraisal->id }}" 
+														<label class="C-form-block__checkbox__item" for="checkbox{{ $familyAppraisal->id }}">
+															<input type="checkbox"
+																	name="appraisal_apply_ids[]"
+																	value="{{ $familyAppraisal->id }}"
 																	id="checkbox{{ $familyAppraisal->id }}"
 																	v-model="selectedAppraisals"
 																	>
@@ -215,7 +215,7 @@
 														<div style="display: flex; align-items:center;">
 															@foreach(App\Models\AppraisalApply::PDF_TYPE as $k => $v)
 															<label for="pdf_type-{{ $v }}-{{ $familyAppraisal->id }}" class="@error('pdf_types') is-invalid @enderror" style="display: flex; margin-right:10px;">
-																<input type="radio" 
+																<input type="radio"
 																	name="pdf_type-{{ $familyAppraisal->id }}"
 																	id="pdf_type-{{ $v }}-{{ $familyAppraisal->id }}"
 																	value="{{ $k }}"
@@ -263,7 +263,7 @@
 													@endforeach
 												@endif
 												{{-- ----------------------家族--------------↑ --}}
-												
+
 											</div>
 										</dd>
 									</dl>
@@ -595,7 +595,7 @@ Vue.createApp({
 				.catch((error) => {
 						console.log(error);
 				});
-	
+
 				setTimeout(() => {
 						this.isCalculating = false;
 				}, 1000);
@@ -611,6 +611,7 @@ Vue.createApp({
 			// 個人のチェックボックス
 			if (this.personalAppraisal !== null) {
 				allAppraisalIds.push(this.personalAppraisal.id);
+                console.log(this.personalAppraisal.id);
 			}
 			// 家族のチェックボックス
 			if (this.familyAppraisals.length > 0) {
@@ -635,7 +636,7 @@ Vue.createApp({
                 } else if (numericNewVal > this.point) {
                     alert('使用可能なクーポン額を超えています');
                 }
-                
+
                 // バリデーションに引っかかった場合は、totalAmountを元に戻す
                 this.totalAmount += oldVal - this.discountPrice;
                 // discountPriceをリセットする

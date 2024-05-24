@@ -154,7 +154,7 @@
                                                         <input type="time" name="time" value="{{ old('time', auth()->guard('user')->user()->birthday_time->format('H:i')) }}" required>
                                                     </div>
                                                 </dd>
-                                            </dl>   
+                                            </dl>
                                             {{-- <div class="C-horoscope-form-block-wrap C-horoscope-form-block-wrap--birth">
                                                 <dl class="C-horoscope-form-block C-horoscope-form-block--birth">
                                                     <dt class="C-horoscope-form-block__title">生年月日</dt>
@@ -355,7 +355,7 @@
                         } else {
                             this.map.setCenter(results[0].geometry.location);
                         }
-    
+
                         if (!this.marker) {
                             this.marker = new google.maps.Marker({
                                 position: results[0].geometry.location,
@@ -365,7 +365,7 @@
                         } else {
                             this.marker.setPosition(results[0].geometry.location);
                         }
-    
+
                         const changeLng = results[0].geometry.location.lng();
                         const changeLat = results[0].geometry.location.lat();
                         document.getElementById('map-longitude').value = changeLng;
