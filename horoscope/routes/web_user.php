@@ -52,7 +52,7 @@ Route::prefix('offer_appraisals')->name('offer_appraisals.')->group(static funct
     Route::get('thanks', [OfferAppraisalController::class, 'thanks'])->name('thanks');
 });
 
-Route::prefix('check_payment')->name('check_payment.')->group(static function () {
+Route::prefix('check_payment')->name('check_payment.')->middleware(['auth:user', 'verified'])->group(static function () {
     //鑑定作成画面
     Route::get('create', [CheckPaymentController::class, 'create'])->name('create');
 
@@ -67,7 +67,7 @@ Route::prefix('check_payment')->name('check_payment.')->group(static function ()
     Route::get('thanks', [CheckPaymentController::class, 'thanks'])->name('thanks');
 });
 
-Route::prefix('check_payment_solar')->name('check_payment_solar.')->group(static function () {
+Route::prefix('check_payment_solar')->name('check_payment_solar.')->middleware(['auth:user', 'verified'])->group(static function () {
     //鑑定作成画面
     Route::get('create', [CheckPaymentSolarController::class, 'create'])->name('create');
 
