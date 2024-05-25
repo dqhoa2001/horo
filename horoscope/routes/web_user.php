@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\User\SolarAppraisalController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\TopController;
 use App\Http\Controllers\User\HomeController;
@@ -183,6 +184,14 @@ Route::middleware(['auth:user', 'verified'])->group(static function () {
         Route::post('back', 'back')->name('back');
         Route::post('family_back/{target_type}', 'familyBack')->name('family_back');
         Route::get('complete', 'complete')->name('complete');
+        // 個人鑑定の詳細
+        Route::get('{appraisal_apply}', 'show')->name('show')->middleware('can:viewClaim,appraisal_apply', 'can:viewAppraisalApply,appraisal_apply');
+    });
+
+    //MySolarHoroscopeAppraisal
+    Route::controller(SolarAppraisalController::class)->prefix('solar_appraisals')->name('solar_appraisals.')->group(static function () {
+        // 個人鑑定
+        Route::get('', 'index')->name('index');
         // 個人鑑定の詳細
         Route::get('{appraisal_apply}', 'show')->name('show')->middleware('can:viewClaim,appraisal_apply', 'can:viewAppraisalApply,appraisal_apply');
     });
