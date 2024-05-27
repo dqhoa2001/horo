@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Http\Request;
-use App\Models\AppraisalApply;
+use App\Models\SolarApply;
 use App\Models\BookbindingUserApply;
 use Spatie\Browsershot\Browsershot;
 use App\Repositories\HouseRepository;
@@ -17,7 +17,7 @@ use App\Repositories\ZodiacPatternRepository;
 use Modules\Horoscope\Http\Actions\Predict\ModifyLocation;
 use Modules\Horoscope\Http\Actions\GenerateHoroscopeChartAction;
 
-class AppraisalApplyService
+class SolarApplyService
 {
     public function __construct(
         protected GenerateHoroscopeChartAction $generateHoroscopeChartAction,
@@ -31,69 +31,23 @@ class AppraisalApplyService
     }
 
     //支払い履歴の登録処理
-    public static function create(Request $request, string $referenceType, int $referenceId): AppraisalApply
+    public static function create(Request $request, string $referenceType, int $referenceId): SolarApply
     {
-        $user = auth()->guard('user')->user();
-        if ($request->referenceId === null) {
-            $appraisalApply = AppraisalApply::create([
-                'reference_id' => $referenceId,
-                'reference_type' => $referenceType,
-                'birthday' => $request->birthday,
-                'birthday_prefectures' => $request->birthday_prefectures,
-                'birthday_city' => $request->birthday_city ?? null,
-                'birthday_time' => $request->birthday_time,
-                'longitude' => $request->longitude,
-                'latitude' => $request->latitude,
-                'timezome' => $request->timezone,
-            ]);
-        } else {
-            $formData = [
-                "name" => $user->name1 . $user->name2,
-                "year" => $user->birthday->format('Y'),
-                "month" => $user->birthday->format('m'),
-                "day" => $user->birthday->format('d'),
-                "hour" => $user->birthday_time->format('H'),
-                "minute" => $user->birthday_time->format('i'),
-                "longitude" => $user->longitude,
-                "latitude" => $user->latitude,
-                "map-city" => $user->birthday_city,
-                "timezome" => $user->timezome,
-                "background" => 'normal',
-            ];
+        $solarApply = SolarApply::create([
+            'reference_type' => $referenceType,
+            'reference_id' => $referenceId,
+            'solar_date' => $request->solar_date,
+        ]);
 
-            $appraisalApply = AppraisalApply::updateOrCreate(
-                [
-                    'reference_type' => $referenceType,
-                    'reference_id' => $referenceId,
-                ],
-                [
-                    'birthday' => $user->birthday,
-                    'birthday_prefectures' => $request->birthday_prefectures,
-                    'birthday_city' => $formData['map_city'] ?? $request->birthday_city,
-                    'birthday_time' => $formData['hour'] . ':' . $formData['minute'],
-                    'longitude' => $formData['longitude'],
-                    'latitude' => $formData['latitude'],
-                    'timezome' => $formData['timezome'],
-                ]
-            );
-        }
-        return $appraisalApply;
+        return $solarApply;
     }
 
     // 鑑定結果データの作成
-    public function createAppraisalResultData(AppraisalApply $appraisalApply): array
+    public function createSolarResultData(SolarApply $solarApply): array
     {
         $formData = [
             "name" => auth()->guard('user')->user()->name1 . auth()->guard('user')->user()->name2,
-            "year" => $appraisalApply->birthday->format('Y'),
-            "month" => $appraisalApply->birthday->format('m'),
-            "day" => $appraisalApply->birthday->format('d'),
-            "hour" => $appraisalApply->birthday_time->format('H'),
-            "minute" => $appraisalApply->birthday_time->format('i'),
-            "longitude" => $appraisalApply->longitude,
-            "latitude" => $appraisalApply->latitude,
-            "map-city" => $appraisalApply->birthday_prefectures,
-            "timezone" => $appraisalApply->timezome, //海外展開時にはここが変更できるようにする。現在は日本のみ
+            "year" => $solarApply->solar_date->format('Y'),
             "background" => 'normal', //仮
         ];
 
@@ -118,7 +72,7 @@ class AppraisalApplyService
             return array_search($key, $sortPlanet, true);
         });
 
-        $appraisalResultData = [
+        $solarResultData = [
             'zodaics' => $zodaics,
             'planets' => $planets,
             'houses' => $houses,
@@ -128,7 +82,7 @@ class AppraisalApplyService
             'sabian' => $sabian,
         ];
 
-        return $appraisalResultData;
+        return $solarResultData;
     }
 
     // 製本の作成
@@ -137,23 +91,23 @@ class AppraisalApplyService
         \Log::info('makeBookメソッド' , [
             'id' => $bookbindingUserApply->id,
         ]);
-        $appraisalApply = $bookbindingUserApply->appraisalApply;
+        $solarApply = $bookbindingUserApply->solarApply;
         $bookbindingName = $bookbindingUserApply->bookbinding_name1 . ' ' . $bookbindingUserApply->bookbinding_name2;
         if ($bookbindingUserApply->bookbinding_name1 === null && $bookbindingUserApply->bookbinding_name2 === null) {
-            $bookbindingName = $appraisalApply->reference->name1 . $appraisalApply->reference->name2;
+            $bookbindingName = $solarApply->reference->name1 . $solarApply->reference->name2;
         }
         $formData = [
-            "name" => $appraisalApply->reference->name1 . $appraisalApply->reference->name2,
+            "name" => $solarApply->reference->name1 . $solarApply->reference->name2,
             "bookbinding_name" => $bookbindingName,
-            "year" => $appraisalApply->birthday->format('Y'),
-            "month" => $appraisalApply->birthday->format('m'),
-            "day" => $appraisalApply->birthday->format('d'),
-            "hour" => $appraisalApply->birthday_time->format('H'),
-            "minute" => $appraisalApply->birthday_time->format('i'),
-            "longitude" => $appraisalApply->longitude,
-            "latitude" => $appraisalApply->latitude,
-            "map-city" => $appraisalApply->birthday_prefectures,
-            "timezone" => $appraisalApply->timezome, //海外展開時にはここが変更できるようにする。現在は日本のみ
+            "year" => $solarApply->birthday->format('Y'),
+            "month" => $solarApply->birthday->format('m'),
+            "day" => $solarApply->birthday->format('d'),
+            "hour" => $solarApply->birthday_time->format('H'),
+            "minute" => $solarApply->birthday_time->format('i'),
+            "longitude" => $solarApply->longitude,
+            "latitude" => $solarApply->latitude,
+            "map-city" => $solarApply->birthday_prefectures,
+            "timezone" => $solarApply->timezome, //海外展開時にはここが変更できるようにする。現在は日本のみ
             "background" => 'normal', //仮
             "relationship" => 'nullable', // 仮
         ];
@@ -189,13 +143,13 @@ class AppraisalApplyService
 
         $designType = $bookbindingUserApply->is_design;
         $blade = '';
-        if ((int) $designType === AppraisalApply::PDF_SOPHIA) {
+        if ((int) $designType === SolarApply::PDF_SOPHIA) {
             $blade = view('horoscope::dowload1', $data);
         }
-        if ((int) $designType === AppraisalApply::PDF_KLEOS) {
+        if ((int) $designType === SolarApply::PDF_KLEOS) {
             $blade = view('horoscope::dowload2', $data);
         }
-        if ((int) $designType === AppraisalApply::PDF_DYNAMIS) {
+        if ((int) $designType === SolarApply::PDF_DYNAMIS) {
             $blade = view('horoscope::dowload3', $data);
         }
         $html = $blade->render();
@@ -251,13 +205,13 @@ class AppraisalApplyService
         $fileName = $design . '_' . $name1 . $name2 . '_sample_cover_' . now()->format('Ymd-His') . '.pdf';
 
         $blade = '';
-        if ((int) $design === AppraisalApply::PDF_SOPHIA) {
+        if ((int) $design === SolarApply::PDF_SOPHIA) {
             $blade = view('horoscope::cover1', $data);
         }
-        if ((int) $design === AppraisalApply::PDF_KLEOS) {
+        if ((int) $design === SolarApply::PDF_KLEOS) {
             $blade = view('horoscope::cover2', $data);
         }
-        if ((int) $design === AppraisalApply::PDF_DYNAMIS) {
+        if ((int) $design === SolarApply::PDF_DYNAMIS) {
             $blade = view('horoscope::cover3', $data);
         }
         $html = $blade->render();

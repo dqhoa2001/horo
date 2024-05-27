@@ -174,6 +174,17 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(AppraisalClaim::class);
     }
 
+    //サンアプリケーション
+    public function solarApplies(): MorphMany
+    {
+        return $this->morphMany('App\Models\SolarApply', 'reference');
+    }
+
+    public function solarClaims(): HasMany
+    {
+        return $this->hasMany(SolarClaim::class);
+    }
+
     //Myホロスコープチャートをすでにもっているかどうか
     public function isHasMyHoroscope(): bool
     {
@@ -181,6 +192,20 @@ class User extends Authenticatable implements MustVerifyEmail
             return true;
         }
         return false;
+    }
+
+    public function hasPaidForMyHoroscope(): bool
+    {
+        return $this->appraisalClaims()
+                    ->where('is_paid', true)
+                    ->exists();
+    }
+
+    public function hasPaidForSolar(): bool
+    {
+        return $this->solarClaims()
+                    ->where('is_paid', true)
+                    ->exists();
     }
 
     // 製本の申し込みをしているかどうか
@@ -240,5 +265,5 @@ class User extends Authenticatable implements MustVerifyEmail
         }
 
         return true;
-    } 
+    }
 }
