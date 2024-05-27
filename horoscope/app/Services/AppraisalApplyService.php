@@ -33,48 +33,50 @@ class AppraisalApplyService
     //支払い履歴の登録処理
     public static function create(Request $request, string $referenceType, int $referenceId): AppraisalApply
     {
-        $appraisalApply = AppraisalApply::create([
-            'reference_type' => $referenceType,
-            'reference_id' => $referenceId,
-            'birthday' => $request->birthday,
-            'birthday_prefectures' => $request->birthday_prefectures,
-            'birthday_city' => $request->birthday_city ?? null,
-            'birthday_time' => $request->birthday_time,
-            'longitude' => $request->longitude,
-            'latitude' => $request->latitude,
-            'timezome' => $request->timezone,
-        ]);
-
         $user = auth()->guard('user')->user();
-        $formData = [
-            "name" => $user->name1 . $user->name2,
-            "year" => $user->birthday->format('Y'),
-            "month" => $user->birthday->format('m'),
-            "day" => $user->birthday->format('d'),
-            "hour" => $user->birthday_time->format('H'),
-            "minute" => $user->birthday_time->format('i'),
-            "longitude" => $user->longitude,
-            "latitude" => $user->latitude,
-            "map-city" => $user->birthday_city,
-            "timezome" => $user->timezome,
-            "background" => 'normal',
-        ];
-
-        $appraisalApply = AppraisalApply::updateOrCreate(
-            [
-                'reference_type' => $referenceType,
+        if ($request->referenceId === null) {
+            $appraisalApply = AppraisalApply::create([
                 'reference_id' => $referenceId,
-            ],
-            [
-                'birthday' => $user->birthday,
+                'reference_type' => $referenceType,
+                'birthday' => $request->birthday,
                 'birthday_prefectures' => $request->birthday_prefectures,
-                'birthday_city' => $formData['map_city'] ?? $request->birthday_city,
-                'birthday_time' => $formData['hour'] . ':' . $formData['minute'],
-                'longitude' => $formData['longitude'],
-                'latitude' => $formData['latitude'],
-                'timezome' => $formData['timezome'],
-            ]
-        );
+                'birthday_city' => $request->birthday_city ?? null,
+                'birthday_time' => $request->birthday_time,
+                'longitude' => $request->longitude,
+                'latitude' => $request->latitude,
+                'timezome' => $request->timezone,
+            ]);
+        } else {
+            $formData = [
+                "name" => $user->name1 . $user->name2,
+                "year" => $user->birthday->format('Y'),
+                "month" => $user->birthday->format('m'),
+                "day" => $user->birthday->format('d'),
+                "hour" => $user->birthday_time->format('H'),
+                "minute" => $user->birthday_time->format('i'),
+                "longitude" => $user->longitude,
+                "latitude" => $user->latitude,
+                "map-city" => $user->birthday_city,
+                "timezome" => $user->timezome,
+                "background" => 'normal',
+            ];
+
+            $appraisalApply = AppraisalApply::updateOrCreate(
+                [
+                    'reference_type' => $referenceType,
+                    'reference_id' => $referenceId,
+                ],
+                [
+                    'birthday' => $user->birthday,
+                    'birthday_prefectures' => $request->birthday_prefectures,
+                    'birthday_city' => $formData['map_city'] ?? $request->birthday_city,
+                    'birthday_time' => $formData['hour'] . ':' . $formData['minute'],
+                    'longitude' => $formData['longitude'],
+                    'latitude' => $formData['latitude'],
+                    'timezome' => $formData['timezome'],
+                ]
+            );
+        }
         return $appraisalApply;
     }
 

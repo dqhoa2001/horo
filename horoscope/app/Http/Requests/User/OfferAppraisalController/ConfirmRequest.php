@@ -86,8 +86,18 @@ class ConfirmRequest extends FormRequest
     // 生年月日の未来日のチェック
     public function withValidator(Validator $validator): void
     {
+        // $validator->after(function ($validator) {
+        //     ValidBirthDate::validateBirthDate($validator, $this->birth_year, $this->birth_month, $this->birth_day);
+        // });
         $validator->after(function ($validator) {
-            ValidBirthDate::validateBirthDate($validator, $this->birth_year, $this->birth_month, $this->birth_day);
+            $birth_year = $this->input('birth_year');
+            $birth_month = $this->input('birth_month');
+            $birth_day = $this->input('birth_day');
+
+            // Kiểm tra các giá trị không null trước khi gọi validateBirthDate
+            if (isset($birth_year) && isset($birth_month) && isset($birth_day)) {
+                ValidBirthDate::validateBirthDate($validator, (int) $birth_year, (int) $birth_month, (int) $birth_day);
+            }
         });
     }
 

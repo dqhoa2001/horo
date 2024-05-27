@@ -200,17 +200,18 @@
 				</dl>
 
 				@if($data['coupon_code'])
-				<dl class="C-form-block C-form-block--coupon-wrap">
-					<ddlass="C-form-block__body">
-						<dl class="C-form-block-child C-form-block--hasbutton C-form-block--couponcode on">
-							<dt class="C-form-block__title">使用するクーポン</dt>
-							<dd class="C-form-block__body">
-								{{ isset($data['coupon_code']) && $data['coupon_code'] ? $data['coupon_code'] : '-' }}
-							</dd>
-						</dl>
-					</ddlass=>
-				</dl>
-				@endif
+                    <dl class="C-form-block C-form-block--coupon-wrap">
+                        <div class="C-form-block__body">
+                            <dl class="C-form-block-child C-form-block--hasbutton C-form-block--couponcode on">
+                                <dt class="C-form-block__title">使用するクーポン</dt>
+                                <dd class="C-form-block__body">
+                                    {{ isset($data['coupon_code']) && $data['coupon_code'] ? $data['coupon_code'] : '-' }}
+                                </dd>
+                            </dl>
+                        </div>
+                    </dl>
+                @endif
+
 
 				<dl class="C-price">
 					<dt class="C-price__title">注文内容</dt>
