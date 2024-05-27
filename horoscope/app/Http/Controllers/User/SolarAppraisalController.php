@@ -54,6 +54,10 @@ class SolarAppraisalController extends Controller
     public function show(AppraisalApply $appraisalApply): View
     {
         $user = auth()->guard('user')->user();
+        $solarDate = $user->solar_date;
+        $birthday = $user->birthday;
+        $currentDate = now();
+        $age = $currentDate->diffInYears($birthday);
         $formData = [
             "name" => $user->name1 . $user->name2,
             "year" => $user->solar_date ?? now()->year,
@@ -65,7 +69,7 @@ class SolarAppraisalController extends Controller
             "latitude" => $user->latitude,
             "map-city" => $user->birthday_city,
             "timezone" => $user->timezome,
-            "background" => 'normal', 
+            "background" => 'normal',
         ];
         $chart = $this->generateSolarHoroscopeChartAction->execute($formData, WheelRadiusEnum::WheelScale);
         $zodiacs = $this->zodiacPatternRepository->getAll();
@@ -84,7 +88,8 @@ class SolarAppraisalController extends Controller
             'houses'              => $houses,
             'zodaicsPattern'      => $zodiacs,
             'sabian'              => $sabian,
-            'solarDate'           => $solarDate
+            'solarDate'           => $solarDate,
+            'age'                 => $age,
         ]);
     }
 

@@ -1,7 +1,7 @@
 @extends('layouts.user.mypage.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('mypage/assets/css/myappraisal.css') }}">
+<link rel="stylesheet" href="{{ asset('mypage/assets/css/myappraisal2.css') }}">
 {{-- <link rel="stylesheet" href="{{ asset('mypage/assets/css/appraisal_common.css') }}"> --}}
 <link rel="stylesheet" href="{{ asset('mypage/assets/css/myhoroscope.css') }}">
 @endsection
@@ -30,14 +30,32 @@
                                 alt="PERSONAL APPRAISAL"></h2>
 						{{-- <h2 class="Pageframe-main__title appraisal"></h2> --}}
                         <div class="Pageframe-main__body">
-                           
+
                             {{-- ユーザーに関する基本情報 --}}
-                            @include('components.parts.user.solar_appraisal_apply_common_info')
+                            <!-- @include('components.parts.user.solar_appraisal_apply_common_info')
                             <p class="C-user-list__change"><span>Update Solar Year</span></p>
-                            <br>
+                            <br> -->
+                            <dl class="C-form-block C-form-block--birthdata">
+                                <dd class="C-form-block__body">
+                                    <dl class="C-form-block-child C-form-block--birth">
+                                        <dt class="C-form-block__title">太陽回帰 鑑定年</dt>
+                                        <div>
+                                            <div style="display: flex; width: 50%">
+                                                <dd class="C-form-block__select">
+                                                    <select name="solar_date" @change="setDay">
+                                                        <option value="">
+                                                           {{ $age }}歳 ( {{ $solarDate }} )
+                                                        </option>
+                                                    </select>
+                                                </dd>
+                                            </div>
+                                        </div>
+                                    </dl>
+                                </dd>
+                            </dl>
                             {{-- Solar 鑑定結果 --}}
                             @include('components.parts.user.solar_appraisal_apply_common_appraisal')
-                          
+
                             <div class="C-top">
                                 <span class="top-span">
                                     一番上に戻る
@@ -47,7 +65,7 @@
                             {{-- 製本バナー --}}
                             @include('components.parts.user.appraisal_apply_common_baner')
 
-                            <div class="Button Button--blue2 Button--blue-review">
+                            <div class="Button Button--orange2 Button--blue-review">
                                 <a href="https://hoshinomai.jp/review" target="_blank" rel="noopener noreferrer" class="btn-review">レビューを投稿する</a>
                             </div>
 

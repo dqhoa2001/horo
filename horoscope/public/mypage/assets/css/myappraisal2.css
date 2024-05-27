@@ -1,0 +1,316 @@
+@charset "utf-8";
+
+/*-------------------------------
+	common.css
+-------------------------------*/
+
+.Pageframe-main-header__pagename::before{
+	width: 2.5rem;
+	height: 2.5rem;
+	top: calc(50% - 1.25rem);
+	background-image: url(../images/myappraisal2/icon_mark-pagename.svg);
+}
+
+.Pageframe-main .fcolor2{
+    color: #F17424;
+}
+.Pageframe-main__title{
+    max-width: 32.3rem;
+    margin-bottom: 4.5rem;
+}
+.Pageframe-main__title.result{
+    max-width: 56rem;
+    margin-bottom: 2rem;
+}
+.Pageframe-main__firstmessage::after{
+    background-image: url(../images/myhoroscope/icon_content-mark.svg);
+}
+.Pageframe-main__title::after{
+    width: 9rem;
+    height: 13rem;
+    right: -11rem;
+    top: -2.5rem;
+    background-image: url(../images/myappraisal2/icon_title.svg);
+}
+.result.Pageframe-main__title::after{
+    width: 9rem;
+    height: 13rem;
+    right: -11rem;
+    top: -2.5rem;
+    background-image: none;
+}
+
+/*----- ユーザー */
+.C-user-list-block__inner{
+    padding: 2rem 2.5rem 1.5rem;
+    border: none;
+    background-color: #fff;
+	background-image: url(../images/myappraisal2/bg_user.png);
+    background-image: image-set(url(../images/myappraisal2/bg_user.png) 1x, url(../images/myappraisal2/bg_user@2x.png) 2x);
+    background-image: -webkit-image-set(url(../images/myappraisal2/bg_user.png) 1x, url(../images/myappraisal2/bg_user@2x.png) 2x);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.C-user-list-block__item:not(:last-child){
+	border-right: 1px solid #F17424;
+}
+.C-user-list-block__title::before,
+.C-user-list-block__item::before{
+    color: #F17424;
+}
+
+/*----- 個人鑑定 */
+.C-appraisal-tab__item{
+    background-color: rgba(57,57,92,.1);
+}
+.C-appraisal-tab__item--current{
+	background-image: url(../images/myappraisal2/bg_appraisal-tab.png);
+    background-image: image-set(url(../images/myappraisal2/bg_appraisal-tab.png) 1x, url(../images/myappraisal2/bg_appraisal-tab@2x.png) 2x);
+    background-image: -webkit-image-set(url(../images/myappraisal2/bg_appraisal-tab.png) 1x, url(../images/myappraisal2/bg_appraisal-tab@2x.png) 2x);
+}
+.C-appraisal-content-header-data{
+    border-top: 1px solid #F17424;
+    border-bottom: 1px solid #F17424;
+}
+.C-appraisal-content-header-data > *:not(:last-child){
+	border-right: 1px solid #F17424;
+}
+
+.C-appraisal-content-header__first-message{
+    border-bottom: 1px solid #F17424;
+}
+
+.C-appraisal-content-header-block__title::before{
+    background-image: url(../images/myappraisal2/icon_star.svg);
+}
+.C-appraisal-content-footer-block__last__mark{
+	border: 1px solid #F17424;
+}
+.C-appraisal-content-footer-block__last__text{
+    color: #F17424;
+}
+
+.C-appraisal-content-header-message{
+    background: rgba(52,94,151,.04);
+}
+.C-appraisal-content-header-message__title,
+.C-appraisal-content--acmc-block__title{
+    color: #F17424;
+}
+
+/* 惑星マーク */
+.C-appraisal-content--MOON .C-appraisal-content-header-data__mark::before,
+.C-appraisal-content--MOON .C-appraisal-content-footer-block__last__mark::before {
+    background-image: url(../images/myappraisal2/icon_tsuki.svg);
+}
+
+.C-appraisal-content--MERCURY .C-appraisal-content-header-data__mark::before,
+.C-appraisal-content--MERCURY .C-appraisal-content-footer-block__last__mark::before {
+    background-image: url(../images/myappraisal2/icon_suisei.svg);
+}
+
+.C-appraisal-content--VENUS .C-appraisal-content-header-data__mark::before,
+.C-appraisal-content--VENUS .C-appraisal-content-footer-block__last__mark::before {
+    background-image: url(../images/myappraisal2/icon_kinsei.svg);
+}
+
+.C-appraisal-content--SUN .C-appraisal-content-header-data__mark::before,
+.C-appraisal-content--SUN .C-appraisal-content-footer-block__last__mark::before {
+    background-image: url(../images/myappraisal2/icon_taiyo.svg);
+}
+
+.C-appraisal-content--MARS .C-appraisal-content-header-data__mark::before,
+.C-appraisal-content--MARS .C-appraisal-content-footer-block__last__mark::before {
+    background-image: url(../images/myappraisal2/icon_kasei.svg);
+}
+
+.C-appraisal-content--JUPITER .C-appraisal-content-header-data__mark::before,
+.C-appraisal-content--JUPITER .C-appraisal-content-footer-block__last__mark::before {
+    background-image: url(../images/myappraisal2/icon_mokusei.svg);
+}
+
+.C-appraisal-content--SATURN .C-appraisal-content-header-data__mark::before,
+.C-appraisal-content--SATURN .C-appraisal-content-footer-block__last__mark::before {
+    background-image: url(../images/myappraisal2/icon_dosei.svg);
+}
+
+.C-appraisal-content--tennousei .C-appraisal-content-header-data__mark::before,
+.C-appraisal-content--tennousei .C-appraisal-content-footer-block__last__mark::before {
+    background-image: url(../images/myappraisal2/icon_tennousei.svg);
+}
+
+.C-appraisal-content--kaiousei .C-appraisal-content-header-data__mark::before,
+.C-appraisal-content--kaiousei .C-appraisal-content-footer-block__last__mark::before {
+    background-image: url(../images/myappraisal2/icon_kaiousei.svg);
+}
+
+.C-appraisal-content--meiousei .C-appraisal-content-header-data__mark::before,
+.C-appraisal-content--meiousei .C-appraisal-content-footer-block__last__mark::before {
+    background-image: url(../images/myappraisal2/icon_meiousei.svg);
+}
+
+.C-appraisal-content--CHIRON .C-appraisal-content-header-data__mark::before,
+.C-appraisal-content--CHIRON .C-appraisal-content-footer-block__last__mark::before {
+    background-image: url(../images/myappraisal2/icon_dragonhead.svg);
+}
+
+.C-appraisal-content--kiron .C-appraisal-content-header-data__mark::before,
+.C-appraisal-content--kiron .C-appraisal-content-footer-block__last__mark::before {
+    background-image: url(../images/myappraisal2/icon_kiron.svg);
+}
+
+.C-appraisal-content--ririsu .C-appraisal-content-header-data__mark::before,
+.C-appraisal-content--ririsu .C-appraisal-content-footer-block__last__mark::before {
+    background-image: url(../images/myappraisal2/icon_ririsu.svg);
+}
+
+/* 星座マーク */
+.C-appraisal-content-header-block__title--Cancer::before,
+.C-appraisal-content-footer-block__last__mark--Cancer::after {
+    background-image: url(../images/myappraisal2/icon_kani.svg);
+}
+
+.C-appraisal-content-header-block__title--Capricorn::before,
+.C-appraisal-content-footer-block__last__mark--Capricorn::after {
+    background-image: url(../images/myappraisal2/icon_yagi.svg);
+}
+
+.C-appraisal-content-header-block__title--Pisces::before,
+.C-appraisal-content-footer-block__last__mark--Pisces::after {
+    background-image: url(../images/myappraisal2/icon_uo.svg);
+}
+
+.C-appraisal-content-header-block__title--Libra::before,
+.C-appraisal-content-footer-block__last__mark--Libra::after {
+    background-image: url(../images/myappraisal2/icon_tenbin.svg);
+}
+
+.C-appraisal-content-header-block__title--Leo::before,
+.C-appraisal-content-footer-block__last__mark--Leo::after {
+    background-image: url(../images/myappraisal2/icon_shishi.svg);
+}
+
+.C-appraisal-content-header-block__title--Scorpio::before,
+.C-appraisal-content-footer-block__last__mark--Scorpio::after {
+    background-image: url(../images/myappraisal2/icon_sasori.svg);
+}
+
+.C-appraisal-content-header-block__title--Taurus::before,
+.C-appraisal-content-footer-block__last__mark--Taurus::after {
+    background-image: url(../images/myappraisal2/icon_oushi.svg);
+}
+
+.C-appraisal-content-header-block__title--Virgo::before,
+.C-appraisal-content-footer-block__last__mark--Virgo::after {
+    background-image: url(../images/myappraisal2/icon_otome.svg);
+}
+
+.C-appraisal-content-header-block__title--Aries::before,
+.C-appraisal-content-footer-block__last__mark--Aries::after {
+    background-image: url(../images/myappraisal2/icon_ohitsuji.svg);
+}
+
+.C-appraisal-content-header-block__title--Aquarius::before,
+.C-appraisal-content-footer-block__last__mark--Aquarius::after {
+    background-image: url(../images/myappraisal2/icon_mizugame.svg);
+}
+
+.C-appraisal-content-header-block__title--Sagittarius::before,
+.C-appraisal-content-footer-block__last__mark--Sagittarius::after {
+    background-image: url(../images/myappraisal2/icon_ite.svg);
+}
+
+.C-appraisal-content-header-block__title--Gemini::before,
+.C-appraisal-content-footer-block__last__mark--Gemini::after {
+    background-image: url(../images/myappraisal2/icon_hutago.svg);
+}
+
+/*----- 個人鑑定履歴 */
+.C-appraisal-history__title::before{
+    background-image: url(../images/myappraisal2/icon_history.svg);
+}
+.C-appraisal-history-block a::after{
+    background-image: url(../images/common/icon_arrow-blue.svg);
+}
+
+/*----- 個人鑑定商品 */
+.C-appraisal-item-entry{
+	background-image: url(../images/myappraisal2/bg_appraisal-item-mark.svg);
+}
+.C-appraisal-item-entry__price::before{
+    color: rgba(57,56,93,.5);
+}
+
+@media screen and (width >= 1600px) , print{
+
+}
+@media screen and (max-width:1188px) , print{
+
+}
+@media screen and (max-width:1128px) , print{
+
+}
+@media screen and (max-width:500px) , print{
+
+    .Pageframe-main__title{
+        max-width: 27rem;
+    }
+    .Pageframe-main__title::after{
+        width: 6.6rem;
+        height: 9.6rem;
+        right: -6.5rem;
+        top: 0;
+    }
+
+    /*----- ユーザー */
+    .C-user-list-block__inner{
+        padding: 1.5rem 3rem;
+    }
+
+	/*----- 個人鑑定詳細 */
+    .C-appraisal-content-header-data__year{
+        border-top: 1px solid #F17424;
+    }
+
+    .C-appraisal-content-header__first-message{
+        border-bottom: none;
+    }
+
+    /*----- 個人鑑定商品 */
+    .C-appraisal-item-entry{
+        background-image: url(../images/myappraisal2/sp_bg_appraisal-item-mark.svg);
+    }
+
+}
+
+
+
+/*-------------------------------
+	個人鑑定（myappraisal2-detail）
+-------------------------------*/
+
+@media screen and (width >= 1600px) , print{
+
+}
+@media screen and (max-width:1188px) , print{
+
+}
+@media screen and (max-width:1128px) , print{
+
+}
+@media screen and (max-width:500px) , print{
+
+    .myappraisal2--detail .C-user-list-block__item:nth-of-type(1){
+        width: 50%;
+    }
+    .myappraisal2--detail .C-user-list-block__item:nth-of-type(2){
+        width: 50%;
+		padding-left: 2.2rem;
+        border-right: none;
+    }
+    .myappraisal2--detail .C-user-list-block__item:nth-of-type(3){
+        border-top: 1px solid #F17424;
+    }
+
+}
