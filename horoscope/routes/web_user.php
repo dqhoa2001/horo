@@ -23,6 +23,7 @@ use App\Http\Controllers\User\Auth\VerificationController;
 use App\Http\Controllers\User\FamilyAppraisalController;
 use App\Http\Controllers\User\CheckPaymentController;
 use App\Http\Controllers\User\CheckPaymentSolarController;
+use App\Http\Controllers\User\SolarBookbindingController;
 
 //会員登録しないでホロスコープ
 Route::prefix('horoscopes')->name('horoscopes.')->group(static function () {
@@ -218,6 +219,15 @@ Route::middleware(['auth:user', 'verified'])->group(static function () {
         Route::post('apply', 'apply')->name('apply');
         Route::post('back', 'back')->name('back');
         Route::get('complete', 'complete')->name('complete');
+    });
+
+    // SOLAR 製本
+    Route::controller(SolarBookbindingController::class)->prefix('solar_bookbindings')->name('solar_bookbindings.')->group(static function () {
+        Route::get('create', 'create')->name('create');
+        // Route::post('confirm', 'confirm')->name('confirm');
+        // Route::post('apply', 'apply')->name('apply');
+        // Route::post('back', 'back')->name('back');
+        // Route::get('complete', 'complete')->name('complete');
     });
 
     // Route::prefix('myappraisals')->name('myappraisals.')->group(static function () {

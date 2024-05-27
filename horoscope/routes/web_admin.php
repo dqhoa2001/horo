@@ -136,7 +136,10 @@ Route::middleware('auth:admin')->group(static function () {
     Route::post('appraisal_applies/download_pdf/{bookbindingUserApply}', [AppraisalApplyController::class, 'downloadPdf'])->name('appraisal_applies.download_pdf');
     Route::get('appraisal_applies/redirect_users_edit/{appraisalApply}', [AppraisalApplyController::class, 'redirectUsersEdit'])->name('appraisal_applies.redirect_users_edit');
     Route::resource('appraisal_applies', AppraisalApplyController::class)->only('edit', 'update');
+
+    //Solar Apprraisal Apply edit route
     Route::resource('solar_applies', SolarApplyController::class)->only('edit', 'update');
+
     // クーポン管理
     Route::prefix('coupons')->group(static function () {
         // 会員登録クーポン管理

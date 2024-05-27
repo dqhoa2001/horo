@@ -22,24 +22,23 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'birthday' => ['required', 'date'],
-            'birthday_time' => ['required', 'date_format:H:i'],
-            'birthday_prefectures' => ['required', 'string'],
-            'latitude' => ['required', 'numeric'],
-            'longitude' => ['required', 'numeric'],
-            'timezome' => ['required', 'integer'],
+            // 'latitude' => ['required', 'numeric'],
+            // 'longitude' => ['required', 'numeric'],
+            // 'timezome' => ['required', 'integer'],
+            'solar_date' => ['required','integer','min:1900']
         ];
     }
 
     public function substitutable(): array
     {
         return $this->only([
-            'birthday',
-            'birthday_time',
-            'birthday_prefectures',
-            'latitude',
-            'longitude',
-            'timezome',
+            // 'birthday',
+            // 'birthday_time',
+            // 'birthday_prefectures',
+            // 'latitude',
+            // 'longitude',
+            // 'timezome',
+            'solar_date'
         ]);
     }
 }
