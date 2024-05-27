@@ -20,6 +20,7 @@ use App\Repositories\ZodiacRepository;
 use App\Services\MyHoroscopeService;
 use Modules\Horoscope\Http\Actions\GenerateSolarHoroscopeChartAction;
 use Modules\Horoscope\Enums\WheelRadiusEnum;
+use App\Models\Solar;
 
 class SolarAppraisalController extends Controller
 {
@@ -45,8 +46,8 @@ class SolarAppraisalController extends Controller
             return to_route('user.solar_appraisals.show', $latestAppraisalApply);
         }
 
-        return view('user.appraisals.index', [
-            'appraisal'         => Appraisal::where('is_enabled', true)->first(),
+        return view('user.solar_appraisals.index', [
+            'solar_appraisal'         => Solar::where('is_enabled', true)->first(),
             'bookbinding'       => Bookbinding::where('is_enabled', true)->first(),
         ]);
     }
@@ -65,7 +66,7 @@ class SolarAppraisalController extends Controller
             "latitude" => $user->latitude,
             "map-city" => $user->birthday_city,
             "timezone" => $user->timezome,
-            "background" => 'normal', 
+            "background" => 'normal',
         ];
         $chart = $this->generateSolarHoroscopeChartAction->execute($formData, WheelRadiusEnum::WheelScale);
         $zodiacs = $this->zodiacPatternRepository->getAll();

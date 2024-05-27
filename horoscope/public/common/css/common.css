@@ -350,6 +350,60 @@ print {
   opacity: .5;
 }
 
+
+.solar-button {
+	display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  text-decoration: none;
+  color: #ffffff !important;
+  font-size: 16px;
+  border-radius: 42px;
+  width: 287px;
+	padding-top: 20px;
+  height: 84px;
+  transition: 0.3s;
+  background-image: radial-gradient(circle at 100% 0%, rgb(228, 144, 18), rgb(153, 152, 64) 80%);
+	position: relative;
+	cursor: pointer;
+	max-width: 100%;
+}
+.solar-button::before {
+	position: absolute;
+	content: "";
+	top: 50%;
+	transform: translateY(-50%);
+	right: 20px;
+	width: 7px;
+	height: 10px;
+	background-image: url(../../images/common/arrow.svg);
+	z-index: 100;
+	background-position: right bottom;
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+.solar-button::after {
+    margin-top: 10px;
+	position: absolute;
+	content: "";
+	top: 5px;
+	transform: translateX(-50%);
+	left: 50%;
+	width: 150px;
+	height: 30px;
+	background-image: url(../../images/common/solar_logo.svg);
+	z-index: 100;
+	background-position: right bottom;
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+
+
+.solar-button:hover {
+  opacity: .5;
+}
+
 .sample-btn-block {
 	width: 120px;
 }
@@ -362,6 +416,7 @@ print {
 	border: #E7E8EB solid 1px;
 	padding: 30px 40px;
 	border-radius: 30px;
+    background-image: url(../images/mypage/assets/images/myappraisal/solar-background.svg);
 }
 
 .C-appraisal-banner__image {
@@ -377,6 +432,11 @@ print {
 .C-appraisal-banner__price-appraisal {
 	color: #1E66C7 !important;
 }
+
+.C-solar-appraisal-banner__price-appraisal {
+	color: #F17424 !important;
+}
+
 .C-appraisal-banner__price-family {
 	color: #028FBF !important;
 }
@@ -402,6 +462,13 @@ print {
 	text-align: center;
 }
 
+.C-solar-appraisal-banner__book-price {
+	font-size: 22px;
+	color: #735539 !important;
+	margin-top: 10px;
+	text-align: center;
+}
+
 .C-appraisal-banner__book-price span {
 	font-size: 13px;
 	color: #39385D !important;
@@ -411,6 +478,7 @@ print {
 	padding: 20px 10px 20px 20px;
 	border: #C3D0E3 solid 1px;
 	margin-top: 20px;
+    color: #735539
 }
 
 .C-form__message.C-appraisal-banner__book-text {
@@ -434,11 +502,13 @@ print {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+    color: #735539;
 }
 
 .C-appraisal-banner__under-text {
 	text-align: center;
 	margin-top: 30px;
+    color: #735539;
 }
 .C-appraisal-banner__under-btn {
 	width: 287px;
@@ -447,6 +517,10 @@ print {
 	max-width: 100%;
 }
 .C-appraisal-banner__under-btn .original-button {
+	margin-top: 30px;
+	text-align: center;
+}
+.C-appraisal-banner__under-btn .solar-button {
 	margin-top: 30px;
 	text-align: center;
 }
@@ -507,7 +581,11 @@ print {
 	text-decoration: underline;
 	font-weight: bold;
 }
-
+.solar-small_link {
+	text-decoration: underline;
+	font-weight: bold;
+    color: #F17424;
+}
 
 @media screen and (max-width: 500px) {
 	.C-appraisal-banner-block {
@@ -529,6 +607,7 @@ print {
 	}
 	.C-appraisal-banner__sub-sample-image {
 		margin-top: 15px;
+
 	}
 	.sample-btn-block{
 		text-align: center;

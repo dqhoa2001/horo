@@ -58,6 +58,26 @@
     display: block;
     content: "";
 }
+.C-solar-form__message{
+    font-size: 1.5rem;
+    padding-left: 1.5rem;
+    letter-spacing: .08em;
+    margin-bottom: 4rem;
+    position: relative;
+}
+.C-solar-form__message::before{
+    width: .9rem;
+    height: 1.2rem;
+    left: 0;
+    top: calc(50% - .6rem);
+    position: absolute;
+    background-image: url(../images/common/icon_sun.svg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: block;
+    content: "";
+}
 .C-form__message__req{
     color: #0069bf;
 }
@@ -166,16 +186,16 @@
 .C-form-block__field input::placeholder{
     color: rgba(57,57,92,.25);
 }
-.C-form-block__field input[type="number"]::-webkit-outer-spin-button, 
-.C-form-block__field input[type="number"]::-webkit-inner-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
-} 
+.C-form-block__field input[type="number"]::-webkit-outer-spin-button,
+.C-form-block__field input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
 /*----- テキストエリア */
 .C-form-block__textarea textarea{
     width: 100%;
-    height: 16.3rem; 
+    height: 16.3rem;
     padding: 1rem 1.8rem;
     border: 1px solid rgba(204,206,213,.5);
     border-radius: .6rem;
@@ -624,27 +644,27 @@
     .C-form-block__body--half{
         width: 100%;
     }
-    
+
     .C-form-block-child:not(:last-child){
         margin-bottom: 3rem;
     }
     .C-form-block-child .C-form-block__title{
         margin-bottom: 1.7rem;
     }
-    
+
     /*----- テキスト */
     .C-form-block__field{
         padding-left: 1rem;
         padding-right: 1rem;
         padding-bottom: .8rem;
     }
-    
+
     /*----- テキストエリア */
     .C-form-block__textarea textarea{
-        height: 25rem; 
+        height: 25rem;
         padding: 1.5rem;
     }
-    
+
     /*----- セレクト */
     .C-form-block__select{
         width: 100%;
@@ -674,7 +694,7 @@
         padding: .5rem 2rem;
         color: rgba(57,56,93,.7);
     }
-    
+
     /*----- ラジオボタン */
     .C-form-block__radio{
         display: block;
@@ -715,7 +735,7 @@
     .C-form-block__checkbox__text{
         padding-left: 3rem;
     }
-    
+
     /*----- メールアドレス */
     .C-form-block--email .C-form-block__field{
         width: calc((100% - 5rem) / 2);
@@ -731,14 +751,14 @@
         position: absolute;
         content: "@";
     }
-    
+
     /*----- パスワード */
     .C-form-block--password-tab__item{
         width: calc((100% - (.6rem * 3)) / 4);
         height: 2.8rem;
         font-size: 1.2rem;
     }
-    
+
     /*----- ボタンあり */
     .C-form-block--hasbutton{
         max-width: 100%;
@@ -746,12 +766,12 @@
     .C-form-block--hasbutton .C-form-block__field{
         width: calc(100% - 10rem - 1.2rem);
     }
-    
+
     /*----- 送付先 */
     .C-form-block--sending:not(:last-child){
         margin-bottom: 5rem;
     }
-    
+
     /*----- 使用するクーポン */
     .C-form-block--couponno__tag{
         right: 1.2rem;
@@ -760,7 +780,7 @@
     .C-form-block--couponno__text{
         font-size: 1.3rem;
     }
-    
+
     /*----- プライバシーポリシー */
     .C-form-policy{
         width: 100%;
