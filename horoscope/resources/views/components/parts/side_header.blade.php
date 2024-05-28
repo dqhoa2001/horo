@@ -30,8 +30,9 @@
                     @endif
                     <span>MYホロスコープ<br class="sp">チャート</span></a>
                 </li>
-                <li class="header-nav__item header-nav__item--appraisal"><a href="{{ route('user.appraisals.index') }}"><span>個人鑑定</span></a></li>
-                <li class="header-nav__item header-nav__item--myhoroscope">
+                <!-- <li class="header-nav__item header-nav__item--appraisal"><a href="{{ route('user.appraisals.index') }}"><span>個人鑑定</span></a></li> -->
+                <li class="header-nav__item header-nav__item--appraisal"><a href="{{ route('user.appraisals.index') }}"><span>Stellar Blueprint</span></a></li>
+                <!-- <li class="header-nav__item header-nav__item--myhoroscope">
                     @if (auth()->guard('user')->check())
                         @php
                             $user = auth()->guard('user')->user();
@@ -50,8 +51,8 @@
                         <a href="{{ route('user.my_horoscopes.create') }}">
                     @endif
                     <span>Solar <br class="sp">Horoscope</span></a>
-                </li>
-                <li class="header-nav__item header-nav__item--appraisal">
+                </li> -->
+                <!-- <li class="header-nav__item header-nav__item--appraisal">
                     @if ($user->hasPaidForSolar())
                         <a href="{{ route('user.appraisals.index') }}">
                     @elseif (!$user->hasPaidForMyHoroscope() && !$user->hasPaidForSolar())
@@ -60,8 +61,18 @@
                         <a href="{{ route('user.check_payment_solar.create') }}" onclick="alert('Bạn cần thanh toán để truy cập vào trang Solar này.')">
                     @endif
                     <span>Solar Appraisals</span></a>
+                </li> -->
+                <li class="header-nav__item header-nav__item--appraisal">
+                    @if ($user->hasPaidForSolar())
+                        <a href="{{ route('user.solar_appraisals.index') }}">
+                    @elseif (!$user->hasPaidForMyHoroscope() && !$user->hasPaidForSolar())
+                        <a href="{{ route('user.check_payment.create') }}" onclick="alert('Bạn cần thanh toán để truy cập vào trang Horo này.')">
+                    @elseif ($user->hasPaidForMyHoroscope() && !$user->hasPaidForSolar())
+                        <a href="{{ route('user.check_payment_solar.create') }}" onclick="alert('Bạn cần thanh toán để truy cập vào trang Solar này.')">
+                    @endif
+                    <span>SOLAR RETURN</span></a>
                 </li>
-                <li class="header-nav__item header-nav__item--familyhoroscope"><a href="{{ route('user.families.index') }}"><span>家族の<br class="sp">ホロスコープ</span></a></li>
+                <!-- <li class="header-nav__item header-nav__item--familyhoroscope"><a href="{{ route('user.families.index') }}"><span>家族の<br class="sp">ホロスコープ</span></a></li> -->
                 <li class="header-nav__item header-nav__item--familyappraisal"><a href="{{ route('user.family_appraisals.index') }}"><span>家族の<br class="sp">個人鑑定</span></a></li>
                 {{-- <li class="header-nav__item header-nav__item--familyappraisal"><a href="{{ route('user.bookbindings.create') }}"><span>製本のお申し込み</span></a></li> --}}
                 <li class="header-nav__item header-nav__item--coupon"><a href="{{ route('user.coupon') }}"><span>ご紹介クーポン</span></a></li>
