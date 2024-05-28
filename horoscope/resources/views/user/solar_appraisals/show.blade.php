@@ -32,20 +32,23 @@
                         <div class="Pageframe-main__body">
 
                             {{-- ユーザーに関する基本情報 --}}
-                            <!-- @include('components.parts.user.solar_appraisal_apply_common_info')
-                            <p class="C-user-list__change"><span>Update Solar Year</span></p>
-                            <br> -->
+                            @include('components.parts.user.solar_appraisal_apply_common_info')
+                            <!-- <p class="C-user-list__change"><span>Update Solar Year</span></p> -->
+                            <br>
                             <dl class="C-form-block C-form-block--birthdata">
                                 <dd class="C-form-block__body">
                                     <dl class="C-form-block-child C-form-block--birth">
                                         <dt class="C-form-block__title">太陽回帰 鑑定年</dt>
                                         <div>
-                                            <div style="display: flex; width: 50%">
+                                            <div style="display: flex">
                                                 <dd class="C-form-block__select">
-                                                    <select name="solar_date" @change="setDay">
-                                                        <option value="">
-                                                           {{ $age }}歳 ( {{ $solarDate }} )
-                                                        </option>
+                                                    <select id="solar_date_select" name="solar_date">
+                                                        @foreach ($solarDates as $solarDates)
+                                                            <option value="{{ route('user.solar_appraisals.show', ['appraisalApply' => $appraisalApply->id, 'solar_date' => $solarDates]) }}"
+                                                                {{ $selectedYear == $solarDates ? 'selected' : '' }}>
+                                                                {{ $solarDates }}
+                                                            </option>
+                                                        @endforeach
                                                     </select>
                                                 </dd>
                                             </div>
@@ -161,6 +164,25 @@
             this.setYear(oldYear);
         }
     }).mount('#popup-horoscope');
+
+    $(window).on('load', function() {
+        $(".C-popup-content__inner").mCustomScrollbar({
+            callbacks: {
+                onTotalScroll: function() {
+                    $(this).addClass('end');
+                },
+                onScroll: function() {
+                    $(this).removeClass('end');
+                }
+            }
+        });
+    });
+
+    // JavaScript để cập nhật URL khi chọn năm mới
+    document.getElementById('solar_date_select').addEventListener('change', function() {
+        window.location.href = this.value;
+    });
 </script>
 @endsection
+
 

@@ -3,7 +3,7 @@
     <div class="C-user-list-block">
         <span class="C-user-list-block__inner C-user-list-block__hasimage">
             <figure class="C-user-list-block__image"><img
-                    src="{{ asset('mypage/assets/images/myappraisal/img_thumbnail.svg') }}" alt="画像"></figure>
+                    src="{{ asset('mypage/assets/images/myappraisal2/img_thumbnail.svg') }}" alt="画像"></figure>
             <div class="C-user-list-block__hasimage__inner">
                 <h3 class="C-user-list-block__title" data-tag="Name"><span>{{ auth()->guard('user')->user()->name1 }}　{{ auth()->guard('user')->user()->name2 }}</span>さん</h3>
                     <div class="C-user-list-block__content">

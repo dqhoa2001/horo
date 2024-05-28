@@ -20,6 +20,7 @@ use App\Repositories\ZodiacRepository;
 use App\Services\MyHoroscopeService;
 use Modules\Horoscope\Http\Actions\GenerateSolarHoroscopeChartAction;
 use Modules\Horoscope\Enums\WheelRadiusEnum;
+use Carbon\Carbon;
 
 class SolarAppraisalController extends Controller
 {
@@ -54,10 +55,17 @@ class SolarAppraisalController extends Controller
     public function show(AppraisalApply $appraisalApply): View
     {
         $user = auth()->guard('user')->user();
-        $solarDate = $user->solar_date;
+        $solarDates = $user->solarApplies()
+            ->whereHas('solarClaim', static function ($query) {
+                $query->where('is_paid', true);
+            })
+            ->orderBy('id', 'desc')
+            ->pluck('solar_date');;
+        // dd($solarDate1);
         $birthday = $user->birthday;
-        $currentDate = now();
-        $age = $currentDate->diffInYears($birthday);
+        $selectedYear = request('solar_date', now()->year);
+        // dd($selectedYear);
+        $age = Carbon::parse($selectedYear)->diffInYears($birthday);
         $formData = [
             "name" => $user->name1 . $user->name2,
             "year" => $user->solar_date ?? now()->year,
@@ -89,7 +97,9 @@ class SolarAppraisalController extends Controller
             'zodaicsPattern'      => $zodiacs,
             'sabian'              => $sabian,
             'solarDate'           => $solarDate,
+            'solarDates'          => $solarDates,
             'age'                 => $age,
+            'selectedYear'        => $selectedYear,
         ]);
     }
 
