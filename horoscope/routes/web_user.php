@@ -161,7 +161,8 @@ Route::middleware(['auth:user', 'verified'])->group(static function () {
         // 個人鑑定
         Route::get('', 'index')->name('index');
         // 個人鑑定の詳細
-        Route::get('{appraisal_apply}', 'show')->name('show')->middleware('can:viewClaim,appraisal_apply', 'can:viewAppraisalApply,appraisal_apply');
+        Route::get('{solar_apply}', 'show')->name('show')->middleware('can:viewSolarClaim,solar_apply', 'can:viewSolarAppraisalApply,solar_apply');
+        // Route::get('{appraisal_apply}', 'show')->name('show')->middleware('can:viewClaim,appraisal_apply', 'can:viewAppraisalApply,appraisal_apply');
     });
 
     //家族鑑定
