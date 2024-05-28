@@ -39,20 +39,39 @@
                                 <dd class="C-form-block__body">
                                     <dl class="C-form-block-child C-form-block--birth">
                                         <dt class="C-form-block__title">太陽回帰 鑑定年</dt>
-                                        <div>
-                                            <div style="display: flex">
-                                                <dd class="C-form-block__select">
-                                                    <select id="solar_date_select" name="solar_date">
-                                                        @foreach ($solarDates as $solarDates)
-                                                            <option value="{{ route('user.solar_appraisals.show', ['appraisalApply' => $appraisalApply->id, 'solar_date' => $solarDates]) }}"
-                                                                {{ $selectedYear == $solarDates ? 'selected' : '' }}>
-                                                                {{ $solarDates }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </dd>
-                                            </div>
-                                        </div>
+                                        <div id="popup-horoscope">
+                                        <dl class="C-form-block C-form-block--birthdata">
+                                            <dd class="C-form-block__body">
+                                                <dl class="C-form-block-child C-form-block--birth">
+                                                <dl class="C-form-block C-form-block--birthdata">
+                                                    <dd class="C-form-block__body">
+                                                        <dl class="C-form-block-child C-form-block--birth">
+                                                            <div>
+                                                                <div style="display: flex">
+                                                                    <dd class="C-form-block__select">
+                                                                        <select name="solar_date" @change="updateSolarData">
+                                                                        @php
+                                                                            // Sắp xếp mảng tuổi từ lớn đến bé
+                                                                            $solarDates = $solarDates->sortByDesc(function ($date) use ($userBirthYear) {
+                                                                                return $date - $userBirthYear;
+                                                                            });
+                                                                        @endphp
+                                                                            @foreach ($solarDates as $date)
+                                                                                @php
+                                                                                    $age = $date - $userBirthYear;
+                                                                                @endphp
+                                                                                <option value="{{ $date }}">{{$age}} 歳 {{ $date }} -- {{ $date + 1}}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </dd>
+                                                                </div>
+                                                            </div>
+                                                        </dl>
+                                                    </dd>
+                                                </dl>
+                                                </dl>
+                                            </dd>
+                                        </dl>
                                     </dl>
                                 </dd>
                             </dl>
@@ -144,44 +163,32 @@
 <script>
     Vue.createApp({
         methods: {
-            setYear (oldYear) {
-                let selectYear = document.getElementById('select_year');
-                const year = new Date().getFullYear();
-                for (let i = year; i >= 1900; i--) {
-                    const option = document.createElement('option');
-                    option.value = i;
-                    option.text = i + '年';
-                    if (i == oldYear) {
-                        option.selected = true;
-                    }
-                    selectYear.appendChild(option);
-                }
+            data() {
+                return {
+                    userBirthYear: @json($userBirthYear), // Năm sinh của người dùng
+                    selectedSolarDate: null // Solardate được chọn
+                };
             },
+            updateSolarData(event) {
+                const selectedYear = event.target.value;
+                axios.get(`/get-solar-data/${selectedYear}`)
+                    .then(response => {
+                        const newData = response.data;
+                        // Cập nhật dữ liệu mới trên form
+                        // Ví dụ:
+                        document.getElementById('solarDataField').value = newData.solarDataField;
+                        document.getElementById('anotherField').innerText = newData.anotherField;
+                    })
+                    .catch(error => {
+                        console.error('Error updating solar data:', error);
+                    });
+            }
         },
         mounted() {
             // 年月日を設定
-            let oldYear = @json(old('birth_year', $solarDate->format('Y') ?? now()->year));
-            this.setYear(oldYear);
+            this.selectedSolarDate = @json($solarDate);
         }
     }).mount('#popup-horoscope');
-
-    $(window).on('load', function() {
-        $(".C-popup-content__inner").mCustomScrollbar({
-            callbacks: {
-                onTotalScroll: function() {
-                    $(this).addClass('end');
-                },
-                onScroll: function() {
-                    $(this).removeClass('end');
-                }
-            }
-        });
-    });
-
-    // JavaScript để cập nhật URL khi chọn năm mới
-    document.getElementById('solar_date_select').addEventListener('change', function() {
-        window.location.href = this.value;
-    });
 </script>
 @endsection
 

@@ -20,6 +20,10 @@ use App\Repositories\ZodiacRepository;
 use App\Services\MyHoroscopeService;
 use Modules\Horoscope\Http\Actions\GenerateSolarHoroscopeChartAction;
 use Modules\Horoscope\Enums\WheelRadiusEnum;
+use App\Models\SolarApply;
+use App\Services\SolarAppraisalApplyService;
+use App\Models\Solar;
+use Carbon\Carbon;
 
 class SolarAppraisalController extends Controller
 {
@@ -51,30 +55,21 @@ class SolarAppraisalController extends Controller
         ]);
     }
 
-    public function show(AppraisalApply $appraisalApply): View
+    //show solar appraisal data
+    public function show(SolarApply $solarApply): View
     {
+        $solarAppraisalResultData = $this->solarAppraisalApplyService->createSolarAppraisalResultData($solarApply);
         $user = auth()->guard('user')->user();
-        $formData = [
-            "name" => $user->name1 . $user->name2,
-            "year" => $user->solar_date ?? now()->year,
-            "month" => $user->birthday->format('m'),
-            "day" => $user->birthday->format('d'),
-            "hour" => $user->birthday_time->format('H'),
-            "minute" => $user->birthday_time->format('i'),
-            "longitude" => $user->longitude,
-            "latitude" => $user->latitude,
-            "map-city" => $user->birthday_city,
-            "timezone" => $user->timezome,
-            "background" => 'normal',
-        ];
-        $chart = $this->generateSolarHoroscopeChartAction->execute($formData, WheelRadiusEnum::WheelScale);
-        $zodiacs = $this->zodiacPatternRepository->getAll();
-        $planets = $this->planetRepository->getAll();
-        $houses = $this->houseRepository->getAll();
-        $sabian = $this->sabianPatternRepository->getAll();
-        $solarDate = $chart->get('solarDate');
-        $degreeData = $chart->get('degreeData');
-        $explain = $chart->get('explain');
+        $userBirthday = User::where('id', $user->id)->value('birthday');
+        $userBirthYear = date('Y', strtotime($userBirthday));
+        // $solarYear = date('Y', strtotime($solarAppraisalResultData['solarDate']));
+        // $age = $solarYear - $userBirthYear;
+        $solarDates = $user->solarApplies()
+            ->whereHas('solarClaim', static function ($query) {
+                $query->where('is_paid', true);
+            })
+            ->orderBy('id', 'desc')
+            ->pluck('solar_date');;
         return view('user.solar_appraisals.show', [
             'solarApply'          => $solarApply,
             'degreeData'          => $solarAppraisalResultData['degreeData'],
@@ -84,7 +79,10 @@ class SolarAppraisalController extends Controller
             'houses'              => $solarAppraisalResultData['houses'],
             'zodaicsPattern'      => $solarAppraisalResultData['zodaicsPattern'],
             'sabian'              => $solarAppraisalResultData['sabian'],
-            'solarDate'           => $solarAppraisalResultData['solarDate']
+            'solarDate'           => $solarAppraisalResultData['solarDate'],
+            // 'age'                 => $age,
+            'solarDates'          => $solarDates,
+            'userBirthYear'       => $userBirthYear,
         ]);
     }
 
@@ -125,6 +123,12 @@ class SolarAppraisalController extends Controller
     //     ]);
     // }
 
+    public function getSolarData($year)
+    {
+        $newSolarData = SolarApply::where('solar_date', $year)->get();
+
+        return response()->json($newSolarData);
+    }
     public function update(UpdateRequest $request): RedirectResponse
     {
         try {
