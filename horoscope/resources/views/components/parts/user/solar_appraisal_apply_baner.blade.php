@@ -1,4 +1,4 @@
-<div class="C-appraisal-banner-block">
+<div class="C-appraisal-banner-block solar-background">
     <div class="C-appraisal-banner__image">
         <img src="{{ asset('images/mypage/banner-top-logo.svg') }}" alt="">
     </div>
@@ -14,9 +14,9 @@
     @endif
     <p class="C-solar-appraisal-banner__book-price">
         [ 製本オプション + {{ $bookbinding->price_formatted
-        }}円<span>(税込)</span>]<span>　<br class="sp">※製本オプションは2024年2月リリース</span>
+        }}円<span class="book-price">(税込)</span>]<span class="book-price">　<br class="sp">※製本オプションは2024年2月リリース</span>
     </p>
-    <div class="C-appraisal-banner__box">
+    <div class="C-solar-appraisal-banner__box">
         <p class="C-solar-form__message C-appraisal-banner__book-text">
             海部舞がすべて書き下ろした鑑定文で、あなただけの唯一無二の内容</p>
         <p class="C-solar-form__message C-appraisal-banner__book-text">A4サイズで約40ページのボリューム</p>
@@ -24,7 +24,7 @@
         <p class="C-solar-form__message C-appraisal-banner__book-text">星々の特性が更に具体的になる！<br>
             「サビアンシンボル」と「アスペクト」も掲載！</p>
     </div>
-    <div class="C-appraisal-banner__sub-box">
+    <div class="C-solar-appraisal-banner__sub-box">
         <div class="C-appraisal-banner__sub-flex">
             <div>
                 <div class="C-appraisal-banner__sub-box-image">
