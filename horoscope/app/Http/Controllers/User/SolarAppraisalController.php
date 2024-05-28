@@ -55,17 +55,6 @@ class SolarAppraisalController extends Controller
     public function show(AppraisalApply $appraisalApply): View
     {
         $user = auth()->guard('user')->user();
-        $solarDates = $user->solarApplies()
-            ->whereHas('solarClaim', static function ($query) {
-                $query->where('is_paid', true);
-            })
-            ->orderBy('id', 'desc')
-            ->pluck('solar_date');;
-        // dd($solarDate1);
-        $birthday = $user->birthday;
-        $selectedYear = request('solar_date', now()->year);
-        // dd($selectedYear);
-        $age = Carbon::parse($selectedYear)->diffInYears($birthday);
         $formData = [
             "name" => $user->name1 . $user->name2,
             "year" => $user->solar_date ?? now()->year,
@@ -96,10 +85,7 @@ class SolarAppraisalController extends Controller
             'houses'              => $houses,
             'zodaicsPattern'      => $zodiacs,
             'sabian'              => $sabian,
-            'solarDate'           => $solarDate,
-            'solarDates'          => $solarDates,
-            'age'                 => $age,
-            'selectedYear'        => $selectedYear,
+            'solarDate'           => $solarDate
         ]);
     }
 
