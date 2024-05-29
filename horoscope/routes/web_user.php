@@ -196,7 +196,7 @@ Route::middleware(['auth:user', 'verified'])->group(static function () {
         // 個人鑑定の詳細
         Route::get('{solar_apply}', 'show')->name('show')->middleware('can:viewSolarClaim,solar_apply', 'can:viewSolarAppraisalApply,solar_apply');
         // Route::get('{appraisal_apply}', 'show')->name('show')->middleware('can:viewClaim,appraisal_apply', 'can:viewAppraisalApply,appraisal_apply');
-        Route::get('/get-solar-data/{year}', [SolarAppraisalController::class, 'getSolarData']);
+        Route::get('{solarApply}/get-data/{solarDate}', [SolarAppraisalController::class, 'getSolarData']);
     });
 
     //家族鑑定
