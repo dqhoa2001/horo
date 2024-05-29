@@ -3,7 +3,7 @@
 @section('css')
 <link rel="stylesheet" href="{{ asset('mypage/assets/css/myappraisal2.css') }}">
 {{-- <link rel="stylesheet" href="{{ asset('mypage/assets/css/appraisal_common.css') }}"> --}}
-<link rel="stylesheet" href="{{ asset('mypage/assets/css/myhoroscope.css') }}">
+<!-- <link rel="stylesheet" href="{{ asset('mypage/assets/css/myhoroscope.css') }}"> -->
 @endsection
 
 @section('content')
@@ -35,7 +35,7 @@
                             @include('components.parts.user.solar_appraisal_apply_common_info')
                             <!-- <p class="C-user-list__change"><span>Update Solar Year</span></p> -->
                             <br>
-                            <dl class="C-form-block C-form-block--birthdata">
+                            <!-- <dl class="C-form-block C-form-block--birthdata">
                                 <dd class="C-form-block__body">
                                     <dl class="C-form-block-child C-form-block--birth">
                                         <dt class="C-solar-form__message">太陽回帰 鑑定年</dt>
@@ -48,24 +48,24 @@
                                                         <dl class="C-form-block-child C-form-block--birth">
                                                             <div>
                                                                 <div style="display: flex">
-                                                                    <dd class="C-form-block__select">
-                                                                    <form id="solarDateForm" action="{{ route('user.solar_appraisals.show', $solarApply->id) }}" method="GET">
-                                                                        <select name="solar_date" id="solar_date" onchange="document.getElementById('solarDateForm').submit()">
-                                                                        @php
-                                                                            $solarDates = $solarDates->sortByDesc(function ($date) use ($userBirthYear) {
-                                                                                return $date - $userBirthYear;
-                                                                            });
-                                                                        @endphp
-                                                                            @foreach ($solarDates as $date)
+                                                                    <dd class="C-form-block__select01">
+                                                                        <form id="solarDateForm" action="{{ route('user.solar_appraisals.show', $solarApply->id) }}" method="GET">
+                                                                            <select name="solar_date" id="solar_date" onchange="document.getElementById('solarDateForm').submit()">
                                                                                 @php
-                                                                                    $age = $date - $userBirthYear;
+                                                                                    $solarDates = $solarDates->sortByDesc(function ($yearSolarDate) use ($userBirthYear) {
+                                                                                        return $yearSolarDate - $userBirthYear;
+                                                                                    });
                                                                                 @endphp
-                                                                                <option value="{{ $date }}" {{ $solarApply->solar_date == $date ? 'selected' : '' }}>
-                                                                                    {{ $age }} 歳 {{ $date }} -- {{ $date + 1 }}
-                                                                                </option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </form>
+                                                                                @foreach ($solarDates as $yearSolarDate)
+                                                                                    @php
+                                                                                        $age = $yearSolarDate - $userBirthYear;
+                                                                                    @endphp
+                                                                                    <option value="{{ $yearSolarDate }}" {{ $solarApply->solar_date == $yearSolarDate ? 'selected' : '' }}>
+                                                                                        {{ $age }} 歳 {{ $yearSolarDate }} -- {{ $yearSolarDate + 1 }}
+                                                                                    </option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </form>
                                                                     </dd>
                                                                 </div>
                                                             </div>
@@ -77,7 +77,9 @@
                                         </dl>
                                     </dl>
                                 </dd>
-                            </dl>
+                            </dl> -->
+                            {{--SolarDate Combobox--}}
+                            @include('components.parts.user.solar_return_combobox')
                             {{-- Solar 鑑定結果 --}}
                             @include('components.parts.user.solar_appraisal_apply_common_appraisal')
 

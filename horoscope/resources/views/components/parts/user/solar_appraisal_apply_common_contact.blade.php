@@ -9,22 +9,21 @@
         <dl class="C-form-block-child C-form-block--birth">
             <dt class="C-solar-form__form">太陽回帰 鑑定履歴</dt>
             <div id="popup-horoscope">
-                @foreach ($solarDates as $date)
+            @foreach ($solarDates as $date)
                 <dl class="C-form-block C-form-block--birthdata">
                     <dd class="C-form-block__body">
                         <dl class="C-form-block-child C-form-block--birth">
                             <div style="display: flex">
-                                <label name="solar_date" id="solar_date">
-                                    <output value="{{ $date }}">
-                                            @php
-                                                $age = $date - $userBirthYear;
-                                            @endphp
-                                            <option value="{{ $date }}" {{ $solarApply->solar_date == $date ? 'selected' : '' }}>
-                                                {{ $age }} 歳 {{ $date }} -- {{ $date + 1 }}
-                                            </option>
-                                    </output>
-                                </label>
-                                <dd class="C-form-block__arrow">
+                                <dd class="C-form-block__arrow01">
+                                    <form id="solarDateForm-{{ $date }}" action="{{ route('user.solar_appraisals.show', $solarApply->id) }}" method="GET">
+                                        @php
+                                            $age = $date - $userBirthYear;
+                                        @endphp
+                                        <button type="button" onclick="submitForm('{{ $date }}')">
+                                            {{ $age }} 歳 {{ $date }} -- {{ $date + 1 }}
+                                        </button>
+                                        <input type="hidden" name="solar_date" value="{{ $date }}">
+                                    </form>
                                 </dd>
                             </div>
                         </dl>
@@ -35,3 +34,9 @@
         </dl>
     </dd>
 </dl>
+
+<script>
+function submitForm(solarDate) {
+    document.getElementById('solarDateForm-' + solarDate).submit();
+}
+</script>
