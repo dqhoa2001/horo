@@ -364,10 +364,11 @@ print {
 	padding-top: 20px;
   height: 84px;
   transition: 0.3s;
-  background-image: radial-gradient(circle at 80% 20%, rgb(202, 154, 80), rgb(238, 120, 10) 80%);
+  /* background-image: radial-gradient(circle at 80% 20%, rgb(202, 154, 80), rgb(238, 120, 10) 80%); */
 	position: relative;
 	cursor: pointer;
 	max-width: 100%;
+    background: linear-gradient(90deg, #F68B1F, #FBB040);
 }
 .solar-button::before {
 	position: absolute;
@@ -505,7 +506,7 @@ print {
 	border: #C3D0E3 solid 1px;
 	margin-top: 20px;
     color: #735539;
-    background-color: white;
+    background-color: #EEF3F7;
 }
 
 .C-form__message.C-appraisal-banner__book-text {
@@ -532,12 +533,20 @@ print {
 	border-left: #C3D0E3 solid 1px;
 	border-right: #C3D0E3 solid 1px;
 	border-bottom: #C3D0E3 solid 1px;
-    background-color: white;
+    background-color: #EEF3F7;
 }
 .C-appraisal-banner__sub-box-image {
 	width: 230px;
 	max-width: 100%;
 	margin-bottom: 10px;
+    display: flex;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+}
+
+.C-appraisal-banner__sub-box-image img {
+    max-width: 100%; /* Đảm bảo hình ảnh không vượt quá chiều rộng của container */
+    height: auto; /* Giữ tỉ lệ khung hình của ảnh */
 }
 
 .C-appraisal-banner__sub-flex {
