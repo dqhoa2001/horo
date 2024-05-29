@@ -259,8 +259,9 @@
     .Pageframe-main__title::after{
         width: 6.6rem;
         height: 9.6rem;
-        right: -6.5rem;
-        top: 0;
+        right: -6rem;
+        top: -10px;
+        margin-right: 35px;
     }
 
     /*----- ユーザー */

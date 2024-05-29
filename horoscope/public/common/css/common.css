@@ -540,13 +540,13 @@ print {
 	max-width: 100%;
 	margin-bottom: 10px;
     display: flex;
-    justify-content: center; /* Căn giữa theo chiều ngang */
-    align-items: center; /* Căn giữa theo chiều dọc */
+    justify-content: center;
+    align-items: center;
 }
 
 .C-appraisal-banner__sub-box-image img {
-    max-width: 100%; /* Đảm bảo hình ảnh không vượt quá chiều rộng của container */
-    height: auto; /* Giữ tỉ lệ khung hình của ảnh */
+    max-width: 100%;
+    height: auto;
 }
 
 .C-appraisal-banner__sub-flex {
@@ -561,6 +561,7 @@ print {
 	margin-top: 30px;
     color: #735539;
     font-size: 15px;
+    font-weight: 700;
 }
 .C-appraisal-banner__under-btn {
 	width: 287px;
@@ -638,14 +639,14 @@ print {
 	font-weight: bold;
     color: #F17424;
 }
-
-@media screen and (max-width: 500px) {
-	.C-appraisal-banner-block {
+@media screen and (max-width: 600px) {
+    .C-appraisal-banner-block {
 		padding: 20px;
 		margin-bottom: 60px;
 	}
     .solar-background {
         background-image:none;
+        margin-bottom: 30px;
     }
 	.C-appraisal-banner__sub-flex {
 		display: block;
@@ -660,13 +661,56 @@ print {
 	.C-form__message .C-appraisal-banner__book-text {
 		font-size: 20px;
 	}
-	.C-appraisal-banner__sub-sample-image {
+    .C-appraisal-banner__sub-sample-image{
 		margin-top: 15px;
-
 	}
 	.sample-btn-block{
 		text-align: center;
 		margin: 0 auto;
+        width: 100px;
+	}
+	.C-appraisal-banner__sub-sample-text {
+		text-align: center;
+		margin-top: 15px;
+	}
+	.C-appraisal-banner__box {
+		padding: 20px;
+		border: #C3D0E3 solid 1px;
+		margin-top: 20px;
+	}
+	.C-top {
+		margin-bottom: 60px;
+	}
+}
+@media screen and (max-width: 500px) {
+	.C-appraisal-banner-block {
+		padding: 20px;
+		margin-bottom: 60px;
+	}
+    .solar-background {
+        background-image:none;
+        margin-bottom: 30px;
+    }
+	.C-appraisal-banner__sub-flex {
+		display: block;
+	}
+	.C-appraisal-banner__book-price {
+		font-size: 18px;
+	}
+
+	.C-appraisal-banner__price {
+		font-size: 28px;
+	}
+	.C-form__message .C-appraisal-banner__book-text {
+		font-size: 20px;
+	}
+    .C-appraisal-banner__sub-sample-image{
+		margin-top: 15px;
+	}
+	.sample-btn-block{
+		text-align: center;
+		margin: 0 auto;
+        width: 100px;
 	}
 	.C-appraisal-banner__sub-sample-text {
 		text-align: center;
