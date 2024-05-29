@@ -56,8 +56,14 @@ class SolarAppraisalController extends Controller
     }
 
     //show solar appraisal data
-    public function show(SolarApply $solarApply): View
+    public function show(Request $request, SolarApply $solarApply): View
     {
+        $selectedSolarDate = $request->input('solar_date', null);
+        if ($selectedSolarDate) {
+            $solarApply = SolarApply::where('solar_date', $selectedSolarDate)
+                                    ->where('reference_id', auth()->guard('user')->user()->id)
+                                    ->first();
+        }
         $solarAppraisalResultData = $this->solarAppraisalApplyService->createSolarAppraisalResultData($solarApply);
         $user = auth()->guard('user')->user();
         $userBirthday = User::where('id', $user->id)->value('birthday');
@@ -70,6 +76,9 @@ class SolarAppraisalController extends Controller
             })
             ->orderBy('id', 'desc')
             ->pluck('solar_date');;
+        $birthday = User::where('id', $user->id)->value('birthday');
+        $birthday_time = User::where('id', $user->id)->value('birthday_time');
+        $birthday_prefectures = User::where('id', $user->id)->value('birthday_prefectures');
         return view('user.solar_appraisals.show', [
             'solarApply'          => $solarApply,
             'degreeData'          => $solarAppraisalResultData['degreeData'],
@@ -80,9 +89,11 @@ class SolarAppraisalController extends Controller
             'zodaicsPattern'      => $solarAppraisalResultData['zodaicsPattern'],
             'sabian'              => $solarAppraisalResultData['sabian'],
             'solarDate'           => $solarAppraisalResultData['solarDate'],
-            // 'age'                 => $age,
             'solarDates'          => $solarDates,
             'userBirthYear'       => $userBirthYear,
+            'birthday'            => $birthday,
+            'birthday_time'            => $birthday_time,
+            'birthday_prefectures'            => $birthday_prefectures,
         ]);
     }
 
@@ -123,12 +134,6 @@ class SolarAppraisalController extends Controller
     //     ]);
     // }
 
-    public function getSolarData($year)
-    {
-        $newSolarData = SolarApply::where('solar_date', $year)->get();
-
-        return response()->json($newSolarData);
-    }
     public function update(UpdateRequest $request): RedirectResponse
     {
         try {

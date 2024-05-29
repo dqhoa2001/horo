@@ -38,7 +38,7 @@
                             <dl class="C-form-block C-form-block--birthdata">
                                 <dd class="C-form-block__body">
                                     <dl class="C-form-block-child C-form-block--birth">
-                                        <dt class="C-form-block__title">太陽回帰 鑑定年</dt>
+                                        <dt class="C-solar-form__message">太陽回帰 鑑定年</dt>
                                         <div id="popup-horoscope">
                                         <dl class="C-form-block C-form-block--birthdata">
                                             <dd class="C-form-block__body">
@@ -49,9 +49,9 @@
                                                             <div>
                                                                 <div style="display: flex">
                                                                     <dd class="C-form-block__select">
-                                                                        <select name="solar_date" @change="updateSolarData">
+                                                                    <form id="solarDateForm" action="{{ route('user.solar_appraisals.show', $solarApply->id) }}" method="GET">
+                                                                        <select name="solar_date" id="solar_date" onchange="document.getElementById('solarDateForm').submit()">
                                                                         @php
-                                                                            // Sắp xếp mảng tuổi từ lớn đến bé
                                                                             $solarDates = $solarDates->sortByDesc(function ($date) use ($userBirthYear) {
                                                                                 return $date - $userBirthYear;
                                                                             });
@@ -60,9 +60,12 @@
                                                                                 @php
                                                                                     $age = $date - $userBirthYear;
                                                                                 @endphp
-                                                                                <option value="{{ $date }}">{{$age}} 歳 {{ $date }} -- {{ $date + 1}}</option>
+                                                                                <option value="{{ $date }}" {{ $solarApply->solar_date == $date ? 'selected' : '' }}>
+                                                                                    {{ $age }} 歳 {{ $date }} -- {{ $date + 1 }}
+                                                                                </option>
                                                                             @endforeach
                                                                         </select>
+                                                                    </form>
                                                                     </dd>
                                                                 </div>
                                                             </div>
@@ -92,7 +95,7 @@
                             </div>
 
                             {{-- お問い合わせ --}}
-                            @include('components.parts.user.appraisal_apply_common_contact')
+                            @include('components.parts.user.solar_appraisal_apply_common_contact')
 
                         </div>
                     </section>
@@ -169,20 +172,6 @@
                     selectedSolarDate: null // Solardate được chọn
                 };
             },
-            updateSolarData(event) {
-                const selectedYear = event.target.value;
-                axios.get(`/get-solar-data/${selectedYear}`)
-                    .then(response => {
-                        const newData = response.data;
-                        // Cập nhật dữ liệu mới trên form
-                        // Ví dụ:
-                        document.getElementById('solarDataField').value = newData.solarDataField;
-                        document.getElementById('anotherField').innerText = newData.anotherField;
-                    })
-                    .catch(error => {
-                        console.error('Error updating solar data:', error);
-                    });
-            }
         },
         mounted() {
             // 年月日を設定

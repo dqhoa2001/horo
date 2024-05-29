@@ -99,6 +99,41 @@
     color: #F17424;
 }
 
+.C-solar-form__form {
+	font-size: 2rem;
+	margin-bottom:2rem;
+	padding-left: 2rem;
+	line-height: 1;
+	position: relative;
+    background-repeat: no-repeat;
+    background-image: url(../images/myappraisal2/icon_form.svg);
+}
+
+.C-solar-form__form::before {
+	width: .6rem;
+	height: .6rem;
+	border-radius: 50%;
+	left: 0;
+	top: calc(50% - .3rem);
+	position: absolute;
+	display: block;
+	content: "";
+}
+
+/*----- セレクト */
+.C-form-block__arrow {
+    left: 78%;
+    font-size: 1.4rem;
+	margin-bottom:1.4rem;
+	padding-left: 1.4rem;
+	line-height: 1;
+	position: relative;
+    background-repeat: no-repeat;
+    background-size: 1.4rem;
+    background-image: url(../images/myappraisal2/icon_arrow.svg);
+
+  }
+
 /* 惑星マーク */
 .C-appraisal-content--MOON .C-appraisal-content-header-data__mark::before,
 .C-appraisal-content--MOON .C-appraisal-content-footer-block__last__mark::before {
@@ -312,5 +347,16 @@
     .myappraisal2--detail .C-user-list-block__item:nth-of-type(3){
         border-top: 1px solid #F17424;
     }
+    .C-form-block__arrow {
+        left: 50%;
+        font-size: 1.4rem;
+        margin-bottom:1.4rem;
+        padding-left: 1.4rem;
+        line-height: 1;
+        position: relative;
+        background-repeat: no-repeat;
+        background-size: 1.4rem;
+        background-image: url(../images/myappraisal2/icon_arrow.svg);
+      }
 
 }
