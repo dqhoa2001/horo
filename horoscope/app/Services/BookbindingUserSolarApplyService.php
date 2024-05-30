@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\SolarApply;
 use App\Models\ToggleTestShipping;
 use App\Models\BookbindingUserApply;
+use App\Models\SolarBookbindingUserApply;
 use App\Models\User;
 use App\Repositories\HouseRepository;
 use App\Repositories\PlanetRepository;
@@ -30,9 +31,9 @@ class BookbindingUserSolarApplyService
     ) {}
 
     //個人鑑定の登録処理
-    public static function create(Request $request, SolarApply $solarApply, ?string $bulkBindingKey = null): BookbindingUserApply
+    public static function create(Request $request, SolarApply $solarApply, ?string $bulkBindingKey = null): SolarBookbindingUserApply
     {
-        $bookbindingUserApply = BookbindingUserApply::create([
+        $bookbindingUserApply = SolarBookbindingUserApply::create([
             'solar_apply_id' => $solarApply->id,
             'bulk_binding_key'   => $bulkBindingKey,
             'post_number'        => $request->zip,
@@ -50,9 +51,9 @@ class BookbindingUserSolarApplyService
     }
 
     //個人鑑定の登録処理
-    public static function createForBookbinding(Request $request, SolarApply $solarApply, ?string $bulkBindingKey = null, ?int $bulkBindingCount = null): BookbindingUserApply
+    public static function createForBookbinding(Request $request, SolarApply $solarApply, ?string $bulkBindingKey = null, ?int $bulkBindingCount = null): SolarBookbindingUserApply
     {
-        $bookbindingUserApply = BookbindingUserApply::create([
+        $bookbindingUserApply = SolarBookbindingUserApply::create([
             'solar_apply_id' => $solarApply->id,
             'bulk_binding_key'   => $bulkBindingKey,
             'bulk_binding_count' => $bulkBindingCount,

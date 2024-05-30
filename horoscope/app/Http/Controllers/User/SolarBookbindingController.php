@@ -7,7 +7,24 @@ use App\Services\SolarApplyService;
 use App\Services\SolarClaimService;
 use Illuminate\Http\Request;
 use App\Models\Bookbinding;
+use App\Models\SolarApply;
+use App\Models\Solar;
 use Illuminate\View\View;
+use App\Http\Requests\User\SolarBookbindingController\ConfirmRequest;
+use App\Http\Requests\User\SolarBookbindingController\ApplyRequest;
+use Stripe\Stripe;
+use Stripe\PaymentIntent;
+use Stripe\PaymentMethod;
+use App\Services\CouponService;
+use App\Services\UserService;
+use Illuminate\Http\RedirectResponse;
+use App\Library\GetBccMail;
+use App\Library\GetPrefNum;
+use App\Models\SolarClaim;
+use App\Services\BookbindingUserSolarApplyService;
+use App\Mail\User\BookbindingBankInfoMailForBank;
+use App\Mail\User\BookbindingUserApplyMailForBank;
+use App\Models\BankInfo;
 
 class SolarBookbindingController extends Controller
 {
@@ -48,17 +65,18 @@ class SolarBookbindingController extends Controller
     public function confirm(ConfirmRequest $request)
     {
         $data = $request->substitutable();
-
+        // dd($data);
         if((int) $data['discount_price'] === 0 && (int) $data['total_amount'] === 0 && !\array_key_exists('coupon_code', $data) || (int) $data['discount_price'] === 0 && (int) $data['total_amount'] === 0 && $data['coupon_code'] === null) {
             return redirect()->route('user.bookbindings.create')->withInput()->with('priceError', true);
         }
 
-        $data['select_appraisal_applies'] = AppraisalApply::whereIn('id', $data['appraisal_apply_ids'])->get();
+        $data['select_appraisal_applies'] = SolarApply::whereIn('id', $data['solar_appraisal_apply_ids'])->get();
+        //  dd(  $data['select_appraisal_applies']);
         // $data['select_appraisal_applies']の順番を$data['appraisal_apply_ids']の順番に並び替え
-        $data['select_appraisal_applies'] = $data['select_appraisal_applies']->sortBy(static function ($appraisalApply) use ($data) {
-            return array_search($appraisalApply->id, $data['appraisal_apply_ids'], true);
+        $data['select_appraisal_applies'] = $data['select_appraisal_applies']->sortBy(static function ($solarAppraisalApply) use ($data) {
+            return array_search($solarAppraisalApply->id, $data['solar_appraisal_apply_ids'], true);
         });
-
+        $data['select_appraisal_applies'];
         $data['pdf_types'] = [];
         foreach ($data['select_appraisal_applies'] as $appraisalApply) {
             // $dataの中の「pdf_type-*」の*の値が$appraisalApplyのidと一致するものを取得
@@ -77,25 +95,26 @@ class SolarBookbindingController extends Controller
         //割引金額をセッションに保存
         $request->session()->put('total_amount', $data['total_amount']);
 
-        return view('user.bookbindings.confirm', [
+        return view('user.solar_bookbindings.confirm', [
             'data' => $data,
             'bookbinding' => Bookbinding::where('is_enabled', true)->first(),
-            'appraisal'   => Appraisal::where('is_enabled', true)->first(),
+            'solar_appraisal'   => Solar::where('is_enabled', true)->first(),
         ]);
     }
 
     // 確認画面から、修正して戻る
     public function back(Request $request): RedirectResponse
     {
-        $appraisalApply = AppraisalApply::where('id', $request->appraisal_apply_id)->first();
-        return to_route('user.bookbindings.create', $appraisalApply)->withInput();
+        // dd($request->solar_appraisal_apply_id);
+        $solarAppraisalApply = Solarapply::where('id', $request->solar_appraisal_apply_id)->first();
+        return to_route('user.solar_bookbindings.create', $solarAppraisalApply)->withInput();
     }
 
     // 製本申し込み処理
     public function apply(ApplyRequest $request): RedirectResponse
     {
         $user = auth()->guard('user')->user();
-        $appraisalApplies = AppraisalApply::whereIn('id', $request->appraisal_apply_ids)->get();
+        $solarAppraisalApplies = SolarApply::whereIn('id', $request->solar_appraisal_apply_ids)->get();
 
         \DB::beginTransaction();
         Stripe::setApiKey(config('services.stripe.secret'));
@@ -120,7 +139,7 @@ class SolarBookbindingController extends Controller
 
         // 決済処理
         //クレジット決済の場合
-        if ((int) $request->payment_type === AppraisalClaim::CREDIT) {
+        if ((int) $request->payment_type === SolarClaim::CREDIT) {
             try {
                 $stripeToken = $request->stripeToken;
                 $paymentMethod = PaymentMethod::create([
@@ -142,14 +161,14 @@ class SolarBookbindingController extends Controller
                     ],
                 ]);
 
-                foreach ($appraisalApplies as $appraisalApply) {
+                foreach ($solarAppraisalApplies as $solarAppraisalApply) {
                     //製本の申し込み処理
-                    $bulkBindingCount = \count($appraisalApplies);
-                    $bookbindingUserApply = BookbindingUserApplyService::createForBookbinding($request, $appraisalApply, $bulkBindingKey, $bulkBindingCount);
-                    $contentType = AppraisalClaim::BOOKING;
+                    $bulkBindingCount = \count($solarAppraisalApplies);
+                    $bookbindingUserSolarApply = BookbindingUserSolarApplyService::createForBookbinding($request, $solarAppraisalApply, $bulkBindingKey, $bulkBindingCount);
+                    $contentType = SolarClaim::BOOKING;
 
                     // 請求データ作成
-                    AppraisalClaimService::createForCredit(auth()->guard('user')->user()->id, $request, $appraisalApply, $bookbindingUserApply->id, $paymentIntent, $contentType);
+                    SolarClaimService::createForCredit(auth()->guard('user')->user()->id, $request, $solarAppraisalApply, $bookbindingUserSolarApply->id, $paymentIntent, $contentType);
                 }
 
                 \DB::commit();
@@ -160,34 +179,34 @@ class SolarBookbindingController extends Controller
             } catch (\Exception $e) {
                 \DB::rollback();
                 \Log::error("支払いに失敗しました。General Error: {$e->getMessage()}");
-                return to_route('user.bookbindings.create')->with('flash_alert', '決済に失敗しました。違うカードをお試しするか、銀行振込をご指定ください。')->withInput();
+                return to_route('user.solar_bookbindings.create')->with('flash_alert', '決済に失敗しました。違うカードをお試しするか、銀行振込をご指定ください。')->withInput();
             }
 
             //銀行振込の場合
         } else {
             //製本の申し込み処理
-            foreach ($appraisalApplies as $appraisalApply) {
+            foreach ($solarAppraisalApplies as $solarAppraisalApply) {
                 //製本の申し込み処理
-                $bulkBindingCount = \count($appraisalApplies);
-                $bookbindingUserApply = BookbindingUserApplyService::createForBookbinding($request, $appraisalApply, $bulkBindingKey, $bulkBindingCount);
-                $contentType = AppraisalClaim::BOOKING;
+                $bulkBindingCount = \count($solarAppraisalApplies);
+                $bookbindingUserSolarApply = BookbindingUserSolarApplyService::createForBookbinding($request, $solarAppraisalApply, $bulkBindingKey, $bulkBindingCount);
+                $contentType = SolarClaim::BOOKING;
 
                 // 請求データ作成
-                $AppraisalClaim = AppraisalClaimService::createForBank(auth()->guard('user')->user()->id, $request, $appraisalApply, $bookbindingUserApply->id, $contentType);
+                $solarAppraisalClaim = SolarClaimService::createForBank(auth()->guard('user')->user()->id, $request, $solarAppraisalApply, $bookbindingUserSolarApply->id, $contentType);
 
                 // 最後の申し込みの場合、メール送信
-                if ($appraisalApply->id === $appraisalApplies->last()->id) {
-                    \Mail::to(auth()->guard('user')->user()->email)->send(new BookbindingUserApplyMailForBank($bookbindingUserApply, auth()->guard('user')->user()));
+                if ($solarAppraisalApply->id === $solarAppraisalApplies->last()->id) {
+                    \Mail::to(auth()->guard('user')->user()->email)->send(new BookbindingUserApplyMailForBank($bookbindingUserSolarApply, auth()->guard('user')->user()));
 
                     $bccMails = GetBccMail::getBccMail();
-                    \Mail::to(auth()->guard('user')->user()->email)->bcc($bccMails)->send(new BookbindingBankInfoMailForBank(BankInfo::first(), $AppraisalClaim));
+                    \Mail::to(auth()->guard('user')->user()->email)->bcc($bccMails)->send(new BookbindingBankInfoMailForBank(BankInfo::first(), $solarAppraisalClaim));
                 }
             }
 
             \DB::commit();
         }
 
-        return to_route('user.bookbindings.complete', [
+        return to_route('user.solar_bookbindings.complete', [
             'payment_type' => $request->payment_type,
         ]);
     }
@@ -195,7 +214,7 @@ class SolarBookbindingController extends Controller
     // 製本申し込み完了
     public function complete(Request $request): View
     {
-        return view('user.bookbindings.complete', [
+        return view('user.solar_bookbindings.complete', [
             'payment_type' => $request->payment_type,
         ]);
     }
@@ -209,7 +228,7 @@ class SolarBookbindingController extends Controller
     // 表紙イメージのダウンロード（お客様のお名前入り）
     public function downloadCoverPdf(int $design, string $name1, string $name2): \Symfony\Component\HttpFoundation\BinaryFileResponse
     {
-        $pdfData = $this->appraisalApplyService->makeCoverImage($design, $name1, $name2);
+        $pdfData = $this->solarApplyService->makeCoverImage($design, $name1, $name2);
         return response()->download($pdfData['pdfFilePath'], $pdfData['fileName']);
     }
 }

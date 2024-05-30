@@ -68,7 +68,7 @@
 							@include('components.form.error', ['name' => 'pdf_types','class' => 'text-danger'])
 							@include('components.form.error', ['name' => 'bookbinding_names','class' => 'text-danger'])
 
-							<form id="payment-form" method="POST" action="{{ route('user.bookbindings.confirm') }}">
+							<form id="payment-form" method="POST" action="{{ route('user.solar_bookbindings.confirm') }}">
 								@csrf
 								<div class="C-form-block__wrap">
 
@@ -103,7 +103,7 @@
 													</span>
 												</label>
 											</div>
-											@include('components.form.error', ['name' => 'appraisal_apply_ids', 'class' => 'text-danger margin-top'])
+											@include('components.form.error', ['name' => 'solar_appraisal_apply_ids', 'class' => 'text-danger margin-top'])
 											<hr>
 
 											<!--製本する個人鑑定の選択-->
@@ -470,7 +470,7 @@ Vue.createApp({
 						masterCheckbox: false,
 						solarPersonalAppraisal: @json($solarPersonalAppraisal),
 						bookbindingPrice: @json($bookbinding->price),
-						selectedSolarAppraisals: @json(old('solar_appraisal_apply_ids', $request->appraisal_apply_ids ?? [])),
+						selectedSolarAppraisals: @json(old('solar_appraisal_apply_ids', $request->solar_appraisal_apply_ids ?? [])),
             // shippingFee: @json(\App\Models\AppraisalClaim::SHIPPING_FEE),
             // totalAmount : @json(intval(old('total_amount', $request->total_amount ?? $bookbinding->price + \App\Models\AppraisalClaim::SHIPPING_FEE))),
             totalAmount : @json(intval(old('total_amount', $request->total_amount ?? 0))),
@@ -533,7 +533,7 @@ Vue.createApp({
                 // console.log(val);
                 if (this.solarPersonalAppraisal !== null) {
 				    allAppraisalIds.push(val.id);
-                    console.log(val.id);
+                    // console.log(val.id);
 			    }
             });
 			// 個人のチェックボックス

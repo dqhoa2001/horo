@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('solar_bookbinding_user_applies', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('solar_appraisal_apply_id');
+            $table->foreignId('solar_apply_id')->constrained();
             $table->string('bookbinding_name1')->nullable()->comment('製本に表示する性');
             $table->string('bookbinding_name2')->nullable()->comment('製本に表示する名');
             $table->string('bulk_binding_key')->nullable();
@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('bookbinding_name')->nullable()->comment('製本に表示する名前');
             $table->boolean('is_delivery')->default(false)->comment('発送フラグ');
             $table->string('name')->comment('発送先のお名前');
-            $table->integer('post_number')->comment('郵便番号');
+            $table->string('post_number')->comment('郵便番号');
             $table->integer('pref_num')->nullable()->comment('都道府県番号');
             $table->string('address')->comment('住所');
             $table->string('building')->nullable()->comment('建物名');
