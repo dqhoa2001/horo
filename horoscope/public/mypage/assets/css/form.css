@@ -58,27 +58,6 @@
     display: block;
     content: "";
 }
-.C-solar-form__message{
-    font-size: 1.5rem;
-    padding-left: 1.5rem;
-    letter-spacing: .08em;
-    margin-bottom: 0.75rem;
-    position: relative;
-    font-weight: 700;
-}
-.C-solar-form__message::before{
-    width: .9rem;
-    height: 1.2rem;
-    left: 0;
-    top: calc(50% - .6rem);
-    position: absolute;
-    background-image: url(../images/common/icon_sun.svg);
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    display: block;
-    content: "";
-}
 .C-form__message__req{
     color: #0069bf;
 }
@@ -631,13 +610,6 @@
         margin-bottom: 4.5rem;
     }
     .C-form__message::before{
-        top: .8rem;
-    }
-    .C-solar-form__message{
-        font-size: 1.2rem;
-        letter-spacing: .02em;
-    }
-    .C-solar-form__message::before{
         top: .8rem;
     }
     .C-form-block__wrap{
