@@ -215,10 +215,10 @@ Route::middleware(['auth:user', 'verified'])->group(static function () {
     // SOLAR 製本
     Route::controller(SolarBookbindingController::class)->prefix('solar_bookbindings')->name('solar_bookbindings.')->group(static function () {
         Route::get('create', 'create')->name('create');
-        // Route::post('confirm', 'confirm')->name('confirm');
-        // Route::post('apply', 'apply')->name('apply');
-        // Route::post('back', 'back')->name('back');
-        // Route::get('complete', 'complete')->name('complete');
+        Route::post('confirm', 'confirm')->name('confirm');
+        Route::post('apply', 'apply')->name('apply');
+        Route::post('back', 'back')->name('back');
+        Route::get('complete', 'complete')->name('complete');
     });
 
     // Route::prefix('myappraisals')->name('myappraisals.')->group(static function () {

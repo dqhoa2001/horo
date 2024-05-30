@@ -530,14 +530,13 @@ Vue.createApp({
 			const allAppraisalIds = [];
             // console.log(this.solarPersonalAppraisal);
             this.solarPersonalAppraisal.forEach((val,index) => {
-                console.log(val);
-                // if (this.solarPersonalAppraisal !== null) {
-				//     allAppraisalIds.push(index.id);
-			    // }
+                // console.log(val);
+                if (this.solarPersonalAppraisal !== null) {
+				    allAppraisalIds.push(val.id);
+                    console.log(val.id);
+			    }
             });
 			// 個人のチェックボックス
-
-
 			return allAppraisalIds;
 		},
 	},
@@ -654,7 +653,7 @@ Vue.createApp({
 </script>
 
 
-<!-- <script>
+<script>
 	const stripe = Stripe('{{ config('services.stripe.public') }}');
 
 			const elements = stripe.elements();
@@ -749,6 +748,6 @@ Vue.createApp({
 					hiddenInput.setAttribute('value', value);
 					form.appendChild(hiddenInput);
 			}
-</script> -->
+</script>
 
 @endsection
