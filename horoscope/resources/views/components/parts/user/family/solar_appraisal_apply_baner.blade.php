@@ -2,19 +2,15 @@
     <div class="C-appraisal-banner__image">
         <img src="{{ asset('images/mypage/banner-top-logo.svg') }}" alt="">
     </div>
-    @if(str_contains(Request::url(), 'family_appraisals'))
-        <p class="C-appraisal-banner_sub-title C-appraisal-banner__price-family">［ 家族割引価格 ］</p>
-        <p class="C-appraisal-banner_   _price C-appraisal-banner__price-family">
-            {{ number_format($solar_appraisal->family_price) }}円<span class="C-appraisal-banner__price-family">(税込)</span>
+    <div class="C-solar-appraisal-banner__price-appraisal">
+        <p class="C-appraisal-banner_sub-title">［ 家族割引価格 ］</p>
+        <p class="C-appraisal-banner__price">
+            {{ number_format($solar_appraisal->family_price) }}円<span>(税込)</span>
         </p>
-    @else
-        <p class="C-appraisal-banner__price C-appraisal-banner__price--mt C-solar-appraisal-banner__price-appraisal">
-            {{ number_format($solar_appraisal->price) }}円<span>(税込)</span>
-        </p>
-    @endif
+    </div>
     <p class="C-solar-appraisal-banner__book-price">
         [ 製本オプション + {{ $bookbinding->price_formatted
-        }}円<span class="book-price">(税込)</span>]<span class="book-price">　<br class="sp">※製本オプションは2024年2月リリース</span>
+    }}円<span class="book-price">(税込)</span>]<span class="book-price">　<br class="sp">※製本オプションは2024年2月リリース</span>
     </p>
     <div class="C-solar-appraisal-banner__box">
         <p class="C-solar-form__message C-appraisal-banner__book-text">
@@ -28,22 +24,19 @@
         <div class="C-appraisal-banner__sub-flex">
             <div>
                 <div class="C-solar-appraisal-banner__sub-box-image">
-                    @if(str_contains(Request::url(), 'family_appraisals'))
-                        <img src="{{ asset('images/mypage/sample-text-family.svg') }}" alt="">
-                    @else
-                        <img src="{{ asset('images/mypage/solar-sample-text.svg') }}" alt="">
-                    @endif
+                    <img src="{{ asset('images/mypage/solar-sample-text.svg') }}" alt="">
                 </div>
                 <p class="C-appraisal-banner__sub-sample-text">鑑定内容のサンプル画面をご確認いただけます。</p>
             </div>
             <div class="C-appraisal-banner__sub-sample-image">
                 <div class="sample-btn-block">
                     <a href="{{ route('user.appraisals.download_sample_pdf') }}">
-                        @if(str_contains(Request::url(), 'family_appraisals'))
+                        <!-- @if(str_contains(Request::url(), 'family_appraisals'))
                             <img src="{{ asset('images/common/sample-btn-family.svg') }}" alt="">
                         @else
                             <img src="{{ asset('images/common/solar-sample-btn.svg') }}" alt="">
-                        @endif
+                        @endif -->
+                        <img src="{{ asset('images/common/solar-sample-btn.svg') }}" alt="">
                     </a>
                 </div>
             </div>

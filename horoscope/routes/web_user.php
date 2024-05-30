@@ -201,6 +201,7 @@ Route::middleware(['auth:user', 'verified'])->group(static function () {
     //家族鑑定
     Route::controller(FamilyAppraisalController::class)->prefix('family_appraisals')->name('family_appraisals.')->group(static function () {
         Route::get('', 'index')->name('index');
+        Route::get('offer_solar', 'showOffer')->name('offer_solar');
         Route::get('{appraisal_apply}', 'show')->name('show')->middleware('can:viewClaim,appraisal_apply', 'can:viewFamilyAppraisalApply,appraisal_apply');
     });
 
