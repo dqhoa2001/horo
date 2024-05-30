@@ -1,7 +1,7 @@
 @extends('layouts.user.mypage.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('mypage/assets/css/myappraisal2.css') }}">
+<link rel="stylesheet" href="{{ asset('mypage/assets/css/solar-return.css') }}">
 {{-- <link rel="stylesheet" href="{{ asset('mypage/assets/css/appraisal_common.css') }}"> --}}
 <!-- <link rel="stylesheet" href="{{ asset('mypage/assets/css/myhoroscope.css') }}"> -->
 @endsection
@@ -90,7 +90,7 @@
                             </div>
 
                             {{-- 製本バナー --}}
-                            @include('components.parts.user.appraisal_apply_common_baner')
+                            @include('components.parts.user.solar_return_apply_common_baner')
 
                             <div class="Button Button--orange2 Button--blue-review">
                                 <a href="https://hoshinomai.jp/review" target="_blank" rel="noopener noreferrer" class="btn-review">レビューを投稿する</a>

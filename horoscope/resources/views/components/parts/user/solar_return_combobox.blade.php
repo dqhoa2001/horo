@@ -1,7 +1,7 @@
 <dl class="C-form-block C-form-block--birthdata">
     <dd class="C-form-block__body">
         <dl class="C-form-block-child C-form-block--birth">
-            <dt class="C-solar-form__message">太陽回帰 鑑定年</dt>
+            <dt class="C-solar-form__form">太陽回帰 鑑定年</dt>
             <div id="popup-horoscope">
             <dl class="C-form-block C-form-block--birthdata">
                 <dd class="C-form-block__body">
