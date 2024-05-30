@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Library\GetGeocoding;
 use Illuminate\Http\Request;
 use App\Models\FamilySolar;
+use App\Models\Family;
 use App\Models\User;
 use Carbon\Carbon;
 
@@ -30,7 +31,7 @@ class FamilySolarService
     }
 
     // 更新
-    public static function update(array $param, FamilySolar $family): void
+    public static function update(array $param, Family $family): void
     {
         $family->name1 = $param['name1'];
         $family->name2 = $param['name2'];
@@ -46,9 +47,9 @@ class FamilySolarService
     }
 
     // 会員登録と同時に家族情報を登録用のメソッド
-    public static function createForAppraosal(Request $request, User $user): FamilySolar
+    public static function createForAppraosal(Request $request, User $user): Family
     {
-        $family = new FamilySolar();
+        $family = new Family();
         $family->name1 = $request->family_name1;
         $family->name2 = $request->family_name2;
         $family->relationship = $request->relationship;

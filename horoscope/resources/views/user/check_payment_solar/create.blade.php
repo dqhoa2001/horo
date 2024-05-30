@@ -11,6 +11,7 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('mypage/assets/css/contact.css') }}">
+<link rel="stylesheet" href="{{ asset('front/assets/css/offer.css') }}">
 @endsection
 
 @section('content')
@@ -38,57 +39,103 @@
                             @csrf
                             <div class="C-form-block__wrap">
 
-                            				{{-- 出生情報 --}}
-				<dl class="C-form-block C-form-block--birthdata">
-					<dt class="C-form-block__title C-form-block__title--req">出生情報</dt>
-					<dd class="C-form-block__body">
-						<dl class="C-form-block-child C-form-block--birth">
-							<dt class="C-form-block__title">Năm mua mặt trời hồi quy</dt>
-							<div>
-								<div style="display: flex">
-									<dd class="C-form-block__select">
-										<select id="select_year" name="solar_date" @change="setDay">
-											<option value="">年</option>
-										</select>
-										@include('components.form.error', ['name' => 'solar_date', 'class' => 'text-danger'])
-									</dd>
+                            	{{-- 出生情報 --}}
+                                <dl class="C-form-block C-form-block--birthdata">
+                                    <dt class="C-form-block__title C-form-block__title--req">出生情報</dt>
+                                    <dd class="C-form-block__body">
+                                        <dl class="C-form-block-child C-form-block--birth">
+                                            <dt class="C-form-block__title">Năm mua mặt trời hồi quy</dt>
+                                            <div>
+                                                <div style="display: flex">
+                                                    <dd class="C-form-block__select">
+                                                        <select id="select_year01" name="solar_date" @change="setDay">
+                                                            <option value="">年</option>
+                                                        </select>
+                                                        @include('components.form.error', ['name' => 'solar_date', 'class' => 'text-danger'])
+                                                    </dd>
 
-								</div>
-							</div>
-						</dl>
-						</dd>
-				</dl>
+                                                </div>
+                                            </div>
+                                        </dl>
+                                    </dd>
+                                </dl>
+
+                                @if ((int)\Request::get('target_type') !== \App\Models\SolarApply::FAMILY)
+                                    <dl class="C-form-block C-form-block--name">
+                                        <dt class="C-form-block__title">お名前</dt>
+                                        <dd class="C-form-block__body">
+                                            <p class="C-form-block--name__text"><span>{{ auth()->guard('user')->user()->name1 }} {{ auth()->guard('user')->user()->name2 }}</span>さん</p>
+                                        </dd>
+                                    </dl>
+                                @endif
 
                                 {{-- 個人鑑定の対象者 --}}
                                 <dl class="C-form-block C-form-block--target">
                                     <dt class="C-form-block__title C-form-block__title--req">個人鑑定の対象者</dt>
                                     <dd class="C-form-block__body">
                                         <div class="C-form-block__radio">
-                                            @include('components.form.original_radio', [
+                                            <!-- @include('components.form.original_radio', [
                                             'name' => 'target_type',
                                             'class' => 'C-form-block__radio__text',
-                                            'data' => [1 => '自分'],
-                                            // 'data' => [1 => '自分', 2 => '家族'],
+                                            //'data' => [1 => '自分'],
+                                            'data' => [1 => '自分', 2 => '家族'],
                                             'checked' => $request->target_type ?? 1,
                                             'vModel' => 'personalClick',
                                             'onChange' => 'togglePersonal',
-                                            ])
+                                            ]) -->
+                                            {{-- @dd((int)\Request::get('target_type')) --}}
+                                            @if ((int)\Request::get('target_type') !== \App\Models\SolarApply::FAMILY)
+                                                @include('components.form.original_radio', [
+                                                    'name'    => 'target_type',
+                                                    'class'   => 'C-form-block__radio__text',
+                                                    'data'    => [1 => '自分'],
+                                                    'checked' => $request->target_type ?? 1,
+                                                    'vModel'  => 'personalClick',
+                                                    'onChange' => 'setSelfInfo',
+                                                ])
+                                            @else
+                                                @include('components.form.original_radio', [
+                                                    'name'    => 'target_type',
+                                                    'class'   => 'C-form-block__radio__text',
+                                                    'data'    => [2 => '家族'],
+                                                    'checked' => $request->target_type ?? 1,
+                                                    'vModel'  => 'personalClick',
+                                                    'onChange' => 'setSelfInfo',
+                                                ])
+                                            @endif
                                         </div>
                                         <div v-if="personalClick == '2'" class="Personal-appraisal-family">
                                             <dl class="C-form-block-child C-form-block--relationship">
                                                 <dt class="C-form-block__title">対象者との続柄</dt>
                                                 <dd class="C-form-block__body C-form-block__body--half">
-                                                    <div class="C-form-block__field">
-                                                        @include('components.form.text', [
-                                                        'name' => 'relationship',
-                                                        'placeholder' => 'あなたとの関係',
-                                                        'value' => $request->relationship ?? ''
-                                                        ])
+                                                    <div class="C-form-block__select">
+                                                        <select name="family_id" @change="setFamilyInfo" required>
+                                                            <option value="" {{ old('family_id', $request->family_id ?? '') == '' ? 'selected' : '' }}>
+                                                                選択してください
+                                                            </option>
+                                                            @foreach ( auth()->guard('user')->user()->families()->get() as $family)
+                                                                <option value="{{ $family->id }}" {{ old('family_id', $request->family_id ?? '') == $family->id ? 'selected' : '' }}>
+                                                                    {{ $family->name1 }} {{ $family->name2 }}（{{ $family->relationship }})
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
                                                     </div>
-                                                    @include('components.form.error', ['name' => 'relationship', 'class' => 'text-danger'])
                                                 </dd>
+                                                @if($errors->has('family_id'))
+                                                    <span class="invalid-feedback text-danger" role="alert" style="text-align: left; display:block;">
+                                                        <strong>
+                                                            家族を選択ください
+                                                            <br>もし「家族のホロスコープ」を作成されていない場合は
+                                                            <br class="sp-none">先に「 <a href="{{ route('user.families.index') }}" class="underline">家族のホロスコープ</a> 」を作成ください
+                                                        </strong>
+                                                    </span>
+                                                @else
+                                                    <p>
+                                                        ※「家族のホロスコープ」を作成されていない場合は<br class="sp-none">先に「<a href="{{ route('user.families.index') }}" class="underline">家族のホロスコープ</a> 」を作成ください
+                                                    </p>
+                                                @endif
                                             </dl>
-                                            <dl class="C-form-block-child C-form-block--name">
+                                            <!-- <dl class="C-form-block-child C-form-block--name">
                                                 <dt class="C-form-block__title">対象者のお名前</dt>
                                                 <dd class="C-form-block__body C-form-block__body--two">
                                                     <div class="C-form-block__field">
@@ -108,8 +155,176 @@
                                                         @include('components.form.error', ['name' => 'family_name2', 'class' => 'text-danger'])
                                                     </div>
                                                 </dd>
+                                            </dl> -->
+                                            <dl class="C-form-block-child C-form-block--relationship">
+                                                    <dt class="C-form-block__title">対象者との続柄</dt>
+                                                    <dd class="C-form-block__body C-form-block__body--half">
+                                                        <div class="C-form-block__field">
+                                                            @include('components.form.text', [
+                                                                'name'        => 'relationship',
+                                                                'placeholder' => 'あなたとの関係',
+                                                                'refs'        => 'relationship',
+                                                                'value'       => $request->relationship ?? '',
+                                                            ])
+                                                        </div>
+                                                    </dd>
+                                                </dl>
+                                            <dl class="C-form-block-child C-form-block--name">
+                                                <dt class="C-form-block__title">対象者のお名前</dt>
+                                                <dd class="C-form-block__body C-form-block__body--two">
+                                                    <div class="C-form-block__field">
+                                                        @include('components.form.text', [
+                                                            'name'        => 'name1',
+                                                            'placeholder' => '姓',
+                                                            'refs'        => 'name1',
+                                                            'value'       => $request->name1 ?? '',
+                                                        ])
+                                                    </div>
+                                                    <div class="C-form-block__field">
+                                                        @include('components.form.text', [
+                                                            'name'        => 'name2',
+                                                            'placeholder' => '名',
+                                                            'refs'        => 'name2',
+                                                            'value'       => $request->name2 ?? '',
+                                                            ])
+                                                    </div>
+                                                </dd>
+                                                @include('components.form.error', ['name' => 'name1', 'class' => 'text-danger'])
+                                                @include('components.form.error', ['name' => 'name2', 'class' => 'text-danger'])
                                             </dl>
                                         </div>
+                                    </dd>
+                                </dl>
+                                <dl class="C-form-block C-form-block--birthdata">
+                                    <dt class="C-form-block__title C-form-block__title--req">出生情報</dt>
+                                    <dd class="C-form-block__body">
+                                        <dl class="C-form-block-child C-form-block--birth">
+                                            <dt class="C-form-block__title">生年月日</dt>
+                                            {{-- <dd class="C-form-block__body C-form-block__body--half">
+                                                <div class="C-form-block__field">
+                                                    @include('components.form.date', [
+                                                        'name'        => 'birthday',
+                                                        'required'    => true,
+                                                        'placeholder' => '0000/00/00',
+                                                        'refs'        => 'birthday',
+                                                        'value'       => $request->birthday ??  $defaultBirthday?->format('Y-m-d'),
+                                                    ])
+                                                </div>
+                                                @include('components.form.error', ['name' => 'birthday', 'class' => 'text-danger']) --}}
+                                            <div>
+                                                <div style="display: flex">
+                                                    <dd class="C-form-block__select">
+                                                        <select id="select_year" name="birth_year" @change="setDay">
+                                                            <option value="">年</option>
+                                                        </select>
+                                                    </dd>
+                                                    <dd class="C-form-block__select">
+                                                        <select id="select_month" name="birth_month" @change="setDay">
+                                                            <option value="">月</option>
+                                                        </select>
+                                                    </dd>
+                                                    <dd class="C-form-block__select">
+                                                        <select id="select_day" name="birth_day">
+                                                            {{-- デフォルト値はjsで実装 --}}
+                                                        </select>
+                                                    </dd>
+                                                </div>
+                                                <p>
+                                                    @include('components.form.error', ['name' => 'birth_day', 'class' => 'text-danger'])
+                                                </p>
+                                            </div>
+                                            {{-- <p class="C-form-block--password__text">スマートフォンをご利用の方は、カレンダー左上の「年」をタップ頂ければ、生まれ年をご選択頂けます</p> --}}
+                                        </dl>
+                                        <dl class="C-form-block-child C-form-block--time">
+                                            <dt class="C-form-block__title">時刻</dt>
+                                            <dd class="C-form-block__body C-form-block__body--half">
+                                                <div class="C-form-block__field">
+                                                    @include('components.form.time', [
+                                                        'name'        => 'birthday_time',
+                                                        'required'    => true,
+                                                        // 'value'       => $request->birthday_time ?? $defaultBirthdayTime?->format('H:i'),
+                                                        'placeholder' => '00 : 00',
+                                                        'inputmode'   => 'numeric',
+                                                        'refs'        => 'birthday_time',
+                                                    ])
+                                                    @include('components.form.error', ['name' => 'birthday_time', 'class' => 'text-danger'])
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                        <dl class="C-form-block-child C-form-block--birthplace">
+                                            <dt class="C-form-block__title">生まれた場所</dt>
+                                            <dd class="C-form-block__body C-form-block__body">
+                                                <div class="C-form-block__field">
+                                                    @include('components.form.text', [
+                                                        'name'        => 'birthday_prefectures',
+                                                        'required'    => true,
+                                                        'placeholder' => '都道府県市区町村',
+                                                        'refs'        => 'birthday_prefectures',
+                                                        'value'       => $request->birthday_prefectures ?? $defaultBirthdayPrefectures,
+                                                        'vInput'       => 'handleInputChange',
+                                                    ])
+                                                </div>
+                                                @include('components.form.error', ['name' => 'birthday_prefectures', 'class' => 'text-danger'])
+                                            </dd>
+                                        </dl>
+                                        {{-- <div style="display: none"> --}}
+                                            <dl class="C-form-block-child">
+                                                <dd class="C-form-block__body">
+                                                    <div id="map" style="height: 250px; width:100%"></div>
+                                                </dd>
+                                            </dl>
+                                            <dl class="C-form-block-child">
+                                                <dd class="C-form-block__body">
+                                                    <dt class="C-form-block__title">経度</dt>
+                                                    <div class="C-form-block__field"><input id="map-longitude" disabled type="text" value="{{ old('longitude', session('longitude')) ?? auth()->guard('user')->user()->longitude }}" style="color:#a1a1a6;">
+                                                        <input id="lng" hidden name="longitude" type="text"
+                                                        value="{{ old('longitude', session('longitude')) ?? auth()->guard('user')->user()->longitude }}"></div>
+                                                    @error('longitude')
+                                                        <span style="color: red" class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                    <br>
+                                                    <dt class="C-form-block__title">緯度</dt>
+                                                    <div class="C-form-block__field"> <input id="map-latitude" disabled type="text"
+                                                        value="{{ old('latitude', session('latitude')) ?? auth()->guard('user')->user()->latitude }}" style="color:#a1a1a6;">
+                                                        <input id="lat" hidden name="latitude" type="text"
+                                                        value="{{ old('latitude', session('latitude')) ?? auth()->guard('user')->user()->latitude }}"></div>
+                                                    <input id="map-city" hidden name="map-city" type="text" value="">
+                                                    @error('latitude')
+                                                        <span style="color: red" class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </dd>
+                                            </dl>
+                                            {{-- <div style="display: none"> --}}
+                                                <dl class="C-form-block-child">
+                                                    <dd class="C-form-block__body">
+                                                        <dt class="C-form-block__title">タイムゾーン</dt>
+                                                        <dd class="C-form-block__select">
+                                                            <select name="timezone" ref="timezone">
+                                                                @foreach (Modules\Horoscope\Enums\Time::Time as $item)
+                                                                    <option value='{{ $item['value'] }}'
+                                                                    @if (auth()->guard('user')->user()->timezome)
+                                                                        @if (auth()->guard('user')->user()->timezome == $item['value'])
+                                                                            selected
+                                                                        @endif
+                                                                    @else
+                                                                        @if (array_key_exists('selected', $item) && $item['selected'])
+                                                                            selected
+                                                                        @endif
+                                                                    @endif>
+                                                                        {{ $item['label'] }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </dd>
+                                                        @error('timezone')
+                                                            <span style="color: red" class="text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </dd>
+                                                    <p>日本標準時がデフォルトです。出生地が海外の場合に選択してください。</p>
+                                                </dl>
+                                                <p class="C-form-block--birthdata__text">あなたの生まれた瞬間のホロスコープを出すためには<br>生まれた時間を「分」まで、場所を「市」まで正しく入力してください。</p>
+                                            {{-- </div> --}}
+                                        {{-- </div> --}}
                                     </dd>
                                 </dl>
 
@@ -325,6 +540,19 @@
 				selectYear.appendChild(option);
 			}
 		},
+        setSolar (oldSolar) {
+			let selectSolar = document.getElementById('select_year01');
+			const year = new Date().getFullYear();
+			for (let i = year; i >= 1900; i--) {
+				const option = document.createElement('option');
+				option.value = i;
+				option.text = i + '年';
+				if (i == oldSolar) {
+					option.selected = true;
+				}
+				selectSolar.appendChild(option);
+			}
+		},
 		setMonth (oldMonth) {
 			let selectMonth = document.getElementById('select_month');
 			for (let i = 1; i <= 12; i++) {
@@ -465,6 +693,85 @@
                 this.totalAmount = this.totalAmount - this.bookbindingPrice;
             }
         },
+        //家族を選択したらその家族の情報をセットする
+        setFamilyInfo(){
+            const family = this.families.find(family => family.id == event.target.value);
+            if(family){
+                this.$nextTick(() => {
+                    this.$refs.relationship.value = family.relationship;
+                    this.$refs.name1.value = family.name1;
+                    this.$refs.name2.value = family.name2;
+                    this.$refs.birthday_prefectures.value = family.birthday_prefectures;
+
+                    let timezoneSelect = this.$refs.timezone;
+                    // 一度選択されているものをリセット
+                    for (let i = 0; i < timezoneSelect.options.length; i++) {
+                        if (timezoneSelect.options[i].selected) {
+                            timezoneSelect.options[i].selected = false;
+                        }
+                    }
+                    // DBのカラムのスペルがtimezomeになっているので注意！！（timezoneじゃなくてtimezome）
+                    let familyTimezone = family.timezome;
+                    // タイムゾーンを選択
+                    for (let i = 0; i < timezoneSelect.options.length; i++) {
+                        if (timezoneSelect.options[i].value == familyTimezone) {
+                            timezoneSelect.options[i].selected = true;
+                        }
+                    }
+
+                    // 日付をUTCからJSTに変換
+                    const timezoneOffset = 9 * 60; // JSTはUTCより9時間進んでいます
+                    let birthday = new Date(family.birthday);
+                    birthday.setMinutes(birthday.getMinutes() + timezoneOffset);
+
+                    // 年月日を設定
+                    let oldYear = birthday.getFullYear();
+                    let oldMonth = birthday.getMonth() + 1; // getMonth()メソッドが月を0から11の範囲で返してくるため、1を足す
+                    let oldDay = birthday.getDate();
+
+                    // 一度セレクトボックスをリセット
+                    document.getElementById('select_year').innerHTML = '';
+                    document.getElementById('select_month').innerHTML = '';
+                    document.getElementById('select_day').innerHTML = '';
+
+                    this.setYear(oldYear);
+                    this.setMonth(oldMonth);
+                    this.setDay(oldDay);
+
+                    // 時間をUTCからJSTに変換
+                    let birthdayTime = new Date(family.birthday_time);
+                    birthdayTime = new Date(birthdayTime.getTime() + (9 * 60 * 60 * 1000)); // UTCからJSTへの変換
+
+                    // 時間をHH:mmフォーマットに変換（秒を削除）
+                    this.$refs.birthday_time.value = birthdayTime.toISOString().split('T')[1].split(':')[0] + ':' + birthdayTime.toISOString().split('T')[1].split(':')[1];
+
+                    // googlemapの再描画
+                    let address = `${family.birthday_prefectures}`;
+                    // console.log(family.birthday_prefectures);
+                    this.updateMapAndMarker(family.birthday_prefectures);
+                });
+            } else {
+                this.$nextTick(() => {
+                    this.$refs.relationship.value = '';
+                    this.$refs.name1.value = '';
+                    this.$refs.name2.value = '';
+                    this.$refs.birthday_prefectures.value = '';
+                    // this.$refs.birthday_city.value = '';
+                    this.$refs.birthday.value = '';
+                    this.$refs.birthday_time.value = '';
+                });
+            }
+        },
+        //自分を選択したら自分の情報をセットする
+        setSelfInfo(){
+            if(event.target.value == '1'){
+                this.$nextTick(() => {
+                    this.$refs.birthday_prefectures.value = '{{ auth()->guard('user')->user()->birthday_prefectures }}';
+                    this.$refs.birthday.value ='{{ auth()->guard('user')->user()->birthday?->format('Y-m-d') }}';
+                    this.$refs.birthday_time.value = '{{ auth()->guard('user')->user()->birthday_time?->format('H:i') }}';
+                });
+            }
+        },
     },
 	watch: {
 		couponCode: function (val) {
@@ -480,13 +787,14 @@
 		this.updateMapAndMarker(initialAddress);
 
 		// 年月日を設定
-		let oldYear = @json(old('solar_date', $request->solar_date ?? ''));
-		// let oldYear = @json(old('birth_year', $request->birth_year ?? ''));
-		// let oldMonth = @json(old('birth_month', $request->birth_month ?? ''));
-		// let oldDay = @json(old('birth_day', $request->birth_day ?? ''));
+		let oldSolar = @json(old('solar_date', $request->solar_date ?? ''));
+		let oldYear = @json(old('birth_year', $request->birth_year ?? ''));
+		let oldMonth = @json(old('birth_month', $request->birth_month ?? ''));
+		let oldDay = @json(old('birth_day', $request->birth_day ?? ''));
 		this.setYear(oldYear);
-		// this.setMonth(oldMonth);
-		// this.setDay(oldDay);
+		this.setMonth(oldMonth);
+		this.setDay(oldDay);
+        this.setSolar(oldSolar);
     }
 
 }).mount('#Offer');
