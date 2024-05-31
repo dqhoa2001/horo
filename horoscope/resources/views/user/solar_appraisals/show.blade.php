@@ -1,9 +1,9 @@
 @extends('layouts.user.mypage.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('mypage/assets/css/myappraisal.css') }}">
+<link rel="stylesheet" href="{{ asset('mypage/assets/css/solar-return.css') }}">
 {{-- <link rel="stylesheet" href="{{ asset('mypage/assets/css/appraisal_common.css') }}"> --}}
-<link rel="stylesheet" href="{{ asset('mypage/assets/css/myhoroscope.css') }}">
+<!-- <link rel="stylesheet" href="{{ asset('mypage/assets/css/myhoroscope.css') }}"> -->
 @endsection
 
 @section('content')
@@ -30,14 +30,59 @@
                                 alt="PERSONAL APPRAISAL"></h2>
 						{{-- <h2 class="Pageframe-main__title appraisal"></h2> --}}
                         <div class="Pageframe-main__body">
-                           
+
                             {{-- ユーザーに関する基本情報 --}}
                             @include('components.parts.user.solar_appraisal_apply_common_info')
-                            <p class="C-user-list__change"><span>Update Solar Year</span></p>
+                            <!-- <p class="C-user-list__change"><span>Update Solar Year</span></p> -->
                             <br>
+                            <!-- <dl class="C-form-block C-form-block--birthdata">
+                                <dd class="C-form-block__body">
+                                    <dl class="C-form-block-child C-form-block--birth">
+                                        <dt class="C-solar-form__message">太陽回帰 鑑定年</dt>
+                                        <div id="popup-horoscope">
+                                        <dl class="C-form-block C-form-block--birthdata">
+                                            <dd class="C-form-block__body">
+                                                <dl class="C-form-block-child C-form-block--birth">
+                                                <dl class="C-form-block C-form-block--birthdata">
+                                                    <dd class="C-form-block__body">
+                                                        <dl class="C-form-block-child C-form-block--birth">
+                                                            <div>
+                                                                <div style="display: flex">
+                                                                    <dd class="C-form-block__select01">
+                                                                        <form id="solarDateForm" action="{{ route('user.solar_appraisals.show', $solarApply->id) }}" method="GET">
+                                                                            <select name="solar_date" id="solar_date" onchange="document.getElementById('solarDateForm').submit()">
+                                                                                @php
+                                                                                    $solarDates = $solarDates->sortByDesc(function ($yearSolarDate) use ($userBirthYear) {
+                                                                                        return $yearSolarDate - $userBirthYear;
+                                                                                    });
+                                                                                @endphp
+                                                                                @foreach ($solarDates as $yearSolarDate)
+                                                                                    @php
+                                                                                        $age = $yearSolarDate - $userBirthYear;
+                                                                                    @endphp
+                                                                                    <option value="{{ $yearSolarDate }}" {{ $solarApply->solar_date == $yearSolarDate ? 'selected' : '' }}>
+                                                                                        {{ $age }} 歳 {{ $yearSolarDate }} -- {{ $yearSolarDate + 1 }}
+                                                                                    </option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </form>
+                                                                    </dd>
+                                                                </div>
+                                                            </div>
+                                                        </dl>
+                                                    </dd>
+                                                </dl>
+                                                </dl>
+                                            </dd>
+                                        </dl>
+                                    </dl>
+                                </dd>
+                            </dl> -->
+                            {{--SolarDate Combobox--}}
+                            @include('components.parts.user.solar_return_combobox')
                             {{-- Solar 鑑定結果 --}}
                             @include('components.parts.user.solar_appraisal_apply_common_appraisal')
-                          
+
                             <div class="C-top">
                                 <span class="top-span">
                                     一番上に戻る
@@ -45,14 +90,14 @@
                             </div>
 
                             {{-- 製本バナー --}}
-                            @include('components.parts.user.appraisal_apply_common_baner')
+                            @include('components.parts.user.solar_return_apply_common_baner')
 
-                            <div class="Button Button--blue2 Button--blue-review">
+                            <div class="Button Button--orange2 Button--blue-review">
                                 <a href="https://hoshinomai.jp/review" target="_blank" rel="noopener noreferrer" class="btn-review">レビューを投稿する</a>
                             </div>
 
                             {{-- お問い合わせ --}}
-                            @include('components.parts.user.appraisal_apply_common_contact')
+                            @include('components.parts.user.solar_appraisal_apply_common_contact')
 
                         </div>
                     </section>
@@ -123,26 +168,19 @@
 <script>
     Vue.createApp({
         methods: {
-            setYear (oldYear) {
-                let selectYear = document.getElementById('select_year');
-                const year = new Date().getFullYear();
-                for (let i = year; i >= 1900; i--) {
-                    const option = document.createElement('option');
-                    option.value = i;
-                    option.text = i + '年';
-                    if (i == oldYear) {
-                        option.selected = true;
-                    }
-                    selectYear.appendChild(option);
-                }
+            data() {
+                return {
+                    userBirthYear: @json($userBirthYear), // Năm sinh của người dùng
+                    selectedSolarDate: null // Solardate được chọn
+                };
             },
         },
         mounted() {
             // 年月日を設定
-            let oldYear = @json(old('birth_year', $solarDate->format('Y') ?? now()->year));
-            this.setYear(oldYear);
+            this.selectedSolarDate = @json($solarDate);
         }
     }).mount('#popup-horoscope');
 </script>
 @endsection
+
 
