@@ -53,7 +53,7 @@
                                                 </a>
                                                 @endif
                                                 @if ($family->appraisalApplies()->whereHas('appraisalClaim')->exists())
-                                                <a href="#" class="button stellar-blueprint">
+                                                <a href="{{ route('user.family_appraisals.show', $family->appraisalApplies()->first()) }}" class="button stellar-blueprint">
                                                     <img src="{{ asset('mypage/assets/images/familylist/title_button_stellar.png') }}" alt="">
                                                 </a>
                                                 @endif
@@ -73,7 +73,7 @@
                                     <p class="C-horoscope-create__text">魂の青写真であるStellar Blueprintは、<br>より深い自分への理解を得ることができます。</p>
                                 </div>
                                 <div class="C-horoscope-create flexSB m-20">
-                                    <div class="Button btn-solar"><a href="{{ route('user.families.create') }}" class="text-end">家族の太陽回帰鑑定をする</a></div>
+                                    <div class="Button btn-solar"><a href="{{ route('user.family_appraisals.offer_solar') }}" class="text-end">家族の太陽回帰鑑定をする</a></div>
                                     <p class="C-horoscope-create__text">1年間の期間で星を読むことで、<br>より詳細な運勢を見ることができます。</p>
                                 </div>
                             </div>
