@@ -39,17 +39,12 @@ class SolarAppraisalController extends Controller
 
     public function index(Request $request): View|RedirectResponse
     {
-        $latestAppraisalApply = SolarApply::whereHas('user', static function ($query) {
-            $query->where('id', auth()->guard('user')->user()->id);
-        })->whereHas('solarClaim', static function ($query) {
-            $query->where('is_paid', true);
-        })->where('reference_type', User::class)->latest()->first();
-    //    dd($latestAppraisalApply);
-        // 鑑定結果がある場合showへリダイレクト
-        if ($latestAppraisalApply) {
-            return to_route('user.solar_appraisals.show', $latestAppraisalApply);
-        }
         return view('user.solar_appraisals.index', [
+            'SolarAppraisals' => SolarApply::whereHas('user', static function ($query) {
+                $query->where('id', auth()->guard('user')->user()->id);
+            })->whereHas('solarClaim', static function ($query) {
+                $query->where('is_paid', true);
+            })->where('reference_type', User::class)->get(),
             'solar_appraisal'         => Solar::where('is_enabled', true)->first(),
             'bookbinding'       => Bookbinding::where('is_enabled', true)->first(),
         ]);
