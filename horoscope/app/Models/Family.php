@@ -43,4 +43,10 @@ class Family extends Model
     {
         return $this->name1 . $this->name2;
     }
+
+    // Solar familyの鑑定申し込み
+    public function solarApplies(): MorphMany
+    {
+        return $this->morphMany('App\Models\SolarApply', 'reference');
+    }
 }
