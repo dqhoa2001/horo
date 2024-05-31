@@ -1,4 +1,4 @@
-<div class="C-appraisal-banner-block solar-background">
+<div class="C-appraisal-banner-block">
     <div class="C-appraisal-banner__image">
         <img src="{{ asset('images/mypage/banner-top-logo.svg') }}" alt="">
     </div>
