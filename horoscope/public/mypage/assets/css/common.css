@@ -1111,6 +1111,10 @@ print {
 		display: flex;
 	}
 
+    .Pageframe-main__title img {
+        width: 80%;
+    }
+
 }
 
 

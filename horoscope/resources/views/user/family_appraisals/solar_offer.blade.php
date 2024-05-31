@@ -33,7 +33,7 @@
                                     media="(max-width: 500px)">
                                 <img src="{{ asset('mypage/assets/images/solarappraisal/solar_img_title_3.svg') }}" alt="PERSONAL APPRAISAL">
                             </picture>
-                        </h2>
+						</h2>
 						<p class="Pageframe-main__firstmessage">{{ auth()->user()->full_name }}さんの個人鑑定をします。<br>1 年間に絞って鑑定をすることで、より詳細な運勢を読むことができます。</p>
 						<div class="Pageframe-main__body">
 							{{-- <div class="C-appraisal-item">
@@ -50,10 +50,10 @@
 							</div> --}}
 
 							<!-- 鑑定バナー -->
-							@include('components.parts.user.solar_appraisal_apply_baner')
+							@include('components.parts.user.family.solar_appraisal_apply_baner')
 
 							{{-- 製本バナー --}}
-							@include('components.parts.user.solar_appraisal_apply_common_baner')
+							@include('components.parts.user.family.solar_appraisal_apply_common_baner')
 						</div>
 					</section>
 					<!-- ***** セクション名 ***** -->
@@ -69,3 +69,4 @@
 
 </div>
 @endsection
+
