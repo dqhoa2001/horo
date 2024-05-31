@@ -21,7 +21,7 @@
             海部舞がすべて書き下ろした鑑定文で、あなただけの唯一無二の内容</p>
         <p class="C-solar-form__message C-appraisal-banner__book-text">A4サイズで約40ページのボリューム</p>
         <p class="C-solar-form__message C-appraisal-banner__book-text">ひとつの天体だけで3ページ以上のボリューム</p>
-        <p class="C-solar-form__message C-appraisal-banner__book-text">星々の特性が更に具体的になる！<br>
+        <p class="C-solar-form__message-line4 C-appraisal-banner__book-text ">星々の特性が更に具体的になる！<br>
             「サビアンシンボル」と「アスペクト」も掲載！</p>
     </div>
     <div class="C-solar-appraisal-banner__sub-box">
@@ -37,12 +37,16 @@
                 <p class="C-appraisal-banner__sub-sample-text">鑑定内容のサンプル画面をご確認いただけます。</p>
             </div>
             <div class="C-appraisal-banner__sub-sample-image">
-                <div class="sample-btn-block">
+                <div class="solar-sample-btn-block">
                     <a href="{{ route('user.appraisals.download_sample_pdf') }}">
                         @if(str_contains(Request::url(), 'family_appraisals'))
                             <img src="{{ asset('images/common/sample-btn-family.svg') }}" alt="">
                         @else
-                            <img src="{{ asset('images/common/solar-sample-btn.svg') }}" alt="">
+                            <picture>
+                                <source srcset="{{ asset('images/common/small-solar-sample-btn.svg') }}"
+                                    media="(max-width: 500px)">
+                                <img src="{{ asset('images/common/solar-sample-btn.svg') }}" alt="">
+                            </picture>
                         @endif
                     </a>
                 </div>
