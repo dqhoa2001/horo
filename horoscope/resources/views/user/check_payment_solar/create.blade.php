@@ -156,7 +156,7 @@
                                                     </div>
                                                 </dd>
                                             </dl> -->
-                                            <dl class="C-form-block-child C-form-block--relationship">
+                                            <!-- <dl class="C-form-block-child C-form-block--relationship">
                                                     <dt class="C-form-block__title">対象者との続柄</dt>
                                                     <dd class="C-form-block__body C-form-block__body--half">
                                                         <div class="C-form-block__field">
@@ -168,8 +168,8 @@
                                                             ])
                                                         </div>
                                                     </dd>
-                                                </dl>
-                                            <dl class="C-form-block-child C-form-block--name">
+                                                </dl> -->
+                                            <!-- <dl class="C-form-block-child C-form-block--name">
                                                 <dt class="C-form-block__title">対象者のお名前</dt>
                                                 <dd class="C-form-block__body C-form-block__body--two">
                                                     <div class="C-form-block__field">
@@ -189,13 +189,34 @@
                                                             ])
                                                     </div>
                                                 </dd>
+                                                <dl class="C-form-block-child C-form-block--name">
+                                                    <dt class="C-form-block__title">対象者のお名前</dt>
+                                                    <dd class="C-form-block__body C-form-block__body--two">
+                                                        <div class="C-form-block__field">
+                                                            @include('components.form.text', [
+                                                            'name' => 'family_name1',
+                                                            'placeholder' => '姓',
+                                                            'value' => $request->family_name1 ?? ''
+                                                            ])
+                                                            @include('components.form.error', ['name' => 'family_name1', 'class' => 'text-danger'])
+                                                        </div>
+                                                        <div class="C-form-block__field">
+                                                            @include('components.form.text', [
+                                                            'name' => 'family_name2',
+                                                            'placeholder' => '名',
+                                                            'value' => $request->family_name2 ?? ''
+                                                            ])
+                                                            @include('components.form.error', ['name' => 'family_name2', 'class' => 'text-danger'])
+                                                        </div>
+                                                    </dd>
+                                                </dl>
                                                 @include('components.form.error', ['name' => 'name1', 'class' => 'text-danger'])
                                                 @include('components.form.error', ['name' => 'name2', 'class' => 'text-danger'])
-                                            </dl>
+                                            </dl> -->
                                         </div>
                                     </dd>
                                 </dl>
-                                <dl class="C-form-block C-form-block--birthdata">
+                                <!-- <dl class="C-form-block C-form-block--birthdata">
                                     <dt class="C-form-block__title C-form-block__title--req">出生情報</dt>
                                     <dd class="C-form-block__body">
                                         <dl class="C-form-block-child C-form-block--birth">
@@ -326,7 +347,7 @@
                                             {{-- </div> --}}
                                         {{-- </div> --}}
                                     </dd>
-                                </dl>
+                                </dl> -->
 
                                 <!-- 製本パーツ -->
                                 @include('components.parts.user.appraisal_apply_common_bookbinding')
@@ -519,27 +540,37 @@
             // totalAmount : @json(intval(old('total_amount', $request->total_amount ?? $solar->price + $bookbinding->price + \App\Models\SolarClaim::SHIPPING_FEE))),
             totalAmount : @json(intval(old('total_amount', $request->total_amount ?? $solar->price))),
             discountPrice: @json(intval(old('discount_price', $request->discount_price ?? 0))),
+            families: @json(auth()->guard('user')->user()->families()->get()),
             couponType: @json(old('coupon_type', $request->coupon_type ?? App\Enums\CouponType::BACK_COUPON->value)),
             couponCode: @json(old('coupon_code', $request->coupon_code ?? '')),
 			marker: null,
 			map: null,
 			geocoder: new google.maps.Geocoder(),
+            request: {
+                relationship: '',
+                name1: '',
+                name2: '',
+                birthday_prefectures: '',
+                timezome: '',
+                birthday: '',
+                birthday_time: ''
+            }
         }
     },
     methods: {
-		setYear (oldYear) {
-			let selectYear = document.getElementById('select_year');
-			const year = new Date().getFullYear();
-			for (let i = year; i >= 1900; i--) {
-				const option = document.createElement('option');
-				option.value = i;
-				option.text = i + '年';
-				if (i == oldYear) {
-					option.selected = true;
-				}
-				selectYear.appendChild(option);
-			}
-		},
+		// setYear (oldYear) {
+		// 	let selectYear = document.getElementById('select_year');
+		// 	const year = new Date().getFullYear();
+		// 	for (let i = year; i >= 1900; i--) {
+		// 		const option = document.createElement('option');
+		// 		option.value = i;
+		// 		option.text = i + '年';
+		// 		if (i == oldYear) {
+		// 			option.selected = true;
+		// 		}
+		// 		selectYear.appendChild(option);
+		// 	}
+		// },
         setSolar (oldSolar) {
 			let selectSolar = document.getElementById('select_year01');
 			const year = new Date().getFullYear();
@@ -553,46 +584,46 @@
 				selectSolar.appendChild(option);
 			}
 		},
-		setMonth (oldMonth) {
-			let selectMonth = document.getElementById('select_month');
-			for (let i = 1; i <= 12; i++) {
-				const option = document.createElement('option');
-				option.value = i;
-				option.text = i + '月';
-				if (i == oldMonth) {
-					option.selected = true;
-				}
-				selectMonth.appendChild(option);
-			}
-		},
-		setDay (oldDay) {
-			let selectYear = document.getElementById('select_year');
-			let selectMonth = document.getElementById('select_month');
-			let selectDay = document.getElementById('select_day');
-			//日の選択肢を空にする
-			let children = selectDay.children
-			while(children.length){
-				children[0].remove()
-			}
-			// 最初にplaceholderを追加
-			let op = document.createElement('option');
-			op.value = '';
-			op.text = '日';
-			selectDay.appendChild(op);
-			// 日を生成(動的に変える)
-			if(selectYear.value !== '' &&  selectMonth.value !== ''){
-				const lastDay = new Date(selectYear.value,selectMonth.value,0).getDate()
-				for (i = 1; i <= lastDay; i++) {
-					let op = document.createElement('option');
-					op.value = i;
-					op.text = i + '日';
-					if (i == oldDay) {
-						op.selected = true;
-					}
-					selectDay.appendChild(op);
-				}
-			}
-		},
+		// setMonth (oldMonth) {
+		// 	let selectMonth = document.getElementById('select_month');
+		// 	for (let i = 1; i <= 12; i++) {
+		// 		const option = document.createElement('option');
+		// 		option.value = i;
+		// 		option.text = i + '月';
+		// 		if (i == oldMonth) {
+		// 			option.selected = true;
+		// 		}
+		// 		selectMonth.appendChild(option);
+		// 	}
+		// },
+		// setDay (oldDay) {
+		// 	let selectYear = document.getElementById('select_year');
+		// 	let selectMonth = document.getElementById('select_month');
+		// 	let selectDay = document.getElementById('select_day');
+		// 	//日の選択肢を空にする
+		// 	let children = selectDay.children
+		// 	while(children.length){
+		// 		children[0].remove()
+		// 	}
+		// 	// 最初にplaceholderを追加
+		// 	let op = document.createElement('option');
+		// 	op.value = '';
+		// 	op.text = '日';
+		// 	selectDay.appendChild(op);
+		// 	// 日を生成(動的に変える)
+		// 	if(selectYear.value !== '' &&  selectMonth.value !== ''){
+		// 		const lastDay = new Date(selectYear.value,selectMonth.value,0).getDate()
+		// 		for (i = 1; i <= lastDay; i++) {
+		// 			let op = document.createElement('option');
+		// 			op.value = i;
+		// 			op.text = i + '日';
+		// 			if (i == oldDay) {
+		// 				op.selected = true;
+		// 			}
+		// 			selectDay.appendChild(op);
+		// 		}
+		// 	}
+		// },
 		// 対象者を切り替えた時に金額を変更する。（クーポンコードはリセットする）
 		togglePersonal() {
 			if (this.personalClick == '1') {
@@ -694,84 +725,122 @@
             }
         },
         //家族を選択したらその家族の情報をセットする
-        setFamilyInfo(){
-            const family = this.families.find(family => family.id == event.target.value);
-            if(family){
-                this.$nextTick(() => {
-                    this.$refs.relationship.value = family.relationship;
-                    this.$refs.name1.value = family.name1;
-                    this.$refs.name2.value = family.name2;
-                    this.$refs.birthday_prefectures.value = family.birthday_prefectures;
+        // setFamilyInfo(){
+        //     const family = this.families.find(family => family.id == event.target.value);
+        //     if(family){
+        //         this.$nextTick(() => {
+        //             this.$refs.relationship.value = family.relationship;
+        //             this.$refs.name1.value = family.name1;
+        //             this.$refs.name2.value = family.name2;
+        //             console.log('JavaScript is working!');
+        //             this.$refs.birthday_prefectures.value = family.birthday_prefectures;
 
-                    let timezoneSelect = this.$refs.timezone;
-                    // 一度選択されているものをリセット
-                    for (let i = 0; i < timezoneSelect.options.length; i++) {
-                        if (timezoneSelect.options[i].selected) {
-                            timezoneSelect.options[i].selected = false;
-                        }
-                    }
-                    // DBのカラムのスペルがtimezomeになっているので注意！！（timezoneじゃなくてtimezome）
-                    let familyTimezone = family.timezome;
-                    // タイムゾーンを選択
-                    for (let i = 0; i < timezoneSelect.options.length; i++) {
-                        if (timezoneSelect.options[i].value == familyTimezone) {
-                            timezoneSelect.options[i].selected = true;
-                        }
-                    }
+        //             let timezoneSelect = this.$refs.timezone;
+        //             // 一度選択されているものをリセット
+        //             for (let i = 0; i < timezoneSelect.options.length; i++) {
+        //                 if (timezoneSelect.options[i].selected) {
+        //                     timezoneSelect.options[i].selected = false;
+        //                 }
+        //             }
+        //             // DBのカラムのスペルがtimezomeになっているので注意！！（timezoneじゃなくてtimezome）
+        //             let familyTimezone = family.timezome;
+        //             // タイムゾーンを選択
+        //             for (let i = 0; i < timezoneSelect.options.length; i++) {
+        //                 if (timezoneSelect.options[i].value == familyTimezone) {
+        //                     timezoneSelect.options[i].selected = true;
+        //                 }
+        //             }
 
-                    // 日付をUTCからJSTに変換
-                    const timezoneOffset = 9 * 60; // JSTはUTCより9時間進んでいます
-                    let birthday = new Date(family.birthday);
-                    birthday.setMinutes(birthday.getMinutes() + timezoneOffset);
+        //             // 日付をUTCからJSTに変換
+        //             const timezoneOffset = 9 * 60; // JSTはUTCより9時間進んでいます
+        //             let birthday = new Date(family.birthday);
+        //             birthday.setMinutes(birthday.getMinutes() + timezoneOffset);
 
-                    // 年月日を設定
-                    let oldYear = birthday.getFullYear();
-                    let oldMonth = birthday.getMonth() + 1; // getMonth()メソッドが月を0から11の範囲で返してくるため、1を足す
-                    let oldDay = birthday.getDate();
+        //             // 年月日を設定
+        //             let oldYear = birthday.getFullYear();
+        //             let oldMonth = birthday.getMonth() + 1; // getMonth()メソッドが月を0から11の範囲で返してくるため、1を足す
+        //             let oldDay = birthday.getDate();
 
-                    // 一度セレクトボックスをリセット
-                    document.getElementById('select_year').innerHTML = '';
-                    document.getElementById('select_month').innerHTML = '';
-                    document.getElementById('select_day').innerHTML = '';
+        //             // 一度セレクトボックスをリセット
+        //             document.getElementById('select_year').innerHTML = '';
+        //             document.getElementById('select_month').innerHTML = '';
+        //             document.getElementById('select_day').innerHTML = '';
 
-                    this.setYear(oldYear);
-                    this.setMonth(oldMonth);
-                    this.setDay(oldDay);
+        //             this.setYear(oldYear);
+        //             this.setMonth(oldMonth);
+        //             this.setDay(oldDay);
 
-                    // 時間をUTCからJSTに変換
-                    let birthdayTime = new Date(family.birthday_time);
-                    birthdayTime = new Date(birthdayTime.getTime() + (9 * 60 * 60 * 1000)); // UTCからJSTへの変換
+        //             // 時間をUTCからJSTに変換
+        //             let birthdayTime = new Date(family.birthday_time);
+        //             birthdayTime = new Date(birthdayTime.getTime() + (9 * 60 * 60 * 1000)); // UTCからJSTへの変換
 
-                    // 時間をHH:mmフォーマットに変換（秒を削除）
-                    this.$refs.birthday_time.value = birthdayTime.toISOString().split('T')[1].split(':')[0] + ':' + birthdayTime.toISOString().split('T')[1].split(':')[1];
+        //             // 時間をHH:mmフォーマットに変換（秒を削除）
+        //             this.$refs.birthday_time.value = birthdayTime.toISOString().split('T')[1].split(':')[0] + ':' + birthdayTime.toISOString().split('T')[1].split(':')[1];
 
-                    // googlemapの再描画
-                    let address = `${family.birthday_prefectures}`;
-                    // console.log(family.birthday_prefectures);
-                    this.updateMapAndMarker(family.birthday_prefectures);
-                });
-            } else {
-                this.$nextTick(() => {
-                    this.$refs.relationship.value = '';
-                    this.$refs.name1.value = '';
-                    this.$refs.name2.value = '';
-                    this.$refs.birthday_prefectures.value = '';
-                    // this.$refs.birthday_city.value = '';
-                    this.$refs.birthday.value = '';
-                    this.$refs.birthday_time.value = '';
-                });
-            }
-        },
+        //             // googlemapの再描画
+        //             let address = `${family.birthday_prefectures}`;
+        //             // console.log(family.birthday_prefectures);
+        //             this.updateMapAndMarker(family.birthday_prefectures);
+        //         });
+        //     } else {
+        //         this.$nextTick(() => {
+        //             this.$refs.relationship.value = '';
+        //             this.$refs.name1.value = '';
+        //             this.$refs.name2.value = '';
+        //             this.$refs.birthday_prefectures.value = '';
+        //             this.$refs.birthday_city.value = '';
+        //             this.$refs.birthday.value = '';
+        //             this.$refs.birthday_time.value = '';
+        //         });
+        //     }
+        // },
+    setFamilyInfo(event){
+        const family = this.families.find(family => family.id == event.target.value);
+        if(family){
+            this.$nextTick(() => {
+                console.log('Selected Family:', family);
+
+                this.request.relationship = family.relationship;
+                this.request.name1 = family.name1;
+                this.request.name2 = family.name2;
+                this.request.birthday_prefectures = family.birthday_prefectures;
+                this.request.timezome = family.timezome;
+                this.request.birthday = family.birthday;
+                this.request.birthday_time = family.birthday_time;
+
+                console.log('Updated Request Data:', this.request);
+
+                // Nếu cần thực hiện thêm thao tác nào đó với dữ liệu trả về, thực hiện tại đây
+            });
+        } else {
+            this.$nextTick(() => {
+                let response = {
+                    relationship: '',
+                    name1: '',
+                    name2: '',
+                    birthday_prefectures: '',
+                    birthday_city: '',
+                    birthday: '',
+                    birthday_time: ''
+                };
+
+                console.log('No Family Selected, Reset Request Data:', this.request);
+
+                // Nếu cần thực hiện thêm thao tác nào đó với dữ liệu trả về, thực hiện tại đây
+            });
+        }
+    },
+
         //自分を選択したら自分の情報をセットする
-        setSelfInfo(){
-            if(event.target.value == '1'){
-                this.$nextTick(() => {
-                    this.$refs.birthday_prefectures.value = '{{ auth()->guard('user')->user()->birthday_prefectures }}';
-                    this.$refs.birthday.value ='{{ auth()->guard('user')->user()->birthday?->format('Y-m-d') }}';
-                    this.$refs.birthday_time.value = '{{ auth()->guard('user')->user()->birthday_time?->format('H:i') }}';
-                });
-            }
-        },
+        // setSelfInfo(){
+        //     if(event.target.value == '1'){
+        //         this.$nextTick(() => {
+        //             this.$refs.birthday_prefectures.value = '{{ auth()->guard('user')->user()->birthday_prefectures }}';
+        //             this.$refs.birthday.value ='{{ auth()->guard('user')->user()->birthday?->format('Y-m-d') }}';
+        //             this.$refs.birthday_time.value = '{{ auth()->guard('user')->user()->birthday_time?->format('H:i') }}';
+        //         });
+        //     }
+        // },
     },
 	watch: {
 		couponCode: function (val) {
@@ -788,12 +857,12 @@
 
 		// 年月日を設定
 		let oldSolar = @json(old('solar_date', $request->solar_date ?? ''));
-		let oldYear = @json(old('birth_year', $request->birth_year ?? ''));
-		let oldMonth = @json(old('birth_month', $request->birth_month ?? ''));
-		let oldDay = @json(old('birth_day', $request->birth_day ?? ''));
-		this.setYear(oldYear);
-		this.setMonth(oldMonth);
-		this.setDay(oldDay);
+		// let oldYear = @json(old('birth_year', $request->birth_year ?? ''));
+		// let oldMonth = @json(old('birth_month', $request->birth_month ?? ''));
+		// let oldDay = @json(old('birth_day', $request->birth_day ?? ''));
+		// this.setYear(oldYear);
+		// this.setMonth(oldMonth);
+		// this.setDay(oldDay);
         this.setSolar(oldSolar);
     }
 

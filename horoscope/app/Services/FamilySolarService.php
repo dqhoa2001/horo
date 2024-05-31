@@ -12,9 +12,9 @@ use Carbon\Carbon;
 class FamilySolarService
 {
     // ホロスコープ作成に必要な情報の登録
-    public static function create(Request $request): FamilySolar
+    public static function create(Request $request): Family
     {
-        $family = new FamilySolar();
+        $family = new Family();
         $family->name1 = $request->name1;
         $family->name2 = $request->name2;
         $family->relationship = $request->relationship;
@@ -69,33 +69,66 @@ class FamilySolarService
     }
 
     // 個人鑑定で家族登録
-    public static function updateOrCreate(Request $request): FamilySolar
+    // public static function updateOrCreate(Request $request): Family
+    // {
+    //     $family = Family::updateOrCreate(
+    //         [
+    //             'id' => $request->family_id,
+    //         ],
+    //         [
+    //             'id'                   => $request->family_id,
+    //             'user_id'              => auth()->guard('user')->user()->id,
+    //             'name1'                => $request->name1,
+    //             'name2'                => $request->name2,
+    //             'relationship'         => $request->relationship,
+    //             'birthday'             => Carbon::parse($request->birthday),
+    //             'birthday_time'        => $request->birthday_time,
+    //             'birthday_prefectures' => $request->birthday_prefectures,
+    //             'birthday_city'        => $request->birthday_city ?? null,
+    //             'longitude'            => $request->longitude,
+    //             'latitude'             => $request->latitude,
+    //             'timezome'             => $request->timezone,
+    //         ]
+    //     );
+    //     return $family;
+    // }
+    public static function updateOrCreate(Request $request): Family
     {
-        $family = FamilySolar::updateOrCreate(
-            [
-                'id' => $request->family_id,
-            ],
-            [
-                'id'                   => $request->family_id,
-                'user_id'              => auth()->guard('user')->user()->id,
-                'name1'                => $request->name1,
-                'name2'                => $request->name2,
-                'relationship'         => $request->relationship,
-                'birthday'             => Carbon::parse($request->birthday),
-                'birthday_time'        => $request->birthday_time,
-                'birthday_prefectures' => $request->birthday_prefectures,
-                'birthday_city'        => $request->birthday_city ?? null,
-                'longitude'            => $request->longitude,
-                'latitude'             => $request->latitude,
-                'timezome'             => $request->timezone,
-            ]
-        );
+        // dd($request);
+        // Tìm kiếm bản ghi trong bảng Family dựa trên id được cung cấp
+        $family = Family::find($request->family_id);
+// dd($family);
+        // Nếu không tìm thấy, hoặc nếu id không được cung cấp, tạo mới một bản ghi Family
+        if (!$family) {
+            $family = new Family();
+        }
+
+        // Cập nhật hoặc tạo mới thông tin cho bản ghi Family
+        $family->fill([
+            'id'                   => $family->id,
+            'user_id'              => auth()->guard('user')->user()->id,
+            'name1'                => $family->name1,
+            'name2'                => $family->name2,
+            'relationship'         => $family->relationship,
+            'birthday'             => Carbon::parse($family->birthday),
+            'birthday_time'        => $family->birthday_time,
+            'birthday_prefectures' => $family->birthday_prefectures,
+            'birthday_city'        => $family->birthday_city ?? null,
+            'longitude'            => $family->longitude,
+            'latitude'             => $family->latitude,
+            'timezome'             => $family->timezone,
+        ]);
+
+        // Lưu hoặc cập nhật bản ghi Family
+        $family->save();
+
         return $family;
     }
 
+
     // 家族鑑定申し込み済みかどうか判定
-    public static function isSolarClaimed(FamilySolar $family): bool
+    public static function isSolarClaimed(Family $family): bool
     {
-        return FamilySolar::query()->where('id', $family->id)->whereHas('solarApplies.solarClaim')->exists();
+        return Family::query()->where('id', $family->id)->whereHas('solarApplies.solarClaim')->exists();
     }
 }

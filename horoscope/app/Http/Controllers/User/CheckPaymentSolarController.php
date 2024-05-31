@@ -141,8 +141,8 @@ class CheckPaymentSolarController extends Controller
                 if ((int) $request->target_type === TargetType::FAMILY->value) {
                     $contentType = SolarClaim::FAMILY;
                     // $user = UserService::create($request);
-                $user = auth()->guard('user')->user();
-                    $family = FamilySolarService::createForAppraosal($request, $user);
+                    $user = auth()->guard('user')->user();
+                    $family = FamilySolarService::updateOrCreate($request);
                     $solarApply = SolarApplyService::create($request, Family::class, $family->id);
 
                     //製本の場合
@@ -182,9 +182,8 @@ class CheckPaymentSolarController extends Controller
             //家族の場合
             if ((int) $request->target_type === TargetType::FAMILY->value) {
                 $contentType = SolarClaim::FAMILY;
-                // $user = UserService::create($request);
                 $user = auth()->guard('user')->user();
-                $family = FamilySolarService::createForAppraosal($request, $user);
+                $family = FamilySolarService::updateOrCreate($request);
                 $solarApply = SolarApplyService::create($request, Family::class, $family->id);
                 if ((int) $request->is_bookbinding === Bookbinding::BOOKBINDING) {
                     $bookbindingUserApply = BookbindingUserSolarApplyService::create($request, $solarApply);
