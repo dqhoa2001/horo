@@ -64,25 +64,25 @@
                                         </div>
                                     </div>
                                 @endforeach
-                            </div>
-                            <div class="C-horoscope-create flexSB m-20">
-                                <div class="Button Button--lightblue"><a href="{{ route('user.families.create') }}">家族のホロスコープを作成する</a></div>
-                                <p class="C-horoscope-create__text">ご家族の生まれた瞬間のホロスコープを出すためには<br>生まれた時間を「分」まで、<br>場所を「市」まで正しく入力してください。</p>
-                            </div>
-                            <div class="C-horoscope-create flexSB m-20">
-                                <div class="Button btn-stellar"><a href="{{ route('user.families.create') }}">家族の個人鑑定をする</a></div>
-                                <p class="C-horoscope-create__text">魂の青写真であるStellar Blueprintは、<br>より深い自分への理解を得ることができます。</p>
-                            </div>
-                            <div class="C-horoscope-create flexSB m-20">
-                                <div class="Button btn-solar"><a href="{{ route('user.families.create') }}">家族の太陽回帰鑑定をする</a></div>
-                                <p class="C-horoscope-create__text">1年間の期間で星を読むことで、<br>より詳細な運勢を見ることができます。</p>
+                                <div class="C-horoscope-create flexSB m-20">
+                                    <div class="Button Button--lightblue"><a href="{{ route('user.families.create') }}">家族のホロスコープを作成する</a></div>
+                                    <p class="C-horoscope-create__text">ご家族の生まれた瞬間のホロスコープを出すためには<br>生まれた時間を「分」まで、<br>場所を「市」まで正しく入力してください。</p>
+                                </div>
+                                <div class="C-horoscope-create flexSB m-20">
+                                    <div class="Button btn-stellar"><a href="{{ route('user.appraisals.create', ['target_type' => str_contains(Request::url(), 'family_list') ? '2' : '']) }}" class="text-end">家族の個人鑑定をする</a></div>
+                                    <p class="C-horoscope-create__text">魂の青写真であるStellar Blueprintは、<br>より深い自分への理解を得ることができます。</p>
+                                </div>
+                                <div class="C-horoscope-create flexSB m-20">
+                                    <div class="Button btn-solar"><a href="{{ route('user.families.create') }}" class="text-end">家族の太陽回帰鑑定をする</a></div>
+                                    <p class="C-horoscope-create__text">1年間の期間で星を読むことで、<br>より詳細な運勢を見ることができます。</p>
+                                </div>
                             </div>
                         </div>
                     </section>
                 </div>
             </div>
+            @include('components.parts.footer')
         </div>
-        @include('components.parts.footer')
     </main>
 </div>
 @endsection
