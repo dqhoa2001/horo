@@ -30,11 +30,11 @@
 							<!-- <img src="{{ asset('mypage/assets/images/myappraisal/solar_img_title.svg') }}" alt="PERSONAL APPRAISAL"> -->
                             <picture>
                                 <source srcset="{{ asset('mypage/assets/images/solarappraisal/small_solar_img_title.svg') }}"
-                                    media="(max-width: 500px)">
+                                    media="(max-width: 600px)">
                                 <img src="{{ asset('mypage/assets/images/solarappraisal/solar_img_title_3.svg') }}" alt="PERSONAL APPRAISAL">
                             </picture>
                         </h2>
-						<p class="Pageframe-main__firstmessage">{{ auth()->user()->full_name }}さんの個人鑑定をします。<br>1 年間に絞って鑑定をすることで、より詳細な運勢を読むことができます。</p>
+						<p class="Solar-pageframe-main__firstmessage">{{ auth()->user()->full_name }}さんの個人鑑定をします。<br>1 年間に絞って鑑定をすることで、より詳細な運勢を読むことができます。</p>
 						<div class="Pageframe-main__body">
 							{{-- <div class="C-appraisal-item">
 								<div class="C-appraisal-item__body">
