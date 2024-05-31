@@ -9,9 +9,9 @@
       @case(str_contains(Request::url(), 'popup'))
       マイページ
       @break
-      @case(str_contains(Request::url(), 'solar'))
+      <!-- @case(str_contains(Request::url(), 'solar'))
       太陽回帰
-      @break
+      @break -->
       @case(str_contains(Request::url(), 'horoscope'))
       MYホロスコープチャート
       @break
@@ -23,6 +23,8 @@
       @break
       @case(str_contains(Request::url(), 'user/family_appraisals'))
       家族の個人鑑定
+      @case(str_contains(Request::url(), 'user/family_list'))
+      家族一覧
       @break
       @case(str_contains(Request::url(), 'bookbinding'))
       製本の申し込み

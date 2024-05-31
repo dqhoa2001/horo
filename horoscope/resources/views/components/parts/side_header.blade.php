@@ -73,7 +73,7 @@
                     <span>SOLAR RETURN</span></a>
                 </li>
                 <!-- <li class="header-nav__item header-nav__item--familyhoroscope"><a href="{{ route('user.families.index') }}"><span>家族の<br class="sp">ホロスコープ</span></a></li> -->
-                <li class="header-nav__item header-nav__item--familyappraisal"><a href="{{ route('user.family_appraisals.index') }}"><span>家族の<br class="sp">個人鑑定</span></a></li>
+                <li class="header-nav__item header-nav__item--familyappraisal"><a href="{{ route('user.family_list.index') }}"><span>家族の<br class="sp">個人鑑定</span></a></li>
                 {{-- <li class="header-nav__item header-nav__item--familyappraisal"><a href="{{ route('user.bookbindings.create') }}"><span>製本のお申し込み</span></a></li> --}}
                 <li class="header-nav__item header-nav__item--coupon"><a href="{{ route('user.coupon') }}"><span>ご紹介クーポン</span></a></li>
                 <li class="header-nav__item header-nav__item--contact"><a href="{{ route('user.contacts.create') }}"><span>お問い合わせ</span></a></li>
