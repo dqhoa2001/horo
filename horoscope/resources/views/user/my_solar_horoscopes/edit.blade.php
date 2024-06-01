@@ -25,6 +25,14 @@
                         <h2 class="Pageframe-main__title">MY SOLAR
                             <img src="{{ asset('mypage/assets/images/myhoroscope/img_title-detail.svg') }}" alt="My HOROSCOPE" class="pc">
                             <img src="{{ asset('mypage/assets/images/myhoroscope/sp_img_title-detail.svg') }}" alt="My HOROSCOPE" class="sp"></h2>
+                          <!-- count if exits solar appraisal  -->
+                        @if(auth()->guard('user')->user()->appraisalApplies->count() != 0)
+                            <button class="Button Button--lightblue" onclick="window.location.href='{{ route('user.my_horoscopes.edit') }}'"><span>My Horoscope</span></button>
+                        @else
+                            <button class="Button Button--lightblue" onclick="window.location.href='{{ route('user.check_payment.create') }}'"><span>My Horoscope</span></button>
+                        @endif
+                        <br>
+                        <br>
                         <div class="Pageframe-main__body">
                             <div class="C-user-list">
                                 <div class="C-user-list-block">

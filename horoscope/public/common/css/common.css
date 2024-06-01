@@ -351,7 +351,7 @@ print {
 }
 
 .sample-btn-block {
-	width: 120px;
+	width: 120px
 }
 
 .mCSB_scrollTools {
@@ -362,6 +362,7 @@ print {
 	border: #E7E8EB solid 1px;
 	padding: 30px 40px;
 	border-radius: 30px;
+    margin-bottom: 40px;
 }
 
 .C-appraisal-banner__image {
@@ -377,6 +378,7 @@ print {
 .C-appraisal-banner__price-appraisal {
 	color: #1E66C7 !important;
 }
+
 .C-appraisal-banner__price-family {
 	color: #028FBF !important;
 }
@@ -428,6 +430,14 @@ print {
 	width: 230px;
 	max-width: 100%;
 	margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.C-appraisal-banner__sub-box-image img {
+    max-width: 100%;
+    height: auto;
 }
 
 .C-appraisal-banner__sub-flex {
@@ -507,8 +517,6 @@ print {
 	text-decoration: underline;
 	font-weight: bold;
 }
-
-
 @media screen and (max-width: 500px) {
 	.C-appraisal-banner-block {
 		padding: 20px;
@@ -520,19 +528,19 @@ print {
 	.C-appraisal-banner__book-price {
 		font-size: 18px;
 	}
-
 	.C-appraisal-banner__price {
 		font-size: 28px;
 	}
 	.C-form__message .C-appraisal-banner__book-text {
 		font-size: 20px;
 	}
-	.C-appraisal-banner__sub-sample-image {
+    .C-appraisal-banner__sub-sample-image{
 		margin-top: 15px;
 	}
 	.sample-btn-block{
 		text-align: center;
 		margin: 0 auto;
+        width: 100px;
 	}
 	.C-appraisal-banner__sub-sample-text {
 		text-align: center;

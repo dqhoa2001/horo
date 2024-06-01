@@ -23,6 +23,7 @@ use Modules\Horoscope\Enums\WheelRadiusEnum;
 use App\Models\SolarApply;
 use App\Services\SolarAppraisalApplyService;
 use App\Models\Solar;
+use Carbon\Carbon;
 
 class SolarAppraisalController extends Controller
 {
@@ -38,26 +39,41 @@ class SolarAppraisalController extends Controller
 
     public function index(Request $request): View|RedirectResponse
     {
-        $latestAppraisalApply = SolarApply::whereHas('user', static function ($query) {
-            $query->where('id', auth()->guard('user')->user()->id);
-        })->whereHas('solarClaim', static function ($query) {
-            $query->where('is_paid', true);
-        })->where('reference_type', User::class)->latest()->first();
-    //    dd($latestAppraisalApply);
-        // 鑑定結果がある場合showへリダイレクト
-        if ($latestAppraisalApply) {
-            return to_route('user.solar_appraisals.show', $latestAppraisalApply);
-        }
         return view('user.solar_appraisals.index', [
+            'SolarAppraisals' => SolarApply::whereHas('user', static function ($query) {
+                $query->where('id', auth()->guard('user')->user()->id);
+            })->whereHas('solarClaim', static function ($query) {
+                $query->where('is_paid', true);
+            })->where('reference_type', User::class)->get(),
             'solar_appraisal'         => Solar::where('is_enabled', true)->first(),
             'bookbinding'       => Bookbinding::where('is_enabled', true)->first(),
         ]);
     }
 
     //show solar appraisal data
-    public function show(SolarApply $solarApply): View
+    public function show(Request $request, SolarApply $solarApply): View
     {
+        $selectedSolarDate = $request->input('solar_date', null);
+        if ($selectedSolarDate) {
+            $solarApply = SolarApply::where('solar_date', $selectedSolarDate)
+                                    ->where('reference_id', auth()->guard('user')->user()->id)
+                                    ->first();
+        }
         $solarAppraisalResultData = $this->solarAppraisalApplyService->createSolarAppraisalResultData($solarApply);
+        $user = auth()->guard('user')->user();
+        $userBirthday = User::where('id', $user->id)->value('birthday');
+        $userBirthYear = date('Y', strtotime($userBirthday));
+        // $solarYear = date('Y', strtotime($solarAppraisalResultData['solarDate']));
+        // $age = $solarYear - $userBirthYear;
+        $solarDates = $user->solarApplies()
+            ->whereHas('solarClaim', static function ($query) {
+                $query->where('is_paid', true);
+            })
+            ->orderBy('id', 'desc')
+            ->pluck('solar_date');;
+        $birthday = User::where('id', $user->id)->value('birthday');
+        $birthday_time = User::where('id', $user->id)->value('birthday_time');
+        $birthday_prefectures = User::where('id', $user->id)->value('birthday_prefectures');
         return view('user.solar_appraisals.show', [
             'solarApply'          => $solarApply,
             'degreeData'          => $solarAppraisalResultData['degreeData'],
@@ -67,7 +83,12 @@ class SolarAppraisalController extends Controller
             'houses'              => $solarAppraisalResultData['houses'],
             'zodaicsPattern'      => $solarAppraisalResultData['zodaicsPattern'],
             'sabian'              => $solarAppraisalResultData['sabian'],
-            'solarDate'           => $solarAppraisalResultData['solarDate']
+            'solarDate'           => $solarAppraisalResultData['solarDate'],
+            'solarDates'          => $solarDates,
+            'userBirthYear'       => $userBirthYear,
+            'birthday'            => $birthday,
+            'birthday_time'            => $birthday_time,
+            'birthday_prefectures'            => $birthday_prefectures,
         ]);
     }
 

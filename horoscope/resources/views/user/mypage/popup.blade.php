@@ -62,8 +62,8 @@
 											src="{{ asset('images/mypage/solarreturn01.png') }}" alt=""></a></figure>
                                         <figure class="Index-banner__item swiper-slide"> <a href="{{ route('user.solar_appraisals.index') }}" rel="noopener noreferrer"><img
 											src="{{ asset('images/mypage/solarreturn02.png') }}" alt=""></a></figure>
-										<figure class="Index-banner__item swiper-slide"> <a href="https://hoshinomai.jp/book-service" target="_blank" rel="noopener noreferrer"><img
-											src="{{ asset('images/mypage/my-page_banner.png') }}" alt=""></a></figure>
+                                        <figure class="Index-banner__item swiper-slide"> <a href="https://hoshinomai.jp/book-service" target="_blank" rel="noopener noreferrer"><img
+                                            src="{{ asset('images/mypage/my-page_banner.png') }}" alt=""></a></figure>
 										<figure class="Index-banner__item swiper-slide"><a href="{{ route('user.appraisals.index') }}"><img
 													src="{{ asset('images/mypage/mypage1.png') }}" alt=""></a></figure>
 										<figure class="Index-banner__item swiper-slide">@if (auth()->guard('user')->user()->isHasMyHoroscope())
