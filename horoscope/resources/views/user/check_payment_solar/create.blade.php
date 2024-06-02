@@ -88,19 +88,19 @@
                                                 @include('components.form.original_radio', [
                                                     'name'    => 'target_type',
                                                     'class'   => 'C-form-block__radio__text',
-                                                    'data'    => [1 => '自分'],
+                                                    'data'    => [1 => '自分', 2 => '家族'],
                                                     'checked' => $request->target_type ?? 1,
                                                     'vModel'  => 'personalClick',
-                                                    'onChange' => 'setSelfInfo',
+                                                    'onChange' => 'togglePersonal',
                                                 ])
                                             @else
                                                 @include('components.form.original_radio', [
                                                     'name'    => 'target_type',
                                                     'class'   => 'C-form-block__radio__text',
-                                                    'data'    => [2 => '家族'],
-                                                    'checked' => $request->target_type ?? 1,
+                                                    'data'    => [1 => '自分', 2 => '家族'],
+                                                    'checked' => $request->target_type ?? 2,
                                                     'vModel'  => 'personalClick',
-                                                    'onChange' => 'setSelfInfo',
+                                                    'onChange' => 'togglePersonal',
                                                 ])
                                             @endif
                                         </div>
@@ -358,7 +358,7 @@
                                     <dt class="C-form-block__title C-form-block__title--req">お支払い方法</dt>
                                     <dd class="C-form-block__body">
                                         <div class="C-form-block__radio">
-                                            @include('components.form.original_offer_radio', [
+                                            @include('components.form.original_radio', [
                                             'name' => 'payment_type',
                                             'class' => 'C-form-block__radio__text',
                                             'data' => App\Models\SolarClaim::PAYMENT_TYPE,
@@ -368,12 +368,12 @@
                                     </dd>
                                 </dl>
 
-                                <dl class="C-form-block C-form-block--cash">
+                                <!-- <dl class="C-form-block C-form-block--cash">
                                     <p class="C-form-text-position">Stellar Blueprint 購入と同時に、自動で会員登録となります。
                                         <br>購入時に入力したメールアドレスとパスワードで、マイページ
                                         <br class="C-form-br">にログインが可能です。
                                     </p>
-                                </dl>
+                                </dl> -->
 
                                 {{-- 決済フォーム。v-ifだとフォームを再描画しないといけないのでv-showにした --}}
                                 <dl class="C-form-block C-form-block--cash" v-show="paymentType == '1'">
@@ -464,24 +464,24 @@
                                             <li class="C-form-notice-list__item">製本をお申込みお客様へ：システムによるエラーや乱丁・落丁はお取替えいたしますが、お客様の出生情報入力ミスによるものは修正・返品ができません。別途製本費用をお支払いいただき作り直しになりますので、あらかじめご了承ください。</li>
                                         </ul>
                                     </div>
-                                    <div class="C-form-policy">
-                                    <div class="C-form-policy__inner">
-                                        <div class="C-form-policy-block">
-                                            <div class="C-form-block__checkbox">
-                                                <label class="C-form-block__checkbox__item">
-                                                    <input type="checkbox" name="consent" value="購入時の注意事項を確認しました。">
-                                                    <span class="C-form-block__checkbox__text">購入時の注意事項を確認しました。</span>
-                                                </label>
-                                                <div style="text-align: left">
-                                                    @include('components.form.error', ['name' => 'consent'])
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    </div>
                                 </dd>
                             </dl>
 
+                            <div class="C-form-policy">
+                                <div class="C-form-policy__inner">
+                                    <div class="C-form-policy-block">
+                                        <div class="C-form-block__checkbox">
+                                            <label class="C-form-block__checkbox__item">
+                                                <input type="checkbox" name="consent" value="購入時の注意事項を確認しました。">
+                                                <span class="C-form-block__checkbox__text">購入時の注意事項を確認しました。</span>
+                                            </label>
+                                            <div style="text-align: left">
+                                                @include('components.form.error', ['name' => 'consent'])
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="C-form-policy C-form-line C-form-line--last">
                                 <div class="C-form-policy__inner">
                                     <div class="C-form-policy-block">
@@ -554,7 +554,13 @@
                 timezome: '',
                 birthday: '',
                 birthday_time: ''
-            }
+            },
+            data: {
+            personalClick: '{{ $request->target_type ?? 1 }}',
+            totalAmount: '{{ $request->target_type == 2 ? $solar->family_price : $solar->price }}',
+            couponCode: '',
+            discountPrice: ''
+        },
         }
     },
     methods: {
