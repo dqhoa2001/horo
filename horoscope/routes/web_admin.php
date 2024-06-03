@@ -138,6 +138,8 @@ Route::middleware('auth:admin')->group(static function () {
     Route::resource('appraisal_applies', AppraisalApplyController::class)->only('edit', 'update');
 
     //Solar Apprraisal Apply edit route
+    Route::post('solar_applies/download_pdf/{solarBookbindingUserApply}', [SolarApplyController::class, 'downloadPdf'])->name('solar_applies.download_pdf');
+
     Route::resource('solar_applies', SolarApplyController::class)->only('edit', 'update');
 
     // クーポン管理
