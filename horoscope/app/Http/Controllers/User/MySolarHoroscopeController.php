@@ -21,6 +21,7 @@ use App\Services\MyHoroscopeService;
 use Modules\Horoscope\Http\Actions\Predict\ModifyLocation;
 use App\Repositories\SabianPatternRepository;
 use App\Repositories\ZodiacPatternRepository;
+use App\Models\SolarApply;
 
 class MySolarHoroscopeController extends Controller
 {
@@ -61,23 +62,55 @@ class MySolarHoroscopeController extends Controller
     // }
 
     // 編集フォーム表示
-    public function edit(): View
+    public function edit(Request $request): View
     {
         $user = auth()->guard('user')->user();
+        $solarDate = $request->input('solar_date');
+        $solarDates = $user->solarApplies()
+            ->whereHas('solarClaim', static function ($query) {
+                $query->where('is_paid', true);
+            })
+            ->orderBy('id', 'desc')
+            ->pluck('solar_date')
+            ->toArray();
+            // dd($solarDates,$request->input('solar_date'));
+            if (in_array($solarDate, $solarDates)) {
+                try {
+                    $formData = [
+                        "name" => $user->name1 . $user->name2,
+                        "year" => $request->input('solar_date') ?? now()->year,
+                        "month" => $user->birthday->format('m'),
+                        "day" => $user->birthday->format('d'),
+                        "hour" => $user->birthday_time->format('H'),
+                        "minute" => $user->birthday_time->format('i'),
+                        "longitude" => $user->longitude,
+                        "latitude" => $user->latitude,
+                        "map-city" => $user->birthday_city,
+                        "timezone" => $user->timezome,
+                        "background" => 'normal',
+                    ];
+                } catch (\Exception $e) {
+                    abort(404);
+                }
+            } else {
+                abort(404);
+            }
+
         // ホロスコープ生成なデータを作成
-        $formData = [
-            "name" => $user->name1 . $user->name2,
-            "year" => $user->solar_date ?? now()->year,
-            "month" => $user->birthday->format('m'),
-            "day" => $user->birthday->format('d'),
-            "hour" => $user->birthday_time->format('H'),
-            "minute" => $user->birthday_time->format('i'),
-            "longitude" => $user->longitude,
-            "latitude" => $user->latitude,
-            "map-city" => $user->birthday_city,
-            "timezone" => $user->timezome, //海外展開時にはここが変更できるようにする。現在は日本のみ
-            "background" => 'normal', //仮
-        ];
+        // $formData = [
+        //     "name" => $user->name1 . $user->name2,
+        //     "year" => $solarDates ?? now()->year,
+        //     "month" => $user->birthday->format('m'),
+        //     "day" => $user->birthday->format('d'),
+        //     "hour" => $user->birthday_time->format('H'),
+        //     "minute" => $user->birthday_time->format('i'),
+        //     "longitude" => $user->longitude,
+        //     "latitude" => $user->latitude,
+        //     "map-city" => $user->birthday_city,
+        //     "timezone" => $user->timezome, //海外展開時にはここが変更できるようにする。現在は日本のみ
+        //     "background" => 'normal', //仮
+        // ];
+        // dd($request->input('solar_date'));
         // ホロスコープ占いの処理
         // $formData = $request->validated();
         // $localtion = $this->modifyLocation->execute($formData['longitude'], $formData['latitude']);
@@ -91,7 +124,8 @@ class MySolarHoroscopeController extends Controller
         $degreeData = $chart->get('degreeData');
         $explain = $chart->get('explain');
         $imgBase64 = base64_encode($image->getImageBlob());
-        $solarDate = $chart->get('solarDate');
+        // $solarDate = $chart->get('solarDate');
+        $solarDate = $request->query('solar_date');
         $defaultBirthdayPrefectures = $user->birthday_prefectures ?? '東京都杉並区';
         $defaultAddress = $defaultBirthdayPrefectures;
         $defaultBirthDay = $user->birthday;

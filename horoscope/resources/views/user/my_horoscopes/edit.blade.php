@@ -1,6 +1,7 @@
 @extends('layouts.user.mypage.app')
 
 @section('css')
+<link rel="stylesheet" href="{{ asset('mypage/assets/css/solar-return.css') }}">
 <link rel="stylesheet" href="{{ asset('mypage/assets/css/myhoroscope.css') }}">
 @endsection
 
@@ -26,11 +27,11 @@
                             <img src="{{ asset('mypage/assets/images/myhoroscope/img_title-detail.svg') }}" alt="My HOROSCOPE" class="pc">
                             <img src="{{ asset('mypage/assets/images/myhoroscope/sp_img_title-detail.svg') }}" alt="My HOROSCOPE" class="sp"></h2>
                             <!-- count if exits solar appraisal  -->
-                            @if(auth()->guard('user')->user()->solarApplies->count() != 0)
+                            <!-- @if(auth()->guard('user')->user()->solarApplies->count() != 0)
                                 <button class="Button Button--lightblue" onclick="window.location.href='{{ route('user.my_solar_horoscopes.edit') }}'"><span>My Solar Horoscope</span></button>
                             @else
                                 <button class="Button Button--lightblue" onclick="window.location.href='{{ route('user.check_payment_solar.create') }}'"><span>My Solar Horoscope</span></button>
-                            @endif
+                            @endif -->
                             <!-- <button class="Button Button--lightblue" onclick="window.location.href='{{ route('user.my_solar_horoscopes.edit') }}'"><span>My Solar Horoscope</span></button> -->
                             <br>
                             <br>
@@ -50,7 +51,37 @@
                                         @endif
                                     </span>
                                 </div>
-                                <p class="C-user-list__change"><span>出生情報を訂正する</span></p>
+                                <!-- <p class="C-user-list__change"><span>出生情報を訂正する</span></p> -->
+                            </div>
+                            {{--SolarDate Combobox--}}
+                            <div id="popup-horoscope">
+                                <dl class="C-form-block C-form-block--birthdata">
+                                    <dd class="C-form-block__body">
+                                        <dl class="C-form-block-child C-form-block--birth">
+                                            <div id="popup-horoscope">
+                                            <dl class="C-form-block C-form-block--birthdata">
+                                                <dd class="C-form-block__body">
+                                                    <dl class="C-form-block-child C-form-block--birth">
+                                                    <dl class="C-form-block C-form-block--birthdata">
+                                                        <dd class="C-form-block__body">
+                                                            <dl class="C-form-block-child C-form-block--birth">
+                                                                <div>
+                                                                    <div style="display: flex">
+                                                                        <dd class="C-form-block__button">
+                                                                            <button ref="button_solar_date" v-bind:enable="isButtonBoxEnable" @change="submitForm" @focus="highlightButton" @blur="resetButton" @click="enableSelectBox">Text Box</button>
+                                                                        </dd>
+                                                                    </div>
+                                                                </div>
+                                                            </dl>
+                                                        </dd>
+                                                    </dl>
+                                                    </dl>
+                                                </dd>
+                                            </dl>
+                                        </dl>
+                                    </dd>
+                                </dl>
+                                @include('components.parts.user.solar_return_combobox')
                             </div>
                             <div class="C-horoscope-detail">
                                 <div class="C-horoscope-detail-header">
@@ -284,6 +315,10 @@
                 marker: null,
                 map: null,
                 geocoder: new google.maps.Geocoder(),
+                isSelectBoxDisabled: true,
+                isButtonBoxEnable: true,
+                userBirthYear: @json($userBirthYear),
+                selectedSolarDate: null
             }
         },
         methods: {
@@ -386,6 +421,43 @@
                     }
                 });
             },
+            data() {
+                return {
+                    userBirthYear: @json($userBirthYear),
+                    selectedSolarDate: null
+                };
+            },
+            enableSelectBox() {
+                this.isSelectBoxDisabled = false;
+                this.$nextTick(() => {
+                    this.$refs.solar_date.focus();
+                });
+            },
+            enableButtonBox() {
+                this.isButtonBoxEnable = true;
+                this.$(() => {
+                    this.$refs.button_solar_date.focus();
+                });
+            },
+            submitForm() {
+                document.getElementById('solarDateForm').submit();
+            },
+            highlightSelectBox() {
+                this.$refs.solar_date.style.color = '#F17424';
+                this.$refs.solar_date.style.border = '2px solid #F17424';
+            },
+            resetSelectBox() {
+                this.$refs.solar_date.style.color = '';
+                this.$refs.solar_date.style.border = '';
+            },
+            highlightButton() {
+                this.$refs.button_solar_date.style.color = '#F17424';
+                this.$refs.button_solar_date.style.border = '2px solid #F17424';
+            },
+            resetButton() {
+                this.$refs.button_solar_date.style.color = '';
+                this.$refs.button_solar_date.style.border = '';
+            }
         },
         mounted() {
             // 初期住所をサーバーサイドで設定
@@ -399,6 +471,8 @@
             this.setYear(oldYear);
             this.setMonth(oldMonth);
             this.setDay(oldDay);
+            // 年月日を設定
+            this.selectedSolarDate = @json($solarDate);
         }
     }).mount('#popup-horoscope');
 </script>
