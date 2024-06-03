@@ -119,6 +119,7 @@ Route::prefix('download_images')->name('download_images.')->group(static functio
     Route::get('download_sample_pdf',  [BookbindingController::class, 'downloadSamplePdf'])->name('download_sample_pdf');
     // 表紙イメージ（お客様お名前入り）
     Route::get('download_cover_pdf/{design}/{name1}/{name2}',  [BookbindingController::class, 'downloadCoverPdf'])->name('download_cover_pdf');
+    Route::get('download_solar_cover_pdf/{design}/{name1}/{name2}',  [SolarBookbindingController::class, 'downloadCoverPdf'])->name('download_solar_cover_pdf');
 });
 
 // ログイン認証後
