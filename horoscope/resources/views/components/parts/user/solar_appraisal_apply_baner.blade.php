@@ -1,6 +1,11 @@
 <div class="C-appraisal-banner-block">
     <div class="C-appraisal-banner__image">
-        <img src="{{ asset('images/mypage/banner-top-logo.svg') }}" alt="">
+        <!-- <img src="{{ asset('images/mypage/solar-banner-top-logo.svg') }}" alt=""> -->
+        <picture>
+            <source srcset="{{ asset('images/mypage/solar-banner-top-logo.svg') }}"
+                media="(max-width: 600px)">
+            <img src="{{ asset('images/mypage/big-solar-banner-top-logo.svg') }}" alt="PERSONAL SOLAR APPRAISAL">
+        </picture>
     </div>
     @if(str_contains(Request::url(), 'family_appraisals'))
         <p class="C-appraisal-banner_sub-title C-appraisal-banner__price-family">［ 家族割引価格 ］</p>

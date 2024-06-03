@@ -22,9 +22,15 @@
     max-width: 56rem;
     margin-bottom: 2rem;
 }
+.Pageframe-main__firstmessage{
+    font-size: 1.8rem;
+    margin-bottom: 4rem;
+    line-height: 1.714285;
+}
 .Pageframe-main__firstmessage::after{
     background-image: url(../images/myhoroscope/icon_content-mark.svg);
 }
+
 .Pageframe-main__title::after{
     width: 9rem;
     height: 13rem;
@@ -45,7 +51,9 @@
     margin-bottom: 4rem;
     line-height: 1.714285;
 }
-
+.Solar-pageframe-main__firstmessage::after{
+    background-image: url(../images/myhoroscope/icon_content-mark.svg);
+}
 .Pageframe-main__title img{
     width: 120%;
 }
@@ -598,6 +606,12 @@
         margin-top: 6px;
         text-align: center;
         font-weight:800;
+    }
+
+    .Pageframe-main__firstmessage{
+        font-size: 1.4rem;
+        margin-bottom: 4rem;
+        line-height: 1.714285;
     }
 
     .Solar-pageframe-main__firstmessage{
