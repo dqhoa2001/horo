@@ -55,7 +55,8 @@
     </div>
     <p class="C-solar-appraisal-banner__under-text">出生時間に関する<br class="sp">よくある質問と注意事項は<a class="solar-small_link" href="https://hoshinomai.jp/faq" target="_blank" rel="noopener noreferrer">こちら</a></p>
     <div class="C-solar-appraisal-banner__under-btn">
-        <a href="{{ route('user.check_payment_solar.create', ['target_type' => str_contains(Request::url(), 'family_solar') ? '2' : '']) }}">
+        <a href="{{ route('user.check_payment_solar.create', ['target_type' => '2']) }}">
+        <!-- <a href="{{ route('user.check_payment_solar.create', ['target_type' => str_contains(Request::url(), 'family_solar') ? '2' : '']) }}"> -->
         <!-- <a href="{{route('user.check_payment_solar.create')}}"> -->
         <span class="solar-button">
                 お申し込みはこちら
