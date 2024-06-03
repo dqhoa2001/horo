@@ -119,6 +119,13 @@ class SolarApply extends Model
         return $this->hasMany(BookbindingUserApply::class);
     }
 
+
+    // SOLAR 製本申し込み情報
+    public function solarBookbindingUserApplies(): HasMany
+    {
+        return $this->hasMany(SolarBookbindingUserApply::class);
+    }
+
     ////// リレーションエリア↑ ////////
 
     // 製本の希望

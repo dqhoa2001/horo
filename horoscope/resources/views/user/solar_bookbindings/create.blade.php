@@ -121,7 +121,7 @@
                                                                         >
                                                                 <span class="C-form-block__checkbox__text">
                                                                     名前：{{ $solarAppraisal->reference->full_name }}
-                                                                    @if ($personalBookbindingUserAppliesCount > 0)
+                                                                    @if ($personalBookbindingUserAppliesCount[$solarAppraisal->id] > 0)
                                                                         <span style="color: #0069bf; margin-left: 10px;">製本注文済み</span>
                                                                     @endif
                                                                     <br>
@@ -549,7 +549,7 @@ Vue.createApp({
             isCalculating: false,
 						masterCheckbox: false,
 						solarPersonalAppraisal: @json($solarPersonalAppraisal),
-                        familyAppraisals: @json($familyAppraisals),
+                        familyAppraisals: @json($familyAppraisals->values()->all()),
 						bookbindingPrice: @json($bookbinding->price),
 						selectedSolarAppraisals: @json(old('solar_appraisal_apply_ids', $request->solar_appraisal_apply_ids ?? [])),
             // shippingFee: @json(\App\Models\AppraisalClaim::SHIPPING_FEE),
@@ -610,14 +610,19 @@ Vue.createApp({
 		getAllAppraisalIds() {
 			const allAppraisalIds = [];
             // console.log(this.solarPersonalAppraisal);
-            this.solarPersonalAppraisal.forEach((val,index) => {
-                // console.log(val);
-                if (this.solarPersonalAppraisal !== null) {
-				    allAppraisalIds.push(val.id);
-                    // console.log(val.id);
-			    }
-            });
-			// 個人のチェックボックス
+            // this.solarPersonalAppraisal.forEach((val,index) => {
+            //     // console.log(val);
+            //     if (this.solarPersonalAppraisal !== null) {
+			// 	    allAppraisalIds.push(val.id);
+            //         // console.log(val.id);
+			//     }
+            // });
+            // 個人のチェックボックス
+			if (this.solarPersonalAppraisal.length > 0) {
+				allAppraisalIds.push(...this.solarPersonalAppraisal.map(appraisal => appraisal.id));
+			}
+            // console.log(this.familyAppraisals.length);
+            //family
             if (this.familyAppraisals.length > 0) {
 				allAppraisalIds.push(...this.familyAppraisals.map(appraisal => appraisal.id));
 			}

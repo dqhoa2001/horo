@@ -106,7 +106,7 @@
 											$name1 = $data["bookbinding_names1"][$appraisalApply->id];
 											$name2 = $data["bookbinding_names2"][$appraisalApply->id];
 										@endphp
-											<a href="{{ route('user.download_images.download_cover_pdf', ['design' => $design, 'name1' => $name1, 'name2' => $name2]) }}" style="font-size: 1.2rem;">
+											<a href="{{ route('user.download_images.download_solar_cover_pdf', ['design' => $design, 'name1' => $name1, 'name2' => $name2]) }}" style="font-size: 1.2rem;">
 												表紙イメージはこちら
 											</a>
 										</p>

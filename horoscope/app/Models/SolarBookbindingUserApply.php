@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class SolarBookbindingUserApply extends Model
 {
@@ -64,8 +65,8 @@ class SolarBookbindingUserApply extends Model
         return $this->belongsTo(SolarApply::class);
     }
 
-    public function solarClaim(): HasMany
+    public function solarClaim(): HasOne
     {
-        return $this->hasMany(SolarClaim::class);
+        return $this->hasOne(SolarClaim::class);
     }
 }

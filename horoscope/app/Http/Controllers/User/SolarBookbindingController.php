@@ -42,7 +42,7 @@ class SolarBookbindingController extends Controller
         $solarPersonalAppraisal = $user->solarApplies()->whereHas('solarClaim', static function ($query) {
             $query->where('is_paid', true);
         })->orderBy('id', 'desc')->get();
-        //  dd($solarPersonalAppraisal);
+    //    dd($solarPersonalAppraisal);
 
         // 家族の個人鑑定を取得
         $familyAppraisals = $user->families->map(static function ($family) {
@@ -52,18 +52,28 @@ class SolarBookbindingController extends Controller
         })->filter(static function ($family) {
             return null !== $family;
         });
-
         // dd($familyAppraisals);
 
         //個人鑑定製本済数
-        $personalBookbindingUserAppliesCount = 0;
-        foreach ($user->solarApplies as $appraisalApply) {
-            if (isset($appraisalApply->solarBookbindingUserApplies)) {
-                foreach ($appraisalApply->solarBookbindingUserApplies as $bookbindingUserApply) {
-                    $personalBookbindingUserAppliesCount += 1;
+        $personalBookbindingUserAppliesCount = [];
+        $count = 0;
+        if (isset($user->solarApplies)) {
+            // dd($user->solarApplies);
+            foreach ($user->solarApplies as $solarApply) {
+                if (isset($solarApply->solarBookbindingUserApplies)) {
+                    // dd($solarApply->solarBookbindingUserApplies);
+                    foreach ($solarApply->solarBookbindingUserApplies as $bookbindingUserApply) {
+                        $count += 1;
+                        // dd($solarApply->solarBookbindingUserApplies);
+                    }
                 }
+                $personalBookbindingUserAppliesCount = $personalBookbindingUserAppliesCount + [$solarApply->id => $count];
             }
         }
+
+        // dd($solarApply->id);
+        //  dd($personalBookbindingUserAppliesCount);
+
 
         //家族の個人鑑定製本済数
         $familyBookbindingUserAppliesCount = [];
@@ -80,7 +90,7 @@ class SolarBookbindingController extends Controller
             }
             $familyBookbindingUserAppliesCount = $familyBookbindingUserAppliesCount + [$family->id => $count];
         }
-
+        // dd($familyBookbindingUserAppliesCount);
         // dd($solarPersonalAppraisal);
         return view('user.solar_bookbindings.create', [
             'bookbinding'                         => Bookbinding::where('is_enabled', true)->first(),
