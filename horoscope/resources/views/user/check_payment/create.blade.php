@@ -111,12 +111,12 @@
                                     </dd>
                                 </dl>
 
-                                <dl class="C-form-block C-form-block--cash">
+                                <!-- <dl class="C-form-block C-form-block--cash">
                                     <p class="C-form-text-position">Stellar Blueprint 購入と同時に、自動で会員登録となります。
                                         <br>購入時に入力したメールアドレスとパスワードで、マイページ
                                         <br class="C-form-br">にログインが可能です。
                                     </p>
-                                </dl>
+                                </dl> -->
 
                                 {{-- 決済フォーム。v-ifだとフォームを再描画しないといけないのでv-showにした --}}
                                 <dl class="C-form-block C-form-block--cash" v-show="paymentType == '1'">
