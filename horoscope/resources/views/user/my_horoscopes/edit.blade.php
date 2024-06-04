@@ -66,9 +66,9 @@
                                                         <dd class="C-form-block__body">
                                                             <dl class="C-form-block-child C-form-block--birth">
                                                                 <div>
-                                                                    <div style="display: flex">
+                                                                    <div class="div_right">
                                                                         <dd class="C-form-block__button">
-                                                                            <button ref="button_solar_date" v-bind:enable="isButtonBoxEnable" @change="submitForm" @focus="highlightButton" @blur="resetButton" @click="enableSelectBox">Text Box</button>
+                                                                            <button ref="button_solar_date" :disabled="!isButtonBoxEnable" @click="enableSelectBox">出生図</button>
                                                                         </dd>
                                                                     </div>
                                                                 </div>
@@ -83,6 +83,7 @@
                                 </dl>
                                 @include('components.parts.user.solar_return_combobox')
                             </div>
+                            <br>
                             <div class="C-horoscope-detail">
                                 <div class="C-horoscope-detail-header">
                                     <!--<p class="C-horoscope-detail__title font">Horoscope Chart</p>-->
@@ -315,10 +316,10 @@
                 marker: null,
                 map: null,
                 geocoder: new google.maps.Geocoder(),
-                isSelectBoxDisabled: true,
-                isButtonBoxEnable: true,
                 userBirthYear: @json($userBirthYear),
-                selectedSolarDate: null
+                selectedSolarDate: null,
+                isSelectBoxDisabled: true,
+                isButtonBoxEnable: true
             }
         },
         methods: {
@@ -421,22 +422,13 @@
                     }
                 });
             },
-            data() {
-                return {
-                    userBirthYear: @json($userBirthYear),
-                    selectedSolarDate: null
-                };
-            },
             enableSelectBox() {
                 this.isSelectBoxDisabled = false;
+                this.isButtonBoxEnable = false;
                 this.$nextTick(() => {
                     this.$refs.solar_date.focus();
-                });
-            },
-            enableButtonBox() {
-                this.isButtonBoxEnable = true;
-                this.$(() => {
-                    this.$refs.button_solar_date.focus();
+                    this.highlightSelectBox();
+                    this.resetButton();
                 });
             },
             submitForm() {
@@ -445,14 +437,16 @@
             highlightSelectBox() {
                 this.$refs.solar_date.style.color = '#F17424';
                 this.$refs.solar_date.style.border = '2px solid #F17424';
+                this.$refs.solar_date.style.borderRadius = '1.6rem';
             },
             resetSelectBox() {
                 this.$refs.solar_date.style.color = '';
                 this.$refs.solar_date.style.border = '';
             },
             highlightButton() {
-                this.$refs.button_solar_date.style.color = '#F17424';
-                this.$refs.button_solar_date.style.border = '2px solid #F17424';
+                this.$refs.button_solar_date.style.color = '#6186B3';
+                this.$refs.button_solar_date.style.border = '2px solid #6186B3';
+                this.$refs.button_solar_date.style.borderRadius = '1.6rem';
             },
             resetButton() {
                 this.$refs.button_solar_date.style.color = '';
@@ -472,7 +466,13 @@
             this.setMonth(oldMonth);
             this.setDay(oldDay);
             // 年月日を設定
-            this.selectedSolarDate = @json($solarDate);
+            const firstOptionValue = this.$refs.solar_date.options[0].value;
+            // const firstOption = this.$refs.solar_date.value[0];
+            if (firstOptionValue) {
+                // this.selectedSolarDate = firstOption;
+                this.selectedSolarDate = firstOptionValue;
+            }
+            this.highlightButton();
         }
     }).mount('#popup-horoscope');
 </script>

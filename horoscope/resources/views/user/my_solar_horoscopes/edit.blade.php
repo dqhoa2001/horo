@@ -1,6 +1,7 @@
 @extends('layouts.user.mypage.app')
 
 @section('css')
+<link rel="stylesheet" href="{{ asset('mypage/assets/css/solar-return.css') }}">
 <link rel="stylesheet" href="{{ asset('mypage/assets/css/myhoroscope.css') }}">
 @endsection
 
@@ -47,9 +48,39 @@
                                             <p style="color: red" >{{ Session::get('flash_alert') }}</p>
                                         @endif
                                     </span>
+
+                                    <br>
+                                    <!-- <dl class="C-form-block C-form-block--birthdata">
+                                        <dd class="C-form-block__body">
+                                            <dl class="C-form-block-child C-form-block--birth">
+                                                <div id="popup-horoscope">
+                                                <dl class="C-form-block C-form-block--birthdata">
+                                                    <dd class="C-form-block__body">
+                                                        <dl class="C-form-block-child C-form-block--birth">
+                                                        <dl class="C-form-block C-form-block--birthdata">
+                                                            <dd class="C-form-block__body">
+                                                                <dl class="C-form-block-child C-form-block--birth">
+                                                                    <div>
+                                                                        <div class="div_right">
+                                                                            <dd class="C-form-block__button2">
+                                                                                <button onclick="window.location.href='{{ route('user.my_horoscopes.edit') }}'">Return My Horoscope</button>
+                                                                            </dd>
+                                                                        </div>
+                                                                    </div>
+                                                                </dl>
+                                                            </dd>
+                                                        </dl>
+                                                        </dl>
+                                                    </dd>
+                                                </dl>
+                                            </dl>
+                                        </dd>
+                                    </dl> -->
                                 </div>
                                 <!-- <p class="C-user-list__change"><span>Update Solar Year</span></p> -->
                             </div>
+                            <br>
+                            <!-- <button class="Button Button--lightblue" onclick="window.location.href='{{ route('user.my_horoscopes.edit') }}'"><span>Return My Horoscope</span></button> -->
                             <div class="C-horoscope-detail">
                                 <div class="C-horoscope-detail-header">
                                     <!--<p class="C-horoscope-detail__title font">Horoscope Chart</p>-->
@@ -99,6 +130,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="C-back"><a href="{{ route('user.my_horoscopes.edit') }}"><span>MYホロスコープに戻る</span></a></div>
                         </div>
                     </section>
                     <!-- ***** セクション名 ***** -->
