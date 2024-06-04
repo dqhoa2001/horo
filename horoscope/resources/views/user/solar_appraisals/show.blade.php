@@ -26,8 +26,13 @@
                         {{-- <h2 class="Pageframe-main__title result"><img src="{{ asset('mypage/assets/images/myappraisal/pc-result-appraisal.svg') }}"
                                 alt="PERSONAL APPRAISAL"></h2> --}}
                         <h2 class="Pageframe-main__title result">
-                            <img src="{{ asset('mypage/assets/images/familyappraisal/pc-result-appraisal.svg') }}"
-                                alt="PERSONAL APPRAISAL"></h2>
+                            <!-- <img src="{{ asset('mypage/assets/images/solar-return/solar-return-appraisal.svg') }}" alt="PERSONAL APPRAISAL"> -->
+                            <picture>
+                                <source srcset="{{ asset('mypage/assets/images/solar-return/small-solar-return-appraisal.svg') }}"
+                                    media="(max-width: 600px)">
+                                <img src="{{ asset('mypage/assets/images/solar-return/solar-return-appraisal.svg') }}" alt="PERSONAL APPRAISAL">
+                            </picture>
+                        </h2>
 						{{-- <h2 class="Pageframe-main__title appraisal"></h2> --}}
                         <div class="Pageframe-main__body">
 

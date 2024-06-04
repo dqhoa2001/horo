@@ -19,8 +19,8 @@
     margin-bottom: 4.5rem;
 }
 .Pageframe-main__title.result{
-    max-width: 56rem;
-    margin-bottom: 2rem;
+    max-width: 50rem;
+    margin-bottom: -2rem;
 }
 .Pageframe-main__firstmessage::after{
     background-image: url(../images/myhoroscope/icon_content-mark.svg);
@@ -374,6 +374,11 @@
         height: 9.6rem;
         right: -6.5rem;
         top: 0;
+    }
+
+    .Pageframe-main__title.result {
+        max-width: 25rem;
+        margin-bottom: -2rem;
     }
 
     /*----- ユーザー */
