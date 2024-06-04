@@ -369,7 +369,7 @@
 }
 
 .C-solar-appraisal-banner__sub-box {
-	padding: 30px;
+	padding: 20px;
 	border-left: #C3D0E3 solid 1px;
 	border-right: #C3D0E3 solid 1px;
 	border-bottom: #C3D0E3 solid 1px;
@@ -378,7 +378,7 @@
 
 .C-solar-appraisal-banner__sub-box-image {
 	/* width: 230px; */
-	max-width: 70%;
+	max-width: 80%;
 	margin-bottom: 10px;
     display: flex;
     justify-content: center;
@@ -480,7 +480,7 @@
 .C-appraisal-banner__sub-flex .C-appraisal-banner__sub-sample-text{
     font-weight: 700;
     color: #735539;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
 }
 
 @media screen and (width >= 1600px) , print{
