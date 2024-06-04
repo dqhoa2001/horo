@@ -36,18 +36,21 @@
                         </h2>
 						<p class="Pageframe-main__firstmessage">{{ auth()->user()->full_name }}さんの個人鑑定をします。<br>1 年間に絞って鑑定をすることで、より詳細な運勢を読むことができます。</p>
 						<div class="Pageframe-main__body">
-							{{-- <div class="C-appraisal-item">
-								<div class="C-appraisal-item__body">
-									作成前
-								</div>
-								<div class="C-appraisal-item-entry">
-									<p class="C-appraisal-item-entry__price" data-en="Price">{{ number_format($appraisal->price) }}円<span
-											class="C-appraisal-item-entry__price__tax">(税込)</span></p>
-									<p class="C-appraisal-item-entry__text">支払い方法：クレジットカード、銀行振込</p>
-									<div class="Button Button--blue2"><a
-											href="{{ route('user.appraisals.create') }}">個人鑑定に申し込む</a></div>
-								</div>
-							</div> --}}
+                        <div class="C-user-list">
+                                @foreach ($SolarAppraisals as $SolarAppraisal)
+                                <div class="C-user-list-block">
+                                    <a href="{{ route('user.solar_appraisals.show', $SolarAppraisal) }}"
+                                        class="C-user-list-block__inner C-user-list-block__hasimage">
+                                        <figure class="C-user-list-block__image"><img
+                                            src="{{ asset('mypage/assets/images/solar-return/img_thumbnail.svg') }}" alt="画像"></figure>
+                                        <div class="C-user-list-block__hasimage__inner">
+                                            <h3 class="C-user-list-block__title" data-tag="Solar Return Year"><span>{{
+                                                    $SolarAppraisal->solar_date }}
+                                        </div>
+                                    </a>
+                                </div>
+                                @endforeach
+                            </div>
 
 							<!-- 鑑定バナー -->
 							@include('components.parts.user.solar_appraisal_apply_baner')

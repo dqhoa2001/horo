@@ -29,6 +29,12 @@ class ApplyRequest extends FormRequest
     public function rules()
     {
         return [
+            'family_id'   => [
+                Rule::requiredIf($this->input('target_type') === TargetType::FAMILY),
+                'not_in:選択してください',
+            ],
+            'name1' => ['string', 'max:255', Rule::requiredIf($this->input('target_type') === TargetType::FAMILY)],
+            'name2' => ['string', 'max:255', Rule::requiredIf($this->input('target_type') === TargetType::FAMILY)],
             'birthday' => ['date', new ValidBirthDate()],
             'target_type' => ['required'],
             'relationship' => ['string', 'max:255', Rule::requiredIf($this->input('target_type') === TargetType::FAMILY)],

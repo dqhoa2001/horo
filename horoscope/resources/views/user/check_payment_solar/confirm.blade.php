@@ -30,14 +30,8 @@
 
 			<input type="hidden" name="target_type" value="{{ $data['target_type'] }}">
 
-			{{-- 家族の場合 --}}
-			@if((int)$data['target_type'] === \App\Enums\TargetType::FAMILY->value)
-			<input type="hidden" name="relationship" value="{{ $data['relationship'] }}">
-			<input type="hidden" name="family_name1" value="{{ $data['family_name1'] }}">
-			<input type="hidden" name="family_name2" value="{{ $data['family_name2'] }}">
-			@endif
-
 			<input type="hidden" name="solar_date" value="{{ $data['solar_date'] }}">
+			<input type="hidden" name="family_id" value="{{ $data['family_id'] }}">
 			<input type="hidden" name="is_bookbinding" value="{{ $data['is_bookbinding'] }}">
 
 			{{-- 製本 --}}
@@ -63,29 +57,6 @@
 			<input type="hidden" name="total_amount" value="{{ $data['total_amount'] }}">
 
 			<div class="C-form-block__wrap">
-
-				<dl class="C-form-block">
-					<dt class="C-form-block__title C-form-block__title--req">個人鑑定の対象者</dt>
-					<dd class="C-form-block__body C-form-block-child">
-						{{(int)$data['target_type'] === \App\Models\SolarApply::USER ? '自分' : '家族'}}
-					</dd>
-					@if((int)$data['target_type'] === \App\Enums\TargetType::FAMILY->value)
-					<dd class="C-form-block__body">
-						<dl class="C-form-block-child C-form-block--birth">
-							<dt class="C-form-block__title">対象者との続柄</dt>
-							<dd class="C-form-block__body C-form-block__body--half">
-								{{ $data['relationship'] }}
-							</dd>
-						</dl>
-						<dl class="C-form-block-child C-form-block--time">
-							<dt class="C-form-block__title">対象者のお名前</dt>
-							<dd class="C-form-block__body C-form-block__body--half">
-								{{ $data['family_name1'] }}{{ $data['family_name2'] }}
-							</dd>
-						</dl>
-					</dd>
-					@endif
-				</dl>
 
 				<dl class="C-form-block C-form-block--hope">
 					<dt class="C-form-block__title C-form-block__title--req">製本の希望</dt>
