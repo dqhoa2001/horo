@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\User\SolarBookbindingController;
+use App\Http\Controllers\User\SolarAppraisalController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\TopController;
 use App\Http\Controllers\User\HomeController;
@@ -21,8 +21,11 @@ use App\Http\Controllers\User\OfferAppraisalController;
 use App\Http\Controllers\User\ContactController;
 use App\Http\Controllers\User\Auth\VerificationController;
 use App\Http\Controllers\User\FamilyAppraisalController;
+use App\Http\Controllers\User\FamilyListController;
 use App\Http\Controllers\User\CheckPaymentController;
 use App\Http\Controllers\User\CheckPaymentSolarController;
+use App\Http\Controllers\User\FamilySolarHoroscopeController;
+use App\Http\Controllers\User\SolarBookbindingController;
 
 //会員登録しないでホロスコープ
 Route::prefix('horoscopes')->name('horoscopes.')->group(static function () {
@@ -53,7 +56,7 @@ Route::prefix('offer_appraisals')->name('offer_appraisals.')->group(static funct
     Route::get('thanks', [OfferAppraisalController::class, 'thanks'])->name('thanks');
 });
 
-Route::prefix('check_payment')->name('check_payment.')->group(static function () {
+Route::prefix('check_payment')->name('check_payment.')->middleware(['auth:user', 'verified'])->group(static function () {
     //鑑定作成画面
     Route::get('create', [CheckPaymentController::class, 'create'])->name('create');
 
@@ -68,7 +71,7 @@ Route::prefix('check_payment')->name('check_payment.')->group(static function ()
     Route::get('thanks', [CheckPaymentController::class, 'thanks'])->name('thanks');
 });
 
-Route::prefix('check_payment_solar')->name('check_payment_solar.')->group(static function () {
+Route::prefix('check_payment_solar')->name('check_payment_solar.')->middleware(['auth:user', 'verified'])->group(static function () {
     //鑑定作成画面
     Route::get('create', [CheckPaymentSolarController::class, 'create'])->name('create');
 
@@ -156,7 +159,9 @@ Route::middleware(['auth:user', 'verified'])->group(static function () {
     //家族のホロスコープ
     Route::resource('families', FamilyController::class)->except(['edit']);
     Route::get('families/{family}/edit', [FamilyController::class, 'edit'])->middleware('can:view,family')->name('families.edit');
-
+    //家族のホロスコープ
+    Route::resource('families_solar', FamilySolarHoroscopeController::class)->except(['edit']);
+    Route::get('families_solar/{family}/edit', [FamilySolarHoroscopeController::class, 'edit'])->middleware('can:view,family')->name('families_solar.edit');
     //MyHoroscope
     Route::controller(MyHoroscopeController::class)->prefix('my_horoscopes')->name('my_horoscopes.')->group(static function () {
         Route::get('create', 'create')->name('create');
@@ -189,10 +194,27 @@ Route::middleware(['auth:user', 'verified'])->group(static function () {
         Route::get('{appraisal_apply}', 'show')->name('show')->middleware('can:viewClaim,appraisal_apply', 'can:viewAppraisalApply,appraisal_apply');
     });
 
+    //MySolarHoroscopeAppraisal
+    Route::controller(SolarAppraisalController::class)->prefix('solar_appraisals')->name('solar_appraisals.')->group(static function () {
+        // 個人鑑定
+        Route::get('', 'index')->name('index');
+        // 個人鑑定の詳細
+        Route::get('{solar_apply}', 'show')->name('show')->middleware('can:viewSolarClaim,solar_apply', 'can:viewSolarAppraisalApply,solar_apply');
+        // Route::get('{appraisal_apply}', 'show')->name('show')->middleware('can:viewClaim,appraisal_apply', 'can:viewAppraisalApply,appraisal_apply');
+        Route::get('{solarApply}/get-data/{solarDate}', [SolarAppraisalController::class, 'getSolarData']);
+    });
+
     //家族鑑定
     Route::controller(FamilyAppraisalController::class)->prefix('family_appraisals')->name('family_appraisals.')->group(static function () {
         Route::get('', 'index')->name('index');
+        Route::get('offer_solar', 'showOffer')->name('offer_solar');
         Route::get('{appraisal_apply}', 'show')->name('show')->middleware('can:viewClaim,appraisal_apply', 'can:viewFamilyAppraisalApply,appraisal_apply');
+    });
+
+    //Family List
+    Route::controller(FamilyListController::class)->prefix('family_list')->name('family_list.')->group(static function () {
+        Route::get('', 'index')->name('index');
+        // Route::get('{appraisal_apply}', 'show')->name('show')->middleware('can:viewClaim,appraisal_apply', 'can:viewFamilyAppraisalApply,appraisal_apply');
     });
 
     //問い合わせ

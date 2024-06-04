@@ -27,6 +27,9 @@ class Kernel extends ConsoleKernel
     
             // 単発発送コマンド 5分に1回実行
             $schedule->command('command:ShippingBook')->everyFiveMinutes();
+
+            // 太陽エネルギー購入の督促状の送付命令 1 日 1 回実行する
+            $schedule->command('command:ReminderPurchaseSolar')->dailyAt('00:00');
         }
     }
 

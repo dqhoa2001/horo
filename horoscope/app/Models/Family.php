@@ -36,6 +36,11 @@ class Family extends Model
     {
         return $this->morphMany('App\Models\AppraisalApply', 'reference');
     }
+    // family solar
+    public function solarApplies(): MorphMany
+    {
+        return $this->morphMany('App\Models\SolarApply', 'reference');
+    }
     ////// リレーションエリア　↑ ////////
 
     // フルネームを取得する
