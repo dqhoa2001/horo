@@ -46,6 +46,15 @@
     background-image: none;
 }
 
+.C-solar-appraisal-banner__image {
+	width: 500px;
+	max-width: 100%;
+	margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .Solar-pageframe-main__firstmessage{
     font-size: 1.8rem;
     margin-bottom: 4rem;
@@ -283,6 +292,7 @@
 
 .solar-sample-btn-block{
     width: 140px;
+    margin-left: 1rem;
 }
 
 .solar-button::before {
@@ -329,7 +339,7 @@
 }
 
 .C-solar-appraisal-banner__book-price {
-	font-size: 22px;
+	font-size: 2rem;
 	color: #735539 !important;
 	margin-top: 10px;
 	text-align: center;
@@ -337,7 +347,7 @@
 }
 
 .C-solar-appraisal-banner__book-price .book-price{
-	font-size: 1.1rem;
+	font-size: 1.3rem;
 	color: #735539 !important;
     font-weight: 800;
 }
@@ -381,10 +391,14 @@
 }
 
 .C-solar-appraisal-banner__under-btn {
-	width: 287px;
+	/* width: 287px; */
 	margin-left: auto;
 	margin-right: auto;
 	max-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
 }
 
 .C-solar-appraisal-banner__under-btn .solar-button {
@@ -504,6 +518,9 @@
 	}
     .C-appraisal-banner__sub-sample-image{
 		margin-top: 13px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 	}
 	.sample-btn-block{
 		text-align: center;
@@ -622,6 +639,11 @@
 
     .solar-sample-btn-block{
         width: 100%;
+        margin: auto;
+    }
+
+    .solar-sample-btn-block img{
+        margin: auto;
     }
 
     .Pageframe-main__title img {
@@ -664,6 +686,9 @@
     }
     .Myappraisal--detail .C-user-list-block__item:nth-of-type(3){
         border-top: 1px solid rgba(57,57,92,.5);
+    }
+    .C-solar-appraisal-banner__under-btn img{
+        width: 100%;
     }
 
 }
