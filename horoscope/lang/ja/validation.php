@@ -153,6 +153,9 @@ return [
         'bookbinding_name' => [
             'string' => '製本に表示するお名前を入力してください',
         ],
+        'solar_appraisal_apply_ids' => [
+            'required' => '製本したい方を最低1人は選択してください',
+        ],
     ],
 
     /*

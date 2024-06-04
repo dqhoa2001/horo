@@ -16,11 +16,14 @@ use App\Repositories\SabianPatternRepository;
 use App\Repositories\ZodiacPatternRepository;
 use Modules\Horoscope\Http\Actions\Predict\ModifyLocation;
 use Modules\Horoscope\Http\Actions\GenerateHoroscopeChartAction;
+use Modules\Horoscope\Http\Actions\GenerateSolarHoroscopeChartAction;
+use App\Models\SolarBookbindingUserApply;
 
 class SolarApplyService
 {
     public function __construct(
         protected GenerateHoroscopeChartAction $generateHoroscopeChartAction,
+        protected GenerateSolarHoroscopeChartAction $generateSolarHoroscopeChartAction,
         protected ZodiacRepository $zodiacRepository,
         protected PlanetRepository $planetRepository,
         protected HouseRepository $houseRepository,
@@ -86,34 +89,36 @@ class SolarApplyService
     }
 
     // 製本の作成
-    public function makeBook(BookbindingUserApply $bookbindingUserApply): array
+    public function makeBook(SolarBookbindingUserApply $solarBookbindingUserApply): array
     {
-        \Log::info('makeBookメソッド' , [
-            'id' => $bookbindingUserApply->id,
+        \Log::info('makeSolarBookメソッド' , [
+            'id' => $solarBookbindingUserApply->id,
         ]);
-        $solarApply = $bookbindingUserApply->solarApply;
-        $bookbindingName = $bookbindingUserApply->bookbinding_name1 . ' ' . $bookbindingUserApply->bookbinding_name2;
-        if ($bookbindingUserApply->bookbinding_name1 === null && $bookbindingUserApply->bookbinding_name2 === null) {
+        $solarApply = $solarBookbindingUserApply->solarApply;
+        $bookbindingName = $solarBookbindingUserApply->bookbinding_name1 . ' ' . $solarBookbindingUserApply->bookbinding_name2;
+        // dd($bookbindingName);
+        if ($solarBookbindingUserApply->bookbinding_name1 === null && $solarBookbindingUserApply->bookbinding_name2 === null) {
             $bookbindingName = $solarApply->reference->name1 . $solarApply->reference->name2;
         }
         $formData = [
             "name" => $solarApply->reference->name1 . $solarApply->reference->name2,
             "bookbinding_name" => $bookbindingName,
-            "year" => $solarApply->birthday->format('Y'),
-            "month" => $solarApply->birthday->format('m'),
-            "day" => $solarApply->birthday->format('d'),
-            "hour" => $solarApply->birthday_time->format('H'),
-            "minute" => $solarApply->birthday_time->format('i'),
-            "longitude" => $solarApply->longitude,
-            "latitude" => $solarApply->latitude,
-            "map-city" => $solarApply->birthday_prefectures,
+            // "year" => $solarApply->birthday->format('Y'),
+            "year"  => $solarApply->solar_date,
+            "month" => $solarApply->reference->birthday->format('m'),
+            "day" => $solarApply->reference->birthday->format('d'),
+            "hour" => $solarApply->reference->birthday_time->format('H'),
+            "minute" => $solarApply->reference->birthday_time->format('i'),
+            "longitude" => $solarApply->reference->longitude,
+            "latitude" => $solarApply->reference->latitude,
+            "map-city" => $solarApply->reference->birthday_prefectures,
             "timezone" => $solarApply->timezome, //海外展開時にはここが変更できるようにする。現在は日本のみ
             "background" => 'normal', //仮
             "relationship" => 'nullable', // 仮
         ];
 
         // ホロスコープ占いの処理
-        $chart = $this->generateHoroscopeChartAction->execute($formData, WheelRadiusEnum::WheelScale);
+        $chart = $this->generateSolarHoroscopeChartAction->execute($formData, WheelRadiusEnum::WheelScale);
         $zodaics = $this->zodiacRepository->getAll();
         $planets = $this->planetRepository->getAll();
         $houses = $this->houseRepository->getAll();
@@ -141,7 +146,7 @@ class SolarApplyService
         ];
         $fileName = $formData['name'] . '_' . now()->format('Ymd-His') . '.pdf';
 
-        $designType = $bookbindingUserApply->is_design;
+        $designType = $solarBookbindingUserApply->is_design;
         $blade = '';
         if ((int) $designType === SolarApply::PDF_SOPHIA) {
             $blade = view('horoscope::dowload1', $data);

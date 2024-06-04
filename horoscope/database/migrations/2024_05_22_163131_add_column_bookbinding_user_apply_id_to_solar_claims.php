@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::table('solar_claims', function (Blueprint $table) {
             $table->unsignedBigInteger('bookbinding_user_apply_id')->nullable()->after('solar_apply_id');
-            $table->foreign('bookbinding_user_apply_id')->references('id')->on('bookbinding_user_applies')->onDelete('cascade');
+            // $table->foreign('bookbinding_user_apply_id')->references('id')->on('bookbinding_user_applies')->onDelete('cascade');
+            $table->foreign('bookbinding_user_apply_id')->references('id')->on('solar_bookbinding_user_applies')->onDelete('cascade');
         });
     }
 

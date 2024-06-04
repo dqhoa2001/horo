@@ -122,6 +122,7 @@ Route::prefix('download_images')->name('download_images.')->group(static functio
     Route::get('download_sample_pdf',  [BookbindingController::class, 'downloadSamplePdf'])->name('download_sample_pdf');
     // 表紙イメージ（お客様お名前入り）
     Route::get('download_cover_pdf/{design}/{name1}/{name2}',  [BookbindingController::class, 'downloadCoverPdf'])->name('download_cover_pdf');
+    Route::get('download_solar_cover_pdf/{design}/{name1}/{name2}',  [SolarBookbindingController::class, 'downloadCoverPdf'])->name('download_solar_cover_pdf');
 });
 
 // ログイン認証後
@@ -237,10 +238,10 @@ Route::middleware(['auth:user', 'verified'])->group(static function () {
     // SOLAR 製本
     Route::controller(SolarBookbindingController::class)->prefix('solar_bookbindings')->name('solar_bookbindings.')->group(static function () {
         Route::get('create', 'create')->name('create');
-        // Route::post('confirm', 'confirm')->name('confirm');
-        // Route::post('apply', 'apply')->name('apply');
-        // Route::post('back', 'back')->name('back');
-        // Route::get('complete', 'complete')->name('complete');
+        Route::post('confirm', 'confirm')->name('confirm');
+        Route::post('apply', 'apply')->name('apply');
+        Route::post('back', 'back')->name('back');
+        Route::get('complete', 'complete')->name('complete');
     });
 
     // Route::prefix('myappraisals')->name('myappraisals.')->group(static function () {

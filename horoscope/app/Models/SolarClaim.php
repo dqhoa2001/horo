@@ -49,7 +49,7 @@ class SolarClaim extends Model
         2 => '家族鑑定',
         3 => '個人鑑定+製本',
         4 => '家族鑑定+製本',
-        5 => '製本',
+        5 => 'Solar 製本',
         6 => 'Thanh toán Solar'
     ];
 
@@ -116,6 +116,11 @@ class SolarClaim extends Model
 
     public function bookbindingUserApply(): BelongsTo
     {
-        return $this->belongsTo(BookbindingUserApply::class);
+        return $this->belongsTo(SolarBookbindingUserApply::class);
+    }
+
+    public function solarBookbindingUserApply(): BelongsTo
+    {
+        return $this->belongsTo(SolarBookbindingUserApply::class);
     }
 }

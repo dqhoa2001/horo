@@ -26,6 +26,7 @@ use App\Http\Requests\Admin\SolarApplyController\UpdateRequest;
 use App\Models\BookbindingUserApply;
 use App\Services\SolarApplyService;
 use Session;
+use App\Models\SolarBookbindingUserApply;
 
 class SolarApplyController extends Controller
 {
@@ -69,9 +70,9 @@ class SolarApplyController extends Controller
     }
 
     // 鑑定ダウンロード
-    public function downloadPdf(BookbindingUserApply $bookbindingUserApply): BinaryFileResponse
+    public function downloadPdf(SolarBookbindingUserApply $solarBookbindingUserApply): BinaryFileResponse
     {
-        $pdfData = $this->solarApplyService->makeBook($bookbindingUserApply);
+        $pdfData = $this->solarApplyService->makeBook($solarBookbindingUserApply);
 
         return response()->download($pdfData['pdfFilePath'], $pdfData['fileName']);
     }
