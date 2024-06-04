@@ -11,6 +11,7 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('mypage/assets/css/contact.css') }}">
+<link rel="stylesheet" href="{{ asset('mypage/assets/css/bookmaking.css') }}">
 @endsection
 
 @section('content')
@@ -28,6 +29,9 @@
                 <div class="Pageframe-main-content">
                     <!-- ***** セクション名 ***** -->
                     <section class="sec Offer C-form" id="Offer">
+                        <h2 class="Solar-Pageframe-main__title"><img src="{{ asset('mypage/assets/images/solar-bookmaking/solar-return-bookmaking-title.svg') }}"
+                        alt="BOOK MAKING">
+                        </h2>
                         <p class="C-form__message C-form-line C-form-line--first">下記フォームの<span
                                 class="C-form__message__req">必須項目</span>をご記入の上、ご購入ください。</p>
                         @if (Session::has('flash_alert'))
