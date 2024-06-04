@@ -1,10 +1,15 @@
 <div class="C-appraisal-banner-block">
-    <div class="C-appraisal-banner__image">
-        <img src="{{ asset('images/mypage/banner-top-logo.svg') }}" alt="">
+    <div class="C-solar-appraisal-banner__image">
+        <!-- <img src="{{ asset('images/mypage/banner-top-logo.svg') }}" alt=""> -->
+        <picture>
+            <source srcset="{{ asset('images/mypage/small-solar-return-title.png') }}"
+                media="(max-width: 600px)">
+            <img src="{{ asset('images/mypage/solar-return-title.png') }}" alt="PERSONAL SOLAR APPRAISAL">
+        </picture>
     </div>
     <div class="C-solar-appraisal-banner__price-appraisal">
         <p class="C-appraisal-banner_sub-title">［ 家族割引価格 ］</p>
-        <p class="C-appraisal-banner__price">
+        <p class="C-appraisal-banner__price C-solar-appraisal-banner__price-appraisal" >
             {{ number_format($solar_appraisal->family_price) }}円<span>(税込)</span>
         </p>
     </div>
@@ -51,9 +56,10 @@
     <div class="C-solar-appraisal-banner__under-btn">
         <!-- <a href="{{ route('user.appraisals.create', ['target_type' => str_contains(Request::url(), 'family_appraisals') ? '2' : '']) }}"> -->
         <a href="{{route('user.check_payment_solar.create')}}">
-        <span class="solar-button">
-                お申し込みはこちら
-            </span>
-        </a>
+        <picture>
+            <source srcset="{{ asset('images/common/small-solar-return-button.png') }}"
+                media="(max-width: 600px)">
+            <img src="{{ asset('images/common/solar-return-button.png') }}" alt="">
+        </picture>
     </div>
 </div>
