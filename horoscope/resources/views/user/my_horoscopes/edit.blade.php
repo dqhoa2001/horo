@@ -51,7 +51,7 @@
                                         @endif
                                     </span>
                                 </div>
-                                <!-- <p class="C-user-list__change"><span>出生情報を訂正する</span></p> -->
+                                <p class="C-user-list__change"><span>出生情報を訂正する</span></p>
                             </div>
                             {{--SolarDate Combobox--}}
                             <div id="popup-horoscope">
