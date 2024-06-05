@@ -42,6 +42,15 @@
     left: 10px;
 }
 
+.top-14{
+    top: 1.4rem;
+}
+
+.btn-offer-solar img{
+    width: 100%;
+    max-width: 29.4rem;
+    height: 4.6rem;
+}
 /* Specific styles for each button */
 .button.solar-return::before {
     content: url('../images/familylist/icon_button_solar.svg'); /* Path to Solar Return icon */
@@ -385,6 +394,11 @@
     .button{
         width: 100%;
     }
+    .btn-offer-solar img{
+        height: 5.2rem;
+        max-width: 100%;
+    }
+
 	/*----- ホロスコープ一覧 */
 	.C-user-list-block__item:nth-of-type(4){
         border-top: 1px solid rgba(56,98,128,.5);
