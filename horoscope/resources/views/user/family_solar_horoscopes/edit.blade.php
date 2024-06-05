@@ -91,7 +91,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="C-back"><a href="{{ route('user.families.index') }}"><span>家族のホロスコープ一覧へ戻る</span></a></div>
+                            <div class="C-back"><a href="{{ route('user.family_list.index') }}"><span>家族のホロスコープ一覧へ戻る</span></a></div>
                         </div>
                     </section>
                     <!-- ***** セクション名 ***** -->

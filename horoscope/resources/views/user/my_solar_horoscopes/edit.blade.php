@@ -1,6 +1,7 @@
 @extends('layouts.user.mypage.app')
 
 @section('css')
+<link rel="stylesheet" href="{{ asset('mypage/assets/css/solar-return.css') }}">
 <link rel="stylesheet" href="{{ asset('mypage/assets/css/myhoroscope.css') }}">
 @endsection
 
@@ -26,11 +27,11 @@
                             <img src="{{ asset('mypage/assets/images/myhoroscope/img_title-detail.svg') }}" alt="My HOROSCOPE" class="pc">
                             <img src="{{ asset('mypage/assets/images/myhoroscope/sp_img_title-detail.svg') }}" alt="My HOROSCOPE" class="sp"></h2>
                           <!-- count if exits solar appraisal  -->
-                        @if(auth()->guard('user')->user()->appraisalApplies->count() != 0)
+                        <!-- @if(auth()->guard('user')->user()->appraisalApplies->count() != 0)
                             <button class="Button Button--lightblue" onclick="window.location.href='{{ route('user.my_horoscopes.edit') }}'"><span>My Horoscope</span></button>
                         @else
                             <button class="Button Button--lightblue" onclick="window.location.href='{{ route('user.check_payment.create') }}'"><span>My Horoscope</span></button>
-                        @endif
+                        @endif -->
                         <br>
                         <br>
                         <div class="Pageframe-main__body">
@@ -39,8 +40,7 @@
                                     <span class="C-user-list-block__inner">
                                         <h3 class="C-user-list-block__title" data-tag="Name"><span>{{ auth()->guard('user')->user()->name1 }}　{{ auth()->guard('user')->user()->name2 }}</span>さん</h3>
                                         <div class="C-user-list-block__content">
-                                            <p class="C-user-list-block__item" data-tag="Solar Year">{{ $solarDate->format('Y') }}</p>
-                                            <p class="C-user-list-block__item" data-tag="Solar Time">{{ $solarDate->format('H : i') }}</p>
+                                            <p class="C-user-list-block__item" data-tag="Solar Year">{{ $solarDate }}</p>
                                             <p class="C-user-list-block__item" data-tag="Location">{{ auth()->guard('user')->user()->birthday_prefectures }}</p>
                                         </div>
                                         @include('components.parts.error')
@@ -48,9 +48,39 @@
                                             <p style="color: red" >{{ Session::get('flash_alert') }}</p>
                                         @endif
                                     </span>
+
+                                    <br>
+                                    <!-- <dl class="C-form-block C-form-block--birthdata">
+                                        <dd class="C-form-block__body">
+                                            <dl class="C-form-block-child C-form-block--birth">
+                                                <div id="popup-horoscope">
+                                                <dl class="C-form-block C-form-block--birthdata">
+                                                    <dd class="C-form-block__body">
+                                                        <dl class="C-form-block-child C-form-block--birth">
+                                                        <dl class="C-form-block C-form-block--birthdata">
+                                                            <dd class="C-form-block__body">
+                                                                <dl class="C-form-block-child C-form-block--birth">
+                                                                    <div>
+                                                                        <div class="div_right">
+                                                                            <dd class="C-form-block__button2">
+                                                                                <button onclick="window.location.href='{{ route('user.my_horoscopes.edit') }}'">Return My Horoscope</button>
+                                                                            </dd>
+                                                                        </div>
+                                                                    </div>
+                                                                </dl>
+                                                            </dd>
+                                                        </dl>
+                                                        </dl>
+                                                    </dd>
+                                                </dl>
+                                            </dl>
+                                        </dd>
+                                    </dl> -->
                                 </div>
-                                <p class="C-user-list__change"><span>Update Solar Year</span></p>
+                                <!-- <p class="C-user-list__change"><span>Update Solar Year</span></p> -->
                             </div>
+                            <br>
+                            <!-- <button class="Button Button--lightblue" onclick="window.location.href='{{ route('user.my_horoscopes.edit') }}'"><span>Return My Horoscope</span></button> -->
                             <div class="C-horoscope-detail">
                                 <div class="C-horoscope-detail-header">
                                     <!--<p class="C-horoscope-detail__title font">Horoscope Chart</p>-->
@@ -100,6 +130,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="C-back"><a href="{{ route('user.my_horoscopes.edit') }}"><span>MYホロスコープに戻る</span></a></div>
                         </div>
                     </section>
                     <!-- ***** セクション名 ***** -->
@@ -189,7 +220,6 @@
         },
         mounted() {
             // 年月日を設定
-            let oldYear = @json(old('birth_year', $solarDate->format('Y') ?? now()->year));
             this.setYear(oldYear);
         }
     }).mount('#popup-horoscope');

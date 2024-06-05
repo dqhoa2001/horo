@@ -95,7 +95,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="C-back"><a href="{{ route('user.families.index') }}"><span>家族のホロスコープ一覧へ戻る</span></a></div>
+                            <div class="C-back"><a href="{{ route('user.family_list.index') }}"><span>家族のホロスコープ一覧へ戻る</span></a></div>
                         </div>
                     </section>
                     <!-- ***** セクション名 ***** -->
@@ -267,7 +267,7 @@
                                     @method('DELETE')
                                     <p class="C-popup--horoscope-delete__title">ホロスコープの削除</p>
                                     <div id="popup-horoscope">
-                                        @if ($isAppraisalClaimed) 
+                                        @if ($isAppraisalClaimed)
                                             <p class="C-popup__text" style="text-align: left;">
                                                 このご家族は、鑑定購入済みですのでホロスコープも鑑定結果もどちらも削除はできません
                                             </p>
@@ -399,7 +399,7 @@
                         } else {
                             this.map.setCenter(results[0].geometry.location);
                         }
-    
+
                         if (!this.marker) {
                             this.marker = new google.maps.Marker({
                                 position: results[0].geometry.location,
@@ -409,7 +409,7 @@
                         } else {
                             this.marker.setPosition(results[0].geometry.location);
                         }
-    
+
                         const changeLng = results[0].geometry.location.lng();
                         const changeLat = results[0].geometry.location.lat();
                         document.getElementById('map-longitude').value = changeLng;

@@ -47,7 +47,7 @@
                             {{-- お問い合わせ --}}
                             @include('components.parts.user.appraisal_apply_common_contact')
 
-                            <div class="C-back"><a href="{{ route('user.family_appraisals.index') }}"><span>家族の個人鑑定一覧へ戻る</span></a></div>
+                            <div class="C-back"><a href="{{ route('user.family_list.index') }}"><span>家族の個人鑑定一覧へ戻る</span></a></div>
                         </div>
                     </section>
                     <!-- ***** セクション名 ***** -->

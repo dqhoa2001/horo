@@ -20,6 +20,10 @@ use App\Services\MyHoroscopeService;
 use Modules\Horoscope\Http\Actions\Predict\ModifyLocation;
 use App\Repositories\SabianPatternRepository;
 use App\Repositories\ZodiacPatternRepository;
+use App\Models\SolarApply;
+use App\Services\SolarAppraisalApplyService;
+use App\Models\Solar;
+use App\Models\User;
 
 class MyHoroscopeController extends Controller
 {
@@ -31,6 +35,7 @@ class MyHoroscopeController extends Controller
         protected ModifyLocation $modifyLocation,
         protected SabianPatternRepository $sabianPatternRepository,
         protected ZodiacPatternRepository $zodiacPatternRepository,
+        protected SolarAppraisalApplyService $solarAppraisalApplyService,
     ) {
     }
 
@@ -59,7 +64,7 @@ class MyHoroscopeController extends Controller
     }
 
     // 編集フォーム表示
-    public function edit(): View
+    public function edit(Request $request, SolarApply $solarApply): View
     {
         $user = auth()->guard('user')->user();
         // ホロスコープ生成なデータを作成
@@ -94,6 +99,27 @@ class MyHoroscopeController extends Controller
         $defaultAddress = $defaultBirthdayPrefectures;
         $defaultBirthDay = $user->birthday;
 
+        $selectedSolarDate = $request->input('solar_date', null);
+        if ($selectedSolarDate) {
+            $solarApply = SolarApply::where('solar_date', $selectedSolarDate)
+                                    ->where('reference_id', auth()->guard('user')->user()->id)
+                                    ->first();
+        }
+        $solarAppraisalResultData = $this->solarAppraisalApplyService->createSolarAppraisalResultData($solarApply);
+        $user = auth()->guard('user')->user();
+        $userBirthday = User::where('id', $user->id)->value('birthday');
+        $userBirthYear = date('Y', strtotime($userBirthday));
+        // $solarYear = date('Y', strtotime($solarAppraisalResultData['solarDate']));
+        // $age = $solarYear - $userBirthYear;
+        $solarDates = $user->solarApplies()
+            ->whereHas('solarClaim', static function ($query) {
+                $query->where('is_paid', true);
+            })
+            ->orderBy('id', 'desc')
+            ->pluck('solar_date');;
+        $birthday = User::where('id', $user->id)->value('birthday');
+        $birthday_time = User::where('id', $user->id)->value('birthday_time');
+        $birthday_prefectures = User::where('id', $user->id)->value('birthday_prefectures');
         return view('user.my_horoscopes.edit', [
             'imgBase64'  => $imgBase64,
             'degreeData' => $degreeData,
@@ -103,6 +129,13 @@ class MyHoroscopeController extends Controller
             'houses'     => $houses,
             'defaultAddress' => $defaultAddress,
             'defaultBirthDay' => $defaultBirthDay,
+            'solarApply'          => $solarApply,
+            'solarDate'           => $solarAppraisalResultData['solarDate'],
+            'solarDates'          => $solarDates,
+            'userBirthYear'       => $userBirthYear,
+            'birthday'            => $birthday,
+            'birthday_time'            => $birthday_time,
+            'birthday_prefectures'       => $birthday_prefectures,
         ]);
     }
 

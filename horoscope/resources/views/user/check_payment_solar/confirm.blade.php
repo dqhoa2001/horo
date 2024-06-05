@@ -31,7 +31,9 @@
 			<input type="hidden" name="target_type" value="{{ $data['target_type'] }}">
 
 			<input type="hidden" name="solar_date" value="{{ $data['solar_date'] }}">
-			<input type="hidden" name="family_id" value="{{ $data['family_id'] }}">
+            @if((int)$data['target_type'] === \App\Enums\TargetType::FAMILY->value)
+                <input type="hidden" name="family_id" value="{{ $data['family_id'] }}">
+            @endif
 			<input type="hidden" name="is_bookbinding" value="{{ $data['is_bookbinding'] }}">
 
 			{{-- 製本 --}}
