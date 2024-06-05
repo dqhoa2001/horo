@@ -34,7 +34,7 @@
 				<div id="Bookbinding" class="Pageframe-main-content">
 					<!-- ***** セクション名 ***** -->
 					<section class="sec Bookmaking C-form" id="Bookmaking">
-						<h2 class="Pageframe-main__title"><img src="{{ asset('mypage/assets/images/bookmaking/img_title.svg') }}"
+						<h2 class="Solar-Pageframe-main__title"><img src="{{ asset('mypage/assets/images/solar-bookmaking/solar-return-bookmaking-title.svg') }}"
 								alt="BOOK MAKING"></h2>
 						@if ($solarPersonalAppraisal !== null )
 							<p class="C-form__message">下記フォームの<span class="C-form__message__req">必須項目</span>をご記入の上、ご購入ください。</p>
