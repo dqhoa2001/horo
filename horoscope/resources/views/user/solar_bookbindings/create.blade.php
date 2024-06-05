@@ -121,7 +121,7 @@
                                                                         >
                                                                 <span class="C-form-block__checkbox__text">
                                                                     名前：{{ $solarAppraisal->reference->full_name }}
-                                                                    @if ($personalBookbindingUserAppliesCount[$solarAppraisal->id] > 0)
+                                                                    @if ($solarAppraisal->solarBookbindingUserApplies()->exists())
                                                                         <span style="color: #0069bf; margin-left: 10px;">製本注文済み</span>
                                                                     @endif
                                                                     <br>

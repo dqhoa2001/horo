@@ -55,21 +55,21 @@ class SolarBookbindingController extends Controller
         // dd($familyAppraisals);
 
         //個人鑑定製本済数
-        $personalBookbindingUserAppliesCount = [];
-        $count = 0;
-        if (isset($user->solarApplies)) {
-            // dd($user->solarApplies);
-            foreach ($user->solarApplies as $solarApply) {
-                if (isset($solarApply->solarBookbindingUserApplies)) {
-                    // dd($solarApply->solarBookbindingUserApplies);
-                    foreach ($solarApply->solarBookbindingUserApplies as $bookbindingUserApply) {
-                        $count += 1;
-                        // dd($solarApply->solarBookbindingUserApplies);
-                    }
-                }
-                $personalBookbindingUserAppliesCount = $personalBookbindingUserAppliesCount + [$solarApply->id => $count];
-            }
-        }
+        // $personalBookbindingUserAppliesCount = [];
+        // $count = 0;
+        // if (isset($user->solarApplies)) {
+        //     // dd($user->solarApplies);
+        //     foreach ($user->solarApplies as $solarApply) {
+        //         if (isset($solarApply->solarBookbindingUserApplies)) {
+        //             // dd($solarApply->solarBookbindingUserApplies);
+        //             foreach ($solarApply->solarBookbindingUserApplies as $bookbindingUserApply) {
+        //                 $count += 1;
+        //                 // dd($solarApply->solarBookbindingUserApplies);
+        //             }
+        //         }
+        //         $personalBookbindingUserAppliesCount = $personalBookbindingUserAppliesCount + [$solarApply->id => $count];
+        //     }
+        // }
 
         // dd($solarApply->id);
         //  dd($personalBookbindingUserAppliesCount);
@@ -95,7 +95,7 @@ class SolarBookbindingController extends Controller
         return view('user.solar_bookbindings.create', [
             'bookbinding'                         => Bookbinding::where('is_enabled', true)->first(),
             'solarPersonalAppraisal'              => $solarPersonalAppraisal,
-            'personalBookbindingUserAppliesCount' => $personalBookbindingUserAppliesCount,
+            // 'personalBookbindingUserAppliesCount' => $personalBookbindingUserAppliesCount,
             'familyBookbindingUserAppliesCount'   => $familyBookbindingUserAppliesCount,
             'familyAppraisals'                    => $familyAppraisals
         ]);
