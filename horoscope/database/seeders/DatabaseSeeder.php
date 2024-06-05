@@ -60,6 +60,7 @@ class DatabaseSeeder extends Seeder
             TemplateSeeder6::class,
             TemplateSeeder9::class,
             ToggleTestShippingSeeder::class,
+            UpdateSolarPatternsSeeder::class,
         ]);
 
     }
