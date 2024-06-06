@@ -37,17 +37,41 @@ class SolarAppraisalController extends Controller
         protected SolarAppraisalApplyService $solarAppraisalApplyService,
     ) {}
 
-    public function index(Request $request): View|RedirectResponse
+    public function index(Request $request, SolarApply $solarApply): View|RedirectResponse
     {
-        return view('user.solar_appraisals.index', [
-            'SolarAppraisals' => SolarApply::whereHas('user', static function ($query) {
-                $query->where('id', auth()->guard('user')->user()->id);
-            })->whereHas('solarClaim', static function ($query) {
+        $selectedSolarDate = $request->input('solar_date', null);
+        if ($selectedSolarDate) {
+            $solarApply = SolarApply::where('solar_date', $selectedSolarDate)
+                                    ->where('reference_id', auth()->guard('user')->user()->id)
+                                    ->first();
+            if ($solarApply) {
+                $url = url("user/solar_appraisals/{$solarApply->id}?solar_date={$selectedSolarDate}");
+                return redirect()->to($url);
+            }
+        }
+        $user = auth()->guard('user')->user();
+        $userBirthday = User::where('id', $user->id)->value('birthday');
+        $userBirthYear = date('Y', strtotime($userBirthday));
+        $solarDates = $user->solarApplies()
+            ->whereHas('solarClaim', static function ($query) {
                 $query->where('is_paid', true);
-            })->where('reference_type', User::class)->get(),
-            'solar_appraisal'         => Solar::where('is_enabled', true)->first(),
-            'bookbinding'       => Bookbinding::where('is_enabled', true)->first(),
-        ]);
+            })
+            ->orderBy('id', 'desc')
+            ->pluck('solar_date');;
+        return view('user.solar_appraisals.index',
+            [
+                'SolarAppraisals' => SolarApply::whereHas('user', static function ($query) {
+                    $query->where('id', auth()->guard('user')->user()->id);
+                })->whereHas('solarClaim', static function ($query) {
+                    $query->where('is_paid', true);
+                })->where('reference_type', User::class)->get(),
+                'solar_appraisal'         => Solar::where('is_enabled', true)->first(),
+                'bookbinding'       => Bookbinding::where('is_enabled', true)->first(),
+                'userBirthYear'       => $userBirthYear,
+                'solarDates'          => $solarDates,
+                'solarApply'          => $solarApply,
+            ],
+        );
     }
 
     //show solar appraisal data
