@@ -19,6 +19,9 @@ use Modules\Horoscope\Http\Actions\GenerateHoroscopeChartAction;
 use Modules\Horoscope\Http\Actions\Predict\ModifyLocation;
 use App\Repositories\SabianPatternRepository;
 use App\Repositories\ZodiacPatternRepository;
+use App\Models\SolarApply;
+use App\Models\User;
+use App\Services\SolarAppraisalApplyService;
 
 class FamilyController extends Controller
 {
@@ -30,6 +33,7 @@ class FamilyController extends Controller
         protected ModifyLocation $modifyLocation,
         protected SabianPatternRepository $sabianPatternRepository,
         protected ZodiacPatternRepository $zodiacPatternRepository,
+        protected SolarAppraisalApplyService $solarAppraisalApplyService,
     ) {
     }
 
@@ -53,7 +57,7 @@ class FamilyController extends Controller
     public function store(StoreRequest $request): RedirectResponse
     {
         // ホロスコープ生成なデータを作成
-        try {            
+        try {
             $request->merge([
                 'birth' => $request->birth_year . '/' . $request->birth_month . '/' . $request->birth_day,
             ]);
@@ -66,22 +70,72 @@ class FamilyController extends Controller
     }
 
     // 家族のホロスコープ表示と編集
-    public function edit(Family $family): View
+    public function edit(Request $request, Family $family, SolarApply $solarApply): View
     {
+        $user = auth()->guard('user')->user();
+        if ($request->input('solar_date')) {
+            $solarDate = $request->input('solar_date');
+            // dd($request);
+            $solarDates = $user->solarApplies()
+            ->whereHas('solarClaim', static function ($query) {
+                $query->where('is_paid', true);
+            })
+            ->orderBy('id', 'desc')
+            ->pluck('solar_date')
+            ->toArray();
+            if (in_array($solarDate, $solarDates)) {
+                try {
+                    $formData = [
+                        "name" => $user->name1 . $user->name2,
+                        "year" => $solarDate,
+                        "month" => $user->birthday->format('m'),
+                        "day" => $user->birthday->format('d'),
+                        "hour" => $user->birthday_time->format('H'),
+                        "minute" => $user->birthday_time->format('i'),
+                        "longitude" => $user->longitude,
+                        "latitude" => $user->latitude,
+                        "map-city" => $user->birthday_city,
+                        "timezone" => $user->timezome,
+                        "background" => 'normal',
+                    ];
+                    // dd($formData);
+
+                } catch (\Exception $e) {
+                    abort(404);
+                }
+            } else {
+                abort(404);
+            }
+        } else {
+            $formData = [
+                "name" => $family->name1 . $family->name2,
+                "year" => $family->birthday->format('Y'),
+                "month" => $family->birthday->format('m'),
+                "day" => $family->birthday->format('d'),
+                "hour" => $family->birthday_time->format('H'),
+                "minute" => $family->birthday_time->format('i'),
+                "longitude" => $family->longitude,
+                "latitude" => $family->latitude,
+                "map-city" => $family->birthday_city,
+                "timezone" => $family->timezome, //海外展開時にはここが変更できるようにする。現在は日本のみ
+                "background" => 'normal', //仮
+            ];
+            // dd($formData);
+        }
         // ホロスコープ生成なデータを作成
-        $formData = [
-            "name" => $family->name1 . $family->name2,
-            "year" => $family->birthday->format('Y'),
-            "month" => $family->birthday->format('m'),
-            "day" => $family->birthday->format('d'),
-            "hour" => $family->birthday_time->format('H'),
-            "minute" => $family->birthday_time->format('i'),
-            "longitude" => $family->longitude,
-            "latitude" => $family->latitude,
-            "map-city" => $family->birthday_city,
-            "timezone" => $family->timezome, //海外展開時にはここが変更できるようにする。現在は日本のみ
-            "background" => 'normal', //仮
-        ];
+        // $formData = [
+        //     "name" => $family->name1 . $family->name2,
+        //     "year" => $family->birthday->format('Y'),
+        //     "month" => $family->birthday->format('m'),
+        //     "day" => $family->birthday->format('d'),
+        //     "hour" => $family->birthday_time->format('H'),
+        //     "minute" => $family->birthday_time->format('i'),
+        //     "longitude" => $family->longitude,
+        //     "latitude" => $family->latitude,
+        //     "map-city" => $family->birthday_city,
+        //     "timezone" => $family->timezome, //海外展開時にはここが変更できるようにする。現在は日本のみ
+        //     "background" => 'normal', //仮
+        // ];
 
         // ホロスコープ占いの処理
         // $localtion = $this->modifyLocation->execute($formData['longitude'], $formData['latitude']);
@@ -100,6 +154,31 @@ class FamilyController extends Controller
         $defaultBirthDay = $family->birthday;
         $isAppraisalClaimed = $family->appraisalApplies()->whereHas('appraisalClaim')->exists();
 
+        $selectedSolarDate = $request->input('solar_date', null);
+        if ($selectedSolarDate) {
+            $solarApply = SolarApply::where('solar_date', $selectedSolarDate)
+                                    ->where('reference_id', auth()->guard('user')->user()->id)
+                                    ->first();
+            if ($solarApply) {
+                $url = url("user/families/{$solarApply->id}/edit/?solar_date={$selectedSolarDate}");
+                return redirect()->to($url);
+            }
+        }
+        $solarAppraisalResultData = $this->solarAppraisalApplyService->createSolarAppraisalResultData($solarApply);
+        $user = auth()->guard('user')->user();
+        $userBirthday = User::where('id', $user->id)->value('birthday');
+        $userBirthYear = date('Y', strtotime($userBirthday));
+        // $solarYear = date('Y', strtotime($solarAppraisalResultData['solarDate']));
+        // $age = $solarYear - $userBirthYear;
+        $solarDates = $user->solarApplies()
+            ->whereHas('solarClaim', static function ($query) {
+                $query->where('is_paid', true);
+            })
+            ->orderBy('id', 'desc')
+            ->pluck('solar_date');;
+        $birthday = User::where('id', $user->id)->value('birthday');
+        $birthday_time = User::where('id', $user->id)->value('birthday_time');
+        $birthday_prefectures = User::where('id', $user->id)->value('birthday_prefectures');
         return view('user.families.edit', [
             'family'     => $family,
             'imgBase64'  => $imgBase64,
@@ -110,7 +189,14 @@ class FamilyController extends Controller
             'houses'     => $houses,
             'defaultAddress' => $defaultAddress,
             'defaultBirthDay' => $defaultBirthDay,
-            'isAppraisalClaimed' => $isAppraisalClaimed
+            'isAppraisalClaimed' => $isAppraisalClaimed,
+            'solarApply'          => $solarApply,
+            'solarDate'           => $solarAppraisalResultData['solarDate'],
+            'solarDates'          => $solarDates,
+            'userBirthYear'       => $userBirthYear,
+            'birthday'            => $birthday,
+            'birthday_time'            => $birthday_time,
+            'birthday_prefectures'       => $birthday_prefectures,
         ]);
     }
 
