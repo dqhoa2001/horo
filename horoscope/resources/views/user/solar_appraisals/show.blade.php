@@ -1,6 +1,7 @@
 @extends('layouts.user.mypage.app')
 
 @section('css')
+<link rel="stylesheet" href="{{ asset('mypage/assets/css/contact.css') }}">
 <link rel="stylesheet" href="{{ asset('mypage/assets/css/solar-return.css') }}">
 {{-- <link rel="stylesheet" href="{{ asset('mypage/assets/css/appraisal_common.css') }}"> --}}
 <!-- <link rel="stylesheet" href="{{ asset('mypage/assets/css/myhoroscope.css') }}"> -->

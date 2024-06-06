@@ -67,20 +67,70 @@ class MyHoroscopeController extends Controller
     public function edit(Request $request, SolarApply $solarApply): View
     {
         $user = auth()->guard('user')->user();
+        if ($request->input('solar_date')) {
+            $solarDate = $request->input('solar_date');
+            // dd($solarDate);
+            $solarDates = $user->solarApplies()
+            ->whereHas('solarClaim', static function ($query) {
+                $query->where('is_paid', true);
+            })
+            ->orderBy('id', 'desc')
+            ->pluck('solar_date')
+            ->toArray();
+            if (in_array($solarDate, $solarDates)) {
+                try {
+                    $formData = [
+                        "name" => $user->name1 . $user->name2,
+                        "year" => $solarDate,
+                        "month" => $user->birthday->format('m'),
+                        "day" => $user->birthday->format('d'),
+                        "hour" => $user->birthday_time->format('H'),
+                        "minute" => $user->birthday_time->format('i'),
+                        "longitude" => $user->longitude,
+                        "latitude" => $user->latitude,
+                        "map-city" => $user->birthday_city,
+                        "timezone" => $user->timezome,
+                        "background" => 'normal',
+                    ];
+                    // dd($formData);
+
+                } catch (\Exception $e) {
+                    abort(404);
+                }
+            } else {
+                abort(404);
+            }
+        } else {
+            $formData = [
+                "name" => $user->name1 . $user->name2,
+                "year" => $user->birthday->format('Y'),
+                "month" => $user->birthday->format('m'),
+                "day" => $user->birthday->format('d'),
+                "hour" => $user->birthday_time->format('H'),
+                "minute" => $user->birthday_time->format('i'),
+                "longitude" => $user->longitude,
+                "latitude" => $user->latitude,
+                "map-city" => $user->birthday_city,
+                "timezone" => $user->timezome, //海外展開時にはここが変更できるようにする。現在は日本のみ
+                "background" => 'normal', //仮
+            ];
+            // dd($formData);
+        }
+
         // ホロスコープ生成なデータを作成
-        $formData = [
-            "name" => $user->name1 . $user->name2,
-            "year" => $user->birthday->format('Y'),
-            "month" => $user->birthday->format('m'),
-            "day" => $user->birthday->format('d'),
-            "hour" => $user->birthday_time->format('H'),
-            "minute" => $user->birthday_time->format('i'),
-            "longitude" => $user->longitude,
-            "latitude" => $user->latitude,
-            "map-city" => $user->birthday_city,
-            "timezone" => $user->timezome, //海外展開時にはここが変更できるようにする。現在は日本のみ
-            "background" => 'normal', //仮
-        ];
+        // $formData = [
+        //     "name" => $user->name1 . $user->name2,
+        //     "year" => $user->birthday->format('Y'),
+        //     "month" => $user->birthday->format('m'),
+        //     "day" => $user->birthday->format('d'),
+        //     "hour" => $user->birthday_time->format('H'),
+        //     "minute" => $user->birthday_time->format('i'),
+        //     "longitude" => $user->longitude,
+        //     "latitude" => $user->latitude,
+        //     "map-city" => $user->birthday_city,
+        //     "timezone" => $user->timezome, //海外展開時にはここが変更できるようにする。現在は日本のみ
+        //     "background" => 'normal', //仮
+        // ];
 
         // ホロスコープ占いの処理
         // $formData = $request->validated();
