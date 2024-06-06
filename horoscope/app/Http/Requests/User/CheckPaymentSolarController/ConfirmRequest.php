@@ -37,7 +37,7 @@ class ConfirmRequest extends FormRequest
             ],
             'name1' => ['string', 'max:255', Rule::requiredIf($this->input('target_type') === TargetType::FAMILY)],
             'name2' => ['string', 'max:255', Rule::requiredIf($this->input('target_type') === TargetType::FAMILY)],
-            'solar_date' => ['required', 'integer', 'between:1900,2100'],
+            'solar_return' => ['required', 'integer', 'between:1900,2100'],
             'target_type' => ['required'],
             'relationship' => ['string', 'max:255', Rule::requiredIf($this->input('target_type') === TargetType::FAMILY)],
             'family_name1' => ['string', 'max:255', Rule::requiredIf($this->input('target_type') === TargetType::FAMILY)],
@@ -72,7 +72,7 @@ class ConfirmRequest extends FormRequest
 
         return $this->only([
             'family_id',
-            'solar_date',
+            'solar_return',
             'target_type',
             'relationship',
             'family_name1',

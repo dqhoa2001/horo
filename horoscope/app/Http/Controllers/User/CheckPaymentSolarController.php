@@ -34,6 +34,15 @@ use App\Services\BookbindingUserSolarApplyService;
 use App\Mail\User\BookbindingUserApplyMailForBank;
 use App\Http\Requests\User\CheckPaymentSolarController\ApplyRequest;
 use App\Http\Requests\User\CheckPaymentSolarController\ConfirmRequest;
+use App\Mail\User\CompleteForPersonalAppraisal;
+use App\Mail\User\ThanksForPersonalAppraisal;
+use App\Models\Appraisal;
+use App\Models\AppraisalClaim;
+use App\Services\AppraisalApplyService;
+use App\Services\AppraisalClaimService;
+use App\Services\BookbindingUserApplyService;
+use App\Services\FamilyService;
+use App\Services\MyHoroscopeService;
 
 class CheckPaymentSolarController extends Controller
 {
@@ -45,11 +54,9 @@ class CheckPaymentSolarController extends Controller
     // 会員登録せずに個人鑑定ページの表示
     public function create(Request $request): View
     {
-        $bookbinding = Bookbinding::where('is_enabled', true)->first();
-        $solar = Solar::where('is_enabled', true)->first();
-
+        $bookbinding = Bookbinding::where('is_enabled', true)->where('solar_return',true)->first();
+        $solar = Appraisal::where('is_enabled', true)->where('solar_return',true)->first();
         $user = auth()->guard('user')->user();
-
         $appraisalPrice = $solar->price;
         $defaultBirthday = $user->birthday;
         $defaultBirthdayTime = $user->birthday_time;
@@ -73,19 +80,19 @@ class CheckPaymentSolarController extends Controller
             'defaultBirthdayTime' => $defaultBirthdayTime,
             'defaultBirthdayPrefectures' => $defaultBirthdayPrefectures,
             'defaultAddress' => $defaultAddress,
+            'solarYear' => now()->year,
         ]);
     }
 
     //確認画面
     public function confirm(ConfirmRequest $request): View
     {
-        $data = $request->substitutable();
         //合計金額をセッションに保存
-        $request->session()->put('total_amount', $data['total_amount']);
+        $request->session()->put('total_amount', $request['total_amount']);
         return view('user.check_payment_solar.confirm', [
-            'data'        => $data,
-            'bookbinding' => Bookbinding::where('is_enabled', true)->first(),
-            'solar'   => Solar::where('is_enabled', true)->first(),
+            'data'        => $request,
+            'bookbinding' => Bookbinding::where('is_enabled', true)->where('solar_return',true)->first(),
+            'solar'   => Appraisal::where('is_enabled', true)->where('solar_return',true)->first(),
         ]);
     }
 
@@ -96,8 +103,9 @@ class CheckPaymentSolarController extends Controller
     }
 
     // 申し込み処理
-    public function apply(ApplyRequest $request): RedirectResponse
+    public function apply(Request $request): RedirectResponse
     {
+        // dd($request);
         \DB::beginTransaction();
         Stripe::setApiKey(config('services.stripe.secret'));
 
@@ -139,36 +147,36 @@ class CheckPaymentSolarController extends Controller
 
                 //家族の場合
                 if ((int) $request->target_type === TargetType::FAMILY->value) {
-                    $contentType = SolarClaim::FAMILY;
+                    $contentType = AppraisalClaim::FAMILY;
                     // $user = UserService::create($request);
                     $user = auth()->guard('user')->user();
-                    $family = FamilySolarService::updateOrCreate($request);
-                    $solarApply = SolarApplyService::create($request, Family::class, $family->id);
+                    $family = FamilyService::updateOrCreate($request);
+                    $solarApply = AppraisalApplyService::create($request, Family::class, $family->id);
 
                     //製本の場合
                     if ((int) $request->is_bookbinding === Bookbinding::BOOKBINDING) {
-                        $bookbindingUserApply = BookbindingUserSolarApplyService::create($request, $solarApply);
+                        $bookbindingUserApply = BookbindingUserApplyService::create($request, $solarApply);
                         $bookbindingUserApplyId = $bookbindingUserApply->id;
-                        $contentType = SolarClaim::FAMILY_BOOKING;
+                        $contentType = AppraisalClaim::FAMILY_BOOKING;
                     }
                 //ユーザー自身の場合
                 } else {
-                    $contentType = SolarClaim::SOLAR;
+                    $contentType = AppraisalClaim::SOLAR;
 
                     // $user = UserService::createUserAndHoroscope($request);
                 $user = auth()->guard('user')->user();
-                    $solarApply = SolarApplyService::create($request, User::class, $user->id);
+                    $solarApply = AppraisalApplyService::create($request, User::class, $user->id);
 
                     //製本の場合
                     if ((int) $request->is_bookbinding === Bookbinding::BOOKBINDING) {
-                        $bookbindingUserApply = BookbindingUserSolarApplyService::create($request, $solarApply);
+                        $bookbindingUserApply = BookbindingUserApplyService::create($request, $solarApply);
                         $bookbindingUserApplyId = $bookbindingUserApply->id;
-                        $contentType = SolarClaim::PERSONAL_BOOKING;
+                        $contentType = AppraisalClaim::PERSONAL_BOOKING;
                     }
                 }
 
                 // 請求データ作成
-                $solarClaim = SolarClaimService::createForCredit($user->id, $request, $solarApply, $bookbindingUserApplyId, $paymentIntent, $contentType);
+                $solarClaim = AppraisalClaimService::createForCredit($user->id, $request, $solarApply, $bookbindingUserApplyId, $paymentIntent, $contentType);
 
                 \DB::commit();
             // } catch (\Exception $e) {
@@ -181,32 +189,32 @@ class CheckPaymentSolarController extends Controller
         } else {
             //家族の場合
             if ((int) $request->target_type === TargetType::FAMILY->value) {
-                $contentType = SolarClaim::FAMILY;
+                $contentType = AppraisalClaim::FAMILY;
                 $user = auth()->guard('user')->user();
-                $family = FamilySolarService::updateOrCreate($request);
-                $solarApply = SolarApplyService::create($request, Family::class, $family->id);
+                $family = FamilyService::updateOrCreate($request);
+                $solarApply = AppraisalApplyService::create($request, Family::class, $family->id);
                 if ((int) $request->is_bookbinding === Bookbinding::BOOKBINDING) {
-                    $bookbindingUserApply = BookbindingUserSolarApplyService::create($request, $solarApply);
+                    $bookbindingUserApply = BookbindingUserApplyService::create($request, $solarApply);
                     $bookbindingUserApplyId = $bookbindingUserApply->id;
-                    $contentType = SolarClaim::FAMILY_BOOKING;
+                    $contentType = AppraisalClaim::FAMILY_BOOKING;
                     \Mail::to($user->email)->send(new BookbindingUserApplyMailForBank($bookbindingUserApply, $user));
                 }
             //ユーザー自身の場合
             } else {
-                $contentType = SolarClaim::PERSONAL;
+                $contentType = AppraisalClaim::PERSONAL;
                 // $user = UserService::createUserAndHoroscope($request);
                 $user = auth()->guard('user')->user();
-                $solarApply = SolarApplyService::create($request, User::class, $user->id);
+                $solarApply = AppraisalApplyService::create($request, User::class, $user->id);
                 if ((int) $request->is_bookbinding === Bookbinding::BOOKBINDING) {
-                    $bookbindingUserApply = BookbindingUserSolarApplyService::create($request, $solarApply);
+                    $bookbindingUserApply = BookbindingUserApplyService::create($request, $solarApply);
                     $bookbindingUserApplyId = $bookbindingUserApply->id;
-                    $contentType = SolarClaim::PERSONAL_BOOKING;
+                    $contentType = AppraisalClaim::PERSONAL_BOOKING;
                     \Mail::to($user->email)->send(new BookbindingUserApplyMailForBank($bookbindingUserApply, $user));
                 }
 
             }
             // 請求データ作成
-            $solarClaim = SolarClaimService::createForBank($user->id, $request, $solarApply, $bookbindingUserApplyId, $contentType);
+            $solarClaim = AppraisalClaimService::createForBank($user->id, $request, $solarApply, $bookbindingUserApplyId, $contentType);
             // コミットとメール送信
             \DB::commit();
 
@@ -223,7 +231,6 @@ class CheckPaymentSolarController extends Controller
         }
 
         \Mail::to($user->email)->send(new ThanksForAppraisal());
-        \Mail::to($user->email)->send(new CompletePurchaseSolar($solarApply));
         return to_route('user.check_payment_solar.thanks');
 
     }

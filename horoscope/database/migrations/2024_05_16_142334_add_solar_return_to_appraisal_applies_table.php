@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('solars', function (Blueprint $table) {
-            $table->id();
-            $table->integer('price')->comment('金額(税込み)');
-            $table->boolean('is_enabled')->comment('適応フラグ 0:false, 1:true');
-            $table->timestamps();
+        Schema::table('appraisal_applies', function (Blueprint $table) {
+            $table->interge('solar_return')->nullable()->after('reference_id')->default(0);
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('solars');
+        Schema::table('appraisal_applies', function (Blueprint $table) {
+            $table->dropColumn('solar_return');
+        });
     }
 };

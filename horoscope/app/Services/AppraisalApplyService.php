@@ -38,6 +38,7 @@ class AppraisalApplyService
             $appraisalApply = AppraisalApply::create([
                 'reference_id' => $referenceId,
                 'reference_type' => $referenceType,
+                'solar_return' => $request->solar_return ?? 0,
                 'birthday' => $request->birthday,
                 'birthday_prefectures' => $request->birthday_prefectures,
                 'birthday_city' => $request->birthday_city ?? null,
@@ -67,6 +68,7 @@ class AppraisalApplyService
                     'reference_id' => $referenceId,
                 ],
                 [
+                    'solar_return' => $request->solar_return ?? 0,
                     'birthday' => $user->birthday,
                     'birthday_prefectures' => $request->birthday_prefectures,
                     'birthday_city' => $formData['map_city'] ?? $request->birthday_city,
