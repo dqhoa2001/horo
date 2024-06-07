@@ -56,6 +56,21 @@
                             <x-admin.error-message name='content_en' />
                         </div>
                     </div>
+                    <label for="content" class="form-label">@lang('form.content_solar_pattern')（最大：465文字）</label>
+                    <div class="col-md-12 col-12">
+                        <div class="form-floating mb-3">
+                            <x-admin.text-area name='content_solar' :value="old('content_solar', session('content_solar')) ?? ''" />
+                            <x-admin.label :label="__('form.content_japanese')" name='content_solar' />
+                            <x-admin.error-message name='content_solar' />
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-12">
+                        <div class="form-floating mb-3">
+                            <x-admin.text-area name='content_solar_en' :value="old('content_solar_en', session('content_solar_en')) ?? ''" />
+                            <x-admin.label :label="__('form.content_english')" name='content_solar_en' />
+                            <x-admin.error-message name='content_solar_en' />
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -148,6 +163,29 @@
                             @endif
                             <x-admin.label :label="__('form.content_english')" name='content_en' />
                             <x-admin.error-message name='content_en' />
+                        </div>
+                    </div>
+                    <label for="content" class="form-label">@lang('form.content_solar_pattern')（最大：465文字）</label>
+                    <div class="col-md-12 col-12">
+                        <div class="form-floating mb-3">
+                            @if (!empty(old()) && array_key_exists('content_solar', old()))
+                                <x-admin.text-area name='content_solar' :value="old('content_solar', session('content_solar'))" />
+                            @else
+                                <x-admin.text-area name='content_solar' :value="$sabianPattern->content_solar" />
+                            @endif
+                            <x-admin.label :label="__('form.content_japanese')" name='content_solar' />
+                            <x-admin.error-message name='content_solar' />
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-12">
+                        <div class="form-floating mb-3">
+                            @if (!empty(old()) && array_key_exists('content_solar_en', old()))
+                                <x-admin.text-area name='content_solar_en' :value="old('content_solar_en', session('content_solar_en'))" />
+                            @else
+                                <x-admin.text-area name='content_solar_en' :value="$sabianPattern->content_solar_en" />
+                            @endif
+                            <x-admin.label :label="__('form.content_english')" name='content_solar_en' />
+                            <x-admin.error-message name='content_solar_en' />
                         </div>
                     </div>
                 </div>

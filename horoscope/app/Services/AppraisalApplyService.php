@@ -33,18 +33,52 @@ class AppraisalApplyService
     //支払い履歴の登録処理
     public static function create(Request $request, string $referenceType, int $referenceId): AppraisalApply
     {
-        $appraisalApply = AppraisalApply::create([
-            'reference_type' => $referenceType,
-            'reference_id' => $referenceId,
-            'birthday' => $request->birthday,
-            'birthday_prefectures' => $request->birthday_prefectures,
-            'birthday_city' => $request->birthday_city ?? null,
-            'birthday_time' => $request->birthday_time,
-            'longitude' => $request->longitude,
-            'latitude' => $request->latitude,
-            'timezome' => $request->timezone,
-        ]);
+        $user = auth()->guard('user')->user();
+        if ($request->referenceId === null) {
+            $appraisalApply = AppraisalApply::create([
+                'reference_id' => $referenceId,
+                'reference_type' => $referenceType,
+                'solar_return' => $request->solar_return ?? 0,
+                'birthday' => $request->birthday,
+                'birthday_prefectures' => $request->birthday_prefectures,
+                'birthday_city' => $request->birthday_city ?? null,
+                'birthday_time' => $request->birthday_time,
+                'longitude' => $request->longitude,
+                'latitude' => $request->latitude,
+                'timezome' => $request->timezone,
+            ]);
+        } else {
+            $formData = [
+                "name" => $user->name1 . $user->name2,
+                "year" => $user->birthday->format('Y'),
+                "month" => $user->birthday->format('m'),
+                "day" => $user->birthday->format('d'),
+                "hour" => $user->birthday_time->format('H'),
+                "minute" => $user->birthday_time->format('i'),
+                "longitude" => $user->longitude,
+                "latitude" => $user->latitude,
+                "map-city" => $user->birthday_city,
+                "timezome" => $user->timezome,
+                "background" => 'normal',
+            ];
 
+            $appraisalApply = AppraisalApply::updateOrCreate(
+                [
+                    'reference_type' => $referenceType,
+                    'reference_id' => $referenceId,
+                ],
+                [
+                    'solar_return' => $request->solar_return ?? 0,
+                    'birthday' => $user->birthday,
+                    'birthday_prefectures' => $request->birthday_prefectures,
+                    'birthday_city' => $formData['map_city'] ?? $request->birthday_city,
+                    'birthday_time' => $formData['hour'] . ':' . $formData['minute'],
+                    'longitude' => $formData['longitude'],
+                    'latitude' => $formData['latitude'],
+                    'timezome' => $formData['timezome'],
+                ]
+            );
+        }
         return $appraisalApply;
     }
 
@@ -154,8 +188,8 @@ class AppraisalApplyService
             'dayCreate' => $dayCreate,
         ];
         $fileName = $formData['name'] . '_' . now()->format('Ymd-His') . '.pdf';
-        
-        $designType = $bookbindingUserApply->is_design;        
+
+        $designType = $bookbindingUserApply->is_design;
         $blade = '';
         if ((int) $designType === AppraisalApply::PDF_SOPHIA) {
             $blade = view('horoscope::dowload1', $data);
@@ -167,7 +201,7 @@ class AppraisalApplyService
             $blade = view('horoscope::dowload3', $data);
         }
         $html = $blade->render();
-        
+
         $pdfFilePath = public_path('/pdfs/' . $fileName);
         // $width_mm = (600 / 96) * 25.4; // 158.75
         // $height_mm = (840 / 96) * 25.4; // 222.25
@@ -187,7 +221,7 @@ class AppraisalApplyService
             ->transparentBackground()
             ->waitUntilNetworkIdle()
             ->save($pdfFilePath);
-        
+
         \Log::info('PDFファイル作成', [
             'pdfFilePath' => $pdfFilePath,
             'fileName' => $fileName,
@@ -217,7 +251,7 @@ class AppraisalApplyService
             'formData' => $formData,
         ];
         $fileName = $design . '_' . $name1 . $name2 . '_sample_cover_' . now()->format('Ymd-His') . '.pdf';
-        
+
         $blade = '';
         if ((int) $design === AppraisalApply::PDF_SOPHIA) {
             $blade = view('horoscope::cover1', $data);
@@ -229,7 +263,7 @@ class AppraisalApplyService
             $blade = view('horoscope::cover3', $data);
         }
         $html = $blade->render();
-        
+
         $pdfFilePath = public_path('/pdfs/' . $fileName);
         Browsershot::html($html)
             ->timeout(600)
@@ -241,7 +275,7 @@ class AppraisalApplyService
             ->transparentBackground()
             ->waitUntilNetworkIdle()
             ->save($pdfFilePath);
-        
+
         \Log::info('PDFファイル作成', [
             'pdfFilePath' => $pdfFilePath,
             'fileName' => $fileName,

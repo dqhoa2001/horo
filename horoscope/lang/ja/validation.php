@@ -124,7 +124,7 @@ return [
     'uploaded'             => ':attributeのアップロードに失敗しました。',
     'url'                  => ':attributeに正しい形式を指定してください。',
     'uuid'                 => ':attributeに有効なUUIDを指定してください。',
-    'current_password' => '現在のパスワードが正しくありません。',
+    // 'current_password' => '現在のパスワードが正しくありません。',
 
     /*
     |--------------------------------------------------------------------------
@@ -152,6 +152,9 @@ return [
         ],
         'bookbinding_name' => [
             'string' => '製本に表示するお名前を入力してください',
+        ],
+        'solar_appraisal_apply_ids' => [
+            'required' => '製本したい方を最低1人は選択してください',
         ],
     ],
 

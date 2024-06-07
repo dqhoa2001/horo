@@ -23,6 +23,8 @@ class SabianPatternRequest extends FormRequest
             'title_en' => 'nullable',
             'content' => 'required|max_mb:465',
             'content_en' => 'nullable',
+            'content_solar' => 'required|max_mb:465',
+            'content_solar_en' => 'nullable',
         ];
     }
 
@@ -36,6 +38,8 @@ class SabianPatternRequest extends FormRequest
             'title_en.required' => __('message.required', ['attribute' => __('form.title_en')]),
             'sabian_degrees.required' => __('message.required', ['attribute' => __('form.sabian_degrees')]),
             'content.max_mb' => __('message.max_mb', ['attribute' => __('form.content_japanese'), 'max' => 465]),
+            'content_solar.required' => __('message.required', ['attribute' => __('form.content_japanese')]),
+            'content_solar.max_mb' => __('message.max_mb', ['attribute' => __('form.content_japanese'), 'max' => 465]),
         ];
     }
 }

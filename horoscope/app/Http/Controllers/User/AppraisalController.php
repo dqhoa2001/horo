@@ -73,8 +73,8 @@ class AppraisalController extends Controller
             $query->where('id', auth()->guard('user')->user()->id);
         })->whereHas('appraisalClaim', static function ($query) {
             $query->where('is_paid', true);
-        })->where('reference_type', User::class)->latest()->first();
-
+        })->where('reference_type', User::class)
+        ->where('solar_return',0)->latest()->first();
         // 鑑定結果がある場合showへリダイレクト
         if ($latestAppraisalApply) {
             return to_route('user.appraisals.show', $latestAppraisalApply);
@@ -223,7 +223,7 @@ class AppraisalController extends Controller
                     MyHoroscopeService::update($request);
                     $appraisalApply = AppraisalApplyService::create($request, User::class, auth()->guard('user')->user()->id);
                     \Mail::to(GetMail::getMailForApply($appraisalApply))->send(new ThanksForPersonalAppraisal($appraisalApply));
-                    
+
                     \Mail::to(GetMail::getMailForApply($appraisalApply))->send(new CompleteForPersonalAppraisal($appraisalApply));
 
                     //製本の場合
@@ -244,9 +244,9 @@ class AppraisalController extends Controller
 
                 if ($contentType === AppraisalClaim::FAMILY) {
                     return to_route('user.appraisals.create', ['target_type' => TargetType::FAMILY->value])->with('flash_alert', '決済に失敗しました。違うカードをお試しするか、銀行振込をご指定ください。')->withInput();
-                }  
+                }
                     return to_route('user.appraisals.create')->with('flash_alert', '決済に失敗しました。違うカードをお試しするか、銀行振込をご指定ください。')->withInput();
-                
+
             }
 
             //銀行振込の場合

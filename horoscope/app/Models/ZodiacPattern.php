@@ -18,6 +18,8 @@ class ZodiacPattern extends Model
         'content',
         'content_en',
         'published',
+        'content_solar',
+        'content_solar_en'
     ];
 
     public function zodiac(): HasOne

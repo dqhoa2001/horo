@@ -2,7 +2,7 @@
     @if (empty($aspectPattern))
         <h1>@lang('form.add_aspect_pattern')</h1>
         <x-admin.form action="{{ route('admin.pattern.aspect-create') }}" method='POST'>
-            
+
             <div class="row">
                 <div class="col-md-6 col-12">
                     <div class="form-group">
@@ -46,6 +46,21 @@
                             <x-admin.text-area name='content_en' :value="old('content_en', session('content_en')) ?? ''" />
                             <x-admin.label :label="__('form.content_english')" name='content_en' />
                             <x-admin.error-message name='content_en' />
+                        </div>
+                    </div>
+                    <label for="content" class="form-label">@lang('form.content_solar_pattern')（最大：370文字）</label>
+                    <div class="col-md-12 col-12">
+                        <div class="form-floating mb-3">
+                            <x-admin.text-area name='content_solar' :value="old('content_solar', session('content_solar')) ?? ''" />
+                            <x-admin.label :label="__('form.content_japanese')" name='content_solar' />
+                            <x-admin.error-message name='content_solar' />
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-12">
+                        <div class="form-floating mb-3">
+                            <x-admin.text-area name='content_solar_en' :value="old('content_solar_en', session('content_solar_en')) ?? ''" />
+                            <x-admin.label :label="__('form.content_english')" name='content_solar_en' />
+                            <x-admin.error-message name='content_solar_en' />
                         </div>
                     </div>
                 </div>
@@ -128,6 +143,29 @@
                             @endif
                             <x-admin.label :label="__('form.content_english')" name='content_en' />
                             <x-admin.error-message name='content_en' />
+                        </div>
+                    </div>
+                    <label for="content" class="form-label">@lang('form.content_solar_pattern')（最大：370文字）</label>
+                    <div class="col-md-12 col-12">
+                        <div class="form-floating mb-3">
+                            @if (!empty(old()) && array_key_exists('content_solar', old()))
+                                <x-admin.text-area name='content_solar_solar' :value="old('content_solar', session('content_solar'))" />
+                            @else
+                                <x-admin.text-area name='content_solar' :value="$aspectPattern->content_solar" />
+                            @endif
+                            <x-admin.label :label="__('form.content_japanese')" name='content_solar' />
+                            <x-admin.error-message name='content_solar' />
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-12">
+                        <div class="form-floating mb-3">
+                            @if (!empty(old()) && array_key_exists('content_solar_en', old()))
+                                <x-admin.text-area name='content_solar_en' :value="old('content_solar_en', session('content_solar_en'))" />
+                            @else
+                                <x-admin.text-area name='content_solar_en' :value="$aspectPattern->content_solar_en" />
+                            @endif
+                            <x-admin.label :label="__('form.content_english')" name='content_solar_en' />
+                            <x-admin.error-message name='content_solar_en' />
                         </div>
                     </div>
                 </div>

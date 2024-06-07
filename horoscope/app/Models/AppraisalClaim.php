@@ -42,12 +42,14 @@ class AppraisalClaim extends Model
 
     const BOOKING = 5;
 
+    const SOLAR = 6;
     const CONTENT_TYPE = [
         1 => '個人鑑定',
         2 => '家族鑑定',
         3 => '個人鑑定+製本',
         4 => '家族鑑定+製本',
         5 => '製本',
+        6 => 'SOLAR RETURN',
     ];
 
     const PAID = 1;

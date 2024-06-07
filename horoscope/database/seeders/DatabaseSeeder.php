@@ -58,7 +58,11 @@ class DatabaseSeeder extends Seeder
             TemplateSeeder4::class,
             TemplateSeeder5::class,
             TemplateSeeder6::class,
+            TemplateSeeder9::class,
             ToggleTestShippingSeeder::class,
+            UpdateSolarPatternsSeeder::class,
+            AppraisalSolarSeeder::class,
+            BookbindingSolarSeeder::class,
         ]);
 
     }

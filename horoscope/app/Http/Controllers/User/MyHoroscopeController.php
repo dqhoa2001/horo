@@ -5,6 +5,8 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\MyHoroscopeController\StoreRequest;
 use App\Http\Requests\User\MyHoroscopeController\UpdateRequest;
+use App\Models\Appraisal;
+use App\Models\AppraisalApply;
 use App\Models\MyHoroscope;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -20,17 +22,24 @@ use App\Services\MyHoroscopeService;
 use Modules\Horoscope\Http\Actions\Predict\ModifyLocation;
 use App\Repositories\SabianPatternRepository;
 use App\Repositories\ZodiacPatternRepository;
+use App\Models\SolarApply;
+use App\Services\SolarAppraisalApplyService;
+use App\Models\Solar;
+use App\Models\User;
+use Modules\Horoscope\Http\Actions\GenerateSolarHoroscopeChartAction;
 
 class MyHoroscopeController extends Controller
 {
     public function __construct(
         protected GenerateHoroscopeChartAction $generateHoroscopeChartAction,
+        protected GenerateSolarHoroscopeChartAction $generateSolarHoroscopeChartAction,
         protected ZodiacRepository $zodiacRepository,
         protected PlanetRepository $planetRepository,
         protected HouseRepository $houseRepository,
         protected ModifyLocation $modifyLocation,
         protected SabianPatternRepository $sabianPatternRepository,
         protected ZodiacPatternRepository $zodiacPatternRepository,
+        protected SolarAppraisalApplyService $solarAppraisalApplyService,
     ) {
     }
 
@@ -76,12 +85,7 @@ class MyHoroscopeController extends Controller
             "timezone" => $user->timezome, //海外展開時にはここが変更できるようにする。現在は日本のみ
             "background" => 'normal', //仮
         ];
-
-        // ホロスコープ占いの処理
-        // $formData = $request->validated();
-        // $localtion = $this->modifyLocation->execute($formData['longitude'], $formData['latitude']);
         $chart = $this->generateHoroscopeChartAction->execute($formData, WheelRadiusEnum::WheelScale);
-        // $zodiacColors = WheelColorEnum::ZodiacElement;
         $zodiacs = $this->zodiacRepository->getAll();
         $planets = $this->planetRepository->getAll();
         $houses = $this->houseRepository->getAll();
@@ -89,11 +93,9 @@ class MyHoroscopeController extends Controller
         $degreeData = $chart->get('degreeData');
         $explain = $chart->get('explain');
         $imgBase64 = base64_encode($image->getImageBlob());
-
         $defaultBirthdayPrefectures = $user->birthday_prefectures ?? '東京都杉並区';
         $defaultAddress = $defaultBirthdayPrefectures;
         $defaultBirthDay = $user->birthday;
-
         return view('user.my_horoscopes.edit', [
             'imgBase64'  => $imgBase64,
             'degreeData' => $degreeData,
@@ -103,10 +105,60 @@ class MyHoroscopeController extends Controller
             'houses'     => $houses,
             'defaultAddress' => $defaultAddress,
             'defaultBirthDay' => $defaultBirthDay,
+            'solarAppraisals' => AppraisalApply::whereHas('user', static function ($query) {
+                $query->where('id', auth()->guard('user')->user()->id);
+            })->whereHas('appraisalClaim', static function ($query) {
+                $query->where('is_paid', true);
+            })->where('reference_type', User::class)->where('solar_return', '!=', 0)->get(),
         ]);
     }
 
-    //出生情報更新
+    //HoroSolar
+    public function show(AppraisalApply $solar_apply): View
+    {
+        $user = auth()->guard('user')->user();
+        // ホロスコープ生成なデータを作成
+        $formData = [
+            "name" => $user->name1 . $user->name2,
+            "year" => $solar_apply->solar_return,
+            "month" => $solar_apply->birthday->format('m'),
+            "day" => $solar_apply->birthday->format('d'),
+            "hour" => $solar_apply->birthday_time->format('H'),
+            "minute" => $solar_apply->birthday_time->format('i'),
+            "longitude" => $solar_apply->longitude,
+            "latitude" => $solar_apply->latitude,
+            "map-city" => $solar_apply->birthday_city,
+            "timezone" => $solar_apply->timezome, //海外展開時にはここが変更できるようにする。現在は日本のみ
+            "background" => 'normal', //仮
+        ];
+        $chart = $this->generateSolarHoroscopeChartAction->execute($formData, WheelRadiusEnum::WheelScale);
+        $zodiacs = $this->zodiacRepository->getAll();
+        $planets = $this->planetRepository->getAll();
+        $houses = $this->houseRepository->getAll();
+        $image = $chart->get('image');
+        $degreeData = $chart->get('degreeData');
+        $explain = $chart->get('explain');
+        $imgBase64 = base64_encode($image->getImageBlob());
+        $defaultBirthdayPrefectures = $user->birthday_prefectures ?? '東京都杉並区';
+        $defaultAddress = $defaultBirthdayPrefectures;
+        $defaultBirthDay = $user->birthday;
+        return view('user.my_horoscopes.edit', [
+            'solarApply' => $solar_apply,
+            'imgBase64'  => $imgBase64,
+            'degreeData' => $degreeData,
+            'explain'    => $explain,
+            'zodiacs'    => $zodiacs,
+            'planets'    => $planets,
+            'houses'     => $houses,
+            'defaultAddress' => $defaultAddress,
+            'defaultBirthDay' => $defaultBirthDay,
+            'solarAppraisals' => AppraisalApply::whereHas('user', static function ($query) {
+                $query->where('id', auth()->guard('user')->user()->id);
+            })->whereHas('appraisalClaim', static function ($query) {
+                $query->where('is_paid', true);
+            })->where('reference_type', User::class)->where('solar_return', '!=', 0)->get(),
+        ]);
+    }
     public function update(UpdateRequest $request): RedirectResponse
     {
         try {

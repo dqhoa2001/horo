@@ -54,6 +54,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
         'is_admin' => 'boolean',
+        'solar_date'=>'int',
     ];
 
     public const DEMY_USER = 1;
@@ -173,6 +174,17 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(AppraisalClaim::class);
     }
 
+    //サンアプリケーション
+    public function solarApplies(): MorphMany
+    {
+        return $this->morphMany('App\Models\SolarApply', 'reference');
+    }
+
+    public function solarClaims(): HasMany
+    {
+        return $this->hasMany(SolarClaim::class);
+    }
+
     //Myホロスコープチャートをすでにもっているかどうか
     public function isHasMyHoroscope(): bool
     {
@@ -182,10 +194,33 @@ class User extends Authenticatable implements MustVerifyEmail
         return false;
     }
 
+    public function hasPaidForMyHoroscope(): bool
+    {
+        return $this->appraisalClaims()
+                    ->where('is_paid', true)
+                    ->exists();
+    }
+
+    public function hasPaidForSolar(): bool
+    {
+        return $this->solarClaims()
+                    ->where('is_paid', true)
+                    ->exists();
+    }
+
     // 製本の申し込みをしているかどうか
     public function isHasBookbinding(): bool
     {
         if ($this->appraisalApplies()->whereHas('bookbindingUserApplies')->exists()) {
+            return true;
+        }
+        return false;
+    }
+
+    // Solar 製本の申し込みをしているかどうか
+    public function isHasSolarBookbinding(): bool
+    {
+        if ($this->solarApplies()->whereHas('solarBookbindingUserApplies')->exists()) {
             return true;
         }
         return false;
@@ -239,5 +274,5 @@ class User extends Authenticatable implements MustVerifyEmail
         }
 
         return true;
-    } 
+    }
 }

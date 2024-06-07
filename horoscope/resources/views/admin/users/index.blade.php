@@ -22,7 +22,7 @@
                             'users'=> \Request::get('searchName')?? '',
                             'userEmail' => \Request::get('searchEmail') ?? '',
                             'general' => \Request::get('general') ?? '',
-                            'influencer' => \Request::get('influencer') ?? '', 
+                            'influencer' => \Request::get('influencer') ?? '',
                             'withdraw' => \Request::get('withdraw') ?? '',
                             'userBookbindings' => \Request::get('userBookbindings') ?? '',
                             'route' => 'admin.users.index',
@@ -33,7 +33,7 @@
                                         <td class="text-nowrap px-2">{{ $user->id }}</td>
                                         <td class="text-nowrap px-2">{{ \App\Models\User::TYPE[$user->member_type] ?? \App\Models\User::GENERAL }}</td>
                                         <td class="text-nowrap text-center">
-                                            {{ $user->isHasBookbinding() ? '◯' : '' }}
+                                            {{ $user->isHasBookbinding()|| $user->isHasSolarBookbinding() ? '◯' : '' }}
                                         </td>
                                         <td class="text-nowrap px-2">
                                             <a href="{{ route('admin.users.edit', $user) }}">{{ $user->full_name }}

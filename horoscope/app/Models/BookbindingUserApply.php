@@ -69,4 +69,14 @@ class BookbindingUserApply extends Model
     {
         return $this->hasOne(AppraisalClaim::class);
     }
+
+    public function solarApply(): BelongsTo
+    {
+        return $this->belongsTo(SolarApply::class);
+    }
+
+    public function solarClaim(): HasOne
+    {
+        return $this->hasOne(SolarClaim::class);
+    }
 }

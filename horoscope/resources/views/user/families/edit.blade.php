@@ -1,6 +1,7 @@
 @extends('layouts.user.mypage.app')
 
 @section('css')
+<link rel="stylesheet" href="{{ asset('mypage/assets/css/solar-return.css') }}">
 <link rel="stylesheet" href="{{ asset('mypage/assets/css/familyhoroscope.css') }}">
 @endsection
 
@@ -46,6 +47,38 @@
                                     <p class="C-user-list__change"><span>出生情報を訂正する</span></p>
                                 </div>
                             </div>
+                            <div id="popup-horoscope">
+                                <dl class="C-form-block C-form-block--birthdata">
+                                    <dd class="C-form-block__body">
+                                        <dl class="C-form-block-child C-form-block--birth">
+                                            <div id="popup-horoscope">
+                                            <dl class="C-form-block C-form-block--birthdata">
+                                                <dd class="C-form-block__body">
+                                                    <dl class="C-form-block-child C-form-block--birth">
+                                                    <dl class="C-form-block C-form-block--birthdata">
+                                                        <dd class="C-form-block__body">
+                                                            <dl class="C-form-block-child C-form-block--birth">
+                                                                <div>
+                                                                    <div class="div_right">
+                                                                        <a href="{{route('user.families.edit',$family)}}">
+                                                                            <dd @if (str_contains(Request::url(), 'families/edit')) class="C-form-block__button active_MyHoro" @else class="C-form-block__button" @endif>
+                                                                                出生図
+                                                                            </dd>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </dl>
+                                                        </dd>
+                                                    </dl>
+                                                    </dl>
+                                                </dd>
+                                            </dl>
+                                        </dl>
+                                    </dd>
+                                </dl>
+                                @include('components.parts.user.family.solar_return_combobox')
+                            </div>
+                            <br>
                             <div class="C-horoscope-detail">
                                 <div class="C-horoscope-detail-header">
                                     <!--<p class="C-horoscope-detail__title font">Horoscope Chart</p>-->
@@ -95,7 +128,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="C-back"><a href="{{ route('user.families.index') }}"><span>家族のホロスコープ一覧へ戻る</span></a></div>
+                            <div class="C-back"><a href="{{ route('user.family_list.index') }}"><span>家族のホロスコープ一覧へ戻る</span></a></div>
                         </div>
                     </section>
                     <!-- ***** セクション名 ***** -->
@@ -267,7 +300,7 @@
                                     @method('DELETE')
                                     <p class="C-popup--horoscope-delete__title">ホロスコープの削除</p>
                                     <div id="popup-horoscope">
-                                        @if ($isAppraisalClaimed) 
+                                        @if ($isAppraisalClaimed)
                                             <p class="C-popup__text" style="text-align: left;">
                                                 このご家族は、鑑定購入済みですのでホロスコープも鑑定結果もどちらも削除はできません
                                             </p>
@@ -313,6 +346,14 @@
         }
     });
 });
+</script>
+<script>
+    function navigateToLink(select) {
+        var url = select.value;
+        if (url) {
+            window.location.href = url;
+        }
+    }
 </script>
 <script>
     Vue.createApp({
@@ -399,7 +440,7 @@
                         } else {
                             this.map.setCenter(results[0].geometry.location);
                         }
-    
+
                         if (!this.marker) {
                             this.marker = new google.maps.Marker({
                                 position: results[0].geometry.location,
@@ -409,7 +450,7 @@
                         } else {
                             this.marker.setPosition(results[0].geometry.location);
                         }
-    
+
                         const changeLng = results[0].geometry.location.lng();
                         const changeLat = results[0].geometry.location.lat();
                         document.getElementById('map-longitude').value = changeLng;
