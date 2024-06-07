@@ -2,25 +2,14 @@
     <dt class="C-form-block__title C-form-block__title--req">製本の希望</dt>
     <dd class="C-form-block__body">
         <div class="C-form-block__radio">
-            @if(str_contains(Request::url(), 'check_payment_solar'))
-                @include('components.form.original_radio', [
-                    'name'     => 'is_bookbinding',
-                    'class'    => 'C-form-block__radio__text',
-                    'data'     => App\Models\AppraisalApply::getSolarBookbindingType(),
-                    'checked'  => $request->is_bookbinding ?? 1,
-                    'vModel'   => 'bookbindingClick',
-                    'onChange' => 'toggleCaluculateBookking',
-                ])
-            @else
-                @include('components.form.original_radio', [
-                        'name'     => 'is_bookbinding',
-                        'class'    => 'C-form-block__radio__text',
-                        'data'     => App\Models\AppraisalApply::getBookbindingType(),
-                        'checked'  => $request->is_bookbinding ?? 1,
-                        'vModel'   => 'bookbindingClick',
-                        'onChange' => 'toggleCaluculateBookking',
-                    ])
-            @endif
+            @include('components.form.original_radio', [
+                'name'     => 'is_bookbinding',
+                'class'    => 'C-form-block__radio__text',
+                'data'     => App\Models\AppraisalApply::getBookbindingType(),
+                'checked'  => $request->is_bookbinding ?? 1,
+                'vModel'   => 'bookbindingClick',
+                'onChange' => 'toggleCaluculateBookking',
+            ])
         </div>
         <p class="Personal-appraisal__notice-text"><a href="https://hoshinomai.jp/book-service" target="_blank">製本の詳細はこちら</a></p>
     </dd>

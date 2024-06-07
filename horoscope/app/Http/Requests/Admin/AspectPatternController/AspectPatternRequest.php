@@ -27,8 +27,6 @@ class AspectPatternRequest extends FormRequest
             'to_planet_id' => 'required',
             'content' => 'required|max_mb:370',
             'content_en' => 'nullable',
-            'content_solar' => 'required|max_mb:370',
-            'content_solar_en' => 'nullable',
         ];
     }
 
@@ -41,8 +39,6 @@ class AspectPatternRequest extends FormRequest
             'content_en.required' => __('message.required', ['attribute' => __('form.content_english')]),
             'content.required' => __('message.required', ['attribute' => __('form.content_japanese')]),
             'content.max_mb' => __('message.max_mb', ['attribute' => __('form.content_japanese'), 'max' => 370]),
-            'content_solar.required' => __('message.required', ['attribute' => __('form.content_japanese')]),
-            'content_solar.max_mb' => __('message.max_mb', ['attribute' => __('form.content_japanese'), 'max' => 370]),
         ];
     }
 }

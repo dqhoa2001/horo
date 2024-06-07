@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\User\SolarAppraisalController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\TopController;
 use App\Http\Controllers\User\HomeController;
@@ -16,16 +15,10 @@ use App\Http\Controllers\User\Auth\ResetPasswordController;
 use App\Http\Controllers\User\Auth\ForgotPasswordController;
 use App\Http\Controllers\User\FamilyController;
 use App\Http\Controllers\User\MyHoroscopeController;
-use App\Http\Controllers\User\MySolarHoroscopeController;
 use App\Http\Controllers\User\OfferAppraisalController;
 use App\Http\Controllers\User\ContactController;
 use App\Http\Controllers\User\Auth\VerificationController;
 use App\Http\Controllers\User\FamilyAppraisalController;
-use App\Http\Controllers\User\FamilyListController;
-use App\Http\Controllers\User\CheckPaymentController;
-use App\Http\Controllers\User\CheckPaymentSolarController;
-use App\Http\Controllers\User\FamilySolarHoroscopeController;
-use App\Http\Controllers\User\SolarBookbindingController;
 
 //会員登録しないでホロスコープ
 Route::prefix('horoscopes')->name('horoscopes.')->group(static function () {
@@ -54,35 +47,6 @@ Route::prefix('offer_appraisals')->name('offer_appraisals.')->group(static funct
 
     // Route::get('complete/{appraisal_apply}', [OfferAppraisalController::class, 'complete'])->name('complete');
     Route::get('thanks', [OfferAppraisalController::class, 'thanks'])->name('thanks');
-});
-
-Route::prefix('check_payment')->name('check_payment.')->middleware(['auth:user', 'verified'])->group(static function () {
-    //鑑定作成画面
-    Route::get('create', [CheckPaymentController::class, 'create'])->name('create');
-
-    //鑑定確認画面
-    Route::post('confirm', [CheckPaymentController::class, 'confirm'])->name('confirm');
-    Route::post('back', [CheckPaymentController::class, 'back'])->name('back');
-
-    //鑑定登録処理
-    Route::post('apply', [CheckPaymentController::class, 'apply'])->name('apply');
-
-    // Route::get('complete/{appraisal_apply}', [CheckPaymentController::class, 'complete'])->name('complete');
-    Route::get('thanks', [CheckPaymentController::class, 'thanks'])->name('thanks');
-});
-
-Route::prefix('check_payment_solar')->name('check_payment_solar.')->middleware(['auth:user', 'verified'])->group(static function () {
-    //鑑定作成画面
-    Route::get('create', [CheckPaymentSolarController::class, 'create'])->name('create');
-
-    //鑑定確認画面
-    Route::post('confirm', [CheckPaymentSolarController::class, 'confirm'])->name('confirm');
-    Route::post('back', [CheckPaymentSolarController::class, 'back'])->name('back');
-
-    //鑑定登録処理
-    Route::post('apply', [CheckPaymentSolarController::class, 'apply'])->name('apply');
-    Route::get('complete/{solarApply}', [CheckPaymentSolarController::class, 'complete'])->name('complete');
-    Route::get('thanks', [CheckPaymentSolarController::class, 'thanks'])->name('thanks');
 });
 
 // ログイン認証関連
@@ -121,7 +85,6 @@ Route::prefix('download_images')->name('download_images.')->group(static functio
     Route::get('download_sample_pdf',  [BookbindingController::class, 'downloadSamplePdf'])->name('download_sample_pdf');
     // 表紙イメージ（お客様お名前入り）
     Route::get('download_cover_pdf/{design}/{name1}/{name2}',  [BookbindingController::class, 'downloadCoverPdf'])->name('download_cover_pdf');
-    Route::get('download_solar_cover_pdf/{design}/{name1}/{name2}',  [SolarBookbindingController::class, 'downloadCoverPdf'])->name('download_solar_cover_pdf');
 });
 
 // ログイン認証後
@@ -157,19 +120,16 @@ Route::middleware(['auth:user', 'verified'])->group(static function () {
 
     //家族のホロスコープ
     Route::resource('families', FamilyController::class)->except(['edit']);
-    Route::get('families/edit/{family}', [FamilyController::class, 'edit'])->middleware('can:view,family')->name('families.edit');
-    Route::get('families/{family}/{solar_apply}', [FamilyController::class, 'show'])->name('families.show');
-    //家族のホロスコープ
-    Route::resource('families_solar', FamilySolarHoroscopeController::class)->except(['edit']);
-    Route::get('families_solar/{family}/edit', [FamilySolarHoroscopeController::class, 'edit'])->middleware('can:view,family')->name('families_solar.edit');
+    Route::get('families/{family}/edit', [FamilyController::class, 'edit'])->middleware('can:view,family')->name('families.edit');
+
     //MyHoroscope
     Route::controller(MyHoroscopeController::class)->prefix('my_horoscopes')->name('my_horoscopes.')->group(static function () {
         Route::get('create', 'create')->name('create');
         Route::post('store', 'store')->name('store');
         Route::get('edit', 'edit')->name('edit');
         Route::patch('update', 'update')->name('update');
-        Route::get('{solar_apply}', 'show')->name('show');
     });
+
     //会員登録済みの個人鑑定
     Route::controller(AppraisalController::class)->prefix('appraisals')->name('appraisals.')->group(static function () {
         // 個人鑑定
@@ -187,27 +147,10 @@ Route::middleware(['auth:user', 'verified'])->group(static function () {
         Route::get('{appraisal_apply}', 'show')->name('show')->middleware('can:viewClaim,appraisal_apply', 'can:viewAppraisalApply,appraisal_apply');
     });
 
-    //MySolarHoroscopeAppraisal
-    Route::controller(SolarAppraisalController::class)->prefix('solar_appraisals')->name('solar_appraisals.')->group(static function () {
-        // 個人鑑定
-        Route::get('', 'index')->name('index');
-        // 個人鑑定の詳細
-        Route::get('{solar_apply}', 'show')->name('show');
-        // Route::get('{appraisal_apply}', 'show')->name('show')->middleware('can:viewClaim,appraisal_apply', 'can:viewAppraisalApply,appraisal_apply');
-        Route::get('{solarApply}/get-data/{solarDate}', [SolarAppraisalController::class, 'getSolarData']);
-    });
-
     //家族鑑定
     Route::controller(FamilyAppraisalController::class)->prefix('family_appraisals')->name('family_appraisals.')->group(static function () {
         Route::get('', 'index')->name('index');
-        Route::get('offer_solar', 'showOffer')->name('offer_solar');
         Route::get('{appraisal_apply}', 'show')->name('show')->middleware('can:viewClaim,appraisal_apply', 'can:viewFamilyAppraisalApply,appraisal_apply');
-    });
-
-    //Family List
-    Route::controller(FamilyListController::class)->prefix('family_list')->name('family_list.')->group(static function () {
-        Route::get('', 'index')->name('index');
-        // Route::get('{appraisal_apply}', 'show')->name('show')->middleware('can:viewClaim,appraisal_apply', 'can:viewFamilyAppraisalApply,appraisal_apply');
     });
 
     //問い合わせ
@@ -221,15 +164,6 @@ Route::middleware(['auth:user', 'verified'])->group(static function () {
 
     // 製本
     Route::controller(BookbindingController::class)->prefix('bookbindings')->name('bookbindings.')->group(static function () {
-        Route::get('create', 'create')->name('create');
-        Route::post('confirm', 'confirm')->name('confirm');
-        Route::post('apply', 'apply')->name('apply');
-        Route::post('back', 'back')->name('back');
-        Route::get('complete', 'complete')->name('complete');
-    });
-
-    // SOLAR 製本
-    Route::controller(SolarBookbindingController::class)->prefix('solar_bookbindings')->name('solar_bookbindings.')->group(static function () {
         Route::get('create', 'create')->name('create');
         Route::post('confirm', 'confirm')->name('confirm');
         Route::post('apply', 'apply')->name('apply');

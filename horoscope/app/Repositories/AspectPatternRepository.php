@@ -35,9 +35,7 @@ class AspectPatternRepository extends EloquentRepository
                 if (!empty($selectedValues['keyword'])) {
                     $query->where(static function ($subQuery) use ($selectedValues) {
                         $subQuery->where('content', 'LIKE', '%' . $selectedValues['keyword'] . '%')
-                            ->orWhere('content_en', 'LIKE', '%' . $selectedValues['keyword'] . '%')
-                            ->orWhere('content_solar', 'LIKE', '%' . $selectedValues['keyword'] . '%')
-                            ->orWhere('content_solar_en', 'LIKE', '%' . $selectedValues['keyword'] . '%');
+                            ->orWhere('content_en', 'LIKE', '%' . $selectedValues['keyword'] . '%');
                     });
                 }
             })

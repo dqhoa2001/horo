@@ -20,7 +20,6 @@ return [
     'content_japanese' => 'Content Japanese',
     'content_english' => 'Content English',
     'content_pattern' => 'Content Pattern',
-    'content_solar_pattern' => 'Content Solar Pattern',
     # button
     'create' => 'Create',
     'update' => 'Update',

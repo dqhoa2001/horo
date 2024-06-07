@@ -82,7 +82,7 @@
 									</td>
 									@if($errors->has('birth_day'))
 									<td>
-                                        <span style="color: red;">{{ $errors->first('birth_day') }}</span>
+										{{ $errors->first('birth_day') }}
 									</td>
 									@endif
 								</tr>

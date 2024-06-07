@@ -18,8 +18,6 @@ class HousePattern extends Model
         'published',
         'content',
         'content_en',
-        'content_solar',
-        'content_solar_en',
     ];
 
     public function house(): HasOne
