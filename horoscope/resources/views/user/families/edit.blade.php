@@ -78,7 +78,38 @@
                                     @include('components.parts.user.solar_return_combobox')
                                 </div>
                             </div>
-                            <br/>
+                            <div id="popup-horoscope">
+                                <dl class="C-form-block C-form-block--birthdata">
+                                    <dd class="C-form-block__body">
+                                        <dl class="C-form-block-child C-form-block--birth">
+                                            <div id="popup-horoscope">
+                                            <dl class="C-form-block C-form-block--birthdata">
+                                                <dd class="C-form-block__body">
+                                                    <dl class="C-form-block-child C-form-block--birth">
+                                                    <dl class="C-form-block C-form-block--birthdata">
+                                                        <dd class="C-form-block__body">
+                                                            <dl class="C-form-block-child C-form-block--birth">
+                                                                <div>
+                                                                    <div class="div_right">
+                                                                        <a href="{{route('user.families.edit',$family)}}">
+                                                                            <dd @if (str_contains(Request::url(), 'families/edit')) class="C-form-block__button active_MyHoro" @else class="C-form-block__button" @endif>
+                                                                                出生図
+                                                                            </dd>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </dl>
+                                                        </dd>
+                                                    </dl>
+                                                    </dl>
+                                                </dd>
+                                            </dl>
+                                        </dl>
+                                    </dd>
+                                </dl>
+                                @include('components.parts.user.family.solar_return_combobox')
+                            </div>
+                            <br>
                             <div class="C-horoscope-detail">
                                 <div class="C-horoscope-detail-header">
                                     <!--<p class="C-horoscope-detail__title font">Horoscope Chart</p>-->
@@ -346,6 +377,14 @@
         }
     });
 });
+</script>
+<script>
+    function navigateToLink(select) {
+        var url = select.value;
+        if (url) {
+            window.location.href = url;
+        }
+    }
 </script>
 <script>
     Vue.createApp({

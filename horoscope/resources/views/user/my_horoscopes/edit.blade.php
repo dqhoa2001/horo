@@ -26,13 +26,6 @@
                         <h2 class="Pageframe-main__title">
                             <img src="{{ asset('mypage/assets/images/myhoroscope/img_title-detail.svg') }}" alt="My HOROSCOPE" class="pc">
                             <img src="{{ asset('mypage/assets/images/myhoroscope/sp_img_title-detail.svg') }}" alt="My HOROSCOPE" class="sp"></h2>
-                            <!-- count if exits solar appraisal  -->
-                            <!-- @if(auth()->guard('user')->user()->solarApplies->count() != 0)
-                                <button class="Button Button--lightblue" onclick="window.location.href='{{ route('user.my_solar_horoscopes.edit') }}'"><span>My Solar Horoscope</span></button>
-                            @else
-                                <button class="Button Button--lightblue" onclick="window.location.href='{{ route('user.check_payment_solar.create') }}'"><span>My Solar Horoscope</span></button>
-                            @endif -->
-                            <!-- <button class="Button Button--lightblue" onclick="window.location.href='{{ route('user.my_solar_horoscopes.edit') }}'"><span>My Solar Horoscope</span></button> -->
                             <br>
                             <br>
                             <div class="Pageframe-main__body">
@@ -67,10 +60,11 @@
                                                             <dl class="C-form-block-child C-form-block--birth">
                                                                 <div>
                                                                     <div class="div_right">
-                                                                        <dd class="C-form-block__button">
-                                                                            <!-- <button ref="button_solar_date" :disabled="!isButtonBoxEnable" @click="enableSelectBox">出生図</button> -->
-                                                                            <button ref="button_solar_date" @click="handleButtonClick">出生図</button>
-                                                                        </dd>
+                                                                        <a href="{{route('user.my_horoscopes.edit')}}">
+                                                                            <dd @if (str_contains(Request::url(), 'my_horoscopes/edit')) class="C-form-block__button active_MyHoro" @else class="C-form-block__button" @endif>
+                                                                                出生図
+                                                                            </dd>
+                                                                        </a>
                                                                     </div>
                                                                 </div>
                                                             </dl>
@@ -317,10 +311,6 @@
                 marker: null,
                 map: null,
                 geocoder: new google.maps.Geocoder(),
-                userBirthYear: @json($userBirthYear),
-                // selectedSolarDate: null,
-                // isSelectBoxDisabled: true,
-                // isButtonBoxEnable: true
                 selectedSolarDate: null,
                 isButtonHighlighted: true,
                 isSelectBoxHighlighted: false,
@@ -427,95 +417,6 @@
                     }
                 });
             },
-            // enableSelectBox() {
-            //     this.isSelectBoxDisabled = false;
-            //     this.isButtonBoxEnable = false;
-            //     this.$nextTick(() => {
-            //         this.$refs.solar_date.focus();
-            //         this.highlightSelectBox();
-            //         this.resetButton();
-            //     });
-            // },
-            // submitForm() {
-            //     document.getElementById('solarDateForm').submit();
-            // },
-            // highlightSelectBox() {
-            //     this.$refs.solar_date.style.color = '#F17424';
-            //     this.$refs.solar_date.style.border = '2px solid #F17424';
-            //     this.$refs.solar_date.style.borderRadius = '1.6rem';
-            // },
-            // resetSelectBox() {
-            //     this.$refs.solar_date.style.color = '';
-            //     this.$refs.solar_date.style.border = '';
-            // },
-            // highlightButton() {
-            //     this.$refs.button_solar_date.style.color = '#6186B3';
-            //     this.$refs.button_solar_date.style.border = '2px solid #6186B3';
-            //     this.$refs.button_solar_date.style.borderRadius = '1.6rem';
-            // },
-            // resetButton() {
-            //     this.$refs.button_solar_date.style.color = '';
-            //     this.$refs.button_solar_date.style.border = '';
-            // }
-            handleOptionChange() {
-                const selectedOption = this.$refs.solar_date.value;
-                localStorage.setItem('selectedSolarDate', selectedOption);
-            },
-            handleButtonClick() {
-                this.isButtonHighlighted = !this.isButtonHighlighted;
-                window.location.href = 'edit';
-                this.resetLocalStorage();
-            },
-            handleSelectBoxClick() {
-                this.isSelectBoxHighlighted = !this.isSelectBoxHighlighted;
-                const firstOptionValue = this.$refs.solar_date.options[0].value;
-                this.selectedSolarDate = firstOptionValue;
-                this.resetButton();
-            },
-            handleSelectClick() {
-                const firstOptionValue = this.$refs.solar_date.options[0].value;
-                this.selectedSolarDate = firstOptionValue;
-            },
-            submitForm() {
-                document.getElementById('solarDateForm').submit();
-            },
-            highlightSelectBox() {
-                this.$refs.solar_date.style.color = '#F17424';
-                this.$refs.solar_date.style.border = '2px solid #F17424';
-                this.$refs.solar_date.style.borderRadius = '1.6rem';
-            },
-            resetSelectBox() {
-                this.$refs.solar_date.style.color = '';
-                this.$refs.solar_date.style.border = '';
-            },
-            highlightButton() {
-                this.$refs.button_solar_date.style.color = '#6186B3';
-                this.$refs.button_solar_date.style.border = '2px solid #6186B3';
-                this.$refs.button_solar_date.style.borderRadius = '1.6rem';
-            },
-            resetButton() {
-                this.$refs.button_solar_date.style.color = '';
-                this.$refs.button_solar_date.style.border = '';
-            },
-            resetLocalStorage() {
-                localStorage.removeItem('selectedSolarDate');
-            },
-        },
-        watch: {
-            isButtonHighlighted(newVal) {
-                if (newVal) {
-                    this.highlightButton();
-                } else {
-                    this.resetButton();
-                }
-            },
-            isSelectBoxHighlighted(newVal) {
-                if (newVal) {
-                    this.highlightSelectBox();
-                } else {
-                    this.resetSelectBox();
-                }
-            }
         },
         mounted() {
             // 初期住所をサーバーサイドで設定
@@ -529,23 +430,7 @@
             this.setYear(oldYear);
             this.setMonth(oldMonth);
             this.setDay(oldDay);
-            // 年月日を設定
-            const firstOptionValue = this.$refs.solar_date.options[0].value;
-            // const firstOption = this.$refs.solar_date.value[0];
-            if (firstOptionValue) {
-                // this.selectedSolarDate = firstOption;
-                this.selectedSolarDate = firstOptionValue;
-            }
-            this.highlightButton();
-            this.$refs.solar_date.addEventListener('click', this.handleSelectClick);
-
-            const selectedOption = localStorage.getItem('selectedSolarDate');
-            if (selectedOption) {
-                this.selectedSolarDate = selectedOption;
-                this.isSelectBoxHighlighted = !this.isSelectBoxHighlighted;
-                this.resetButton();
-            }
-        },
+        }
     }).mount('#popup-horoscope');
 </script>
 @endsection

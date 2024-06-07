@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Http\Requests\User\FamilyController\StoreRequest;
 use App\Http\Requests\User\FamilyController\UpdateRequest;
+use App\Models\AppraisalApply;
 use App\Models\Family;
 use App\Services\FamilyService;
 use Illuminate\Http\RedirectResponse;
@@ -19,14 +20,13 @@ use Modules\Horoscope\Http\Actions\GenerateHoroscopeChartAction;
 use Modules\Horoscope\Http\Actions\Predict\ModifyLocation;
 use App\Repositories\SabianPatternRepository;
 use App\Repositories\ZodiacPatternRepository;
-use App\Models\SolarApply;
-use App\Models\User;
-use App\Services\SolarAppraisalApplyService;
+use Modules\Horoscope\Http\Actions\GenerateSolarHoroscopeChartAction;
 
 class FamilyController extends Controller
 {
     public function __construct(
         protected GenerateHoroscopeChartAction $generateHoroscopeChartAction,
+        protected GenerateSolarHoroscopeChartAction $generateSolarHoroscopeChartAction,
         protected ZodiacRepository $zodiacRepository,
         protected PlanetRepository $planetRepository,
         protected HouseRepository $houseRepository,
@@ -199,16 +199,60 @@ class FamilyController extends Controller
             'defaultAddress' => $defaultAddress,
             'defaultBirthDay' => $defaultBirthDay,
             'isAppraisalClaimed' => $isAppraisalClaimed,
-            'solarApply'          => $solarApply,
-            // 'solarDate'           => $solarAppraisalResultData['solarDate'],
-            'solarDates'          => $solarDates,
-            'userBirthYear'       => $userBirthYear,
-            'birthday'            => $birthday,
-            // 'birthday_time'            => $birthday_time,
-            // 'birthday_prefectures'       => $birthday_prefectures,
+            'solarAppraisals' => AppraisalApply::whereHas('appraisalClaim', static function ($query) {
+                $query->where('is_paid', true);
+            })->where('reference_type', Family::class)
+            ->where('reference_id', $family->id)
+            ->where('solar_return', '!=', 0)->get(),
         ]);
     }
-
+    public function show(Family $family,AppraisalApply $solar_apply): View
+    {
+        // ホロスコープ生成なデータを作成
+        $formData = [
+            "name" => $family->name1 . $family->name2,
+            "year" => $solar_apply->solar_return,
+            "month" => $solar_apply->birthday->format('m'),
+            "day" => $solar_apply->birthday->format('d'),
+            "hour" => $solar_apply->birthday_time->format('H'),
+            "minute" => $solar_apply->birthday_time->format('i'),
+            "longitude" => $solar_apply->longitude,
+            "latitude" => $solar_apply->latitude,
+            "map-city" => $solar_apply->birthday_city,
+            "timezone" => $solar_apply->timezome, //海外展開時にはここが変更できるようにする。現在は日本のみ
+            "background" => 'normal', //仮
+        ];
+        $chart = $this->generateSolarHoroscopeChartAction->execute($formData, WheelRadiusEnum::WheelScale);
+        $zodiacs = $this->zodiacRepository->getAll();
+        $planets = $this->planetRepository->getAll();
+        $houses = $this->houseRepository->getAll();
+        $image = $chart->get('image');
+        $degreeData = $chart->get('degreeData');
+        $explain = $chart->get('explain');
+        $imgBase64 = base64_encode($image->getImageBlob());
+        $defaultBirthdayPrefectures = $family->birthday_prefectures ?? '東京都杉並区';
+        $defaultAddress = $defaultBirthdayPrefectures;
+        $defaultBirthDay = $family->birthday;
+        $isAppraisalClaimed = $family->appraisalApplies()->whereHas('appraisalClaim')->exists();
+        return view('user.families.edit', [
+            'family'     => $family,
+            'solarApply' => $solar_apply,
+            'imgBase64'  => $imgBase64,
+            'degreeData' => $degreeData,
+            'explain'    => $explain,
+            'zodiacs'    => $zodiacs,
+            'planets'    => $planets,
+            'houses'     => $houses,
+            'defaultAddress' => $defaultAddress,
+            'defaultBirthDay' => $defaultBirthDay,
+            'isAppraisalClaimed' => $isAppraisalClaimed,
+            'solarAppraisals' => AppraisalApply::whereHas('appraisalClaim', static function ($query) {
+                $query->where('is_paid', true);
+            })->where('reference_type', $solar_apply->reference_type)
+            ->where('reference_id', $solar_apply->reference_id)
+            ->where('solar_return', '!=', 0)->get(),
+        ]);
+    }
     // 家族のホロスコープ更新
     public function update(UpdateRequest $request, Family $family): RedirectResponse
     {

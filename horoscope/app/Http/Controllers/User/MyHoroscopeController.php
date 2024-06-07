@@ -5,6 +5,8 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\MyHoroscopeController\StoreRequest;
 use App\Http\Requests\User\MyHoroscopeController\UpdateRequest;
+use App\Models\Appraisal;
+use App\Models\AppraisalApply;
 use App\Models\MyHoroscope;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -24,11 +26,13 @@ use App\Models\SolarApply;
 use App\Services\SolarAppraisalApplyService;
 use App\Models\Solar;
 use App\Models\User;
+use Modules\Horoscope\Http\Actions\GenerateSolarHoroscopeChartAction;
 
 class MyHoroscopeController extends Controller
 {
     public function __construct(
         protected GenerateHoroscopeChartAction $generateHoroscopeChartAction,
+        protected GenerateSolarHoroscopeChartAction $generateSolarHoroscopeChartAction,
         protected ZodiacRepository $zodiacRepository,
         protected PlanetRepository $planetRepository,
         protected HouseRepository $houseRepository,
@@ -64,79 +68,24 @@ class MyHoroscopeController extends Controller
     }
 
     // 編集フォーム表示
-    public function edit(Request $request, SolarApply $solarApply): View
+    public function edit(): View
     {
         $user = auth()->guard('user')->user();
-        if ($request->input('solar_date')) {
-            $solarDate = $request->input('solar_date');
-            // dd($solarDate);
-            $solarDates = $user->solarApplies()
-            ->whereHas('solarClaim', static function ($query) {
-                $query->where('is_paid', true);
-            })
-            ->orderBy('id', 'desc')
-            ->pluck('solar_date')
-            ->toArray();
-            if (in_array($solarDate, $solarDates)) {
-                try {
-                    $formData = [
-                        "name" => $user->name1 . $user->name2,
-                        "year" => $solarDate,
-                        "month" => $user->birthday->format('m'),
-                        "day" => $user->birthday->format('d'),
-                        "hour" => $user->birthday_time->format('H'),
-                        "minute" => $user->birthday_time->format('i'),
-                        "longitude" => $user->longitude,
-                        "latitude" => $user->latitude,
-                        "map-city" => $user->birthday_city,
-                        "timezone" => $user->timezome,
-                        "background" => 'normal',
-                    ];
-                    // dd($formData);
-
-                } catch (\Exception $e) {
-                    abort(404);
-                }
-            } else {
-                abort(404);
-            }
-        } else {
-            $formData = [
-                "name" => $user->name1 . $user->name2,
-                "year" => $user->birthday->format('Y'),
-                "month" => $user->birthday->format('m'),
-                "day" => $user->birthday->format('d'),
-                "hour" => $user->birthday_time->format('H'),
-                "minute" => $user->birthday_time->format('i'),
-                "longitude" => $user->longitude,
-                "latitude" => $user->latitude,
-                "map-city" => $user->birthday_city,
-                "timezone" => $user->timezome, //海外展開時にはここが変更できるようにする。現在は日本のみ
-                "background" => 'normal', //仮
-            ];
-            // dd($formData);
-        }
-
         // ホロスコープ生成なデータを作成
-        // $formData = [
-        //     "name" => $user->name1 . $user->name2,
-        //     "year" => $user->birthday->format('Y'),
-        //     "month" => $user->birthday->format('m'),
-        //     "day" => $user->birthday->format('d'),
-        //     "hour" => $user->birthday_time->format('H'),
-        //     "minute" => $user->birthday_time->format('i'),
-        //     "longitude" => $user->longitude,
-        //     "latitude" => $user->latitude,
-        //     "map-city" => $user->birthday_city,
-        //     "timezone" => $user->timezome, //海外展開時にはここが変更できるようにする。現在は日本のみ
-        //     "background" => 'normal', //仮
-        // ];
-
-        // ホロスコープ占いの処理
-        // $formData = $request->validated();
-        // $localtion = $this->modifyLocation->execute($formData['longitude'], $formData['latitude']);
+        $formData = [
+            "name" => $user->name1 . $user->name2,
+            "year" => $user->birthday->format('Y'),
+            "month" => $user->birthday->format('m'),
+            "day" => $user->birthday->format('d'),
+            "hour" => $user->birthday_time->format('H'),
+            "minute" => $user->birthday_time->format('i'),
+            "longitude" => $user->longitude,
+            "latitude" => $user->latitude,
+            "map-city" => $user->birthday_city,
+            "timezone" => $user->timezome, //海外展開時にはここが変更できるようにする。現在は日本のみ
+            "background" => 'normal', //仮
+        ];
         $chart = $this->generateHoroscopeChartAction->execute($formData, WheelRadiusEnum::WheelScale);
-        // $zodiacColors = WheelColorEnum::ZodiacElement;
         $zodiacs = $this->zodiacRepository->getAll();
         $planets = $this->planetRepository->getAll();
         $houses = $this->houseRepository->getAll();
@@ -144,32 +93,9 @@ class MyHoroscopeController extends Controller
         $degreeData = $chart->get('degreeData');
         $explain = $chart->get('explain');
         $imgBase64 = base64_encode($image->getImageBlob());
-
         $defaultBirthdayPrefectures = $user->birthday_prefectures ?? '東京都杉並区';
         $defaultAddress = $defaultBirthdayPrefectures;
         $defaultBirthDay = $user->birthday;
-
-        $selectedSolarDate = $request->input('solar_date', null);
-        if ($selectedSolarDate) {
-            $solarApply = SolarApply::where('solar_date', $selectedSolarDate)
-                                    ->where('reference_id', auth()->guard('user')->user()->id)
-                                    ->first();
-        }
-        $solarAppraisalResultData = $this->solarAppraisalApplyService->createSolarAppraisalResultData($solarApply);
-        $user = auth()->guard('user')->user();
-        $userBirthday = User::where('id', $user->id)->value('birthday');
-        $userBirthYear = date('Y', strtotime($userBirthday));
-        // $solarYear = date('Y', strtotime($solarAppraisalResultData['solarDate']));
-        // $age = $solarYear - $userBirthYear;
-        $solarDates = $user->solarApplies()
-            ->whereHas('solarClaim', static function ($query) {
-                $query->where('is_paid', true);
-            })
-            ->orderBy('id', 'desc')
-            ->pluck('solar_date');;
-        $birthday = User::where('id', $user->id)->value('birthday');
-        $birthday_time = User::where('id', $user->id)->value('birthday_time');
-        $birthday_prefectures = User::where('id', $user->id)->value('birthday_prefectures');
         return view('user.my_horoscopes.edit', [
             'imgBase64'  => $imgBase64,
             'degreeData' => $degreeData,
@@ -179,17 +105,60 @@ class MyHoroscopeController extends Controller
             'houses'     => $houses,
             'defaultAddress' => $defaultAddress,
             'defaultBirthDay' => $defaultBirthDay,
-            'solarApply'          => $solarApply,
-            'solarDate'           => $solarAppraisalResultData['solarDate'],
-            'solarDates'          => $solarDates,
-            'userBirthYear'       => $userBirthYear,
-            'birthday'            => $birthday,
-            'birthday_time'            => $birthday_time,
-            'birthday_prefectures'       => $birthday_prefectures,
+            'solarAppraisals' => AppraisalApply::whereHas('user', static function ($query) {
+                $query->where('id', auth()->guard('user')->user()->id);
+            })->whereHas('appraisalClaim', static function ($query) {
+                $query->where('is_paid', true);
+            })->where('reference_type', User::class)->where('solar_return', '!=', 0)->get(),
         ]);
     }
 
-    //出生情報更新
+    //HoroSolar
+    public function show(AppraisalApply $solar_apply): View
+    {
+        $user = auth()->guard('user')->user();
+        // ホロスコープ生成なデータを作成
+        $formData = [
+            "name" => $user->name1 . $user->name2,
+            "year" => $solar_apply->solar_return,
+            "month" => $solar_apply->birthday->format('m'),
+            "day" => $solar_apply->birthday->format('d'),
+            "hour" => $solar_apply->birthday_time->format('H'),
+            "minute" => $solar_apply->birthday_time->format('i'),
+            "longitude" => $solar_apply->longitude,
+            "latitude" => $solar_apply->latitude,
+            "map-city" => $solar_apply->birthday_city,
+            "timezone" => $solar_apply->timezome, //海外展開時にはここが変更できるようにする。現在は日本のみ
+            "background" => 'normal', //仮
+        ];
+        $chart = $this->generateSolarHoroscopeChartAction->execute($formData, WheelRadiusEnum::WheelScale);
+        $zodiacs = $this->zodiacRepository->getAll();
+        $planets = $this->planetRepository->getAll();
+        $houses = $this->houseRepository->getAll();
+        $image = $chart->get('image');
+        $degreeData = $chart->get('degreeData');
+        $explain = $chart->get('explain');
+        $imgBase64 = base64_encode($image->getImageBlob());
+        $defaultBirthdayPrefectures = $user->birthday_prefectures ?? '東京都杉並区';
+        $defaultAddress = $defaultBirthdayPrefectures;
+        $defaultBirthDay = $user->birthday;
+        return view('user.my_horoscopes.edit', [
+            'solarApply' => $solar_apply,
+            'imgBase64'  => $imgBase64,
+            'degreeData' => $degreeData,
+            'explain'    => $explain,
+            'zodiacs'    => $zodiacs,
+            'planets'    => $planets,
+            'houses'     => $houses,
+            'defaultAddress' => $defaultAddress,
+            'defaultBirthDay' => $defaultBirthDay,
+            'solarAppraisals' => AppraisalApply::whereHas('user', static function ($query) {
+                $query->where('id', auth()->guard('user')->user()->id);
+            })->whereHas('appraisalClaim', static function ($query) {
+                $query->where('is_paid', true);
+            })->where('reference_type', User::class)->where('solar_return', '!=', 0)->get(),
+        ]);
+    }
     public function update(UpdateRequest $request): RedirectResponse
     {
         try {
