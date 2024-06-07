@@ -1,7 +1,6 @@
 @extends('layouts.user.mypage.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('mypage/assets/css/solar-return.css') }}">
 <link rel="stylesheet" href="{{ asset('mypage/assets/css/myhoroscope.css') }}">
 @endsection
 
@@ -26,9 +25,7 @@
                         <h2 class="Pageframe-main__title">
                             <img src="{{ asset('mypage/assets/images/myhoroscope/img_title-detail.svg') }}" alt="My HOROSCOPE" class="pc">
                             <img src="{{ asset('mypage/assets/images/myhoroscope/sp_img_title-detail.svg') }}" alt="My HOROSCOPE" class="sp"></h2>
-                            <br>
-                            <br>
-                            <div class="Pageframe-main__body">
+                        <div class="Pageframe-main__body">
                             <div class="C-user-list">
                                 <div class="C-user-list-block">
                                     <span class="C-user-list-block__inner">
@@ -46,39 +43,6 @@
                                 </div>
                                 <p class="C-user-list__change"><span>出生情報を訂正する</span></p>
                             </div>
-                            {{--SolarDate Combobox--}}
-                            <div id="popup-horoscope">
-                                <dl class="C-form-block C-form-block--birthdata">
-                                    <dd class="C-form-block__body">
-                                        <dl class="C-form-block-child C-form-block--birth">
-                                            <div id="popup-horoscope">
-                                            <dl class="C-form-block C-form-block--birthdata">
-                                                <dd class="C-form-block__body">
-                                                    <dl class="C-form-block-child C-form-block--birth">
-                                                    <dl class="C-form-block C-form-block--birthdata">
-                                                        <dd class="C-form-block__body">
-                                                            <dl class="C-form-block-child C-form-block--birth">
-                                                                <div>
-                                                                    <div class="div_right">
-                                                                        <a href="{{route('user.my_horoscopes.edit')}}">
-                                                                            <dd @if (str_contains(Request::url(), 'my_horoscopes/edit')) class="C-form-block__button active_MyHoro" @else class="C-form-block__button" @endif>
-                                                                                出生図
-                                                                            </dd>
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                            </dl>
-                                                        </dd>
-                                                    </dl>
-                                                    </dl>
-                                                </dd>
-                                            </dl>
-                                        </dl>
-                                    </dd>
-                                </dl>
-                                @include('components.parts.user.solar_return_combobox')
-                            </div>
-                            <br>
                             <div class="C-horoscope-detail">
                                 <div class="C-horoscope-detail-header">
                                     <!--<p class="C-horoscope-detail__title font">Horoscope Chart</p>-->
@@ -190,7 +154,7 @@
                                                         <input type="time" name="time" value="{{ old('time', auth()->guard('user')->user()->birthday_time->format('H:i')) }}" required>
                                                     </div>
                                                 </dd>
-                                            </dl>
+                                            </dl>   
                                             {{-- <div class="C-horoscope-form-block-wrap C-horoscope-form-block-wrap--birth">
                                                 <dl class="C-horoscope-form-block C-horoscope-form-block--birth">
                                                     <dt class="C-horoscope-form-block__title">生年月日</dt>
@@ -311,9 +275,6 @@
                 marker: null,
                 map: null,
                 geocoder: new google.maps.Geocoder(),
-                selectedSolarDate: null,
-                isSelectBoxDisabled: true,
-                isButtonBoxEnable: true
             }
         },
         methods: {
@@ -394,7 +355,7 @@
                         } else {
                             this.map.setCenter(results[0].geometry.location);
                         }
-
+    
                         if (!this.marker) {
                             this.marker = new google.maps.Marker({
                                 position: results[0].geometry.location,
@@ -404,7 +365,7 @@
                         } else {
                             this.marker.setPosition(results[0].geometry.location);
                         }
-
+    
                         const changeLng = results[0].geometry.location.lng();
                         const changeLat = results[0].geometry.location.lat();
                         document.getElementById('map-longitude').value = changeLng;

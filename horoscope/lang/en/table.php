@@ -19,6 +19,4 @@ return [
     'action' => 'Action',
     'title' => 'Title',
     'title_en' => 'Title EN',
-    'content_solar' => 'Solar Regression',
-    'content_solar_en' => 'Solar Regression EN',
 ];

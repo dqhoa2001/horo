@@ -87,9 +87,6 @@ class SabianPatternController extends Controller
         if (!isset($dataUpdate['content_en'])) {
             $dataUpdate['content_en'] = null;
         }
-        if (!isset($dataUpdate['content_solar_en'])) {
-            $dataUpdate['content_solar_en'] = null;
-        }
         $updateStatus = $this->sabianPatternRepository->update($id, $dataUpdate);
         $message = $updateStatus
             ? __('toast.update_success', ['model' => __('sidebar.sabian_pattern')])

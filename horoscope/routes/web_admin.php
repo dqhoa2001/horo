@@ -15,7 +15,6 @@ use App\Http\Controllers\Admin\SabianPatternController;
 use App\Http\Controllers\Admin\ZodiacPatternController;
 use App\Http\Controllers\Admin\AppraisalApplyController;
 use App\Http\Controllers\Admin\RegisterCouponController;
-use App\Http\Controllers\Admin\SolarApplyController;
 
 // ログイン認証関連
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -136,11 +135,6 @@ Route::middleware('auth:admin')->group(static function () {
     Route::post('appraisal_applies/download_pdf/{bookbindingUserApply}', [AppraisalApplyController::class, 'downloadPdf'])->name('appraisal_applies.download_pdf');
     Route::get('appraisal_applies/redirect_users_edit/{appraisalApply}', [AppraisalApplyController::class, 'redirectUsersEdit'])->name('appraisal_applies.redirect_users_edit');
     Route::resource('appraisal_applies', AppraisalApplyController::class)->only('edit', 'update');
-
-    //Solar Apprraisal Apply edit route
-    Route::post('solar_applies/download_pdf/{solarBookbindingUserApply}', [SolarApplyController::class, 'downloadPdf'])->name('solar_applies.download_pdf');
-
-    Route::resource('solar_applies', SolarApplyController::class)->only('edit', 'update');
 
     // クーポン管理
     Route::prefix('coupons')->group(static function () {

@@ -30,9 +30,7 @@ class ZodiacPatternRepository extends EloquentRepository
             ->when(!empty($selectedValues['keyword']), static function ($query) use ($selectedValues) {
                 $query->where(static function ($subQuery) use ($selectedValues) {
                     $subQuery->where('content', 'LIKE', '%' . $selectedValues['keyword'] . '%')
-                        ->orWhere('content_en', 'LIKE', '%' . $selectedValues['keyword'] . '%')
-                        ->orWhere('content_solar', 'LIKE', '%' . $selectedValues['keyword'] . '%')
-                        ->orWhere('content_solar_en', 'LIKE', '%' . $selectedValues['keyword'] . '%');
+                        ->orWhere('content_en', 'LIKE', '%' . $selectedValues['keyword'] . '%');
                 });
             })
             ->paginate(PaginateEnum::Limit);
