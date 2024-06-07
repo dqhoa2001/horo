@@ -226,6 +226,9 @@
     justify-content: space-between;
     flex-wrap: wrap;
 }
+.unsetFlex{
+    display: unset;
+}
 .C-form-block__radio__item{
     width: calc((100% - 1.4rem) / 2);
 }

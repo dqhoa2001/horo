@@ -81,8 +81,7 @@ Route::prefix('check_payment_solar')->name('check_payment_solar.')->middleware([
 
     //鑑定登録処理
     Route::post('apply', [CheckPaymentSolarController::class, 'apply'])->name('apply');
-
-    // Route::get('complete/{appraisal_apply}', [CheckPaymentSolarController::class, 'complete'])->name('complete');
+    Route::get('complete/{solarApply}', [CheckPaymentSolarController::class, 'complete'])->name('complete');
     Route::get('thanks', [CheckPaymentSolarController::class, 'thanks'])->name('thanks');
 });
 
@@ -200,7 +199,7 @@ Route::middleware(['auth:user', 'verified'])->group(static function () {
         Route::get('', 'index')->name('index');
         Route::get('/user/solar_appraisals/{id}', [SolarAppraisalController::class, 'index'])->name('user.solar_appraisals.index');
         // 個人鑑定の詳細
-        Route::get('{solar_apply}', 'show')->name('show')->middleware('can:viewSolarClaim,solar_apply', 'can:viewSolarAppraisalApply,solar_apply');
+        Route::get('{solar_apply}', 'show')->name('show');
         // Route::get('{appraisal_apply}', 'show')->name('show')->middleware('can:viewClaim,appraisal_apply', 'can:viewAppraisalApply,appraisal_apply');
         Route::get('{solarApply}/get-data/{solarDate}', [SolarAppraisalController::class, 'getSolarData']);
     });

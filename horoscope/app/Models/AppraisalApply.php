@@ -19,6 +19,7 @@ class AppraisalApply extends Model
     protected $casts = [
         'birthday' => 'date',
         'birthday_time' => 'datetime',
+        'solar_return' =>'integer',
     ];
 
     const USER = 1; // 個人
@@ -132,6 +133,15 @@ class AppraisalApply extends Model
     public static function getBookbindingType(): array
     {
         $price = Bookbinding::where('is_enabled', Bookbinding::BOOKBINDING)->first()->price;
+
+        return [
+            self::BOOK_ENABLED => '希望する（' . number_format($price) . '円）',
+            self::BOOK_DISABLED => '希望しない',
+        ];
+    }
+    public static function getSolarBookbindingType(): array
+    {
+        $price = Bookbinding::where('is_enabled', Bookbinding::BOOKBINDING)->where('solar_return',true)->first()->price;
 
         return [
             self::BOOK_ENABLED => '希望する（' . number_format($price) . '円）',

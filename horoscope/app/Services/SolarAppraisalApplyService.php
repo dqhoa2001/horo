@@ -82,7 +82,7 @@ class SolarAppraisalApplyService
     }
 
     // 鑑定結果データの作成
-    public function createSolarAppraisalResultData(SolarApply $solarApply): array
+    public function createSolarAppraisalResultData(AppraisalApply $solarApply): array
     {
         $user = auth()->guard('user')->user();
         $formData = [

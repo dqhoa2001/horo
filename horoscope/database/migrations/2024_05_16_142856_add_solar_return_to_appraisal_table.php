@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('solars', function (Blueprint $table) {
-            $table->integer('family_price');
+        Schema::table('appraisals', function (Blueprint $table) {
+            $table->integer('solar_return')->nullable()->after('is_enabled')->default(0);
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('solars', function (Blueprint $table) {
-            $table->dropColumn('family_price');
+        Schema::table('appraisals', function (Blueprint $table) {
+            $table->dropColumn('solar_return');
         });
     }
 };
