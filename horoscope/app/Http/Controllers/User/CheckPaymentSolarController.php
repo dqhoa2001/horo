@@ -37,6 +37,7 @@ use App\Http\Requests\User\CheckPaymentSolarController\ConfirmRequest;
 use App\Mail\User\CompleteForPersonalAppraisal;
 use App\Mail\User\ThanksForPersonalAppraisal;
 use App\Models\Appraisal;
+use App\Models\AppraisalApply;
 use App\Models\AppraisalClaim;
 use App\Services\AppraisalApplyService;
 use App\Services\AppraisalClaimService;
@@ -231,10 +232,21 @@ class CheckPaymentSolarController extends Controller
         }
 
         \Mail::to($user->email)->send(new ThanksForAppraisal());
-        return to_route('user.check_payment_solar.thanks');
+        // return to_route('user.check_payment_solar.thanks');
+        return to_route('user.check_payment_solar.complete', [
+            'solarApply' => $solarApply,
+            'target_type' => $request->target_type,
+        ]);
 
     }
-
+    public function complete(Request $request): View
+    {
+        $solarApply = AppraisalApply::find($request->solarApply);
+        return view('user.check_payment_solar.complete', [
+            'solarApply' => $solarApply,
+            'target_type' => $request->target_type,
+        ]);
+    }
     // 完了画面
     public function thanks(Request $request): View
     {
