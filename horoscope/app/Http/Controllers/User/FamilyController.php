@@ -72,6 +72,7 @@ class FamilyController extends Controller
     // 家族のホロスコープ表示と編集
     public function edit(Request $request, Family $family, SolarApply $solarApply): View
     {
+        // dd($family);
         $user = auth()->guard('user')->user();
         if ($request->input('solar_date')) {
             $solarDate = $request->input('solar_date');
@@ -86,16 +87,16 @@ class FamilyController extends Controller
             if (in_array($solarDate, $solarDates)) {
                 try {
                     $formData = [
-                        "name" => $user->name1 . $user->name2,
+                        "name" => $family->name1 . $family->name2,
                         "year" => $solarDate,
-                        "month" => $user->birthday->format('m'),
-                        "day" => $user->birthday->format('d'),
-                        "hour" => $user->birthday_time->format('H'),
-                        "minute" => $user->birthday_time->format('i'),
-                        "longitude" => $user->longitude,
-                        "latitude" => $user->latitude,
-                        "map-city" => $user->birthday_city,
-                        "timezone" => $user->timezome,
+                        "month" => $family->birthday->format('m'),
+                        "day" => $family->birthday->format('d'),
+                        "hour" => $family->birthday_time->format('H'),
+                        "minute" => $family->birthday_time->format('i'),
+                        "longitude" => $family->longitude,
+                        "latitude" => $family->latitude,
+                        "map-city" => $family->birthday_city,
+                        "timezone" => $family->timezome,
                         "background" => 'normal',
                     ];
                     // dd($formData);
@@ -154,31 +155,39 @@ class FamilyController extends Controller
         $defaultBirthDay = $family->birthday;
         $isAppraisalClaimed = $family->appraisalApplies()->whereHas('appraisalClaim')->exists();
 
-        $selectedSolarDate = $request->input('solar_date', null);
-        if ($selectedSolarDate) {
-            $solarApply = SolarApply::where('solar_date', $selectedSolarDate)
-                                    ->where('reference_id', auth()->guard('user')->user()->id)
-                                    ->first();
-            if ($solarApply) {
-                $url = url("user/families/{$solarApply->id}/edit/?solar_date={$selectedSolarDate}");
-                return redirect()->to($url);
-            }
-        }
-        $solarAppraisalResultData = $this->solarAppraisalApplyService->createSolarAppraisalResultData($solarApply);
+        // $selectedSolarDate = $request->input('solar_date', null);
+        // if ($selectedSolarDate) {
+        //     $solarApply = SolarApply::where('solar_date', $selectedSolarDate)
+        //                             ->where('reference_id', auth()->guard('user')->user()->id)
+        //                             ->first();
+        //     if ($solarApply) {
+        //         $url = url("user/families/{$solarApply->id}/edit/?solar_date={$selectedSolarDate}");
+        //         return view('user.families.edit')->with('redirect_url', $url);
+        //     }
+        // }
+        // $solarAppraisalResultData = $this->solarAppraisalApplyService->createSolarAppraisalResultData($solarApply);
         $user = auth()->guard('user')->user();
         $userBirthday = User::where('id', $user->id)->value('birthday');
         $userBirthYear = date('Y', strtotime($userBirthday));
         // $solarYear = date('Y', strtotime($solarAppraisalResultData['solarDate']));
         // $age = $solarYear - $userBirthYear;
+        // $solarDates = $user->solarApplies()
+        //     ->whereHas('solarClaim', static function ($query) {
+        //         $query->where('is_paid', true);
+        //     })
+        //     ->orderBy('id', 'desc')
+        //     ->pluck('solar_date');
         $solarDates = $user->solarApplies()
+            ->with('family')
             ->whereHas('solarClaim', static function ($query) {
                 $query->where('is_paid', true);
+                $query->where('reference_type', "App\Models\User");
             })
             ->orderBy('id', 'desc')
-            ->pluck('solar_date');;
+            ->pluck('solar_date');
         $birthday = User::where('id', $user->id)->value('birthday');
-        $birthday_time = User::where('id', $user->id)->value('birthday_time');
-        $birthday_prefectures = User::where('id', $user->id)->value('birthday_prefectures');
+        // $birthday_time = User::where('id', $user->id)->value('birthday_time');
+        // $birthday_prefectures = User::where('id', $user->id)->value('birthday_prefectures');
         return view('user.families.edit', [
             'family'     => $family,
             'imgBase64'  => $imgBase64,
@@ -191,12 +200,12 @@ class FamilyController extends Controller
             'defaultBirthDay' => $defaultBirthDay,
             'isAppraisalClaimed' => $isAppraisalClaimed,
             'solarApply'          => $solarApply,
-            'solarDate'           => $solarAppraisalResultData['solarDate'],
+            // 'solarDate'           => $solarAppraisalResultData['solarDate'],
             'solarDates'          => $solarDates,
             'userBirthYear'       => $userBirthYear,
             'birthday'            => $birthday,
-            'birthday_time'            => $birthday_time,
-            'birthday_prefectures'       => $birthday_prefectures,
+            // 'birthday_time'            => $birthday_time,
+            // 'birthday_prefectures'       => $birthday_prefectures,
         ]);
     }
 
