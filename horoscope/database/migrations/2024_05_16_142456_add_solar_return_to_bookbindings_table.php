@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('solar_applies', function (Blueprint $table) {
-            $table->id();
-            $table->morphs('reference');
-            $table->integer('solar_date')->nullable();
-            $table->timestamps();
+        Schema::table('bookbindings', function (Blueprint $table) {
+            $table->boolean('solar_return')->nullable()->after('is_enabled')->default(0);
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('solar_applies');
+        Schema::table('bookbindings', function (Blueprint $table) {
+            $table->dropColumn('solar_return');
+        });
     }
 };

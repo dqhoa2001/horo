@@ -2,6 +2,7 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('mypage/assets/css/mysolarappraisals.css') }}">
+<link rel="stylesheet" href="{{ asset('mypage/assets/css/solar-return.css') }}">
 @endsection
 
 @section('content')
@@ -36,21 +37,8 @@
                         </h2>
 						<p class="Pageframe-main__firstmessage">{{ auth()->user()->full_name }}さんの個人鑑定をします。<br>1 年間に絞って鑑定をすることで、より詳細な運勢を読むことができます。</p>
 						<div class="Pageframe-main__body">
-                        <div class="C-user-list">
-                                @foreach ($SolarAppraisals as $SolarAppraisal)
-                                <div class="C-user-list-block">
-                                    <a href="{{ route('user.solar_appraisals.show', $SolarAppraisal) }}"
-                                        class="C-user-list-block__inner C-user-list-block__hasimage">
-                                        <figure class="C-user-list-block__image"><img
-                                            src="{{ asset('mypage/assets/images/solar-return/img_thumbnail.svg') }}" alt="画像"></figure>
-                                        <div class="C-user-list-block__hasimage__inner">
-                                            <h3 class="C-user-list-block__title" data-tag="Solar Return Year"><span>{{
-                                                    $SolarAppraisal->solar_date }}
-                                        </div>
-                                    </a>
-                                </div>
-                                @endforeach
-                            </div>
+                            <!-- Combobox -->
+                            @include('components.parts.user.solar_return_combobox')
 
 							<!-- 鑑定バナー -->
 							@include('components.parts.user.solar_appraisal_apply_baner')

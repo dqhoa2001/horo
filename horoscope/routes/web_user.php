@@ -81,8 +81,7 @@ Route::prefix('check_payment_solar')->name('check_payment_solar.')->middleware([
 
     //鑑定登録処理
     Route::post('apply', [CheckPaymentSolarController::class, 'apply'])->name('apply');
-
-    // Route::get('complete/{appraisal_apply}', [CheckPaymentSolarController::class, 'complete'])->name('complete');
+    Route::get('complete/{solarApply}', [CheckPaymentSolarController::class, 'complete'])->name('complete');
     Route::get('thanks', [CheckPaymentSolarController::class, 'thanks'])->name('thanks');
 });
 
@@ -158,7 +157,8 @@ Route::middleware(['auth:user', 'verified'])->group(static function () {
 
     //家族のホロスコープ
     Route::resource('families', FamilyController::class)->except(['edit']);
-    Route::get('families/{family}/edit', [FamilyController::class, 'edit'])->middleware('can:view,family')->name('families.edit');
+    Route::get('families/edit/{family}', [FamilyController::class, 'edit'])->middleware('can:view,family')->name('families.edit');
+    Route::get('families/{family}/{solar_apply}', [FamilyController::class, 'show'])->name('families.show');
     //家族のホロスコープ
     Route::resource('families_solar', FamilySolarHoroscopeController::class)->except(['edit']);
     Route::get('families_solar/{family}/edit', [FamilySolarHoroscopeController::class, 'edit'])->middleware('can:view,family')->name('families_solar.edit');
@@ -168,15 +168,8 @@ Route::middleware(['auth:user', 'verified'])->group(static function () {
         Route::post('store', 'store')->name('store');
         Route::get('edit', 'edit')->name('edit');
         Route::patch('update', 'update')->name('update');
+        Route::get('{solar_apply}', 'show')->name('show');
     });
-    //MySolarHoroscope
-    Route::controller(MySolarHoroscopeController::class)->prefix('my_solar_horoscopes')->name('my_solar_horoscopes.')->group(static function () {
-        // Route::get('create', 'create')->name('create');
-        // Route::post('store', 'store')->name('store');
-        Route::get('edit', 'edit')->name('edit');
-        Route::patch('update', 'update')->name('update');
-    });
-
     //会員登録済みの個人鑑定
     Route::controller(AppraisalController::class)->prefix('appraisals')->name('appraisals.')->group(static function () {
         // 個人鑑定
@@ -199,7 +192,7 @@ Route::middleware(['auth:user', 'verified'])->group(static function () {
         // 個人鑑定
         Route::get('', 'index')->name('index');
         // 個人鑑定の詳細
-        Route::get('{solar_apply}', 'show')->name('show')->middleware('can:viewSolarClaim,solar_apply', 'can:viewSolarAppraisalApply,solar_apply');
+        Route::get('{solar_apply}', 'show')->name('show');
         // Route::get('{appraisal_apply}', 'show')->name('show')->middleware('can:viewClaim,appraisal_apply', 'can:viewAppraisalApply,appraisal_apply');
         Route::get('{solarApply}/get-data/{solarDate}', [SolarAppraisalController::class, 'getSolarData']);
     });

@@ -27,12 +27,27 @@
 
 		<form method="POST" action="{{ route('user.check_payment_solar.apply') }}" id="offer-appraisal-apply-form">
 			@csrf
-
 			<input type="hidden" name="target_type" value="{{ $data['target_type'] }}">
+            <input type="hidden" name="name1" value="{{ $data['name1'] }}">
+            <input type="hidden" name="name2" value="{{ $data['name2'] }}">
 
-			<input type="hidden" name="solar_date" value="{{ $data['solar_date'] }}">
+            <input type="hidden" name="birth_year" value="{{ $data['birth_year'] }}">
+            <input type="hidden" name="birth_month" value="{{ $data['birth_month'] }}">
+            <input type="hidden" name="birth_day" value="{{ $data['birth_day'] }}">
+            @php
+                $birthday = $data['birth_year'] . '-' . str_pad($data['birth_month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($data['birth_day'], 2, '0', STR_PAD_LEFT);
+            @endphp
+            <input type="hidden" name="birthday" value="{{ $birthday }}">
+            <input type="hidden" name="birthday_time" value="{{ $data['birthday_time'] }}">
+            <input type="hidden" name="birthday_prefectures" value="{{ $data['birthday_prefectures'] }}">
+            <input type="hidden" name="longitude" value="{{ $data['longitude'] }}">
+            <input type="hidden" name="latitude" value="{{ $data['latitude'] }}">
+            <input type="hidden" name="timezone" value="{{ $data['timezone'] }}">
+            <input type="hidden" name="map-city" value="{{ $data['map-city'] }}">
+            <input type="hidden" name="solar_return" value="{{ $data['solar_return'] }}">
             @if((int)$data['target_type'] === \App\Enums\TargetType::FAMILY->value)
                 <input type="hidden" name="family_id" value="{{ $data['family_id'] }}">
+                <input type="hidden" name="relationship" value="{{ $data['relationship'] }}">
             @endif
 			<input type="hidden" name="is_bookbinding" value="{{ $data['is_bookbinding'] }}">
 
@@ -48,7 +63,7 @@
 			<input type="hidden" name="is_design" value="{{ $data['is_design'] }}">
 			@endif
 			<input type="hidden" name="payment_type" value="{{ $data['payment_type'] }}">
-			@if($data['coupon_code'])
+			@if(isset($data['coupon_code']))
 			<input type="hidden" name="coupon_code" value="{{ $data['coupon_code'] }}">
 			@endif
 			@if((int)$data['payment_type'] === \App\Models\SolarClaim::CREDIT)
@@ -148,16 +163,16 @@
 					<dd class="C-form-block__body">
 						<dl class="C-form-block__notes">
 							<dd class="C-form-block__notes__body">
-							Thông tin năm khách hàng mua mặt trời hồi quy
+							お客様がSOLAR RETURNを購入された年に関する情報
 							</dd>
 						</dl>
 						<dl class="C-form-block-child C-form-block--birth">
-                            <dt class="C-form-block__title">生年月日</dt>
+                            <dt class="C-form-block__title">鑑定年</dt>
                             <dd class="C-form-block__body C-form-block__body--half">
                                 {{-- {{ $data['birthday'] }} --}}
-                                @if (is_string($data['solar_date']))
+                                @if (is_string($data['solar_return']))
                                     @php
-                                        $date = \DateTime::createFromFormat('Y', $data['solar_date']);
+                                        $date = \DateTime::createFromFormat('Y', $data['solar_return']);
                                     @endphp
                                     @if ($date)
                                         {{ $date->format('Y年m月d日') }}
@@ -165,14 +180,14 @@
                                         <span>Error: Invalid date format</span>
                                     @endif
                                 @else
-                                    {{ $data['solar_date']->format('Y年m月d日') }}
+                                    {{ $data['solar_return']->format('Y年m月d日') }}
                                 @endif
                             </dd>
                         </dl>
 					</dd>
 				</dl>
 
-				@if($data['coupon_code'])
+				@if(isset($data['coupon_code']))
                     <dl class="C-form-block C-form-block--coupon-wrap">
                         <div class="C-form-block__body">
                             <dl class="C-form-block-child C-form-block--hasbutton C-form-block--couponcode on">
@@ -211,7 +226,7 @@
 								<dd class="C-price-block__text">{{ number_format(\App\Models\SolarClaim::SHIPPING_FEE) }}円</dd>
 							</dl> --}}
 							@endif
-							@if($data['coupon_code'])
+							@if(isset($data['coupon_code']))
 							<dl class="C-price-block C-price-block--minus">
 								<dt class="C-price-block__title">ご紹介クーポン ：</dt>
 								<dd class="C-price-block__text">- {{ number_format($data['discount_price']) }}円</dd>

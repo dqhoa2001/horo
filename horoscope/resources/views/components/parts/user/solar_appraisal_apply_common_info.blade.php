@@ -11,13 +11,13 @@
                         <p class="C-user-list-block__item" data-tag="Solar Time">{{ $solarDate->format('H : i') }}</p>
                         <p class="C-user-list-block__item" data-tag="Location">{{ auth()->guard('user')->user()->birthday_prefectures }}</p> -->
                         <p class="C-user-list-block__item" data-tag="Birthday">
-                        {{ $birthday->format('Y-m-d') }}
+                        {{$solarApply->birthday->format('Y-m-d') }}
                         </p>
                         <p class="C-user-list-block__item" data-tag="Birth Time">
-                            {{ $birthday_time->format('H:i') }}
+                            {{ $solarApply->birthday_time->format('H:i') }}
                         </p>
                         <p class="C-user-list-block__item" data-tag="Location">
-                            {{ $birthday_prefectures }}
+                            {{ $solarApply->birthday_prefectures }}
                         </p>
                     </div>
             </div>
