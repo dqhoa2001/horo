@@ -66,42 +66,6 @@
                 </div>
             </div>
             @include('components.parts.footer')
-
-           <!-- ***** ポップアップ ***** -->
-           <section class="C-popup C-popup--horoscope">
-            <div class="C-popup__inner">
-                <div class="C-popup-content">
-                    <div class="C-popup-content__inner C-popup-content__scroll-inner">
-                        <div class="C-horoscope-form">
-                            <form action="{{ route('user.my_solar_horoscopes.update') }}" method="POST">
-                                @csrf
-                                @method('PATCH')
-                                <p class="C-popup--horoscope__title">Solar Year</p>
-                                <div id="popup-horoscope">
-                                    <div class="C-horoscope-form__inner">
-                                        <dl class="C-horoscope-form-block" style="margin-bottom: 30px;">
-                                            <dt class="C-horoscope-form-block__title">Solar Year</dt>
-                                            <dd class="C-horoscope-form-block__body" style="display: flex;">
-                                                <div class="C-horoscope-form-field" style="width: calc((100% - 1rem) / 3);">
-                                                    <select id="select_year" name="solar_date">
-                                                        <option value="">年</option>
-                                                    </select>
-                                                </div>
-                                            </dd>
-                                        </dl>
-                                    </div>
-                                </div>
-                                <div class="C-horoscope-create">
-                                    <button type="submit" class="Button Button--blue"><span>保存する</span></button>
-                                    <div class="Button Button--cancel"><span>キャンセル</span></div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="C-popup-close"></div>
-                </div>
-            </div>
-        </section>
         <!-- ***** ポップアップ ***** -->
         </div>
     </main>
