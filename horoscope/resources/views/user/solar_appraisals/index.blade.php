@@ -45,7 +45,7 @@
                                             src="{{ asset('mypage/assets/images/solar-return/img_thumbnail.svg') }}" alt="画像"></figure>
                                         <div class="C-user-list-block__hasimage__inner">
                                             <h3 class="C-user-list-block__title" data-tag="Solar Return Year"><span>{{
-                                                    $SolarAppraisal->solar_date }}
+                                                    $SolarAppraisal->solar_return }}
                                         </div>
                                     </a>
                                 </div>

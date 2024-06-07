@@ -37,45 +37,31 @@ class SolarAppraisalController extends Controller
         protected SolarAppraisalApplyService $solarAppraisalApplyService,
     ) {}
 
-    public function index(Request $request): View|RedirectResponse
+    public function index(): View|RedirectResponse
     {
         return view('user.solar_appraisals.index', [
-            'SolarAppraisals' => SolarApply::whereHas('user', static function ($query) {
+            'SolarAppraisals' => AppraisalApply::whereHas('user', static function ($query) {
                 $query->where('id', auth()->guard('user')->user()->id);
-            })->whereHas('solarClaim', static function ($query) {
+            })->whereHas('appraisalClaim', static function ($query) {
                 $query->where('is_paid', true);
-            })->where('reference_type', User::class)->get(),
-            'solar_appraisal'         => Solar::where('is_enabled', true)->first(),
-            'bookbinding'       => Bookbinding::where('is_enabled', true)->first(),
+            })->where('reference_type', User::class)->where('solar_return', '!=', 0)->get(),
+            'solar_appraisal'         => Appraisal::where('is_enabled', true)->where('solar_return',true)->first(),
+            'bookbinding'       => Bookbinding::where('is_enabled', true)->where('solar_return',true)->first(),
         ]);
     }
 
     //show solar appraisal data
-    public function show(Request $request, SolarApply $solarApply): View
+    public function show(AppraisalApply $solar_apply): View
     {
-        $selectedSolarDate = $request->input('solar_date', null);
-        if ($selectedSolarDate) {
-            $solarApply = SolarApply::where('solar_date', $selectedSolarDate)
-                                    ->where('reference_id', auth()->guard('user')->user()->id)
-                                    ->first();
-        }
-        $solarAppraisalResultData = $this->solarAppraisalApplyService->createSolarAppraisalResultData($solarApply);
-        $user = auth()->guard('user')->user();
-        $userBirthday = User::where('id', $user->id)->value('birthday');
-        $userBirthYear = date('Y', strtotime($userBirthday));
-        // $solarYear = date('Y', strtotime($solarAppraisalResultData['solarDate']));
-        // $age = $solarYear - $userBirthYear;
-        $solarDates = $user->solarApplies()
-            ->whereHas('solarClaim', static function ($query) {
-                $query->where('is_paid', true);
-            })
-            ->orderBy('id', 'desc')
-            ->pluck('solar_date');;
-        $birthday = User::where('id', $user->id)->value('birthday');
-        $birthday_time = User::where('id', $user->id)->value('birthday_time');
-        $birthday_prefectures = User::where('id', $user->id)->value('birthday_prefectures');
+        $solarAppraisals = AppraisalApply::whereHas('appraisalClaim', static function ($query) {
+            $query->where('is_paid', true);
+        })->where('reference_type', $solar_apply->reference_type)
+        ->where('reference_id', $solar_apply->reference_id)
+        ->where('solar_return', '!=', 0)->get();
+        $solarAppraisalResultData = $this->solarAppraisalApplyService->createSolarAppraisalResultData($solar_apply);
         return view('user.solar_appraisals.show', [
-            'solarApply'          => $solarApply,
+            'solarApply'          => $solar_apply,
+            'solarAppraisals'     =>  $solarAppraisals,
             'degreeData'          => $solarAppraisalResultData['degreeData'],
             'explain'             => $solarAppraisalResultData['explain'],
             'zodaics'             => $solarAppraisalResultData['zodaics'],
@@ -84,50 +70,8 @@ class SolarAppraisalController extends Controller
             'zodaicsPattern'      => $solarAppraisalResultData['zodaicsPattern'],
             'sabian'              => $solarAppraisalResultData['sabian'],
             'solarDate'           => $solarAppraisalResultData['solarDate'],
-            'solarDates'          => $solarDates,
-            'userBirthYear'       => $userBirthYear,
-            'birthday'            => $birthday,
-            'birthday_time'            => $birthday_time,
-            'birthday_prefectures'            => $birthday_prefectures,
         ]);
     }
-
-    // public function show(AppraisalApply $appraisalApply): View
-    // {
-    //     $user = auth()->guard('user')->user();
-    //     $formData = [
-    //         "name" => $user->name1 . $user->name2,
-    //         "year" => $user->solar_date ?? now()->year,
-    //         "month" => $user->birthday->format('m'),
-    //         "day" => $user->birthday->format('d'),
-    //         "hour" => $user->birthday_time->format('H'),
-    //         "minute" => $user->birthday_time->format('i'),
-    //         "longitude" => $user->longitude,
-    //         "latitude" => $user->latitude,
-    //         "map-city" => $user->birthday_city,
-    //         "timezone" => $user->timezome,
-    //         "background" => 'normal',
-    //     ];
-    //     $chart = $this->generateSolarHoroscopeChartAction->execute($formData, WheelRadiusEnum::WheelScale);
-    //     $zodiacs = $this->zodiacPatternRepository->getAll();
-    //     $planets = $this->planetRepository->getAll();
-    //     $houses = $this->houseRepository->getAll();
-    //     $sabian = $this->sabianPatternRepository->getAll();
-    //     $solarDate = $chart->get('solarDate');
-    //     $degreeData = $chart->get('degreeData');
-    //     $explain = $chart->get('explain');
-    //     return view('user.solar_appraisals.show', [
-    //         'appraisalApply'      => $appraisalApply,
-    //         'degreeData'          => $degreeData,
-    //         'explain'             => $explain,
-    //         'zodaics'             => $zodiacs,
-    //         'planets'             => $planets,
-    //         'houses'              => $houses,
-    //         'zodaicsPattern'      => $zodiacs,
-    //         'sabian'              => $sabian,
-    //         'solarDate'           => $solarDate
-    //     ]);
-    // }
 
     public function update(UpdateRequest $request): RedirectResponse
     {

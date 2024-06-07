@@ -9,34 +9,30 @@
         <dl class="C-form-block-child C-form-block--birth">
             <dt class="C-solar-form__form">太陽回帰 鑑定履歴</dt>
             <div id="popup-horoscope">
-            @foreach ($solarDates as $date)
-                <dl class="C-form-block C-form-block--birthdata">
-                    <dd class="C-form-block__body">
-                        <dl class="C-form-block-child C-form-block--birth">
-                            <div style="display: flex">
-                                <dd class="C-form-block__arrow01">
-                                    <form id="solarDateForm-{{ $date }}" action="{{ route('user.solar_appraisals.show', $solarApply->id) }}" method="GET">
-                                        @php
-                                            $age = $date - $userBirthYear;
-                                        @endphp
-                                        <button type="button" onclick="submitForm('{{ $date }}')">
-                                            {{ $age }} 歳 {{ $date }} -- {{ $date + 1 }}
-                                        </button>
-                                        <input type="hidden" name="solar_date" value="{{ $date }}">
-                                    </form>
+            @foreach ($solarAppraisals as $SolarAppraisal)
+                        @php
+                            $solar_return = $SolarAppraisal->solar_return;
+                            $birthday = $SolarAppraisal->birthday;
+                            $birthdayDate = \Carbon\Carbon::parse($birthday);
+                            $age = $solar_return - $birthdayDate->year;
+                            if (\Carbon\Carbon::parse($solar_return . '-12-31')->lt($birthdayDate->copy()->year($solar_return))) {
+                                $age--;
+                            }
+                            $url = route('user.solar_appraisals.show', $SolarAppraisal);
+                        @endphp
+                            <dl class="C-form-block C-form-block--birthdata">
+                                <dd class="C-form-block__body">
+                                    <dl class="C-form-block-child C-form-block--birth">
+                                        <a href="{{ $url }}">
+                                            <dd class="C-form-block__arrow01">
+                                                <span>{{ $age }} 歳 {{ $solar_return }} -- {{ $solar_return + 1 }}</span>
+                                            </dd>
+                                        </a>
+                                    </dl>
                                 </dd>
-                            </div>
-                        </dl>
-                    </dd>
-                </dl>
-                @endforeach
+                            </dl>
+            @endforeach
             </div>
         </dl>
     </dd>
 </dl>
-
-<script>
-function submitForm(solarDate) {
-    document.getElementById('solarDateForm-' + solarDate).submit();
-}
-</script>

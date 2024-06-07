@@ -14,23 +14,23 @@
                                 <di>
                                     <div >
                                         <dd class="C-form-block__select01">
-                                            <form id="solarDateForm" action="{{ route('user.solar_appraisals.show', $solarApply->id) }}" method="GET">
-                                                <select name="solar_date" id="solar_date" onchange="document.getElementById('solarDateForm').submit()">
-                                                    @php
-                                                        $solarDates = $solarDates->sortByDesc(function ($yearSolarDate) use ($userBirthYear) {
-                                                            return $yearSolarDate - $userBirthYear;
-                                                        });
-                                                    @endphp
-                                                    @foreach ($solarDates as $yearSolarDate)
+                                                <select id="solar_date" onchange="navigateToLink(this)">
+                                                    @foreach ($solarAppraisals as $SolarAppraisal)
                                                         @php
-                                                            $age = $yearSolarDate - $userBirthYear;
+                                                                $solar_return = $SolarAppraisal->solar_return;
+                                                                $birthday = $SolarAppraisal->birthday;
+                                                                $birthdayDate = \Carbon\Carbon::parse($birthday);
+                                                                $age = $solar_return - $birthdayDate->year;
+                                                                if (\Carbon\Carbon::parse($solar_return . '-12-31')->lt($birthdayDate->copy()->year($solar_return))) {
+                                                                    $age--;
+                                                                }
+                                                                $url = route('user.solar_appraisals.show', $SolarAppraisal);
                                                         @endphp
-                                                        <option value="{{ $yearSolarDate }}" {{ $solarApply->solar_date == $yearSolarDate ? 'selected' : '' }}>
-                                                            {{ $age }} 歳 {{ $yearSolarDate }} -- {{ $yearSolarDate + 1 }}
+                                                        <option value="{{ $url }}" {{ $solarApply->id == $SolarAppraisal->id ? 'selected' : '' }}>
+                                                            {{ $age }} 歳 {{ $solar_return }} -- {{ $solar_return + 1 }}
                                                         </option>
                                                     @endforeach
                                                 </select>
-                                            </form>
                                         </dd>
                                     </div>
                                 </div>
@@ -43,6 +43,15 @@
         </dl>
     </dd>
 </dl>
+<script>
+    function navigateToLink(select) {
+        console.log('test');
+        var url = select.value;
+        if (url) {
+            window.location.href = url;
+        }
+    }
+</script>
 @else
 <dl class="C-form-block C-form-block--birthdata">
     <dd class="C-form-block__body">
