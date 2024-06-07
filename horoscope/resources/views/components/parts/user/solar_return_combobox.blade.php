@@ -15,6 +15,7 @@
                                     <div >
                                         <dd class="C-form-block__select01">
                                                 <select id="solar_date" onchange="navigateToLink(this)">
+                                                    <option value=""@if (empty($solarApply)) selected @endif>[SOLAR RETURN]を選択してください。</option>
                                                     @foreach ($solarAppraisals as $SolarAppraisal)
                                                         @php
                                                                 $solar_return = $SolarAppraisal->solar_return;
@@ -26,7 +27,7 @@
                                                                 }
                                                                 $url = route('user.solar_appraisals.show', $SolarAppraisal);
                                                         @endphp
-                                                        <option value="{{ $url }}" {{ $solarApply->id == $SolarAppraisal->id ? 'selected' : '' }}>
+                                                        <option value="{{ $url }}" @if (isset($solarApply)){{ $solarApply->id == $SolarAppraisal->id ? 'selected' : '' }}@endif>
                                                             {{ $age }} 歳 {{ $solar_return }} -- {{ $solar_return + 1 }}
                                                         </option>
                                                     @endforeach

@@ -40,7 +40,7 @@ class SolarAppraisalController extends Controller
     public function index(): View|RedirectResponse
     {
         return view('user.solar_appraisals.index', [
-            'SolarAppraisals' => AppraisalApply::whereHas('user', static function ($query) {
+            'solarAppraisals' => AppraisalApply::whereHas('user', static function ($query) {
                 $query->where('id', auth()->guard('user')->user()->id);
             })->whereHas('appraisalClaim', static function ($query) {
                 $query->where('is_paid', true);
