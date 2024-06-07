@@ -1,5 +1,5 @@
 
-@if (str_contains(Request::url(), 'solar_appraisals.{id}'))
+@if (str_contains(Request::url(), 'solar_appraisals'))
 <dl class="C-form-block C-form-block--birthdata">
     <dd class="C-form-block__body">
         <dl class="C-form-block-child C-form-block--birth">
