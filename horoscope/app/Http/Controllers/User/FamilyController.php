@@ -33,7 +33,6 @@ class FamilyController extends Controller
         protected ModifyLocation $modifyLocation,
         protected SabianPatternRepository $sabianPatternRepository,
         protected ZodiacPatternRepository $zodiacPatternRepository,
-        protected SolarAppraisalApplyService $solarAppraisalApplyService,
     ) {
     }
 
@@ -70,7 +69,7 @@ class FamilyController extends Controller
     }
 
     // 家族のホロスコープ表示と編集
-    public function edit(Request $request, Family $family, SolarApply $solarApply): View
+    public function edit(Request $request, Family $family): View
     {
         // dd($family);
         $user = auth()->guard('user')->user();

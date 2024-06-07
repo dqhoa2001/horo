@@ -28,7 +28,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Mail\User\BookbindingUserApply;
 use App\Services\SolarApplyService;
 use App\Services\SolarClaimService;
-use App\Mail\User\SolarReceivedForBank;
+use App\Mail\User\AppraisalReceivedForBank;
 use App\Mail\User\BookbindingUserApplyMail;
 use App\Services\BookbindingUserSolarApplyService;
 use App\Mail\User\BookbindingUserApplyMailForBank;
@@ -44,6 +44,7 @@ use App\Services\AppraisalClaimService;
 use App\Services\BookbindingUserApplyService;
 use App\Services\FamilyService;
 use App\Services\MyHoroscopeService;
+use App\Library\GetBccMail;
 
 class CheckPaymentSolarController extends Controller
 {
@@ -165,7 +166,7 @@ class CheckPaymentSolarController extends Controller
                     $contentType = AppraisalClaim::SOLAR;
 
                     // $user = UserService::createUserAndHoroscope($request);
-                $user = auth()->guard('user')->user();
+                    $user = auth()->guard('user')->user();
                     $solarApply = AppraisalApplyService::create($request, User::class, $user->id);
 
                     //製本の場合
@@ -219,11 +220,8 @@ class CheckPaymentSolarController extends Controller
             // コミットとメール送信
             \DB::commit();
 
-            $allAdminMailAddresses = AdminMail::pluck('email')->toArray();
-            $minnaBcc = config('mail.minna_bcc');
-            $minnaBccArray = [$minnaBcc]; // 文字列を配列に変換
-            $bccMails = array_merge($allAdminMailAddresses, $minnaBccArray);
-            \Mail::to(GetMail::getMailForSolarApply($solarApply))->bcc($bccMails)->send(new SolarReceivedForBank(BankInfo::first(), $solarClaim));
+            $bccMails = GetBccMail::getBccMail();
+            \Mail::to(GetMail::getMailForApply($solarApply))->bcc($bccMails)->send(new AppraisalReceivedForBank(BankInfo::first(), $solarClaim));
         }
 
         // クーポンの使用
@@ -231,8 +229,8 @@ class CheckPaymentSolarController extends Controller
             CouponService::updateBackPoint($request->coupon_code);
         }
 
-        \Mail::to($user->email)->send(new ThanksForAppraisal());
-        // return to_route('user.check_payment_solar.thanks');
+        $bccMails = GetBccMail::getBccMail();
+        \Mail::to(GetMail::getMailForApply($solarApply))->bcc($bccMails)->send(new AppraisalReceivedForBank(BankInfo::first(), $solarClaim));
         return to_route('user.check_payment_solar.complete', [
             'solarApply' => $solarApply,
             'target_type' => $request->target_type,
