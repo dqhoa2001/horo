@@ -174,17 +174,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(AppraisalClaim::class);
     }
 
-    //サンアプリケーション
-    public function solarApplies(): MorphMany
-    {
-        return $this->morphMany('App\Models\SolarApply', 'reference');
-    }
-
-    public function solarClaims(): HasMany
-    {
-        return $this->hasMany(SolarClaim::class);
-    }
-
     //Myホロスコープチャートをすでにもっているかどうか
     public function isHasMyHoroscope(): bool
     {
@@ -201,13 +190,6 @@ class User extends Authenticatable implements MustVerifyEmail
                     ->exists();
     }
 
-    public function hasPaidForSolar(): bool
-    {
-        return $this->solarClaims()
-                    ->where('is_paid', true)
-                    ->exists();
-    }
-
     // 製本の申し込みをしているかどうか
     public function isHasBookbinding(): bool
     {
@@ -216,16 +198,6 @@ class User extends Authenticatable implements MustVerifyEmail
         }
         return false;
     }
-
-    // Solar 製本の申し込みをしているかどうか
-    public function isHasSolarBookbinding(): bool
-    {
-        if ($this->solarApplies()->whereHas('solarBookbindingUserApplies')->exists()) {
-            return true;
-        }
-        return false;
-    }
-
     // 管理者クーポンの使用回数を集計する
     public function countUsedAdminCoupon(string $couponCode): int
     {

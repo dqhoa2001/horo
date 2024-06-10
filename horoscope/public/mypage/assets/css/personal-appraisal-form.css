@@ -15,6 +15,11 @@
     top: -2.2rem;
     background-image: url(../images/personal-appraisal-form/icon_title.svg);
 }
+.logo-banner {
+    margin-top: -14rem;
+    margin-bottom: -6rem;
+    margin-left: -37px;
+}
 
 @media screen and (width >= 1600px) , print{
 
@@ -187,6 +192,9 @@
 	.Pageframe-main__title .sp{
 		display: block !important;
 	}
+    .logo-banner {
+        margin-top: -8rem;
+    }
 
 }
 @media screen and (max-width:500px) , print{
@@ -245,6 +253,12 @@
 	.sp-none {
 		display: none;
 	}
+
+    .logo-banner {
+        margin-top: -6rem;
+        margin-bottom: -3rem;
+        margin-left: -24px;
+    }
 
 }
 

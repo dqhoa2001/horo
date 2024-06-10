@@ -86,16 +86,16 @@ class SolarAppraisalApplyService
     {
         $user = auth()->guard('user')->user();
         $formData = [
-            "name" => $user->name1 . $user->name2,
+            "name" => $solarApply->reference->name1 . $solarApply->reference->name2,
             "year" => $solarApply->solar_date ?? now()->year,
-            "month" => $user->birthday->format('m'),
-            "day" => $user->birthday->format('d'),
-            "hour" => $user->birthday_time->format('H'),
-            "minute" => $user->birthday_time->format('i'),
-            "longitude" => $user->longitude,
-            "latitude" => $user->latitude,
-            "map-city" => $user->birthday_city,
-            "timezone" => $user->timezome,
+            "month" => $solarApply->birthday->format('m'),
+            "day" => $solarApply->birthday->format('d'),
+            "hour" => $solarApply->birthday_time->format('H'),
+            "minute" => $solarApply->birthday_time->format('i'),
+            "longitude" => $solarApply->longitude,
+            "latitude" => $solarApply->latitude,
+            "map-city" => $solarApply->birthday_city,
+            "timezone" => $solarApply->timezome,
             "background" => 'normal',
         ];
 

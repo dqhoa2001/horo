@@ -33,7 +33,7 @@
                                         <td class="text-nowrap px-2">{{ $user->id }}</td>
                                         <td class="text-nowrap px-2">{{ \App\Models\User::TYPE[$user->member_type] ?? \App\Models\User::GENERAL }}</td>
                                         <td class="text-nowrap text-center">
-                                            {{ $user->isHasBookbinding()|| $user->isHasSolarBookbinding() ? '◯' : '' }}
+                                            {{ $user->isHasBookbinding() ? '◯' : '' }}
                                         </td>
                                         <td class="text-nowrap px-2">
                                             <a href="{{ route('admin.users.edit', $user) }}">{{ $user->full_name }}
