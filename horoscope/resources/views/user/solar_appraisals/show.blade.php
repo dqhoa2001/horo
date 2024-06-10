@@ -26,7 +26,7 @@
                                 alt="PERSONAL APPRAISAL"></h2> --}}
                         {{-- <h2 class="Pageframe-main__title result"><img src="{{ asset('mypage/assets/images/myappraisal/pc-result-appraisal.svg') }}"
                                 alt="PERSONAL APPRAISAL"></h2> --}}
-                        <h2 class="Pageframe-main__title result">
+                        <h2 class="Pageframe-main__title result logo-banner">
                             <!-- <img src="{{ asset('mypage/assets/images/solar-return/solar-return-appraisal.svg') }}" alt="PERSONAL APPRAISAL"> -->
                             <picture>
                                 <source srcset="{{ asset('mypage/assets/images/solar-return/small-solar-return-appraisal.svg') }}"
