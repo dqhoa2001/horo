@@ -72,7 +72,7 @@ class CheckPaymentSolarController extends Controller
         return view('user.check_payment_solar.create', [
             'bookbinding' => $bookbinding,
             'solar'   => $solar,
-            'totalAmount' => $solar->price + $bookbinding->price + SolarClaim::SHIPPING_FEE,
+            'totalAmount' => $solar->price + $bookbinding->price + AppraisalClaim::SHIPPING_FEE,
             'request'     => $request,
             'appraisalPrice' => $appraisalPrice,
             'defaultBirthday' => $defaultBirthday,
