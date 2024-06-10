@@ -16,14 +16,12 @@ use App\Library\GetPrefNum;
 use App\Models\Bookbinding;
 use Illuminate\Http\Request;
 use App\Services\UserService;
-use App\Models\SolarClaim;
 use App\Services\CouponService;
 use App\Mail\User\CompletePurchaseSolar;
 use App\Http\Controllers\Controller;
 use App\Mail\User\ThanksForAppraisal;
 use Illuminate\Http\RedirectResponse;
 use App\Mail\User\BookbindingUserApply;
-use App\Services\SolarClaimService;
 use App\Mail\User\AppraisalReceivedForBank;
 use App\Mail\User\BookbindingUserApplyMail;
 use App\Mail\User\BookbindingUserApplyMailForBank;
@@ -46,7 +44,7 @@ use App\Library\GetBccMail;
 class CheckPaymentSolarController extends Controller
 {
     public function __construct(
-        protected SolarClaimService $solarClaimService,
+        protected AppraisalClaimService $AppraisalClaimService,
     ) {
     }
 
@@ -122,7 +120,7 @@ class CheckPaymentSolarController extends Controller
 
         // 決済処理
         //クレジット決済の場合
-        if ((int) $request->payment_type === SolarClaim::CREDIT) {
+        if ((int) $request->payment_type === AppraisalClaim::CREDIT) {
             try {
                 $stripeToken = $request->stripeToken;
                 $paymentMethod = PaymentMethod::create([
@@ -182,7 +180,7 @@ class CheckPaymentSolarController extends Controller
                 }
 
                 // 請求データ作成
-                $solarClaim = AppraisalClaimService::createForCredit($user->id, $request, $solarApply, $bookbindingUserApplyId, $paymentIntent, $contentType);
+                $AppraisalClaim = AppraisalClaimService::createForCredit($user->id, $request, $solarApply, $bookbindingUserApplyId, $paymentIntent, $contentType);
 
                 \DB::commit();
             } catch (\Exception $e) {
@@ -220,12 +218,12 @@ class CheckPaymentSolarController extends Controller
 
             }
             // 請求データ作成
-            $solarClaim = AppraisalClaimService::createForBank($user->id, $request, $solarApply, $bookbindingUserApplyId, $contentType);
+            $AppraisalClaim = AppraisalClaimService::createForBank($user->id, $request, $solarApply, $bookbindingUserApplyId, $contentType);
             // コミットとメール送信
             \DB::commit();
 
             $bccMails = GetBccMail::getBccMail();
-            \Mail::to(GetMail::getMailForApply($solarApply))->bcc($bccMails)->send(new AppraisalReceivedForBank(BankInfo::first(), $solarClaim));
+            \Mail::to(GetMail::getMailForApply($solarApply))->bcc($bccMails)->send(new AppraisalReceivedForBank(BankInfo::first(), $AppraisalClaim));
         }
 
         // クーポンの使用
@@ -234,7 +232,7 @@ class CheckPaymentSolarController extends Controller
         }
 
         // $bccMails = GetBccMail::getBccMail();
-        // \Mail::to(GetMail::getMailForApply($solarApply))->bcc($bccMails)->send(new AppraisalReceivedForBank(BankInfo::first(), $solarClaim));
+        // \Mail::to(GetMail::getMailForApply($solarApply))->bcc($bccMails)->send(new AppraisalReceivedForBank(BankInfo::first(), $AppraisalClaim));
         return to_route('user.check_payment_solar.complete', [
             'solarApply' => $solarApply,
             'target_type' => $request->target_type,

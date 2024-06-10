@@ -52,7 +52,7 @@
 			<input type="hidden" name="is_bookbinding" value="{{ $data['is_bookbinding'] }}">
 
 			{{-- 製本 --}}
-			@if((int)$data['is_bookbinding'] === \App\Models\SolarApply::BOOK_ENABLED)
+			@if((int)$data['is_bookbinding'] === \App\Models\AppraisalApply::BOOK_ENABLED)
 			<input type="hidden" name="zip" value="{{ $data['zip'] }}">
 			<input type="hidden" name="address" value="{{ $data['address'] }}">
 			<input type="hidden" name="building" value="{{ $data['building'] }}">
@@ -66,7 +66,7 @@
 			@if(isset($data['coupon_code']))
 			<input type="hidden" name="coupon_code" value="{{ $data['coupon_code'] }}">
 			@endif
-			@if((int)$data['payment_type'] === \App\Models\SolarClaim::CREDIT)
+			@if((int)$data['payment_type'] === \App\Models\AppraisalClaim::CREDIT)
 			<input type="hidden" name="stripeToken" value="{{ $data['stripeToken'] }}">
 			@endif
 
@@ -78,14 +78,14 @@
 				<dl class="C-form-block C-form-block--hope">
 					<dt class="C-form-block__title C-form-block__title--req">製本の希望</dt>
 					<dd class="C-form-block__body">
-						{{ \App\Models\SolarApply::getBookbindingType()[$data['is_bookbinding']] }}
+						{{ \App\Models\AppraisalApply::getBookbindingType()[$data['is_bookbinding']] }}
 					</dd>
 				</dl>
-				@if((int)$data['is_bookbinding'] === \App\Models\SolarApply::BOOK_ENABLED)
+				@if((int)$data['is_bookbinding'] === \App\Models\AppraisalApply::BOOK_ENABLED)
 				<dl class="C-form-block C-form-block--cash">
 					<dt class="C-form-block__title C-form-block__title--req">表紙のデザイン</dt>
 					<dd class="C-form-block__body">
-						{{ \App\Models\SolarApply::PDF_TYPE[$data['is_design']] }}
+						{{ \App\Models\AppraisalApply::PDF_TYPE[$data['is_design']] }}
 					</dd>
 				</dl>
 				<dl class="C-form-block C-form-block--cash">
@@ -137,11 +137,11 @@
 				<dl class="C-form-block C-form-block--cash">
 					<dt class="C-form-block__title C-form-block__title--req">お支払い方法</dt>
 					<dd class="C-form-block__body">
-						{{\App\Models\SolarClaim::PAYMENT_TYPE[(int)$data['payment_type']]}}
+						{{\App\Models\AppraisalClaim::PAYMENT_TYPE[(int)$data['payment_type']]}}
 					</dd>
 				</dl>
 				{{-- カードブランドとカードの最後の4桁表示 --}}
-				@if((int)$data['payment_type'] === \App\Models\SolarClaim::CREDIT)
+				@if((int)$data['payment_type'] === \App\Models\AppraisalClaim::CREDIT)
 				<dl class="C-form-block C-form-block--card">
 					<dt class="C-form-block__title C-form-block__title--req">カード情報</dt>
 					<dd class="C-form-block__body">
@@ -205,25 +205,25 @@
 					<dt class="C-price__title">注文内容</dt>
 					<dd class="C-price__body">
 						<div class="C-price-block__wrap">
-							@if ((int)$data['target_type'] === \App\Models\SolarApply::USER)
+							@if ((int)$data['target_type'] === \App\Models\AppraisalApply::USER)
 								<dl class="C-price-block">
 									<dt class="C-price-block__title">個人鑑定</dt>
 									<dd class="C-price-block__text">{{ number_format($solar->price) }}円</dd>
 								</dl>
-							@elseif ((int)$data['target_type'] === \App\Models\SolarApply::FAMILY)
+							@elseif ((int)$data['target_type'] === \App\Models\AppraisalApply::FAMILY)
 								<dl class="C-price-block">
 									<dt class="C-price-block__title">家族の個人鑑定</dt>
 									<dd class="C-price-block__text">{{ number_format($solar->family_price) }}円</dd>
 								</dl>
 							@endif
-							@if((int)$data['is_bookbinding'] === \App\Models\SolarApply::BOOK_ENABLED)
+							@if((int)$data['is_bookbinding'] === \App\Models\AppraisalApply::BOOK_ENABLED)
 							<dl class="C-price-block">
 								<dt class="C-price-block__title">製本金額 ：</dt>
 								<dd class="C-price-block__text">{{ number_format($bookbinding->price) }}円</dd>
 							</dl>
 							{{-- <dl class="C-price-block">
 								<dt class="C-price-block__title">送料 ：</dt>
-								<dd class="C-price-block__text">{{ number_format(\App\Models\SolarClaim::SHIPPING_FEE) }}円</dd>
+								<dd class="C-price-block__text">{{ number_format(\App\Models\AppraisalClaim::SHIPPING_FEE) }}円</dd>
 							</dl> --}}
 							@endif
 							@if(isset($data['coupon_code']))
