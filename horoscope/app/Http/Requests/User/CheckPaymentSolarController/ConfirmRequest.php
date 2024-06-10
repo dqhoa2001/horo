@@ -3,8 +3,8 @@
 namespace App\Http\Requests\User\CheckPaymentSolarController;
 
 use App\Enums\TargetType;
-use App\Models\SolarApply;
-use App\Models\SolarClaim;
+use App\Models\AppraisalApply;
+use App\Models\AppraisalClaim;
 use App\Rules\ValidBirthDate;
 use Illuminate\Validation\Rule;
 use Modules\Horoscope\Rules\TimeZoneValid;
@@ -43,14 +43,14 @@ class ConfirmRequest extends FormRequest
             'family_name1' => ['string', 'max:255', Rule::requiredIf($this->input('target_type') === TargetType::FAMILY)],
             'family_name2' => ['string', 'max:255', Rule::requiredIf($this->input('target_type') === TargetType::FAMILY)],
             'is_bookbinding' => ['required', 'boolean'],
-            'bookbinding_name1' => ['string', 'max:255', Rule::requiredIf($this->input('is_bookbinding') === SolarApply::BOOK_ENABLED)], // 製本の名前
-            'bookbinding_name2' => ['string', 'max:255', Rule::requiredIf($this->input('is_bookbinding') === SolarApply::BOOK_ENABLED)], // 製本の名前
-            'is_design' => ['nullable', 'integer', Rule::requiredIf($this->input('is_bookbinding') === SolarApply::BOOK_ENABLED)],
-            'zip' => ['regex:/\A\d{7}\z/', Rule::requiredIf($this->input('is_bookbinding') === SolarApply::BOOK_ENABLED)], // 3桁-4桁の郵便番号形式を想定
-            'address' => ['string', 'max:255', 'exclude_special_chars', 'is_japan_address', Rule::requiredIf($this->input('is_bookbinding') === SolarApply::BOOK_ENABLED)],
+            'bookbinding_name1' => ['string', 'max:255', Rule::requiredIf($this->input('is_bookbinding') === AppraisalApply::BOOK_ENABLED)], // 製本の名前
+            'bookbinding_name2' => ['string', 'max:255', Rule::requiredIf($this->input('is_bookbinding') === AppraisalApply::BOOK_ENABLED)], // 製本の名前
+            'is_design' => ['nullable', 'integer', Rule::requiredIf($this->input('is_bookbinding') === AppraisalApply::BOOK_ENABLED)],
+            'zip' => ['regex:/\A\d{7}\z/', Rule::requiredIf($this->input('is_bookbinding') === AppraisalApply::BOOK_ENABLED)], // 3桁-4桁の郵便番号形式を想定
+            'address' => ['string', 'max:255', 'exclude_special_chars', 'is_japan_address', Rule::requiredIf($this->input('is_bookbinding') === AppraisalApply::BOOK_ENABLED)],
             'building' => ['nullable', 'string', 'max:255', 'exclude_special_chars'],
-            'building_name' => ['string', 'max:255', 'exclude_special_chars', Rule::requiredIf($this->input('is_bookbinding') === SolarApply::BOOK_ENABLED)],
-            'tel' => ['custom_phone', Rule::requiredIf($this->input('is_bookbinding') === SolarApply::BOOK_ENABLED)], // 日本の電話番号形式を想定
+            'building_name' => ['string', 'max:255', 'exclude_special_chars', Rule::requiredIf($this->input('is_bookbinding') === AppraisalApply::BOOK_ENABLED)],
+            'tel' => ['custom_phone', Rule::requiredIf($this->input('is_bookbinding') === AppraisalApply::BOOK_ENABLED)], // 日本の電話番号形式を想定
             'payment_type' => ['required'],
             'coupon_code' => ['nullable', 'string', 'max:255'],
             'total_amount' => ['required', 'integer'],
@@ -58,9 +58,9 @@ class ConfirmRequest extends FormRequest
             'consent' => ['required'],
             'terms_of_service' => ['required'],
             'personal_information' => ['required'],
-            'stripeToken' => ['required_if:payment_type,' . SolarClaim::CREDIT, 'string'],
-            'cardBrand' => ['required_if:payment_type,' . SolarClaim::CREDIT, 'string'],
-            'last4' => ['required_if:payment_type,' . SolarClaim::CREDIT, 'string'],
+            'stripeToken' => ['required_if:payment_type,' . AppraisalClaim::CREDIT, 'string'],
+            'cardBrand' => ['required_if:payment_type,' . AppraisalClaim::CREDIT, 'string'],
+            'last4' => ['required_if:payment_type,' . AppraisalClaim::CREDIT, 'string'],
         ];
     }
 
