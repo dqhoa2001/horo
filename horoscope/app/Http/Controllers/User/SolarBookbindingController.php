@@ -25,6 +25,7 @@ use App\Services\BookbindingUserSolarApplyService;
 use App\Mail\User\BookbindingBankInfoMailForBank;
 use App\Mail\User\BookbindingUserApplyMailForBank;
 use App\Models\BankInfo;
+use App\Models\AppraisalApply;
 
 class SolarBookbindingController extends Controller
 {
@@ -37,79 +38,29 @@ class SolarBookbindingController extends Controller
     public function create(): View
     {
         $user = auth()->guard('user')->user();
-
-        // 最新の個人鑑定申し込みを取得
-        $solarPersonalAppraisal = $user->solarApplies()->whereHas('solarClaim', static function ($query) {
-            $query->where('is_paid', true);
-        })->orderBy('id', 'desc')->get();
-    //    dd($solarPersonalAppraisal);
-
-        // 家族の個人鑑定を取得
-        $familyAppraisals = $user->families->map(static function ($family) {
-            return $family->solarApplies()->whereHas('solarClaim', static function ($query) {
-                $query->where('is_paid', true);
-            })->orderBy('id', 'desc')->first();
+        $personalSolarAppraisals = $user->appraisalApplies()->get();
+        $familySolarAppraisals = $user->families->map(static function ($family) {
+            return $family->appraisalApplies()->orderBy('solar_return','ASC')->first();
         })->filter(static function ($family) {
-            return null !== $family;
+                return null !== $family;
         });
-        // dd($familyAppraisals);
-
-        //個人鑑定製本済数
-        // $personalBookbindingUserAppliesCount = [];
-        // $count = 0;
-        // if (isset($user->solarApplies)) {
-        //     // dd($user->solarApplies);
-        //     foreach ($user->solarApplies as $solarApply) {
-        //         if (isset($solarApply->solarBookbindingUserApplies)) {
-        //             // dd($solarApply->solarBookbindingUserApplies);
-        //             foreach ($solarApply->solarBookbindingUserApplies as $bookbindingUserApply) {
-        //                 $count += 1;
-        //                 // dd($solarApply->solarBookbindingUserApplies);
-        //             }
-        //         }
-        //         $personalBookbindingUserAppliesCount = $personalBookbindingUserAppliesCount + [$solarApply->id => $count];
-        //     }
-        // }
-
-        // dd($solarApply->id);
-        //  dd($personalBookbindingUserAppliesCount);
-
-
-        //家族の個人鑑定製本済数
-        $familyBookbindingUserAppliesCount = [];
-        foreach ($user->families as $family) {
-            $count = 0;
-            if (isset($family->solarApplies)) {
-                foreach ($family->solarApplies as $appraisalApply) {
-                    if (isset($appraisalApply->solarBookbindingUserApplies)) {
-                        foreach ($appraisalApply->solarBookbindingUserApplies as $bookbindingUserApply) {
-                            $count += 1;
-                        }
-                    }
-                }
-            }
-            $familyBookbindingUserAppliesCount = $familyBookbindingUserAppliesCount + [$family->id => $count];
-        }
-        // dd($familyBookbindingUserAppliesCount);
-        // dd($solarPersonalAppraisal);
-        return view('user.solar_bookbindings.create', [
-            'bookbinding'                         => Bookbinding::where('is_enabled', true)->first(),
-            'solarPersonalAppraisal'              => $solarPersonalAppraisal,
-            // 'personalBookbindingUserAppliesCount' => $personalBookbindingUserAppliesCount,
-            'familyBookbindingUserAppliesCount'   => $familyBookbindingUserAppliesCount,
-            'familyAppraisals'                    => $familyAppraisals
+        // dd($familySolarAppraisals);
+        return view('user.solar_bookbindings.create2', [
+            'bookbinding'                         => Bookbinding::where('solar_return',true)->where('is_enabled', true)->first(),
+            'personalSolarAppraisals'              => $personalSolarAppraisals,
+            'familySolarAppraisals'                    => $familySolarAppraisals
         ]);
     }
 
     public function confirm(ConfirmRequest $request)
     {
         $data = $request->substitutable();
-        // dd($data);
+        dd($data);
         if((int) $data['discount_price'] === 0 && (int) $data['total_amount'] === 0 && !\array_key_exists('coupon_code', $data) || (int) $data['discount_price'] === 0 && (int) $data['total_amount'] === 0 && $data['coupon_code'] === null) {
             return redirect()->route('user.bookbindings.create')->withInput()->with('priceError', true);
         }
 
-        $data['select_appraisal_applies'] = SolarApply::whereIn('id', $data['solar_appraisal_apply_ids'])->get();
+        $data['select_appraisal_applies'] = AppraisalApply::whereIn('id', $data['solar_appraisal_apply_ids'])->get();
         //  dd(  $data['select_appraisal_applies']);
         // $data['select_appraisal_applies']の順番を$data['appraisal_apply_ids']の順番に並び替え
         $data['select_appraisal_applies'] = $data['select_appraisal_applies']->sortBy(static function ($solarAppraisalApply) use ($data) {
@@ -153,8 +104,8 @@ class SolarBookbindingController extends Controller
     public function apply(ApplyRequest $request): RedirectResponse
     {
         $user = auth()->guard('user')->user();
-        $solarAppraisalApplies = SolarApply::whereIn('id', $request->solar_appraisal_apply_ids)->get();
-
+        $solarAppraisalApplies = AppraisalApply::whereIn('id', $request->solar_appraisal_apply_ids)->get();
+            dd($request->all());
         \DB::beginTransaction();
         Stripe::setApiKey(config('services.stripe.secret'));
         // バックポイントの付与
