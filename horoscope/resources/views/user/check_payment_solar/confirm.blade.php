@@ -77,7 +77,7 @@
                                 <dl class="C-form-block C-form-block--hope">
                                     <dt class="C-form-block__title C-form-block__title--req">製本の希望</dt>
                                     <dd class="C-form-block__body">
-                                        {{ \App\Models\AppraisalApply::getBookbindingType()[$data['is_bookbinding']] }}
+                                        {{ \App\Models\AppraisalApply::getSolarBookbindingType()[$data['is_bookbinding']] }}
                                     </dd>
                                 </dl>
                                 @if((int)$data['is_bookbinding'] === \App\Models\AppraisalApply::BOOK_ENABLED)
