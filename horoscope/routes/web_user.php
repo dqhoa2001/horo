@@ -191,6 +191,7 @@ Route::middleware(['auth:user', 'verified'])->group(static function () {
     Route::controller(SolarAppraisalController::class)->prefix('solar_appraisals')->name('solar_appraisals.')->group(static function () {
         // 個人鑑定
         Route::get('', 'index')->name('index');
+        Route::get('/user/solar_appraisals/{id}', [SolarAppraisalController::class, 'index'])->name('user.solar_appraisals.index');
         // 個人鑑定の詳細
         Route::get('{solar_apply}', 'show')->name('show');
         // Route::get('{appraisal_apply}', 'show')->name('show')->middleware('can:viewClaim,appraisal_apply', 'can:viewAppraisalApply,appraisal_apply');

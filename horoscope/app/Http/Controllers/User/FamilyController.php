@@ -69,7 +69,7 @@ class FamilyController extends Controller
     }
 
     // 家族のホロスコープ表示と編集
-    public function edit(Family $family): View
+    public function edit(Request $request, Family $family): View
     {
         // ホロスコープ生成なデータを作成
         $formData = [
