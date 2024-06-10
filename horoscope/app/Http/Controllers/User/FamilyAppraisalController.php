@@ -18,7 +18,6 @@ use App\Repositories\SabianPatternRepository;
 use App\Repositories\ZodiacPatternRepository;
 use Modules\Horoscope\Http\Actions\Predict\ModifyLocation;
 use Modules\Horoscope\Http\Actions\GenerateHoroscopeChartAction;
-use App\Models\Solar;
 
 class FamilyAppraisalController extends Controller
 {
@@ -72,7 +71,7 @@ class FamilyAppraisalController extends Controller
     public function showOffer():View
     {
         return view ('user.family_appraisals.solar_offer',[
-            'solar_appraisal'         => Appraisal::where('solar_return', true)->where('is_enabled', true)->first(),
+            'solar_appraisal'         => Appraisal::where('is_enabled', true)->where('solar_return',true)->first(),
             'bookbinding'       => Bookbinding::where('is_enabled', true)->first(),
         ]);
     }
