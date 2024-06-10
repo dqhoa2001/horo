@@ -312,8 +312,9 @@
                 map: null,
                 geocoder: new google.maps.Geocoder(),
                 selectedSolarDate: null,
-                isSelectBoxDisabled: true,
-                isButtonBoxEnable: true
+                isButtonHighlighted: true,
+                isSelectBoxHighlighted: false,
+                isSelectBoxDisabled: true
             }
         },
         methods: {

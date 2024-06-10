@@ -159,7 +159,7 @@
 				@endif
 
                 <dl class="C-form-block C-form-block--birthdata">
-					<dt class="C-form-block__title C-form-block__title--req">出生情報</dt>
+					<dt class="C-form-block__title C-form-block__title--req">SOLAR RETURN情報</dt>
 					<dd class="C-form-block__body">
 						<dl class="C-form-block__notes">
 							<dd class="C-form-block__notes__body">
