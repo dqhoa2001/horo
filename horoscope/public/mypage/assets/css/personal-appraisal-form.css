@@ -16,9 +16,9 @@
     background-image: url(../images/personal-appraisal-form/icon_title.svg);
 }
 .logo-banner {
-    margin-top: -14rem;
-    margin-bottom: -6rem;
-    margin-left: -37px;
+    margin-top: 5px;
+    margin-bottom: 25px;
+    margin-left: 5px;
 }
 
 @media screen and (width >= 1600px) , print{
@@ -42,7 +42,6 @@
 		top: unset;
 		bottom: -.6rem;
 	}
-
 }
 
 
@@ -193,7 +192,7 @@
 		display: block !important;
 	}
     .logo-banner {
-        margin-top: -8rem;
+        margin-top: 2px;
     }
 
 }
@@ -255,9 +254,13 @@
 	}
 
     .logo-banner {
-        margin-top: -6rem;
-        margin-bottom: -3rem;
-        margin-left: -24px;
+        margin-top: 5px;
+        margin-bottom: 25px;
+        margin-left: 2px;
+    }
+
+    .Pageframe-main-content img{
+        width: 80%;
     }
 
 }
