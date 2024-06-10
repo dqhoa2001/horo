@@ -35,7 +35,9 @@ use App\Mail\User\BookbindingUserApplyMailForBank;
 use App\Http\Requests\User\CheckPaymentSolarController\ApplyRequest;
 use App\Http\Requests\User\CheckPaymentSolarController\ConfirmRequest;
 use App\Mail\User\CompleteForPersonalAppraisal;
+use App\Mail\User\CompleteForFamilyAppraisal;
 use App\Mail\User\ThanksForPersonalAppraisal;
+use App\Mail\User\ThanksForFamilyAppraisal;
 use App\Models\Appraisal;
 use App\Models\AppraisalApply;
 use App\Models\AppraisalClaim;
@@ -161,6 +163,10 @@ class CheckPaymentSolarController extends Controller
                         $bookbindingUserApplyId = $bookbindingUserApply->id;
                         $contentType = AppraisalClaim::FAMILY_BOOKING;
                     }
+
+                    \Mail::to(GetMail::getMailForApply($solarApply))->send(new ThanksForFamilyAppraisal($solarApply));
+                    \Mail::to(GetMail::getMailForApply($solarApply))->send(new CompleteForFamilyAppraisal($solarApply));
+
                 //ユーザー自身の場合
                 } else {
                     $contentType = AppraisalClaim::SOLAR;
@@ -168,6 +174,9 @@ class CheckPaymentSolarController extends Controller
                     // $user = UserService::createUserAndHoroscope($request);
                     $user = auth()->guard('user')->user();
                     $solarApply = AppraisalApplyService::create($request, User::class, $user->id);
+                    \Mail::to(GetMail::getMailForApply($solarApply))->send(new ThanksForPersonalAppraisal($solarApply));
+
+                    \Mail::to(GetMail::getMailForApply($solarApply))->send(new CompleteForPersonalAppraisal($solarApply));
 
                     //製本の場合
                     if ((int) $request->is_bookbinding === Bookbinding::BOOKBINDING) {
@@ -229,8 +238,8 @@ class CheckPaymentSolarController extends Controller
             CouponService::updateBackPoint($request->coupon_code);
         }
 
-        $bccMails = GetBccMail::getBccMail();
-        \Mail::to(GetMail::getMailForApply($solarApply))->bcc($bccMails)->send(new AppraisalReceivedForBank(BankInfo::first(), $solarClaim));
+        // $bccMails = GetBccMail::getBccMail();
+        // \Mail::to(GetMail::getMailForApply($solarApply))->bcc($bccMails)->send(new AppraisalReceivedForBank(BankInfo::first(), $solarClaim));
         return to_route('user.check_payment_solar.complete', [
             'solarApply' => $solarApply,
             'target_type' => $request->target_type,

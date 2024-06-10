@@ -71,71 +71,20 @@ class FamilyController extends Controller
     // 家族のホロスコープ表示と編集
     public function edit(Request $request, Family $family): View
     {
-        // dd($family);
-        $user = auth()->guard('user')->user();
-        if ($request->input('solar_date')) {
-            $solarDate = $request->input('solar_date');
-            // dd($request);
-            $solarDates = $user->solarApplies()
-            ->whereHas('solarClaim', static function ($query) {
-                $query->where('is_paid', true);
-            })
-            ->orderBy('id', 'desc')
-            ->pluck('solar_date')
-            ->toArray();
-            if (in_array($solarDate, $solarDates)) {
-                try {
-                    $formData = [
-                        "name" => $family->name1 . $family->name2,
-                        "year" => $solarDate,
-                        "month" => $family->birthday->format('m'),
-                        "day" => $family->birthday->format('d'),
-                        "hour" => $family->birthday_time->format('H'),
-                        "minute" => $family->birthday_time->format('i'),
-                        "longitude" => $family->longitude,
-                        "latitude" => $family->latitude,
-                        "map-city" => $family->birthday_city,
-                        "timezone" => $family->timezome,
-                        "background" => 'normal',
-                    ];
-                    // dd($formData);
-
-                } catch (\Exception $e) {
-                    abort(404);
-                }
-            } else {
-                abort(404);
-            }
-        } else {
-            $formData = [
-                "name" => $family->name1 . $family->name2,
-                "year" => $family->birthday->format('Y'),
-                "month" => $family->birthday->format('m'),
-                "day" => $family->birthday->format('d'),
-                "hour" => $family->birthday_time->format('H'),
-                "minute" => $family->birthday_time->format('i'),
-                "longitude" => $family->longitude,
-                "latitude" => $family->latitude,
-                "map-city" => $family->birthday_city,
-                "timezone" => $family->timezome, //海外展開時にはここが変更できるようにする。現在は日本のみ
-                "background" => 'normal', //仮
-            ];
-            // dd($formData);
-        }
         // ホロスコープ生成なデータを作成
-        // $formData = [
-        //     "name" => $family->name1 . $family->name2,
-        //     "year" => $family->birthday->format('Y'),
-        //     "month" => $family->birthday->format('m'),
-        //     "day" => $family->birthday->format('d'),
-        //     "hour" => $family->birthday_time->format('H'),
-        //     "minute" => $family->birthday_time->format('i'),
-        //     "longitude" => $family->longitude,
-        //     "latitude" => $family->latitude,
-        //     "map-city" => $family->birthday_city,
-        //     "timezone" => $family->timezome, //海外展開時にはここが変更できるようにする。現在は日本のみ
-        //     "background" => 'normal', //仮
-        // ];
+        $formData = [
+            "name" => $family->name1 . $family->name2,
+            "year" => $family->birthday->format('Y'),
+            "month" => $family->birthday->format('m'),
+            "day" => $family->birthday->format('d'),
+            "hour" => $family->birthday_time->format('H'),
+            "minute" => $family->birthday_time->format('i'),
+            "longitude" => $family->longitude,
+            "latitude" => $family->latitude,
+            "map-city" => $family->birthday_city,
+            "timezone" => $family->timezome, //海外展開時にはここが変更できるようにする。現在は日本のみ
+            "background" => 'normal', //仮
+        ];
 
         // ホロスコープ占いの処理
         // $localtion = $this->modifyLocation->execute($formData['longitude'], $formData['latitude']);
@@ -154,39 +103,6 @@ class FamilyController extends Controller
         $defaultBirthDay = $family->birthday;
         $isAppraisalClaimed = $family->appraisalApplies()->whereHas('appraisalClaim')->exists();
 
-        // $selectedSolarDate = $request->input('solar_date', null);
-        // if ($selectedSolarDate) {
-        //     $solarApply = SolarApply::where('solar_date', $selectedSolarDate)
-        //                             ->where('reference_id', auth()->guard('user')->user()->id)
-        //                             ->first();
-        //     if ($solarApply) {
-        //         $url = url("user/families/{$solarApply->id}/edit/?solar_date={$selectedSolarDate}");
-        //         return view('user.families.edit')->with('redirect_url', $url);
-        //     }
-        // }
-        // $solarAppraisalResultData = $this->solarAppraisalApplyService->createSolarAppraisalResultData($solarApply);
-        $user = auth()->guard('user')->user();
-        $userBirthday = User::where('id', $user->id)->value('birthday');
-        $userBirthYear = date('Y', strtotime($userBirthday));
-        // $solarYear = date('Y', strtotime($solarAppraisalResultData['solarDate']));
-        // $age = $solarYear - $userBirthYear;
-        // $solarDates = $user->solarApplies()
-        //     ->whereHas('solarClaim', static function ($query) {
-        //         $query->where('is_paid', true);
-        //     })
-        //     ->orderBy('id', 'desc')
-        //     ->pluck('solar_date');
-        $solarDates = $user->solarApplies()
-            ->with('family')
-            ->whereHas('solarClaim', static function ($query) {
-                $query->where('is_paid', true);
-                $query->where('reference_type', "App\Models\User");
-            })
-            ->orderBy('id', 'desc')
-            ->pluck('solar_date');
-        $birthday = User::where('id', $user->id)->value('birthday');
-        // $birthday_time = User::where('id', $user->id)->value('birthday_time');
-        // $birthday_prefectures = User::where('id', $user->id)->value('birthday_prefectures');
         return view('user.families.edit', [
             'family'     => $family,
             'imgBase64'  => $imgBase64,

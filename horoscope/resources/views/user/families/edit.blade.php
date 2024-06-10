@@ -46,37 +46,6 @@
                                     <p class="C-user-list__delete"><span>このホロスコープを削除する</span></p>
                                     <p class="C-user-list__change"><span>出生情報を訂正する</span></p>
                                 </div>
-                                {{--SolarDate Combobox--}}
-                                <div id="popup-horoscope">
-                                    <dl class="C-form-block C-form-block--birthdata">
-                                        <dd class="C-form-block__body">
-                                            <dl class="C-form-block-child C-form-block--birth">
-                                                <div id="popup-horoscope">
-                                                <dl class="C-form-block C-form-block--birthdata">
-                                                    <dd class="C-form-block__body">
-                                                        <dl class="C-form-block-child C-form-block--birth">
-                                                        <dl class="C-form-block C-form-block--birthdata">
-                                                            <dd class="C-form-block__body">
-                                                                <dl class="C-form-block-child C-form-block--birth">
-                                                                    <div>
-                                                                        <div class="div_right">
-                                                                            <dd class="C-form-block__button">
-                                                                                <!-- <button ref="button_solar_date" :disabled="!isButtonBoxEnable" @click="enableSelectBox">出生図</button> -->
-                                                                                <button ref="button_solar_date" @click="handleButtonClick">出生図</button>
-                                                                            </dd>
-                                                                        </div>
-                                                                    </div>
-                                                                </dl>
-                                                            </dd>
-                                                        </dl>
-                                                        </dl>
-                                                    </dd>
-                                                </dl>
-                                            </dl>
-                                        </dd>
-                                    </dl>
-                                    @include('components.parts.user.solar_return_combobox')
-                                </div>
                             </div>
                             <div id="popup-horoscope">
                                 <dl class="C-form-block C-form-block--birthdata">
