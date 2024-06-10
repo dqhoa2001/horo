@@ -125,7 +125,7 @@ class CheckPaymentSolarController extends Controller
         // 決済処理
         //クレジット決済の場合
         if ((int) $request->payment_type === SolarClaim::CREDIT) {
-            // try {
+            try {
                 $stripeToken = $request->stripeToken;
                 $paymentMethod = PaymentMethod::create([
                     'type' => 'card',
@@ -180,11 +180,11 @@ class CheckPaymentSolarController extends Controller
                 $solarClaim = AppraisalClaimService::createForCredit($user->id, $request, $solarApply, $bookbindingUserApplyId, $paymentIntent, $contentType);
 
                 \DB::commit();
-            // } catch (\Exception $e) {
-            //     \DB::rollback();
-            //     \Log::warning("決済に失敗しました: {$e->getMessage()}");
-            //     return to_route('user.check_payment_solar.create')->with('flash_alert', '決済に失敗しました。違うカードをお試しするか、銀行振込をご指定ください。')->withInput();
-            // }
+            } catch (\Exception $e) {
+                \DB::rollback();
+                \Log::warning("決済に失敗しました: {$e->getMessage()}");
+                return to_route('user.check_payment_solar.create')->with('flash_alert', '決済に失敗しました。違うカードをお試しするか、銀行振込をご指定ください。')->withInput();
+            }
 
         //銀行振込の場合
         } else {

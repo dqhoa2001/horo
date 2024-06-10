@@ -60,7 +60,7 @@
 }
 .button.horoscope::before {
     content: url('../images/familylist/icon_button_horo.svg'); /* Path to Horoscope icon */
-    top: 2px;
+    top: 3px;
 }
 .C-user-list-block a::after {
     content: none;

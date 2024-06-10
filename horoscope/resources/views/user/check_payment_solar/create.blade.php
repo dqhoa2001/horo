@@ -22,7 +22,7 @@
                     <div class="Pageframe-main-content">
                         <!-- ***** セクション名 ***** -->
                         <section class="sec Personal-appraisal C-form" id="Personal-appraisal">
-                        <h2 class="Solar-Pageframe-main__title"><img src="{{ asset('mypage/assets/images/solar-bookmaking/solar-return-bookmaking-title.svg') }}"
+                        <h2 class="Solar-Pageframe-main__title logo-banner"><img src="{{ asset('mypage/assets/images/solar-bookmaking/solar-return-bookmaking-title.svg') }}"
                         alt="BOOK MAKING">
                         </h2>                            <p class="C-form__message">下記フォームの<span class="C-form__message__req">必須項目</span>をご記入の上、ご購入ください。</p>
                             @if (Session::has('flash_alert'))
@@ -225,14 +225,14 @@
                                                         @enderror
                                                         <br>
                                                         <dt class="C-form-block__title">緯度</dt>
-                                                        <div class="C-form-block__field"> <input id="map-latitude" disabled type="text" 
+                                                        <div class="C-form-block__field"> <input id="map-latitude" disabled type="text"
                                                             value="{{ old('latitude', session('latitude')) ?? auth()->guard('user')->user()->latitude }}" style="color:#a1a1a6;">
                                                             <input id="lat" hidden name="latitude" type="text"
                                                             value="{{ old('latitude', session('latitude')) ?? auth()->guard('user')->user()->latitude }}"></div>
                                                         <input id="map-city" hidden name="map-city" type="text" value="">
                                                         @error('latitude')
                                                             <span style="color: red" class="text-danger">{{ $message }}</span>
-                                                        @enderror    
+                                                        @enderror
                                                     </dd>
                                                 </dl>
                                                 {{-- <div style="display: none"> --}}
@@ -242,10 +242,10 @@
                                                             <dd class="C-form-block__select">
                                                                 <select name="timezone" ref="timezone">
                                                                     @foreach (Modules\Horoscope\Enums\Time::Time as $item)
-                                                                        <option value='{{ $item['value'] }}' 
+                                                                        <option value='{{ $item['value'] }}'
                                                                         @if (auth()->guard('user')->user()->timezome)
                                                                             @if (auth()->guard('user')->user()->timezome == $item['value'])
-                                                                                selected 
+                                                                                selected
                                                                             @endif
                                                                         @else
                                                                             @if (array_key_exists('selected', $item) && $item['selected'])
@@ -256,7 +256,7 @@
                                                                         </option>
                                                                     @endforeach
                                                                 </select>
-                                                            </dd>                                           
+                                                            </dd>
                                                             @error('timezone')
                                                                 <span style="color: red" class="text-danger">{{ $message }}</span>
                                                             @enderror
@@ -433,7 +433,7 @@
                                         </div>
                                     </dd>
                                 </dl>
-                    
+
                                 <div class="C-form-policy C-form-line C-form-line--last">
                                     <div class="C-form-policy__inner">
                                         <div class="C-form-policy-block">
@@ -610,7 +610,7 @@ Vue.createApp({
                             timezoneSelect.options[i].selected = true;
                         }
                     }
-                    
+
                     // 日付をUTCからJSTに変換
                     const timezoneOffset = 9 * 60; // JSTはUTCより9時間進んでいます
                     let birthday = new Date(family.birthday);
@@ -620,7 +620,7 @@ Vue.createApp({
                     let oldYear = birthday.getFullYear();
                     let oldMonth = birthday.getMonth() + 1; // getMonth()メソッドが月を0から11の範囲で返してくるため、1を足す
                     let oldDay = birthday.getDate();
-                    
+
                     // 一度セレクトボックスをリセット
                     document.getElementById('select_year').innerHTML = '';
                     document.getElementById('select_month').innerHTML = '';
@@ -677,7 +677,7 @@ Vue.createApp({
             if (this.couponCode !== '' && this.discountPrice !== '') {
                 this.totalAmount = this.totalAmount + this.discountPrice;
             }
-            
+
             //クーポンコードから、値引額を取得する
             axios.post('/api/coupon/get_discount_price', {
                 params: {
@@ -756,7 +756,7 @@ Vue.createApp({
         discountPrice: function (newVal, oldVal) {
             // newValを数値に変換し、失敗した場合はNaNが返される
             const numericNewVal = Number(newVal);
-            
+
             // newValが数値ではない、0以下、またはpointより大きい場合はバリデーションに引っかかる
             if (isNaN(numericNewVal) || numericNewVal < 0 || numericNewVal > this.point && this.couponType == '1') {
                 if (isNaN(numericNewVal)) {
@@ -766,7 +766,7 @@ Vue.createApp({
                 } else if (numericNewVal > this.point) {
                     alert('使用可能なクーポン額を超えています');
                 }
-                
+
                 // バリデーションに引っかかった場合は、totalAmountを元に戻す
                 this.totalAmount += oldVal - this.discountPrice;
                 // discountPriceをリセットする

@@ -273,6 +273,11 @@
     white-space: nowrap;
 }
 
+.logo-banner {
+    margin-top: -10rem;
+    margin-left: -30px;
+}
+
 /* 惑星マーク */
 .C-appraisal-content--MOON .C-appraisal-content-header-data__mark::before,
 .C-appraisal-content--MOON .C-appraisal-content-footer-block__last__mark::before {
@@ -471,6 +476,7 @@
     /*----- ユーザー */
     .C-user-list-block__inner{
         padding: 1.5rem 3rem;
+        margin-top: 1rem;
     }
 
 	/*----- 個人鑑定詳細 */
@@ -611,4 +617,14 @@
     .C-top {
 		margin-bottom: 60px;
 	}
+
+    .logo-banner {
+        margin-top: -3rem;
+        margin-left: -10px;
+        width: 100%;
+    }
+    .Pageframe-main__title img {
+        width: 100%;
+    }
+
 }
