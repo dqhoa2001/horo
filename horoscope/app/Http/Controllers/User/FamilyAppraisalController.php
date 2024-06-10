@@ -72,7 +72,7 @@ class FamilyAppraisalController extends Controller
     public function showOffer():View
     {
         return view ('user.family_appraisals.solar_offer',[
-            'solar_appraisal'         => Solar::where('is_enabled', true)->first(),
+            'solar_appraisal'         => Appraisal::where('is_enabled', true)->where('solar_return',true)->first(),
             'bookbinding'       => Bookbinding::where('is_enabled', true)->first(),
         ]);
     }
