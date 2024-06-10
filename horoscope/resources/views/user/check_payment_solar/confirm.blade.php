@@ -19,85 +19,127 @@
                     <section class="sec Personal-appraisal C-form" id="Personal-appraisal">
                         {{-- ローディングの表示 --}}
                         @include('components.parts.user.loading')
+                        <p class="C-form__message C-form-line C-form-line--first">
+                            <span class="C-form__message__req">申し込み確認</span>
+                        </p>
                         <p class="C-form-block--text">内容をご確認の上、申し込みボタンを押して進めてください。</p>
-                        <form method="POST" action="{{ route('user.appraisals.apply') }}" id="Personal-appraisal-form">
+
+                        <form method="POST" action="{{ route('user.check_payment_solar.apply') }}" id="Personal-appraisal-form">
                             @csrf
                             <input type="hidden" name="target_type" value="{{ $data['target_type'] }}">
-
-                            {{-- 家族の場合 --}}
-                            @if((int)$data['target_type'] === \App\Enums\TargetType::FAMILY->value)
-                                <input type="hidden" name="family_id" value="{{ $data['family_id'] }}">
-                                <input type="hidden" name="relationship" value="{{ $data['relationship'] }}">
-                                <input type="hidden" name="name1" value="{{ $data['name1'] }}">
-                                <input type="hidden" name="name2" value="{{ $data['name2'] }}">
-                            @endif
-
-                            <input type="hidden" name="birthday" value="{{ $data['birthday'] }}">
+                            <input type="hidden" name="name1" value="{{ $data['name1'] }}">
+                            <input type="hidden" name="name2" value="{{ $data['name2'] }}">
 
                             <input type="hidden" name="birth_year" value="{{ $data['birth_year'] }}">
                             <input type="hidden" name="birth_month" value="{{ $data['birth_month'] }}">
                             <input type="hidden" name="birth_day" value="{{ $data['birth_day'] }}">
+                            @php
+                                $birthday = $data['birth_year'] . '-' . str_pad($data['birth_month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($data['birth_day'], 2, '0', STR_PAD_LEFT);
+                            @endphp
+                            <input type="hidden" name="birthday" value="{{ $birthday }}">
                             <input type="hidden" name="birthday_time" value="{{ $data['birthday_time'] }}">
                             <input type="hidden" name="birthday_prefectures" value="{{ $data['birthday_prefectures'] }}">
                             <input type="hidden" name="longitude" value="{{ $data['longitude'] }}">
                             <input type="hidden" name="latitude" value="{{ $data['latitude'] }}">
                             <input type="hidden" name="timezone" value="{{ $data['timezone'] }}">
+                            <input type="hidden" name="map-city" value="{{ $data['map-city'] }}">
+                            <input type="hidden" name="solar_return" value="{{ $data['solar_return'] }}">
+                            @if((int)$data['target_type'] === \App\Enums\TargetType::FAMILY->value)
+                                <input type="hidden" name="family_id" value="{{ $data['family_id'] }}">
+                                <input type="hidden" name="relationship" value="{{ $data['relationship'] }}">
+                            @endif
                             <input type="hidden" name="is_bookbinding" value="{{ $data['is_bookbinding'] }}">
 
                             {{-- 製本 --}}
-
                             @if((int)$data['is_bookbinding'] === \App\Models\AppraisalApply::BOOK_ENABLED)
-                                <input type="hidden" name="bookbinding_name1" value="{{ $data['bookbinding_name1'] }}">
-                                <input type="hidden" name="bookbinding_name2" value="{{ $data['bookbinding_name2'] }}">
-                                <input type="hidden" name="zip" value="{{ $data['zip'] }}">
-                                <input type="hidden" name="address" value="{{ $data['address'] }}">
-                                <input type="hidden" name="building" value="{{ $data['building'] }}">
-                                <input type="hidden" name="building_name" value="{{ $data['building_name'] }}">
-                                <input type="hidden" name="tel" value="{{ $data['tel'] }}">
-                                <input type="hidden" name="is_design" value="{{ $data['is_design'] }}">
+                            <input type="hidden" name="zip" value="{{ $data['zip'] }}">
+                            <input type="hidden" name="address" value="{{ $data['address'] }}">
+                            <input type="hidden" name="building" value="{{ $data['building'] }}">
+                            <input type="hidden" name="building_name" value="{{ $data['building_name'] }}">
+                            <input type="hidden" name="bookbinding_name1" value="{{ $data['bookbinding_name1'] }}">
+                            <input type="hidden" name="bookbinding_name2" value="{{ $data['bookbinding_name2'] }}">
+                            <input type="hidden" name="tel" value="{{ $data['tel'] }}">
+                            <input type="hidden" name="is_design" value="{{ $data['is_design'] }}">
                             @endif
                             <input type="hidden" name="payment_type" value="{{ $data['payment_type'] }}">
-                            @if((int)$data['payment_type'] === \App\Models\AppraisalClaim::CREDIT)
-                                <input type="hidden" name="stripeToken" value="{{ $data['stripeToken'] }}">
+                            @if(isset($data['coupon_code']))
+                            <input type="hidden" name="coupon_code" value="{{ $data['coupon_code'] }}">
                             @endif
-                            <input type="hidden" name="coupon_type" value="{{ $data['coupon_type'] }}">
-							@if((int)$data['coupon_type'] === \App\Enums\CouponType::INTRODUCTION_COUPON->value)
-                                <input type="hidden" name="coupon_code" value="{{ $data['coupon_code'] }}">
-							@endif
+                            @if((int)$data['payment_type'] === \App\Models\AppraisalClaim::CREDIT)
+                            <input type="hidden" name="stripeToken" value="{{ $data['stripeToken'] }}">
+                            @endif
+
                             <input type="hidden" name="discount_price" value="{{ $data['discount_price'] }}">
                             <input type="hidden" name="total_amount" value="{{ $data['total_amount'] }}">
 
                             <div class="C-form-block__wrap">
-                                @if ((int)$data['target_type'] === \App\Models\AppraisalApply::USER)
-                                    <dl class="C-form-block C-form-block--name">
-                                        <dt class="C-form-block__title C-form-block__title--req">お名前</dt>
-                                        <dd class="C-form-block__body C-form-block__body--two">
-                                            {{ auth()->guard('user')->user()->name1 }} {{ auth()->guard('user')->user()->name2 }}
-                                        </dd>
-                                    </dl>
-                                @endif
-                                <dl class="C-form-block">
-                                    <dt class="C-form-block__title C-form-block__title--req">個人鑑定の対象者</dt>
-                                    <dd class="C-form-block__body C-form-block-child">
-                                        {{(int)$data['target_type'] === \App\Models\AppraisalApply::USER ? '自分' : '家族'}}
-                                    </dd>
-                                    @if((int)$data['target_type'] === \App\Enums\TargetType::FAMILY->value)
+
+                                <dl class="C-form-block C-form-block--hope">
+                                    <dt class="C-form-block__title C-form-block__title--req">製本の希望</dt>
                                     <dd class="C-form-block__body">
-                                        <dl class="C-form-block-child C-form-block--birth">
-                                            <dt class="C-form-block__title">対象者との続柄</dt>
-                                            <dd class="C-form-block__body C-form-block__body--half">
-                                                {{ $data['relationship'] }}
+                                        {{ \App\Models\AppraisalApply::getBookbindingType()[$data['is_bookbinding']] }}
+                                    </dd>
+                                </dl>
+                                @if((int)$data['is_bookbinding'] === \App\Models\AppraisalApply::BOOK_ENABLED)
+                                <dl class="C-form-block C-form-block--cash">
+                                    <dt class="C-form-block__title C-form-block__title--req">表紙のデザイン</dt>
+                                    <dd class="C-form-block__body">
+                                        {{ \App\Models\AppraisalApply::PDF_TYPE[$data['is_design']] }}
+                                    </dd>
+                                </dl>
+                                <dl class="C-form-block C-form-block--cash">
+                                    <dt class="C-form-block__title C-form-block__title--req">製本に表示するお名前</dt>
+                                    <dd class="C-form-block__body">
+                                        {{$data['bookbinding_name1']}} {{$data['bookbinding_name2']}}
+                                        <p class="Personal-appraisal__notice-text">
+                                        @php
+                                            $design = $data["is_design"];
+                                            $name1 = $data["bookbinding_name1"];
+                                            $name2 = $data["bookbinding_name2"];
+                                        @endphp
+                                            <a href="{{ route('user.download_images.download_cover_pdf', ['design' => $design, 'name1' => $name1, 'name2' => $name2]) }}" style="font-size: 1.2rem;">
+                                                表紙イメージはこちら
+                                            </a>
+                                        </p>
+                                    </dd>
+                                </dl>
+                                <dl class="C-form-block C-form-block--sending">
+                                    <dt class="C-form-block__title C-form-block__title--req">送付先情報</dt>
+                                    <dd class="C-form-block__body">
+                                        <dl class="C-form-block-child C-form-block--hasbutton C-form-block--zip">
+                                            <dt class="C-form-block__title">郵便番号</dt>
+                                            <dd class="C-form-block__body">
+                                                {{ $data['zip'] }}
                                             </dd>
                                         </dl>
-                                        <dl class="C-form-block-child C-form-block--time">
-                                            <dt class="C-form-block__title">対象者のお名前</dt>
-                                            <dd class="C-form-block__body C-form-block__body--half">
-                                                {{ $data['name1'] }}{{ $data['name2'] }}
+                                        <dl class="C-form-block-child C-form-block--address">
+                                            <dt class="C-form-block__title">住所</dt>
+                                            <dd class="C-form-block__body">
+                                                {{ $data['address'] }}{{ $data['building'] }}
+                                            </dd>
+                                        </dl>
+                                        <dl class="C-form-block-child C-form-block--name">
+                                            <dt class="C-form-block__title">お名前</dt>
+                                            <dd class="C-form-block__body">
+                                                {{ $data['building_name'] }}
+                                            </dd>
+                                        </dl>
+                                        <dl class="C-form-block-child C-form-block--tel">
+                                            <dt class="C-form-block__title">電話番号</dt>
+                                            <dd class="C-form-block__body">
+                                                {{ $data['tel'] }}
                                             </dd>
                                         </dl>
                                     </dd>
-                                    @endif
                                 </dl>
+                                @endif
+                                <dl class="C-form-block C-form-block--cash">
+                                    <dt class="C-form-block__title C-form-block__title--req">お支払い方法</dt>
+                                    <dd class="C-form-block__body">
+                                        {{\App\Models\AppraisalClaim::PAYMENT_TYPE[(int)$data['payment_type']]}}
+                                    </dd>
+                                </dl>
+
                                 <dl class="C-form-block C-form-block--birthdata">
                                     <dt class="C-form-block__title C-form-block__title--req">出生情報</dt>
                                     <dd class="C-form-block__body">
@@ -111,7 +153,7 @@
                                             <dt class="C-form-block__title">生年月日</dt>
                                             <dd class="C-form-block__body C-form-block__body--half">
                                                 {{-- {{ $data['birthday'] }} --}}
-                                               {{-- {{ $data['birthday']->format('Y年m月d日') }}--}}
+                                                {{ $birthday }}
                                             </dd>
                                         </dl>
                                         <dl class="C-form-block-child C-form-block--time">
@@ -153,71 +195,7 @@
                                         </dl>
                                     </dd>
                                 </dl>
-                                <dl class="C-form-block C-form-block--hope">
-                                    <dt class="C-form-block__title C-form-block__title--req">製本の希望</dt>
-                                    <dd class="C-form-block__body">
-                                        {{ \App\Models\AppraisalApply::getBookbindingType()[$data['is_bookbinding']] }}
-                                    </dd>
-                                </dl>
-                                @if((int)$data['is_bookbinding'] === \App\Models\AppraisalApply::BOOK_ENABLED)
-                                <dl class="C-form-block C-form-block--cash">
-									<dt class="C-form-block__title C-form-block__title--req">表紙のデザイン</dt>
-									<dd class="C-form-block__body">
-										{{ \App\Models\AppraisalApply::PDF_TYPE[$data['is_design']] }}
-									</dd>
-								</dl>
-                                <dl class="C-form-block C-form-block--cash">
-									<dt class="C-form-block__title C-form-block__title--req">製本に表示するお名前</dt>
-									<dd class="C-form-block__body">
-										{{$data['bookbinding_name1']}} {{$data['bookbinding_name2']}}
-                                        <p class="Personal-appraisal__notice-text">
-                                        @php
-                                            $design = $data["is_design"];
-                                            $name1 = $data["bookbinding_name1"];
-                                            $name2 = $data["bookbinding_name2"];
-                                        @endphp
-                                            <a href="{{ route('user.download_images.download_cover_pdf', ['design' => $design, 'name1' => $name1, 'name2' => $name2]) }}" style="font-size: 1.2rem;">
-                                                表紙イメージはこちら
-                                            </a>
-                                        </p>
-									</dd>
-								</dl>
-                                <dl class="C-form-block C-form-block--sending">
-                                    <dt class="C-form-block__title C-form-block__title--req">送付先情報</dt>
-                                    <dd class="C-form-block__body">
-                                        <dl class="C-form-block-child C-form-block--hasbutton C-form-block--zip">
-                                            <dt class="C-form-block__title">郵便番号</dt>
-                                            <dd class="C-form-block__body">
-                                                {{ $data['zip'] }}
-                                            </dd>
-                                        </dl>
-                                        <dl class="C-form-block-child C-form-block--address">
-                                            <dt class="C-form-block__title">住所</dt>
-                                            <dd class="C-form-block__body">
-                                                {{ $data['address'] }}{{ $data['building'] }}
-                                            </dd>
-                                        </dl>
-                                        <dl class="C-form-block-child C-form-block--name">
-                                            <dt class="C-form-block__title">お名前</dt>
-                                            <dd class="C-form-block__body">
-                                                {{ $data['building_name'] }}
-                                            </dd>
-                                        </dl>
-                                        <dl class="C-form-block-child C-form-block--tel">
-                                            <dt class="C-form-block__title">電話番号</dt>
-                                            <dd class="C-form-block__body">
-                                                {{ $data['tel'] }}
-                                            </dd>
-                                        </dl>
-                                    </dd>
-                                </dl>
-                                @endif
-                                <dl class="C-form-block C-form-block--cash">
-                                    <dt class="C-form-block__title C-form-block__title--req">お支払い方法</dt>
-                                    <dd class="C-form-block__body">
-                                        {{\App\Models\AppraisalClaim::PAYMENT_TYPE[(int)$data['payment_type']]}}
-                                    </dd>
-                                </dl>
+
                                 {{-- カードブランドとカードの最後の4桁表示 --}}
                                 @if((int)$data['payment_type'] === \App\Models\AppraisalClaim::CREDIT)
                                 <dl class="C-form-block C-form-block--card">
@@ -236,40 +214,48 @@
                                 </dl>
                                 @endif
 
-                                @if((int)$data['coupon_type'] === \App\Enums\CouponType::INTRODUCTION_COUPON->value)
+                                <dl class="C-form-block C-form-block--birthdata">
+                                    <dt class="C-form-block__title C-form-block__title--req">SOLAR RETURN情報</dt>
+                                    <dd class="C-form-block__body">
+                                        <dl class="C-form-block__notes">
+                                            <dd class="C-form-block__notes__body">
+                                            お客様がSOLAR RETURNを購入された年に関する情報
+                                            </dd>
+                                        </dl>
+                                        <dl class="C-form-block-child C-form-block--birth">
+                                            <dt class="C-form-block__title">鑑定年</dt>
+                                            <dd class="C-form-block__body C-form-block__body--half">
+                                                {{-- {{ $data['birthday'] }} --}}
+                                                @if (is_string($data['solar_return']))
+                                                    @php
+                                                        $date = \DateTime::createFromFormat('Y', $data['solar_return']);
+                                                    @endphp
+                                                    @if ($date)
+                                                        {{ $date->format('Y年m月d日') }}
+                                                    @else
+                                                        <span>Error: Invalid date format</span>
+                                                    @endif
+                                                @else
+                                                    {{ $data['solar_return']->format('Y年m月d日') }}
+                                                @endif
+                                            </dd>
+                                        </dl>
+                                    </dd>
+                                </dl>
+
+                                @if(isset($data['coupon_code']))
                                     <dl class="C-form-block C-form-block--coupon-wrap">
-                                        <dd class="C-form-block__body">
-                                            <dl class="C-form-block-child C-form-block--hasbutton C-form-block--couponcode on">
-                                                <dt class="C-form-block__title">使用するクーポンコード</dt>
-                                                <dd class="C-form-block__body">
-                                                    {{ $data['coupon_code'] }}
-                                                </dd>
-                                            </dl>
-                                        </dd>
-                                    </dl>
-                                @elseif ((int)$data['coupon_type'] === \App\Enums\CouponType::NONE->value)
-                                    <dl class="C-form-block C-form-block--coupon-wrap">
-                                        <dd class="C-form-block__body">
+                                        <div class="C-form-block__body">
                                             <dl class="C-form-block-child C-form-block--hasbutton C-form-block--couponcode on">
                                                 <dt class="C-form-block__title">使用するクーポン</dt>
                                                 <dd class="C-form-block__body">
-                                                    使用しない
+                                                    {{ isset($data['coupon_code']) && $data['coupon_code'] ? $data['coupon_code'] : '-' }}
                                                 </dd>
                                             </dl>
-                                        </dd>
-                                    </dl>
-                                @else
-                                    <dl class="C-form-block C-form-block--coupon-wrap">
-                                        <dd class="C-form-block__body">
-                                            <dl class="C-form-block-child C-form-block--hasbutton C-form-block--couponcode on">
-                                                <dt class="C-form-block__title">使用するクーポン</dt>
-                                                <dd class="C-form-block__body">
-                                                    {{ number_format($data['discount_price']) }}円
-                                                </dd>
-                                            </dl>
-                                        </dd>
+                                        </div>
                                     </dl>
                                 @endif
+
 
                                 <dl class="C-price">
                                     <dt class="C-price__title">注文内容</dt>
@@ -277,30 +263,30 @@
                                         <div class="C-price-block__wrap">
                                             @if ((int)$data['target_type'] === \App\Models\AppraisalApply::USER)
                                                 <dl class="C-price-block">
-                                                    <dt class="C-price-block__title">個人鑑定金額 ：</dt>
+                                                    <dt class="C-price-block__title">個人鑑定</dt>
                                                     <dd class="C-price-block__text">{{ number_format($solar->price) }}円</dd>
                                                 </dl>
                                             @elseif ((int)$data['target_type'] === \App\Models\AppraisalApply::FAMILY)
                                                 <dl class="C-price-block">
-                                                    <dt class="C-price-block__title">家族の個人鑑定金額 ：</dt>
+                                                    <dt class="C-price-block__title">家族の個人鑑定</dt>
                                                     <dd class="C-price-block__text">{{ number_format($solar->family_price) }}円</dd>
                                                 </dl>
                                             @endif
                                             @if((int)$data['is_bookbinding'] === \App\Models\AppraisalApply::BOOK_ENABLED)
-                                                <dl class="C-price-block">
-                                                    <dt class="C-price-block__title">製本金額 ：</dt>
-                                                    <dd class="C-price-block__text">{{ number_format($bookbinding->price) }}円</dd>
-                                                </dl>
-                                                {{-- <dl class="C-price-block">
-                                                    <dt class="C-price-block__title">送料 ：</dt>
-                                                    <dd class="C-price-block__text">{{ number_format(\App\Models\AppraisalClaim::SHIPPING_FEE) }}円</dd>
-                                                </dl> --}}
+                                            <dl class="C-price-block">
+                                                <dt class="C-price-block__title">製本金額 ：</dt>
+                                                <dd class="C-price-block__text">{{ number_format($bookbinding->price) }}円</dd>
+                                            </dl>
+                                            {{-- <dl class="C-price-block">
+                                                <dt class="C-price-block__title">送料 ：</dt>
+                                                <dd class="C-price-block__text">{{ number_format(\App\Models\AppraisalClaim::SHIPPING_FEE) }}円</dd>
+                                            </dl> --}}
                                             @endif
-                                            @if($data['discount_price'])
-                                                <dl class="C-price-block C-price-block--minus">
-                                                    <dt class="C-price-block__title">クーポン ：</dt>
-                                                    <dd class="C-price-block__text">- {{ number_format($data['discount_price']) }}円</dd>
-                                                </dl>
+                                            @if(isset($data['coupon_code']))
+                                            <dl class="C-price-block C-price-block--minus">
+                                                <dt class="C-price-block__title">ご紹介クーポン ：</dt>
+                                                <dd class="C-price-block__text">- {{ number_format($data['discount_price']) }}円</dd>
+                                            </dl>
                                             @endif
                                         </div>
                                         <dl class="C-price-last">
@@ -310,18 +296,12 @@
                                     </dd>
                                 </dl>
                             </div>
-                            {{-- <button type="submit" formaction="{{ route('user.appraisals.apply') }}" formmethod="POST" class="Button Button--lightblue"><span>申し込み</span></button> --}}
                             <button type="button" @click="submitForm" :disabled="isLoading" class="Button Button--lightblue"><span>申し込み</span></button>
-
-                            @if((int)$data['target_type'] === \App\Enums\TargetType::FAMILY->value)
-                                <button type="submit" formaction="{{ route('user.appraisals.family_back', ['target_type' => $data['target_type']]) }}"  formmethod="POST" class="previous-btn"><span>入力内容を修正する</span></button>
-                            @else
-                                <button type="submit" formaction="{{ route('user.appraisals.back') }}" formmethod="POST"class="previous-btn"><span>入力内容を修正する</span></button>
-                            @endif
-
+                            <button type="submit" formaction="{{ route('user.check_payment_solar.back') }}" formmethod="POST" class="previous-btn previous-btn-left">
+                                <span>入力内容を修正する</span>
+                            </button>
                         </form>
                     </section>
-
                 </div>
             </div>
         </div>
