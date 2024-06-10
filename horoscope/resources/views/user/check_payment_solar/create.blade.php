@@ -912,4 +912,3 @@ Vue.createApp({
 </script>
 
 @endsection
-+
