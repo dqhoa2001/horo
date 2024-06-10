@@ -28,7 +28,7 @@
 .Pageframe-main__title::after{
     width: 9rem;
     height: 13rem;
-    right: -11rem;
+    left: 40rem;
     top: -2.5rem;
     background-image: url(../images/solar-return/icon_title.svg);
 }

@@ -22,7 +22,7 @@
                     <div class="Pageframe-main-content">
                         <!-- ***** セクション名 ***** -->
                         <section class="sec Personal-appraisal C-form" id="Personal-appraisal">
-                        <h2 class="Solar-Pageframe-main__title logo-banner"><img src="{{ asset('mypage/assets/images/solar-bookmaking/solar-return-bookmaking-title.svg') }}"
+                        <h2 class="Solar-Pageframe-main__title logo-banner"><img src="{{ asset('mypage/assets/images/solar-bookmaking/solar-return-bookmaking-title.png') }}"
                         alt="BOOK MAKING">
                         </h2>                            <p class="C-form__message">下記フォームの<span class="C-form__message__req">必須項目</span>をご記入の上、ご購入ください。</p>
                             @if (Session::has('flash_alert'))
