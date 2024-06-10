@@ -22,9 +22,7 @@ use App\Services\MyHoroscopeService;
 use Modules\Horoscope\Http\Actions\Predict\ModifyLocation;
 use App\Repositories\SabianPatternRepository;
 use App\Repositories\ZodiacPatternRepository;
-use App\Models\SolarApply;
 use App\Services\SolarAppraisalApplyService;
-use App\Models\Solar;
 use App\Models\User;
 use Modules\Horoscope\Http\Actions\GenerateSolarHoroscopeChartAction;
 
