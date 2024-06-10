@@ -55,7 +55,7 @@
                                                     </picture>
                                                 </a>
                                                 @endif
-                                                @if ($family->appraisalApplies()->whereHas('appraisalClaim')->exists())
+                                                @if ($family->appraisalApplies()->where('solar_return',0)->whereHas('appraisalClaim')->exists())
                                                 <a href="{{ route('user.family_appraisals.show', $family->appraisalApplies()->first()) }}" class="button stellar-blueprint">
                                                     <img src="{{ asset('mypage/assets/images/familylist/title_button_stellar.png') }}" alt="">
                                                 </a>

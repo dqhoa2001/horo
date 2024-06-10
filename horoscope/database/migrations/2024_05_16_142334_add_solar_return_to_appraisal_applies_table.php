@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('appraisal_applies', function (Blueprint $table) {
-            $table->interge('solar_return')->nullable()->after('reference_id')->default(0);
+            $table->integer('solar_return')->nullable()->after('reference_id')->default(0);
         });
     }
 

@@ -20,9 +20,7 @@ use App\Repositories\ZodiacRepository;
 use App\Services\MyHoroscopeService;
 use Modules\Horoscope\Http\Actions\GenerateSolarHoroscopeChartAction;
 use Modules\Horoscope\Enums\WheelRadiusEnum;
-use App\Models\SolarApply;
 use App\Services\SolarAppraisalApplyService;
-use App\Models\Solar;
 use Carbon\Carbon;
 
 class SolarAppraisalController extends Controller

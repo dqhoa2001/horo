@@ -24,7 +24,7 @@ class BookbindingUserApply extends Model
     protected $casts = [
         'scheduled_shipping_date' => 'date',
         'is_delivery' => 'boolean',
-        
+
     ];
 
     // 発送済み
@@ -68,15 +68,5 @@ class BookbindingUserApply extends Model
     public function appraisalClaim(): HasOne
     {
         return $this->hasOne(AppraisalClaim::class);
-    }
-
-    public function solarApply(): BelongsTo
-    {
-        return $this->belongsTo(SolarApply::class);
-    }
-
-    public function solarClaim(): HasOne
-    {
-        return $this->hasOne(SolarClaim::class);
     }
 }
