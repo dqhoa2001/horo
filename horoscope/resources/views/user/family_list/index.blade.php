@@ -48,11 +48,8 @@
                                             </div>
                                             <div>
                                                 @if ($family->appraisalApplies()->where('solar_return','!=',0)->whereHas('appraisalClaim')->exists())
-                                                <a href="{{ route('user.solar_appraisals.show', $family->appraisalApplies()->where('solar_return','!=',0)->latest()->first()) }}" class="">
-                                                    <picture>
-                                                        <source srcset="{{ asset('mypage/assets/images/familylist/small-title-button-solar.svg') }}"media="(max-width: 600px)">
-                                                        <img src="{{ asset('mypage/assets/images/familylist/title_button_solar.svg') }}" alt="">
-                                                    </picture>
+                                                <a href="{{ route('user.solar_appraisals.show', $family->appraisalApplies()->where('solar_return','!=',0)->latest()->first()) }}" class="button solar-return">
+                                                    <img src="{{ asset('mypage/assets/images/familylist/title_button_solar.png') }}" alt="">
                                                 </a>
                                                 @endif
                                                 @if ($family->appraisalApplies()->whereHas('appraisalClaim')->exists())
