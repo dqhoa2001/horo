@@ -71,17 +71,18 @@
                                                     <dt class="C-form-block__title">登録済みのご家族</dt>
                                                     <dd class="C-form-block__body C-form-block__body--half">
                                                         <div class="C-form-block__select">
-                                                            <select name="family_id" @change="setFamilyInfo" required>
+                                                            <select name="family_id" @change="setFamilyInfo">
                                                                 <option value="" {{ old('family_id', $request->family_id ?? '') == '' ? 'selected' : '' }}>
                                                                     選択してください
                                                                 </option>
                                                                 @foreach ( auth()->guard('user')->user()->families()->get() as $family)
                                                                     <option value="{{ $family->id }}" {{ old('family_id', $request->family_id ?? '') == $family->id ? 'selected' : '' }}>
-                                                                        {{ $family->name1 }} {{ $family->name2 }}（{{ $family->relationship }})
+                                                                        {{ $family->name1 }} {{ $family->name2 }}（{{ $family->relationship }}
                                                                     </option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
+                                                    @include('components.form.error', ['name' => 'family_id', 'class' => 'text-danger'])
                                                     </dd>
                                                     @if($errors->has('family_id'))
                                                         <span class="invalid-feedback text-danger" role="alert" style="text-align: left; display:block;">
@@ -110,6 +111,7 @@
                                                         </div>
                                                     </dd>
                                                 </dl>
+                                                @include('components.form.error', ['name' => 'relationship', 'class' => 'text-danger'])
                                                 <dl class="C-form-block-child C-form-block--name">
                                                     <dt class="C-form-block__title">対象者のお名前</dt>
                                                     <dd class="C-form-block__body C-form-block__body--two">
@@ -182,7 +184,7 @@
                                                     <div class="C-form-block__field">
                                                         @include('components.form.time', [
                                                             'name'        => 'birthday_time',
-                                                            'required'    => true,
+                                                            'required'    => false,
                                                             'value'       => $request->birthday_time ?? $defaultBirthdayTime?->format('H:i'),
                                                             'placeholder' => '00 : 00',
                                                             'inputmode'   => 'numeric',
@@ -198,7 +200,7 @@
                                                     <div class="C-form-block__field">
                                                         @include('components.form.text', [
                                                             'name'        => 'birthday_prefectures',
-                                                            'required'    => true,
+                                                            'required'    => false,
                                                             'placeholder' => '都道府県市区町村',
                                                             'refs'        => 'birthday_prefectures',
                                                             'value'       => $request->birthday_prefectures ?? $defaultBirthdayPrefectures,

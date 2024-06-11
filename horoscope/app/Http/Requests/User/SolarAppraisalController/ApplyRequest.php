@@ -31,6 +31,7 @@ class ApplyRequest extends FormRequest
         return [
             'name1' => ['required', 'string', 'max:255'],
             'name2' => ['required', 'string', 'max:255'],
+            'family_id' => ['required', 'string', 'max:255'],
             'target_type' => ['required'],
             'relationship' => ['string', 'max:255', Rule::requiredIf($this->input('target_type') === TargetType::FAMILY)],
             'family_name1' => ['string', 'max:255', Rule::requiredIf($this->input('target_type') === TargetType::FAMILY)],
@@ -74,6 +75,6 @@ class ApplyRequest extends FormRequest
     //リダイレクト先を変更
     protected function getRedirectUrl()
     {
-        return route('user.offer_appraisals.create');
+        return route('user.solar_appraisals.create');
     }
 }

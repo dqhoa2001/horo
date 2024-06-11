@@ -33,6 +33,7 @@ class ConfirmRequest extends FormRequest
         return [
             'name1' => ['required', 'string', 'max:255'],
             'name2' => ['required', 'string', 'max:255'],
+            'family_id' => ['required', 'string', 'max:255'],
             'target_type' => ['required'],
             'relationship' => ['string', 'max:255', Rule::requiredIf($this->input('target_type') === TargetType::FAMILY)],
             'family_name1' => ['string', 'max:255', Rule::requiredIf($this->input('target_type') === TargetType::FAMILY)],
@@ -101,11 +102,7 @@ class ConfirmRequest extends FormRequest
         return $this->only([
             'name1',
             'name2',
-            'kana1',
-            'kana2',
-            'email',
-            'email_confirmation',
-            'password',
+            'family_id',
             'target_type',
             'relationship',
             'family_name1',
