@@ -33,7 +33,7 @@ use App\Library\GetPrefNum;
 use App\Services\CouponService;
 use App\Mail\User\AppraisalReceivedForBank;
 use App\Mail\User\BookbindingUserApplyMailForBank;
-use App\Http\Requests\User\CheckPaymentSolarController\ConfirmRequest;
+use App\Http\Requests\User\SolarAppraisalController\ConfirmRequest;
 use App\Mail\User\CompleteForPersonalAppraisal;
 use App\Mail\User\CompleteForFamilyAppraisal;
 use App\Mail\User\ThanksForPersonalAppraisal;

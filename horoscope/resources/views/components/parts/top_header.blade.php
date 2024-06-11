@@ -3,15 +3,21 @@
   <h2 class="Pageframe-main-header__pagename">
     {{-- @if ((int)\Request::get('target_type') !== \App\Models\AppraisalApply::FAMILY) --}}
     @if((int)Request::get('target_type') === \App\Models\AppraisalApply::FAMILY)
-      家族の
+        家族の
+    @else
+        私の
+    @endif
+    @if(isset($solarApply))
+        @if($solarApply->reference_type === Family::class)
+        家族の太陽回帰鑑定 結果
+        @else
+        SOLAR RETURN鑑定結果
+        @endif
     @endif
     @switch(Request::url())
       @case(str_contains(Request::url(), 'popup'))
       マイページ
       @break
-      <!-- @case(str_contains(Request::url(), 'solar'))
-      太陽回帰
-      @break -->
       @case(str_contains(Request::url(), 'horoscope'))
       MYホロスコープチャート
       @break
@@ -21,9 +27,10 @@
       @case(str_contains(Request::url(), 'user/families'))
       家族のホロスコープ
       @break
-      @case(str_contains(Request::url(), 'user/family_appraisals'))
-      家族の個人鑑定
-      @case(str_contains(Request::url(), 'user/family_list'))
+      @case(str_contains(Request::url(), 'family_appraisals'))
+      家族の太陽回帰鑑定
+      @break
+      @case(str_contains(Request::url(), 'family_list'))
       家族一覧
       @break
       @case(str_contains(Request::url(), 'bookbinding'))
