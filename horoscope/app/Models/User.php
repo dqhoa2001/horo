@@ -247,4 +247,10 @@ class User extends Authenticatable implements MustVerifyEmail
 
         return true;
     }
+    public function familiesWithAppraisalApplies()
+    {
+        return $this->families()->whereHas('appraisalApplies', static function ($query) {
+            $query->where('solar_return','!=',0);
+        })->get();
+    }
 }

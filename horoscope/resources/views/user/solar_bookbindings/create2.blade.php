@@ -36,7 +36,7 @@
 					<section class="sec Bookmaking C-form" id="Bookmaking">
 						<h2 class="Pageframe-main__title"><img src="{{ asset('mypage/assets/images/bookmaking/img_title.svg') }}"
 								alt="BOOK MAKING"></h2>
-						@if ($personalSolarAppraisals !== null || $familySolarAppraisals !== null)
+						@if ($personalSolarAppraisals->isNotEmpty() || $familySolarAppraisals->isNotEmpty())
 							<p class="C-form__message">下記フォームの<span class="C-form__message__req">必須項目</span>をご記入の上、ご購入ください。</p>
 							@if (Session::has('flash_alert'))
 								<p style="color: red; font-size: larger;">{{ Session::get('flash_alert') }}</p>
@@ -77,7 +77,7 @@
 										<dt class="C-form-block__title">お名前</dt>
 										<dd class="C-form-block__body">
 											<p class="C-form-block--name__text">
-												<span>{{ auth()->guard('user')->user()->full_name }}</span>さん<br>
+												<span>{{ $user->full_name }}</span>さん<br>
 												{{-- <span style="font-size: 1.4rem;">製本したい方を選択してください</span> --}}
 											</p>
 										</dd>
@@ -87,7 +87,7 @@
 									<dl class="C-form-block C-form-block--appraisal Bookmaking-appraisal">
 										<dt class="C-form-block__title C-form-block__title--req">製本する個人鑑定</dt>
 										<dd class="C-form-block__body">
-											{{-- <p class="Bookmaking-appraisal__title">{{ auth()->guard('user')->user()->full_name }}さんの個人鑑定</p> --}}
+											{{-- <p class="Bookmaking-appraisal__title">{{ $user->full_name }}さんの個人鑑定</p> --}}
 											<p class="Bookmaking-appraisal__middle-title mt">製本したい人を選択してください</p>
 
 											<hr>
@@ -103,40 +103,39 @@
 													</span>
 												</label>
 											</div>
-											@include('components.form.error', ['name' => 'appraisal_apply_ids', 'class' => 'text-danger margin-top'])
+											@include('components.form.error', ['name' => 'person_ids', 'class' => 'text-danger margin-top'])
 											<hr>
 
 											<!--製本する個人鑑定の選択-->
 											<div class="original_checkbox-block">
 												{{-- ----------------------個人--------------↓ --}}
+                                                @if ($personalSolarAppraisals->isNotEmpty())
 
-												@if ($personalSolarAppraisals !== null)
 													<div class="C-form-block__checkbox original_checkbox" style="margin-bottom: 20px">
-														<label class="C-form-block__checkbox__item" for="checkbox{{ auth()->guard('user')->user()->id }}">
+														<label class="C-form-block__checkbox__item" for="checkbox{{ $user->id }}">
 															<input type="checkbox"
-																	name="appraisal_apply_ids[]"
-																	value="{{ auth()->guard('user')->user()->id }}"
-																	id="checkbox{{ auth()->guard('user')->user()->id }}"
-																	v-model="selectedAppraisals"
+																	name="person_ids[]"
+																	value="{{ $user->id }}"
+																	id="checkbox{{ $user->id }}"
+																	v-model="selectedPersons"
 																	>
 															<span class="C-form-block__checkbox__text">
-																名前：{{ auth()->guard('user')->user()->full_name }}
-																<br>
-																出生地：{{ auth()->guard('user')->user()->birthday_prefectures }}<br>
-																生年月日：{{auth()->guard('user')->user()->birthday->format('Y年m月d日') }}<br>
-																出生時間：{{ auth()->guard('user')->user()->birthday_time->format('H:i') }}<br>
+																名前：{{ $user->full_name }}	<br>
+																出生地：{{ $user->birthday_prefectures }}<br>
+																生年月日：{{ $user->birthday->format('Y年m月d日') }}<br>
+																出生時間：{{ $user->birthday_time->format('H:i') }}<br>
 															</span>
 														</label>
 													</div>
 
-                                                    <!--Choose solar return year -->
-                                                    <dl class="C-form-block C-form-block--cash"
+                                                     <!--Choose solar return year -->
+                                                     <dl class="C-form-block C-form-block--cash"
                                                         style="display: none;"
-                                                        id="solar-appraisal_dom-{{ auth()->guard('user')->user()->id  }}">
+                                                        id="solar-appraisal_dom-{{ $user->id  }}">
                                                         <dt class="C-form-block__title C-form-block__title--req">鑑定年を選択してください</dt>
                                                         <div >
                                                             <hr>
-                                                            @foreach ($personalSolarAppraisals as $personalSolarAppraisal)
+                                                            @foreach ( $personalSolarAppraisals as $personalSolarAppraisal)
                                                                 @php
                                                                     $solar_return = $personalSolarAppraisal->solar_return;
                                                                     $birthday = $personalSolarAppraisal->birthday;
@@ -146,11 +145,13 @@
                                                                         $age--;
                                                                     }
                                                                 @endphp
-                                                                <label for="solar-year-{{ $personalSolarAppraisal->id }}" class="" style="display: flex; margin-right:10px;">
+                                                                <label for="appraisal-{{ $personalSolarAppraisal->id }}" class="" style="display: flex; margin-right:10px;">
                                                                     <input type="radio"
-                                                                        name="appraisal_apply_ids[]"
-                                                                        id="solar-year-{{ $personalSolarAppraisal->id }}"
+                                                                        name="solar_appraisal_apply_ids[]"
+                                                                        id="appraisal-{{ $personalSolarAppraisal->id }}"
                                                                         value="{{ $personalSolarAppraisal->id }}"
+                                                                        v-model="selectedSolarAppraisal"
+                                                                        @onchange="handleAppraisalChange()"
                                                                     >
                                                                     <span>{{ $age }} 歳 {{ $solar_return }} -- {{ $solar_return + 1 }}
                                                                         @if($personalSolarAppraisal->bookbindingUserApplies()->exists()) ( Buyed )
@@ -162,16 +163,14 @@
                                                         </div>
                                                     </dl>
 													<!-- ご希望の表紙デザイン -->
-													<dl class="C-form-block C-form-block--cash"
-														style="display: none;"
-														id="pdf_dom-{{ auth()->guard('user')->user()->id }}">
+													<dl class="C-form-block C-form-block--cash" style="display: none;" id="pdf_dom-{{ $user->id }}" >
 														<dt class="C-form-block__title C-form-block__title--req">表紙デザイン</dt>
 														<div style="display: flex; align-items:center;">
 															@foreach(App\Models\AppraisalApply::PDF_TYPE as $k => $v)
-															<label for="pdf_type-{{ $v }}-{{ auth()->guard('user')->user()->id }}" class="@error('pdf_types') is-invalid @enderror" style="display: flex; margin-right:10px;">
+															<label for="pdf_type-{{ $v }}-{{  $user->id }}" class="@error('pdf_types') is-invalid @enderror" style="display: flex; margin-right:10px;">
 																<input type="radio"
-																	name="pdf_type-{{ auth()->guard('user')->user()->id }}"
-																	id="pdf_type-{{ $v }}-{{ auth()->guard('user')->user()->id }}"
+																	name="pdf_type-{{ $user->id }}"
+																		id="pdf_type-{{ $v }}-{{ $user->id }}"
 																	value="{{ $k }}"
 																>
 																<span>{{ $v }}</span>
@@ -180,7 +179,117 @@
 														</div>
 													</dl>
 													<!-- 製本に表示するお名前 -->
-													<dl class="C-form-block C-form-block--name" style="display: none;" id="bookbinding_name_dom-{{ auth()->guard('user')->user()->id }}">
+													<dl class="C-form-block C-form-block--name" style="display: none;" id="bookbinding_name_dom-{{ $user->id }}">
+														<dt class="C-form-block__title C-form-block__title--req">表紙に表示したいお名前をご記入ください</dt>
+														<div style="display: flex;">
+															<p class="C-form-block--password__text" style="width: 170px;">例：Mai Kaibe　/　山田 太郎</p>
+															<p class="Personal-appraisal__notice-text">
+																<a href="{{ route('user.download_images.download_sample_pdf') }}" style="position: relative; top: 0.9rem;font-size: 1.2rem;">
+																	表紙イメージはこちら
+																</a>
+															</p>
+														</div>
+														<dd class="C-form-block__body">
+
+															<div class="C-form-block__field" style="display: flex;">
+																<label for="bookbinding_names1[{{ $user->id }}]" style="width: 50px;">左側</label>
+																@include('components.form.text', [
+																'name' => "bookbinding_names1[$user->id]",
+																'placeholder' => 'Mai　/　山田',
+																// 'value' => $data['bookbinding_names1'] ?? ''
+																])
+															</div>
+															@include('components.form.error', ['name' => 'bookbinding_name1','class' => 'text-danger'])
+														</dd>
+														<dd class="C-form-block__body">
+															<div class="C-form-block__field" style="display: flex;">
+																<label for="bookbinding_names2[{{ $user->id }}]" style="width: 50px;">右側</label>
+																@include('components.form.text', [
+																'name' => "bookbinding_names2[$user->id]",
+																'placeholder' => 'Kaibe　/　太郎',
+																// 'value' => $data['bookbinding_names2'] ?? ''
+																])
+															</div>
+															@include('components.form.error', ['name' => 'bookbinding_name2','class' => 'text-danger'])
+														</dd>
+													</dl>
+													<hr>
+
+												@endif
+
+												{{-- ----------------------個人--------------↑ --}}
+												{{-- ----------------------家族--------------↓ --}}
+                                                @if ($familySolarAppraisals->isNotEmpty())
+													@foreach ($familiesWithAppraisalApplies as $familiesWithAppraisalApply)
+													<div class="C-form-block__checkbox original_checkbox" style="margin-bottom: 20px">
+														<label class="C-form-block__checkbox__item" for="checkbox{{ $familiesWithAppraisalApply->id }}">
+															<input type="checkbox"
+																	name="person_ids[]"
+																	value="{{ $familiesWithAppraisalApply->id }}"
+																	id="checkbox{{ $familiesWithAppraisalApply->id }}"
+																	v-model="selectedPersons"
+																	>
+															<span class="C-form-block__checkbox__text">
+																名前：{{ $familiesWithAppraisalApply->full_name }}	<br>
+																続柄：{{ $familiesWithAppraisalApply->relationship }}<br>
+																出生地：{{ $familiesWithAppraisalApply->birthday_prefectures }}<br>
+																生年月日：{{ $familiesWithAppraisalApply->birthday->format('Y年m月d日') }}<br>
+																出生時間：{{ $familiesWithAppraisalApply->birthday_time->format('H:i') }}<br>
+															</span>
+														</label>
+													</div>
+
+                                                     <!--Choose solar return year -->
+                                                     <dl class="C-form-block C-form-block--cash"
+                                                        style="display: none;"
+                                                        id="solar-appraisal_dom-{{ $familiesWithAppraisalApply->id  }}">
+                                                        <dt class="C-form-block__title C-form-block__title--req">鑑定年を選択してください</dt>
+                                                        <div >
+                                                            <hr>
+                                                            @foreach ( $familySolarAppraisals as $familySolarAppraisal)
+                                                                @php
+                                                                    $solar_return = $familySolarAppraisal->solar_return;
+                                                                    $birthday = $familySolarAppraisal->birthday;
+                                                                    $birthdayDate = \Carbon\Carbon::parse($birthday);
+                                                                    $age = $solar_return - $birthdayDate->year;
+                                                                    if (\Carbon\Carbon::parse($solar_return . '-12-31')->lt($birthdayDate->copy()->year($solar_return))) {
+                                                                        $age--;
+                                                                    }
+                                                                @endphp
+                                                                <label for="appraisal-{{ $familySolarAppraisal->id }}" class="" style="display: flex; margin-right:10px;">
+                                                                    <input type="radio"
+                                                                        name="solar_appraisal_apply_ids[]"
+                                                                        id="appraisal-{{ $familySolarAppraisal->id }}"
+                                                                        value="{{ $familySolarAppraisal->id }}"
+                                                                        v-model="selectedSolarAppraisal"
+                                                                    >
+                                                                    <span>{{ $age }} 歳 {{ $solar_return }} -- {{ $solar_return + 1 }}
+                                                                        @if($familySolarAppraisal->bookbindingUserApplies()->exists()) ( Buyed )
+                                                                        @endif
+                                                                    </span>
+                                                                </label>
+                                                                <hr>
+                                                            @endforeach
+                                                        </div>
+                                                    </dl>
+													<!-- ご希望の表紙デザイン -->
+													<dl class="C-form-block C-form-block--cash" style="display: none;" id="pdf_dom-{{ $familiesWithAppraisalApply->id }}">
+														<dt class="C-form-block__title C-form-block__title--req">表紙デザイン</dt>
+														<div style="display: flex; align-items:center;">
+															@foreach(App\Models\AppraisalApply::PDF_TYPE as $k => $v)
+															<label for="pdf_type-{{ $v }}-{{ $familiesWithAppraisalApply->id }}" class="@error('pdf_types') is-invalid @enderror" style="display: flex; margin-right:10px;">
+																<input type="radio"
+																	name="pdf_type-{{ $familiesWithAppraisalApply->id }}"
+																	id="pdf_type-{{ $v }}-{{ $familiesWithAppraisalApply->id }}"
+																	value="{{ $k }}"
+																>
+																<span>{{ $v }}</span>
+															</label>
+															@endforeach
+														</div>
+													</dl>
+													<!-- 製本に表示するお名前 -->
+													<dl class="C-form-block C-form-block--name" style="display: none;" id="bookbinding_name_dom-{{ $familiesWithAppraisalApply->id }}">
 														<dt class="C-form-block__title C-form-block__title--req">表紙に表示したいお名前をご記入ください</dt>
 														<div style="display: flex;">
 															<p class="C-form-block--password__text" style="width: 170px;">例：Mai Kaibe　/　山田 太郎</p>
@@ -192,32 +301,30 @@
 														</div>
 														<dd class="C-form-block__body">
 															<div class="C-form-block__field" style="display: flex;">
-																<label for="bookbinding_names1[{{ auth()->guard('user')->user()->id }}]" style="width: 50px;">左側</label>
+																<label for="bookbinding_names1[{{ $familiesWithAppraisalApply->id }}]" style="width: 50px;">左側</label>
 																@include('components.form.text', [
-																'name' => "bookbinding_names1[auth()->guard('user')->user()]",
+																'name' => "bookbinding_names1[$familiesWithAppraisalApply->id]",
 																'placeholder' => 'Mai　/　山田',
-																'value' => $data['bookbinding_names1'][auth()->guard('user')->user()] ?? ''
+																// 'value' => $data['bookbinding_names1'] ?? ''
 																])
 															</div>
 															@include('components.form.error', ['name' => 'bookbinding_name1','class' => 'text-danger'])
 														</dd>
 														<dd class="C-form-block__body">
 															<div class="C-form-block__field" style="display: flex;">
-																<label for="bookbinding_names2[{{ auth()->guard('user')->user()->id }}]" style="width: 50px;">右側</label>
+																<label for="bookbinding_names2[{{ $familiesWithAppraisalApply->id }}]" style="width: 50px;">右側</label>
 																@include('components.form.text', [
-																'name' => "bookbinding_names2[auth()->guard('user')->user()->id]",
+																'name' => "bookbinding_names2[$familiesWithAppraisalApply->id]",
 																'placeholder' => 'Kaibe　/　太郎',
-																'value' => $data['bookbinding_names2'][auth()->guard('user')->user()->id] ?? ''
+																// 'value' => $data['bookbinding_names2'] ?? ''
 																])
 															</div>
 															@include('components.form.error', ['name' => 'bookbinding_name2','class' => 'text-danger'])
 														</dd>
 													</dl>
 													<hr>
+													@endforeach
 												@endif
-												{{-- ----------------------個人--------------↑ --}}
-												{{-- ----------------------家族--------------↓ --}}
-
 												{{-- ----------------------家族--------------↑ --}}
 
 											</div>
@@ -361,7 +468,7 @@
 													</div>
 													{{-- <div class="C-form-block__button">適用する</div> --}}
 													<p class="C-form-block--couponno__text"><span>あなたの現在使用可能なポイント ： <strong>{{
-																number_format(auth()->guard('user')->user()->point_sum) }}円</strong></span></p>
+																number_format($user->point_sum) }}円</strong></span></p>
 												</dd>
 											</dl>
 											<dl class="C-form-block-child C-form-block--hasbutton C-form-block--couponcode on" v-else-if="couponType == '2'">
@@ -400,7 +507,7 @@
 												</dl>
 												<dl class="C-price-block">
 													<dt class="C-price-block__title">製本数 ：</dt>
-													<dd class="C-price-block__text">@{{ selectedAppraisals.length }}件</dd>
+													<dd class="C-price-block__text">@{{ selectedPersons.length }}件</dd>
 												</dl>
 												{{-- <dl class="C-price-block">
 													<dt class="C-price-block__title">送料 ：</dt>
@@ -504,23 +611,33 @@ Vue.createApp({
             isCalculating: false,
 						masterCheckbox: false,
 						personalAppraisal: @json($personalSolarAppraisals),
-						familyAppraisals: @json($familySolarAppraisals->values()->all()),
+						personalSolarAppraisals: @json($familySolarAppraisals->values()->all()),
 						bookbindingPrice: @json($bookbinding->price),
-						selectedAppraisals: @json(old('appraisal_apply_ids', $request->appraisal_apply_ids ?? [])),
-                        user: @json(auth()->guard('user')->user()),
+						selectedPersons: @json(old('person_ids', $request->person_ids ?? [])),
+                        user: @json($user),
             // shippingFee: @json(\App\Models\AppraisalClaim::SHIPPING_FEE),
             // totalAmount : @json(intval(old('total_amount', $request->total_amount ?? $bookbinding->price + \App\Models\AppraisalClaim::SHIPPING_FEE))),
             totalAmount : @json(intval(old('total_amount', $request->total_amount ?? 0))),
             discountPrice: @json(intval(old('discount_price', $request->discount_price ?? 0))),
             previouesDiscountPrice: '',
-            point: @json(auth()->guard('user')->user()->point_sum),
-            families: @json(auth()->guard('user')->user()->families()->get()),
+            point: @json($user->point_sum),
+            families: @json($user->families()->get()),
             couponType: @json(old('coupon_type', $request->coupon_type ?? App\Enums\CouponType::BACK_COUPON->value)),
             couponCode: @json(old('coupon_code', $request->coupon_code ?? '')),
-
+            selectedSolarAppraisal: @json(old('solar_appraisal_apply_ids', $request->solar_appraisal_apply_ids ?? [])),
+            familiesWithAppraisalApplies: @json($familiesWithAppraisalApplies->values()->all()),
 		}
 	},
 	methods: {
+        handleAppraisalChange(selectedId) {
+                    this.selectedSolarAppraisal = selectedId;
+                    console.log('Selected Solar Appraisal ID:', this.selectedSolarAppraisal);
+        },
+
+
+        logId(id) {
+            console.log('solar appraisal id:' + id);
+        },
 		dicountTotalPlace(){
 				this.discountPrice = 0;
 				if(this.couponCode === ''){
@@ -539,7 +656,7 @@ Vue.createApp({
 						params: {
 								coupon_code: this.couponCode,
 			request_type: 'bookbinding',
-			user_id: '{{ auth()->guard('user')->user()->id }}',
+			user_id: '{{ $user->id }}',
 						}
 				})
 				.then((response) => {
@@ -569,16 +686,40 @@ Vue.createApp({
 			// 個人のチェックボックス
             if (this.user!== null) {
                 allAppraisalIds.push(this.user.id);
-                console.log(this.user.id);
+                // console.log(this.user.id);
             }
 			// 家族のチェックボックス
-            // if (this.familyAppraisals.length > 0) {
-            //     allAppraisalIds.push(...this.familyAppraisals.map(id => familyAppraisals.id));
+            // if (this.personalSolarAppraisals.length > 0) {
+            //     allAppraisalIds.push(...this.personalSolarAppraisals.map(id => personalSolarAppraisals.id));
             // }
-            // console.log(this.familyAppraisals.id);
+            // console.log(this.personalSolarAppraisals.id);
 
 			return allAppraisalIds;
 		},
+
+        getAllPersonIds(){
+            const allPersonIds = [];
+            if (this.user!== null) {
+                allPersonIds.push(this.user.id);
+            }
+            if (this.familiesWithAppraisalApplies.length > 0) {
+				allPersonIds.push(...this.familiesWithAppraisalApplies.map(appraisal => appraisal.id));
+			}
+
+            return allPersonIds;
+        },
+        getAllSolarAppraisalIds(){
+            const allSolarAppraisalIds = [];
+            if (this.personalAppraisal.length > 0) {
+                allSolarAppraisalIds.push(...this.personalAppraisal.map(id => personalAppraisal.id));
+            }
+            console.log(this.personalAppraisal.id);
+
+             if (this.personalAppraisal.length > 0) {
+                allSolarAppraisalIds.push(...this.personalAppraisal.map(id => personalAppraisal.id));
+            }
+            console.log(this.personalAppraisal.id);
+        },
 	},
 	// 合計金額計算監視
 	watch: {
@@ -617,13 +758,51 @@ Vue.createApp({
                 }
             }
         },
-		selectedAppraisals: function (newVal, oldVal) {
-			if (this.selectedAppraisals.length === 0) {
+		// selectedPersons: function (newVal, oldVal) {
+		// 	if (this.selectedPersons.length === 0) {
+		// 		this.masterCheckbox = false;
+		// 	}
+        //     console.log(this.selectedPersons.length);
+		// 	// selectedPersonsの中にあるものはdisplay: blockにする
+		// 	this.selectedPersons.forEach(id => {
+		// 		let pdfDom = document.getElementById(`pdf_dom-${id}`);
+		// 		let bookbindingNameDom = document.getElementById(`bookbinding_name_dom-${id}`);
+        //         let solarAppraisalDom = document.getElementById(`solar-appraisal_dom-${id}`);
+		// 		pdfDom.style.display = 'block';
+		// 		bookbindingNameDom.style.display = 'block';
+        //         solarAppraisalDom.style.display = 'block';
+		// 	});
+		// 	// totalAmountを計算する
+		// 	this.totalAmount = this.bookbindingPrice * this.selectedPersons.length - this.discountPrice;
+		// 	// クーポンなどは一度リセットする
+		// 	this.discountPrice = '';
+
+		// 	// selectedPersonsの中にないものはdisplay: noneにする
+		// 	let allAppraisalIds = this.getAllAppraisalIds();
+		// 	let notselectedPersons = [];
+		// 	allAppraisalIds.forEach(id => {
+		// 		if (!this.selectedPersons.map(Number).includes(id)) {
+		// 			notselectedPersons.push(id);
+		// 		}
+		// 	});
+		// 	notselectedPersons.forEach(id => {
+		// 		let pdfDom = document.getElementById(`pdf_dom-${id}`);
+		// 		let bookbindingNameDom = document.getElementById(`bookbinding_name_dom-${id}`);
+        //         let solarAppraisalDom = document.getElementById(`solar-appraisal_dom-${id}`);
+
+        //         solarAppraisalDom.style.display = 'none';
+		// 		pdfDom.style.display = 'none';
+		// 		bookbindingNameDom.style.display = 'none';
+		// 	});
+		// },
+
+        selectedPersons: function (newVal, oldVal) {
+			if (this.selectedPersons.length === 0) {
 				this.masterCheckbox = false;
 			}
-
-			// selectedAppraisalsの中にあるものはdisplay: blockにする
-			this.selectedAppraisals.forEach(id => {
+            console.log(this.selectedPersons.length);
+			// selectedPersonsの中にあるものはdisplay: blockにする
+			this.selectedPersons.forEach(id => {
 				let pdfDom = document.getElementById(`pdf_dom-${id}`);
 				let bookbindingNameDom = document.getElementById(`bookbinding_name_dom-${id}`);
                 let solarAppraisalDom = document.getElementById(`solar-appraisal_dom-${id}`);
@@ -632,19 +811,20 @@ Vue.createApp({
                 solarAppraisalDom.style.display = 'block';
 			});
 			// totalAmountを計算する
-			this.totalAmount = this.bookbindingPrice * this.selectedAppraisals.length - this.discountPrice;
+			this.totalAmount = this.bookbindingPrice * this.selectedPersons.length - this.discountPrice;
 			// クーポンなどは一度リセットする
 			this.discountPrice = '';
 
-			// selectedAppraisalsの中にないものはdisplay: noneにする
-			let allAppraisalIds = this.getAllAppraisalIds();
-			let notSelectedAppraisals = [];
-			allAppraisalIds.forEach(id => {
-				if (!this.selectedAppraisals.map(Number).includes(id)) {
-					notSelectedAppraisals.push(id);
+			// selectedPersonsの中にないものはdisplay: noneにする
+			let allAllPersonIds = this.getAllPersonIds();
+            console.log(this.getAllPersonIds());
+			let notselectedPersons = [];
+			allAllPersonIds.forEach(id => {
+				if (!this.selectedPersons.map(Number).includes(id)) {
+					notselectedPersons.push(id);
 				}
 			});
-			notSelectedAppraisals.forEach(id => {
+			notselectedPersons.forEach(id => {
 				let pdfDom = document.getElementById(`pdf_dom-${id}`);
 				let bookbindingNameDom = document.getElementById(`bookbinding_name_dom-${id}`);
                 let solarAppraisalDom = document.getElementById(`solar-appraisal_dom-${id}`);
@@ -654,24 +834,31 @@ Vue.createApp({
 				bookbindingNameDom.style.display = 'none';
 			});
 		},
+
+
+        selectedSolarAppraisal: function (newVal, oldVal) {
+            console.log(this.selectedSolarAppraisal);
+        },
+
+
 		masterCheckbox(newVal) {
 			// マスターチェックボックスが変更されたら、他のチェックボックスも同じ状態にする
 			if (newVal) {
-				this.selectedAppraisals = this.getAllAppraisalIds();
+				this.selectedPersons = this.getAllPersonIds();
 
 				// 全てdisplay: blockにする
-				this.getAllAppraisalIds().forEach(id => {
+				this.getAllPersonIds().forEach(id => {
 					let pdfDom = document.getElementById(`pdf_dom-${id}`);
 					let bookbindingNameDom = document.getElementById(`bookbinding_name_dom-${id}`);
 					pdfDom.style.display = 'block';
 					bookbindingNameDom.style.display = 'block';
 				});
 			} else {
-				this.selectedAppraisals = [];
+				this.selectedPersons = [];
 				this.totalAmount = 0;
 
 				// 全てdisplay: noneにする
-				this.getAllAppraisalIds().forEach(id => {
+				this.getAllPersonIds().forEach(id => {
 					let pdfDom = document.getElementById(`pdf_dom-${id}`);
 					let bookbindingNameDom = document.getElementById(`bookbinding_name_dom-${id}`);
 					pdfDom.style.display = 'none';
@@ -686,8 +873,8 @@ Vue.createApp({
 		},
     },
 	mounted() {
-		// selectedAppraisalsの中にあるものはdisplay: blockにする
-		this.selectedAppraisals.forEach(id => {
+		// selectedPersonsの中にあるものはdisplay: blockにする
+		this.selectedPersons.forEach(id => {
 			let pdfDom = document.getElementById(`pdf_dom-${id}`);
 			let bookbindingNameDom = document.getElementById(`bookbinding_name_dom-${id}`);
             let solarAppraisalDom = document.getElementById(`solar-appraisal_dom-${id}`);

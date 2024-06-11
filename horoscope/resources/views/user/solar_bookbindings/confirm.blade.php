@@ -98,13 +98,13 @@
 											製本の表紙：{{ App\Models\AppraisalApply::PDF_TYPE[$data["pdf_types"][$appraisalApply->id]] }}
 										</p>
 										<p class="C-form-block__body">
-											製本に表示するお名前：{{$data["bookbinding_names1"][$appraisalApply->id]}} {{$data["bookbinding_names2"][$appraisalApply->id]}}
+											製本に表示するお名前：{{$data["bookbinding_names1"][$appraisalApply->reference->id]}} {{$data["bookbinding_names2"][$appraisalApply->reference->id]}}
 										</p>
 										<p class="Personal-appraisal__notice-text">
 										@php
 											$design = $data["pdf_types"][$appraisalApply->id];
-											$name1 = $data["bookbinding_names1"][$appraisalApply->id];
-											$name2 = $data["bookbinding_names2"][$appraisalApply->id];
+											$name1 = $data["bookbinding_names1"][$appraisalApply->reference->id];
+											$name2 = $data["bookbinding_names2"][$appraisalApply->reference->id];
 										@endphp
 											<a href="{{ route('user.download_images.download_solar_cover_pdf', ['design' => $design, 'name1' => $name1, 'name2' => $name2]) }}" style="font-size: 1.2rem;">
 												表紙イメージはこちら
