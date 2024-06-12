@@ -34,8 +34,8 @@
 				<div id="Bookbinding" class="Pageframe-main-content">
 					<!-- ***** セクション名 ***** -->
 					<section class="sec Bookmaking C-form" id="Bookmaking">
-						<h2 class="Pageframe-main__title"><img src="{{ asset('mypage/assets/images/bookmaking/img_title.svg') }}"
-								alt="BOOK MAKING"></h2>
+						<h2 class="Pageframe-main__title"><img src="{{ asset('mypage/assets/images/solar-bookmaking/solar-return-bookmaking-title.png') }}"
+								alt="SOLAR #Bookbinding-appraisalBOOK MAKING"></h2>
 						@if ($personalSolarAppraisals->isNotEmpty() || $familySolarAppraisals->isNotEmpty())
 							<p class="C-form__message">下記フォームの<span class="C-form__message__req">必須項目</span>をご記入の上、ご購入ください。</p>
 							@if (Session::has('flash_alert'))
