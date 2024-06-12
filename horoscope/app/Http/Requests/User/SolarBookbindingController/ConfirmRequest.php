@@ -26,10 +26,10 @@ class ConfirmRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'solar_appraisal_apply_ids' => ['nullable', 'array'],
-            'solar_appraisal_apply_ids.*' => ['nullable', 'integer'],
-            'family_solar_appraisal_apply_ids' => ['nullable', 'array'],
-            'family_solar_appraisal_apply_ids.*' => ['nullable', 'integer'],
+            'solar_appraisal_apply_ids' => ['required', 'array'],
+            'solar_appraisal_apply_ids.*' => ['required', 'integer'],
+            'family_solar_appraisal_apply_ids' => ['required', 'array'],
+            'family_solar_appraisal_apply_ids.*' => ['required', 'integer'],
             'person_ids' => ['required', 'array'],
             'person_ids.*' => ['required', 'integer'],
             'zip' => ['regex:/\A\d{7}\z/'],
@@ -54,12 +54,12 @@ class ConfirmRequest extends FormRequest
     public function withValidator(Validator $validator): void
     {
         $data = $this->all();
-        // dd($data);
-        if (empty($data['solar_appraisal_apply_ids']) ){
+        // dd(!isset($data['solar_appraisal_apply_ids']));
+        if (!isset($data['solar_appraisal_apply_ids']) ){
             $validator->errors()->add('personal_solar_appraisal_apply_ids', '鑑定を選択してください');
             return;
         }
-        if ( empty($data['family_solar_appraisal_apply_ids'])) {
+        if (!isset($data['family_solar_appraisal_apply_ids'])) {
             $validator->errors()->add('family_solar_appraisal_apply_ids', '鑑定を選択してくださいFamily');
             return;
         }
@@ -95,10 +95,13 @@ class ConfirmRequest extends FormRequest
         $bookbindingNames2Result = true;
         $user = auth()->guard('user')->user();
         $familiesWithAppraisalApplies = $user->familiesWithAppraisalApplies();
-        if (empty($data['pdf_types'][$appraisalApply->id])) {
-                    $pdfResult = false;
-        }
 
+        foreach(  $data['select_appraisal_applies']  as $appraisalApply){
+            dd($data['pdf_types'][$appraisalApply->id]);
+            if (empty($data['pdf_types'][$appraisalApply->id])) {
+                        $pdfResult = false;
+            }
+        }
         if ($data['bookbinding_names1'][$user->id] === null) {
             $bookbindingNames1Result = false;
         }
@@ -115,7 +118,6 @@ class ConfirmRequest extends FormRequest
                 }
             }
         }
-        dd($pdfResult);
         $validator->after(static function ($validator) use ($pdfResult, $bookbindingNames1Result, $bookbindingNames2Result) {
             if ($pdfResult === false) {
                 $validator->errors()->add('solar_pdf_types', '表紙デザインを選択してください');

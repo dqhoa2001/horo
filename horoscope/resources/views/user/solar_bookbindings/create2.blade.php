@@ -67,6 +67,8 @@
 
 							@include('components.form.error', ['name' => 'solar_pdf_types','class' => 'text-danger'])
 							@include('components.form.error', ['name' => 'solar_bookbinding_names','class' => 'text-danger'])
+                            @include('components.form.error', ['name' => 'personal_solar_appraisal_apply_ids','class' => 'text-danger'])
+							@include('components.form.error', ['name' => 'family_solar_appraisal_apply_ids','class' => 'text-danger'])
 
 							<form id="payment-form" method="POST" action="{{ route('user.solar_bookbindings.confirm') }}">
 								@csrf
@@ -561,7 +563,7 @@
 										<div class="C-form-policy-block">
 											<div class="C-form-block__checkbox">
 												<label class="C-form-block__checkbox__item">
-													<input type="checkbox" required>
+													<input type="checkbox" >
 													<span class="C-form-block__checkbox__text"><a href="https://hoshinomai.jp/terms-of-use/" target="_blank">利用規約</a>を確認しました。</span>
 												</label>
 											</div>
@@ -569,7 +571,7 @@
 										<div class="C-form-policy-block">
 											<div class="C-form-block__checkbox">
 												<label class="C-form-block__checkbox__item">
-													<input type="checkbox" required>
+													<input type="checkbox" >
 													<span class="C-form-block__checkbox__text"><a href="https://hoshinomai.jp/privacy"
 															target="_blank">個人情報保護方針</a>を確認しました。</span>
 												</label>

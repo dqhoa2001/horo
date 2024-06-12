@@ -206,6 +206,8 @@ return [
         'is_design' => '表紙の種類',
         'bookbinding_name1' => '表紙に表示したいお名前（姓）',
         'bookbinding_name2' => '表紙に表示したいお名前（名）',
+        'family_solar_appraisal_apply_ids' => '予約したい太陽光発電利益年を選択してください',
+        'solar_appraisal_apply_ids' => '予約したい太陽光発電利益年を選択してください',
     ],
 
 ];
