@@ -186,7 +186,7 @@ class SolarBookbindingController extends Controller
                     //製本の申し込み処理
                     $bulkBindingCount = \count($solarAppraisalApplies);
                     // dd($bulkBindingCount);
-                    $bookbindingUserSolarApply = BookbindingUserApplyService::createForBookbinding($request, $solarAppraisalApply, $bulkBindingKey, $bulkBindingCount);
+                    $bookbindingUserSolarApply = BookbindingUserApplyService::createForSolarBookbinding($request, $solarAppraisalApply, $bulkBindingKey, $bulkBindingCount);
                     // dd($bookbindingUserSolarApply);
                     $contentType = AppraisalClaim::BOOKING;
 

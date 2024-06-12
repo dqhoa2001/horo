@@ -58,6 +58,27 @@ class BookbindingUserApplyService
             'bulk_binding_count' => $bulkBindingCount,
             'post_number'        => $request->zip,
             'pref_num'           => $request->pref_num,
+            'bookbinding_name1'   => $request->bookbinding_names1[$appraisalApply->id],
+            'bookbinding_name2'   => $request->bookbinding_names2[$appraisalApply->id],
+            'address'            => $request->address,
+            'building'           => $request->building,
+            'name'               => $request->building_name,
+            'tel'                => $request->tel,
+            'is_design'          => $request->pdf_types[$appraisalApply->id],
+        ]);
+
+        return $bookbindingUserApply;
+    }
+
+
+    public static function createForSolarBookbinding(Request $request, AppraisalApply $appraisalApply, ?string $bulkBindingKey = null, ?int $bulkBindingCount = null): BookbindingUserApply
+    {
+        $bookbindingUserApply = BookbindingUserApply::create([
+            'appraisal_apply_id' => $appraisalApply->id,
+            'bulk_binding_key'   => $bulkBindingKey,
+            'bulk_binding_count' => $bulkBindingCount,
+            'post_number'        => $request->zip,
+            'pref_num'           => $request->pref_num,
             'bookbinding_name1'   => $request->bookbinding_names1[$appraisalApply->reference->id],
             'bookbinding_name2'   => $request->bookbinding_names2[$appraisalApply->reference->id],
             'address'            => $request->address,
