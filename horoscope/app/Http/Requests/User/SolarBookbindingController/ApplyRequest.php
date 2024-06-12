@@ -24,8 +24,8 @@ class ApplyRequest extends FormRequest
     public function rules()
     {
         return [
-            'solar_appraisal_apply_ids' => ['required', 'array'],
-            'solar_appraisal_apply_ids.*' => ['required', 'integer'],
+            'select_appraisal_applies_id' => ['required', 'array'],
+            'select_appraisal_applies_id.*' => ['required', 'integer'],
             'pdf_types' => ['required', 'array'],
             'bookbinding_names1' => ['required', 'array'],
             'bookbinding_names1.*' => ['nullable', 'string', 'max:255'],

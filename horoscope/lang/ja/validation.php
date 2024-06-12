@@ -156,6 +156,10 @@ return [
         'solar_appraisal_apply_ids' => [
             'required' => '製本したい方を最低1人は選択してください',
         ],
+
+        'person_ids' => [
+            'required' => '製本したい方を最低1人は選択してください',
+        ]
     ],
 
     /*

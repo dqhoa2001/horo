@@ -65,8 +65,8 @@
 								</dd>
 							</dl>
 
-							@include('components.form.error', ['name' => 'pdf_types','class' => 'text-danger'])
-							@include('components.form.error', ['name' => 'bookbinding_names','class' => 'text-danger'])
+							@include('components.form.error', ['name' => 'solar_pdf_types','class' => 'text-danger'])
+							@include('components.form.error', ['name' => 'solar_bookbinding_names','class' => 'text-danger'])
 
 							<form id="payment-form" method="POST" action="{{ route('user.solar_bookbindings.confirm') }}">
 								@csrf
@@ -151,7 +151,6 @@
                                                                         id="appraisal-{{ $personalSolarAppraisal->id }}"
                                                                         value="{{ $personalSolarAppraisal->id }}"
                                                                         v-model="selectedSolarAppraisal"
-                                                                        @onchange="handleAppraisalChange()"
                                                                     >
                                                                     <span>{{ $age }} 歳 {{ $solar_return }} -- {{ $solar_return + 1 }}
                                                                         @if($personalSolarAppraisal->bookbindingUserApplies()->exists()) ( Buyed )
@@ -258,10 +257,9 @@
                                                                 @endphp
                                                                 <label for="appraisal-{{ $familySolarAppraisal->id }}" class="" style="display: flex; margin-right:10px;">
                                                                     <input type="radio"
-                                                                        name="solar_appraisal_apply_ids[]"
+                                                                        name="family_solar_appraisal_apply_ids[]"
                                                                         id="appraisal-{{ $familySolarAppraisal->id }}"
                                                                         value="{{ $familySolarAppraisal->id }}"
-                                                                        v-model="selectedSolarAppraisal"
                                                                     >
                                                                     <span>{{ $age }} 歳 {{ $solar_return }} -- {{ $solar_return + 1 }}
                                                                         @if($familySolarAppraisal->bookbindingUserApplies()->exists()) ( Buyed )

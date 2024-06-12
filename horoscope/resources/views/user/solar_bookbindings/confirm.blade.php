@@ -48,17 +48,17 @@
 						<form method="POST" action="{{ route('user.solar_bookbindings.apply') }}" id="bookbindings-confirm-form">
 							@csrf
 
-							@foreach($data['solar_appraisal_apply_ids'] as $solar_appraisal_apply_id)
-								<input type="hidden" name="solar_appraisal_apply_ids[]" value="{{ $solar_appraisal_apply_id }}">
+							@foreach($data['select_appraisal_applies_id'] as $solar_appraisal_apply_id)
+								<input type="hidden" name="select_appraisal_applies_id[]" value="{{ $solar_appraisal_apply_id }}">
 							@endforeach
 							@foreach($data['pdf_types'] as $appraisalId => $pdfType)
 								<input type="hidden" name="pdf_types[{{ $appraisalId }}]" value="{{ $pdfType }}">
 							@endforeach
-							@foreach($data['bookbinding_names1'] as $appraisalId => $bookbindingName1)
-								<input type="hidden" name="bookbinding_names1[{{ $appraisalId }}]" value="{{ $bookbindingName1 }}">
+							@foreach($data['bookbinding_names1'] as $personId => $bookbindingName1)
+								<input type="hidden" name="bookbinding_names1[{{ $personId }}]" value="{{ $bookbindingName1 }}">
 							@endforeach
-							@foreach($data['bookbinding_names2'] as $appraisalId => $bookbindingName2)
-								<input type="hidden" name="bookbinding_names2[{{ $appraisalId }}]" value="{{ $bookbindingName2 }}">
+							@foreach($data['bookbinding_names2'] as $personId => $bookbindingName2)
+								<input type="hidden" name="bookbinding_names2[{{ $personId }}]" value="{{ $bookbindingName2 }}">
 							@endforeach
 
 							{{-- <input type="hidden" name="bookbinding_name1" value="{{ $data['bookbinding_name1'] }}">
@@ -231,7 +231,7 @@
 								<span>製本申し込み</span>
 							</button> --}}
 							<button type="button" @click="submitForm" :disabled="isLoading" class="Button Button--lightblue"><span>製本申し込み</span></button>
-							<button type="submit" formaction="{{ route('user.bookbindings.back') }}" formmethod="POST" class="previous-btn">
+							<button type="submit" formaction="{{ route('user.solar_bookbindings.back') }}" formmethod="POST" class="previous-btn">
 								<span>入力内容を修正する</span>
 							</button>
 						</form>

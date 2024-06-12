@@ -82,29 +82,33 @@ class SolarBookbindingController extends Controller
         if((int) $data['discount_price'] === 0 && (int) $data['total_amount'] === 0 && !\array_key_exists('coupon_code', $data) || (int) $data['discount_price'] === 0 && (int) $data['total_amount'] === 0 && $data['coupon_code'] === null) {
             return redirect()->route('user.bookbindings.create')->withInput()->with('priceError', true);
         }
+        $data['select_appraisal_applies_id'] =[];
+        //get appraisal apply id
+        if(isset( $data['solar_appraisal_apply_ids'])){
+            $data['select_appraisal_applies_id'] = array_merge($data['select_appraisal_applies_id'], $data['solar_appraisal_apply_ids']);
+        }
+        if(isset(  $data['family_solar_appraisal_apply_ids'])){
+            $data['select_appraisal_applies_id'] = array_merge($data['select_appraisal_applies_id'], $data['family_solar_appraisal_apply_ids']);
+        }
+        $data['select_appraisal_applies'] = AppraisalApply::whereIn('id',$data['select_appraisal_applies_id'])->get();
 
-        $data['select_appraisal_applies'] = AppraisalApply::whereIn('id', $data['solar_appraisal_apply_ids'])->get();
-        //  dd(  $data['select_appraisal_applies']);
         // $data['select_appraisal_applies']の順番を$data['appraisal_apply_ids']の順番に並び替え
         $data['select_appraisal_applies'] = $data['select_appraisal_applies']->sortBy(static function ($solarAppraisalApply) use ($data) {
-            return array_search($solarAppraisalApply->id, $data['solar_appraisal_apply_ids'], true);
+            return array_search($solarAppraisalApply->id,  $data['select_appraisal_applies_id'], true);
         });
-    //  dd(   $data['select_appraisal_applies']);
         $data['pdf_types'] = [];
         foreach ($data['select_appraisal_applies'] as $appraisalApply) {
             // $dataの中の「pdf_type-*」の*の値が$appraisalApplyのidと一致するものを取得
-            // dd($appraisalApply);
             foreach ($data as $key => $value) {
                 if (strpos($key, 'pdf_type-') !== false) {
                     $id = str_replace('pdf_type-', '', $key);
-                    // dd($id);
-                    if ((int) $id === $user->id) {
+                    if ((int) $id === $appraisalApply->reference->id) {
                         $data['pdf_types'][$appraisalApply->id] = $value;
                     }
                 }
             }
         }
-        // dd( $data['pdf_types']);
+        // dd( $data);
         //合計金額をセッションに保存
         $request->session()->put('discount_price', $data['discount_price']);
         //割引金額をセッションに保存
@@ -120,16 +124,16 @@ class SolarBookbindingController extends Controller
     public function back(Request $request): RedirectResponse
     {
         // dd($request->solar_appraisal_apply_id);
-        $solarAppraisalApply = AppraisalApply::where('id', $request->solar_appraisal_apply_id)->first();
+        $solarAppraisalApply = AppraisalApply::where('id', $request->select_appraisal_applies_id)->first();
         return to_route('user.solar_bookbindings.create', $solarAppraisalApply)->withInput();
     }
 
     // 製本申し込み処理
     public function apply(ApplyRequest $request): RedirectResponse
     {
-        // dd($request->all());
+        //  dd($request->all());
         $user = auth()->guard('user')->user();
-        $solarAppraisalApplies = AppraisalApply::whereIn('id', $request->solar_appraisal_apply_ids)->get();
+        $solarAppraisalApplies = AppraisalApply::whereIn('id', $request->select_appraisal_applies_id)->get();
         // dd($solarAppraisalApplies);
         \DB::beginTransaction();
         Stripe::setApiKey(config('services.stripe.secret'));
