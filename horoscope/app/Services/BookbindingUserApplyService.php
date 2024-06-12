@@ -28,7 +28,7 @@ class BookbindingUserApplyService
         protected SabianPatternRepository $sabianPatternRepository,
         protected ZodiacPatternRepository $zodiacPatternRepository,
     ) {}
-    
+
     //個人鑑定の登録処理
     public static function create(Request $request, AppraisalApply $appraisalApply, ?string $bulkBindingKey = null): BookbindingUserApply
     {
@@ -58,8 +58,8 @@ class BookbindingUserApplyService
             'bulk_binding_count' => $bulkBindingCount,
             'post_number'        => $request->zip,
             'pref_num'           => $request->pref_num,
-            'bookbinding_name1'   => $request->bookbinding_names1[$appraisalApply->id],
-            'bookbinding_name2'   => $request->bookbinding_names2[$appraisalApply->id],
+            'bookbinding_name1'   => $request->bookbinding_names1[$appraisalApply->reference->id],
+            'bookbinding_name2'   => $request->bookbinding_names2[$appraisalApply->reference->id],
             'address'            => $request->address,
             'building'           => $request->building,
             'name'               => $request->building_name,
@@ -92,7 +92,7 @@ class BookbindingUserApplyService
         $name02 = ' ';
         $tel = $bookbindingUserApply->tel;
         $email = $bookbindingUserApply->appraisalClaim->user->email;
-        
+
         $mode = ToggleTestShipping::first()->is_test_mode;
         $arrData = [
             "testmode" => $mode, // 0：本番 1：テスト
@@ -144,7 +144,7 @@ class BookbindingUserApplyService
         ];
 
         $url = "https://www.seichoku.com/user_data/setDraft.php"; //API Type4用の送信先URL
-        
+
         \Log::info('curlコマンド実行', ['arrData' => $arrData]);
         $json_data = json_encode($arrData);
         $encode_json = base64_encode($json_data);
@@ -156,7 +156,7 @@ class BookbindingUserApplyService
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
         $response = curl_exec($ch);
         curl_close($ch);
-        
+
         // レスポンス確認用
         // ここでのレスポンスは“受付レスポンス”であり“入稿結果レスポンス”ではありません。
         $objResponseJson = json_decode(base64_decode($response, true));
@@ -166,7 +166,7 @@ class BookbindingUserApplyService
 
     // 一括での製本直送APIの送信処理
     public static function bulkShippingBook(array $bulkShippingFileData, array $shippingData): string
-    {   
+    {
         // addressに含まれている都道府県名を除去する（製本apiの送り状で都道府県名が重複するため）
         $address = $shippingData['addr01'];
         $prefName = '';
@@ -177,7 +177,7 @@ class BookbindingUserApplyService
             }
         }
         $addr01 = str_replace($prefName, '', $address);
-        
+
         $listParam = [];
         foreach ($bulkShippingFileData as $fileData) {
             $listParam[] = [
@@ -221,9 +221,9 @@ class BookbindingUserApplyService
             'email' => $shippingData['email'], // 受取人連絡用email
             "list" => $listParam,
         ];
-        
+
         $url = "https://www.seichoku.com/user_data/setDraft.php"; //API Type4用の送信先URL
-        
+
         $json_data = json_encode($arrData);
         $encode_json = base64_encode($json_data);
         $postdata = ["param" => $encode_json];
@@ -234,7 +234,7 @@ class BookbindingUserApplyService
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
         $response = curl_exec($ch);
         curl_close($ch);
-        
+
         // レスポンス確認用
         // ここでのレスポンスは“受付レスポンス”であり“入稿結果レスポンス”ではありません。
         $objResponseJson = json_decode(base64_decode($response, true));
