@@ -54,6 +54,7 @@ class ConfirmRequest extends FormRequest
     public function withValidator(Validator $validator): void
     {
         $data = $this->all();
+        //vaidate checkbox choose person
         $data['select_person'] = AppraisalApply::whereIn('reference_id', $data['person_ids'])->get();
         if (empty($data['person_ids'])) {
             $validator->errors()->add('person_ids', 'レビューブックを印刷したい人を選択してください');
@@ -66,33 +67,23 @@ class ConfirmRequest extends FormRequest
         if(isset($data['family_solar_appraisal_apply_ids'])){
             $selectedAppraisalId = array_merge($selectedAppraisalId, $data['family_solar_appraisal_apply_ids']);
         }
-        // $selectedAppraisalId = array_merge($data['solar_appraisal_apply_ids'], $data['family_solar_appraisal_apply_ids']);
-        // dd( $selectedAppraisalId);
         $data['select_appraisal_applies'] = AppraisalApply::whereIn('id',$selectedAppraisalId)->get();
-        // dd(   $data['select_appraisal_applies'] );
-
         $data['pdf_types'] = [];
         foreach ($data['select_appraisal_applies'] as $appraisalApply) {
-            // dd($appraisalApply);
             foreach ($data as $key => $value) {
                     if (strpos($key, 'pdf_type-') !== false) {
                         $id = str_replace('pdf_type-', '', $key);
                         if ((int) $id === $appraisalApply->reference->id ) {
                             $data['pdf_types'][$appraisalApply->id] = $value;
                         }
-                    //   dd(  $data['pdf_types'][$appraisalApply->id]);
                     }
             }
         }
-        // dd($data['select_appraisal_applies']);
-
         // バリデーション
         $pdfResult = true;
         $bookbindingNames1Result = true;
         $bookbindingNames2Result = true;
         $chooseAppraisalResult = true;
-        $user = auth()->guard('user')->user();
-        $familiesWithAppraisalApplies = $user->familiesWithAppraisalApplies();
 
         foreach(  $data['select_appraisal_applies']  as $appraisalApply){
             if (($data['pdf_types'][$appraisalApply->id]) === null) {
