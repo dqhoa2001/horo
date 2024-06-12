@@ -24,7 +24,7 @@
                         </p>
                         <p class="C-form-block--text">内容をご確認の上、申し込みボタンを押して進めてください。</p>
 
-                        <form method="POST" action="{{ route('user.check_payment_solar.apply') }}" id="Personal-appraisal-form">
+                        <form method="POST" action="{{ route('user.solar_appraisals.apply') }}" id="Personal-appraisal-form">
                             @csrf
                             <input type="hidden" name="target_type" value="{{ $data['target_type'] }}">
                             <input type="hidden" name="name1" value="{{ $data['name1'] }}">
@@ -297,7 +297,7 @@
                                 </dl>
                             </div>
                             <button type="button" @click="submitForm" :disabled="isLoading" class="Button Button--lightblue"><span>申し込み</span></button>
-                            <button type="submit" formaction="{{ route('user.check_payment_solar.back') }}" formmethod="POST" class="previous-btn previous-btn-left">
+                            <button type="submit" formaction="{{ route('user.solar_appraisals.back') }}" formmethod="POST" class="previous-btn previous-btn-left">
                                 <span>入力内容を修正する</span>
                             </button>
                         </form>
