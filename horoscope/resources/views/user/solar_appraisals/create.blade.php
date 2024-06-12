@@ -77,7 +77,7 @@
                                                                 </option>
                                                                 @foreach ( auth()->guard('user')->user()->families()->get() as $family)
                                                                     <option value="{{ $family->id }}" {{ old('family_id', $request->family_id ?? '') == $family->id ? 'selected' : '' }}>
-                                                                        {{ $family->name1 }} {{ $family->name2 }}（{{ $family->relationship }}
+                                                                        {{ $family->name1 }} {{ $family->name2 }}（{{ $family->relationship }})
                                                                     </option>
                                                                 @endforeach
                                                             </select>

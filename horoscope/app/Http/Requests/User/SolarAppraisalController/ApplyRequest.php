@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Requests\User\OfferAppraisalController;
+namespace App\Http\Requests\User\SolarAppraisalController;
 
 use App\Enums\TargetType;
 use App\Models\AppraisalApply;
+use App\Models\SolarApply;
 use App\Rules\ValidBirthDate;
 use Illuminate\Validation\Rule;
 use Modules\Horoscope\Rules\TimeZoneValid;
@@ -26,17 +27,21 @@ class ApplyRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            'name1' => ['required', 'string', 'max:255'],
-            'name2' => ['required', 'string', 'max:255'],
-            'family_id' => ['required', 'string', 'max:255'],
+            'family_id' => [
+                Rule::requiredIf($this->input('target_type') === TargetType::FAMILY),
+                'string',
+                'max:255',
+                'not_in:選択してください',
+            ],
+            'name1' => ['string', 'max:255', Rule::requiredIf($this->input('target_type') === TargetType::FAMILY)],
+            'name2' => ['string', 'max:255', Rule::requiredIf($this->input('target_type') === TargetType::FAMILY)],
             'target_type' => ['required'],
             'relationship' => ['string', 'max:255', Rule::requiredIf($this->input('target_type') === TargetType::FAMILY)],
-            'family_name1' => ['string', 'max:255', Rule::requiredIf($this->input('target_type') === TargetType::FAMILY)],
-            'family_name2' => ['string', 'max:255', Rule::requiredIf($this->input('target_type') === TargetType::FAMILY)],
-            'birthday' => ['date', new ValidBirthDate()],
+            'birthday' => ['date'],
+            'solar_return' =>['nullable'],
             'birthday_time' => ['date_format:H:i'], // 24時間形式の時間を想定
             'birth_place1' => ['string', 'max:255'],
             'longitude' => ['required', 'numeric', 'between:-179.99,179.99'],
@@ -44,12 +49,10 @@ class ApplyRequest extends FormRequest
             'timezone' => ['required', new TimeZoneValid($this->all())],
             'is_bookbinding' => ['required', 'boolean'],
             'zip' => ['regex:/\A\d{7}\z/', Rule::requiredIf($this->input('is_bookbinding') === AppraisalApply::BOOK_ENABLED)], // 3桁-4桁の郵便番号形式を想定
-            'bookbinding_name' => ['string', 'max:255', Rule::requiredIf($this->input('is_bookbinding') === AppraisalApply::BOOK_ENABLED)], // 製本の名前
             'address' => ['string', 'max:255', 'exclude_special_chars', 'is_japan_address', Rule::requiredIf($this->input('is_bookbinding') === AppraisalApply::BOOK_ENABLED)],
             'building' => ['nullable', 'string', 'max:255', 'exclude_special_chars'],
             'building_name' => ['string', 'max:255', 'exclude_special_chars', Rule::requiredIf($this->input('is_bookbinding') === AppraisalApply::BOOK_ENABLED)],
             'tel' => ['custom_phone', Rule::requiredIf($this->input('is_bookbinding') === AppraisalApply::BOOK_ENABLED)], // 日本の電話番号形式を想定
-            'is_design' => ['nullable', 'integer', Rule::requiredIf($this->input('is_bookbinding') === AppraisalApply::BOOK_ENABLED)],
             'payment_type' => ['required'],
             'coupon_code' => ['nullable', 'string', 'max:255'],
             // 'stripeToken' => ['required', 'string'],
@@ -75,6 +78,6 @@ class ApplyRequest extends FormRequest
     //リダイレクト先を変更
     protected function getRedirectUrl()
     {
-        return route('user.solar_appraisals.create');
+        return route('user.check_payment_solar.create');
     }
 }
