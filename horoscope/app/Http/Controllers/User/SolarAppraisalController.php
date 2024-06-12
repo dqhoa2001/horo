@@ -152,7 +152,7 @@ class SolarAppraisalController extends Controller
     // 入力修正へのリダイレクト
     public function back(): RedirectResponse
     {
-        return redirect()->route('user.check_payment_solar.create')->withInput();
+        return redirect()->route('user.solar_appraisals.create')->withInput();
     }
 
     // 申し込み処理
