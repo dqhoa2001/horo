@@ -159,9 +159,6 @@ Route::middleware(['auth:user', 'verified'])->group(static function () {
     Route::resource('families', FamilyController::class)->except(['edit']);
     Route::get('families/edit/{family}', [FamilyController::class, 'edit'])->middleware('can:view,family')->name('families.edit');
     Route::get('families/{family}/{solar_apply}', [FamilyController::class, 'show'])->name('families.show');
-    //家族のホロスコープ
-    Route::resource('families_solar', FamilySolarHoroscopeController::class)->except(['edit']);
-    Route::get('families_solar/{family}/edit', [FamilySolarHoroscopeController::class, 'edit'])->middleware('can:view,family')->name('families_solar.edit');
     //MyHoroscope
     Route::controller(MyHoroscopeController::class)->prefix('my_horoscopes')->name('my_horoscopes.')->group(static function () {
         Route::get('create', 'create')->name('create');
@@ -189,13 +186,19 @@ Route::middleware(['auth:user', 'verified'])->group(static function () {
 
     //MySolarHoroscopeAppraisal
     Route::controller(SolarAppraisalController::class)->prefix('solar_appraisals')->name('solar_appraisals.')->group(static function () {
+        //鑑定作成画面
+        Route::get('create', 'create')->name('create');
+        //鑑定確認画面
+        Route::post('confirm', 'confirm')->name('confirm');
+        //鑑定登録処理
+        Route::post('apply', 'apply')->name('apply');
+        Route::post('back', 'back')->name('back');
+        Route::get('complete/{solarApply}', 'complete')->name('complete');
         // 個人鑑定
         Route::get('', 'index')->name('index');
         Route::get('/user/solar_appraisals/{id}', [SolarAppraisalController::class, 'index'])->name('user.solar_appraisals.index');
         // 個人鑑定の詳細
         Route::get('{solar_apply}', 'show')->name('show');
-        // Route::get('{appraisal_apply}', 'show')->name('show')->middleware('can:viewClaim,appraisal_apply', 'can:viewAppraisalApply,appraisal_apply');
-        Route::get('{solarApply}/get-data/{solarDate}', [SolarAppraisalController::class, 'getSolarData']);
     });
 
     //家族鑑定

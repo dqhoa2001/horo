@@ -94,7 +94,13 @@ class AppServiceProvider extends ServiceProvider
             // google map apiで国を取得
             $country = '';
             $url = "https://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($value) . "&key=" . config('app.google_map_api_key');
-            $json = file_get_contents($url);
+            try {
+                $json = file_get_contents($url);
+            } catch (\Exception $e) {
+                \Log::error('Error fetching data from Google Maps API: ' . $e->getMessage());
+                return false;
+            }
+
             $obj = json_decode($json, true);
             if ($obj['status'] === 'OK') {
                 foreach ($obj['results'][0]['address_components'] as $addressComponent) {
