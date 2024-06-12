@@ -78,6 +78,6 @@ class ApplyRequest extends FormRequest
     //リダイレクト先を変更
     protected function getRedirectUrl()
     {
-        return route('user.check_payment_solar.create');
+        return route('user.solar_appraisals.create');
     }
 }

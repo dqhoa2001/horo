@@ -8,7 +8,7 @@
         私の
     @endif
     @if(isset($solarApply))
-        @if($solarApply->reference_type === Family::class)
+        @if($solarApply->reference_type === "App\Models\Family")
         家族の太陽回帰鑑定 結果
         @else
         SOLAR RETURN鑑定結果
