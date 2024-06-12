@@ -67,8 +67,7 @@
 
 							@include('components.form.error', ['name' => 'solar_pdf_types','class' => 'text-danger'])
 							@include('components.form.error', ['name' => 'solar_bookbinding_names','class' => 'text-danger'])
-                            @include('components.form.error', ['name' => 'personal_solar_appraisal_apply_ids','class' => 'text-danger'])
-							@include('components.form.error', ['name' => 'family_solar_appraisal_apply_ids','class' => 'text-danger'])
+                            @include('components.form.error', ['name' => 'choose_solar_appraisal_apply_ids','class' => 'text-danger'])
 
 							<form id="payment-form" method="POST" action="{{ route('user.solar_bookbindings.confirm') }}">
 								@csrf
