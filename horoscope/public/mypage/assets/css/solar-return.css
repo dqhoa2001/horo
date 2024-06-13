@@ -28,9 +28,9 @@
 .Pageframe-main__title::after{
     width: 9rem;
     height: 13rem;
-    left: 40rem;
+    /* left: 40rem; */
     top: -2.5rem;
-    background-image: url(../images/solar-return/icon_title.svg);
+    background-image: url(../images/solar-return/icon_solar_hand.svg);
 }
 .result.Pageframe-main__title::after{
     width: 9rem;
@@ -116,7 +116,7 @@
 
 /*----- セレクト */
 .C-form-block__select01{
-    width: 100%;
+    width: 50%;
     height: 4.8rem;
     font-size: 1.4rem;
     border: 1px solid rgba(204,206,213,.35);
@@ -457,19 +457,15 @@
         font-size: 1.4rem !important;
     }
 }
-@media screen and (max-width:590) , print{
-
-}
 @media screen and (max-width:500px) , print{
 
     .Pageframe-main__title{
         max-width: 27rem;
     }
     .Pageframe-main__title::after{
-        width: 6.6rem;
-        height: 9.6rem;
-        right: -6.5rem;
-        top: 0;
+        width: 8.6rem;
+        height: 10.6rem;
+        margin: 1rem 4rem 0 0;
     }
 
     .Pageframe-main__title.result {
@@ -527,6 +523,11 @@
 }
 @media screen and (max-width:1128px) , print{
 
+}
+@media screen and (max-width:900px) , print{
+    .C-form-block__select01{
+        width: 100%;
+    }
 }
 @media screen and (max-width:730) , print{
 
@@ -627,7 +628,7 @@
         width: 100%;
     }
     .Pageframe-main__title img {
-        width: 100%;
+        width: 20rem;
     }
 
     .banner{

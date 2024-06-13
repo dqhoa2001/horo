@@ -174,6 +174,8 @@
                                                     </div>
                                                     <p>
                                                         @include('components.form.error', ['name' => 'birth_day', 'class' => 'text-danger'])
+                                                        @include('components.form.error', ['name' => 'select_month', 'class' => 'text-danger'])
+                                                        @include('components.form.error', ['name' => 'select_year', 'class' => 'text-danger'])
                                                     </p>
                                                 </div>
                                                 {{-- <p class="C-form-block--password__text">スマートフォンをご利用の方は、カレンダー左上の「年」をタップ頂ければ、生まれ年をご選択頂けます</p> --}}
