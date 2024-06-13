@@ -125,6 +125,11 @@
     transition: .3s all ease-in-out;
     position: relative;
     cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: box-shadow 0.3s ease;
+}
+.C-form-block__select01-w{
+    width: 100%;
 }
 .C-form-block__select01::after{
     width: 0;
@@ -144,6 +149,14 @@
     padding: 1rem 2rem;
     color: rgba(57,56,93,.7);
     cursor: pointer;
+}
+.C-form-block__select01 select:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    border-radius: 1.6rem;
+}
+.C-form-block__select01 select:focus {
+    outline: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
   /*----- セレクト */
