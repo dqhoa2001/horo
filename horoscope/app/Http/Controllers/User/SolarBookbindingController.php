@@ -197,11 +197,11 @@ class SolarBookbindingController extends Controller
             foreach ($solarAppraisalApplies as $solarAppraisalApply) {
                 //製本の申し込み処理
                 $bulkBindingCount = \count($solarAppraisalApplies);
-                $bookbindingUserSolarApply = BookbindingUserSolarApplyService::createForBookbinding($request, $solarAppraisalApply, $bulkBindingKey, $bulkBindingCount);
-                $contentType = SolarClaim::BOOKING;
+                $bookbindingUserSolarApply = BookbindingUserApplyService::createForSolarBookbinding($request, $solarAppraisalApply, $bulkBindingKey, $bulkBindingCount);
+                $contentType = AppraisalClaim::SOLAR;
 
                 // 請求データ作成
-                $solarAppraisalClaim = SolarClaimService::createForBank(auth()->guard('user')->user()->id, $request, $solarAppraisalApply, $bookbindingUserSolarApply->id, $contentType);
+                $solarAppraisalClaim = AppraisalClaimService::createForBank(auth()->guard('user')->user()->id, $request, $solarAppraisalApply, $bookbindingUserSolarApply->id, $contentType);
 
                 // 最後の申し込みの場合、メール送信
                 if ($solarAppraisalApply->id === $solarAppraisalApplies->last()->id) {
