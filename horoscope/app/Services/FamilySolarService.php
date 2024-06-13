@@ -95,15 +95,11 @@ class FamilySolarService
     public static function updateOrCreate(Request $request): Family
     {
         // dd($request);
-        // Tìm kiếm bản ghi trong bảng Family dựa trên id được cung cấp
         $family = Family::find($request->family_id);
-// dd($family);
-        // Nếu không tìm thấy, hoặc nếu id không được cung cấp, tạo mới một bản ghi Family
         if (!$family) {
             $family = new Family();
         }
 
-        // Cập nhật hoặc tạo mới thông tin cho bản ghi Family
         $family->fill([
             'id'                   => $family->id,
             'user_id'              => auth()->guard('user')->user()->id,
@@ -119,7 +115,6 @@ class FamilySolarService
             'timezome'             => $family->timezone,
         ]);
 
-        // Lưu hoặc cập nhật bản ghi Family
         $family->save();
 
         return $family;

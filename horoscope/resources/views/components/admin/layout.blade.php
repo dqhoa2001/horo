@@ -41,7 +41,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{ asset('mypage/assets/css/loading.css') }}">
     <style>
-        /* CSS để ẩn ô tìm kiếm mặc định của DataTables */
         .dataTables_wrapper .dataTables_filter {
             display: none;
         }

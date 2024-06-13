@@ -21,11 +21,10 @@
     <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" charset="utf8" src="node_modules/datatables.net/js/jquery.dataTables.js"></script>
     <style>
-        /* CSS để ẩn ô tìm kiếm mặc định của DataTables */
         .dataTables_wrapper .dataTables_filter {
             display: none;
         }
-    </style> 
+    </style>
 </head>
 
 <body>
@@ -53,7 +52,7 @@
         $(document).ready(function () {
             var table = $('#myTable').DataTable({
                 "autoWidth": false,
-                "responsive": true,              
+                "responsive": true,
                 "language": {
                     url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/ja.json',
                 },

@@ -51,7 +51,6 @@ class PredictRequest extends FormRequest
             $birth_month = $this->input('birth_month');
             $birth_day = $this->input('birth_day');
 
-            // Kiểm tra các giá trị không null trước khi gọi validateBirthDate
             if (isset($birth_year) && isset($birth_month) && isset($birth_day)) {
                 ValidBirthDate::validateBirthDate($validator, (int) $birth_year, (int) $birth_month, (int) $birth_day);
             }
