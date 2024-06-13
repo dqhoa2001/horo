@@ -42,28 +42,16 @@ class SolarBookbindingController extends Controller
     public function create(): View
     {
         $user = auth()->guard('user')->user();
+        //get family have solar appraisal
         $familiesWithAppraisalApplies = $user->familiesWithAppraisalApplies();
-        // dd($familiesWithAppraisalApplies);
-
-
-        // $personalSolarAppraisals = $user->appraisalApplies()->where('solar_return','!=',0)->get();
-        // $familySolarAppraisals = $user->families->map(static function ($family) {
-        //     return $family->appraisalApplies()->where('solar_return','!=',0)->orderBy('solar_return','ASC')->first();
-        // })->filter(static function ($family) {
-        //         return null !== $family;
-        // });
-
         $personalSolarAppraisals = $user->appraisalApplies()->where('solar_return','!=',0)->whereHas('appraisalClaim', static function ($query) {
             $query->where('is_paid', true);
         })->orderBy('id', 'desc')->get();
 
-        $familySolarAppraisals = $user->families->map(static function ($family) {
-            return $family->appraisalApplies()->where('solar_return','!=',0)->orderBy('solar_return','ASC')->first();
-        })->filter(static function ($family) {
-                return null !== $family;
+        $familySolarAppraisals = $user->families->mapWithKeys(function ($family) {
+            $solarAppraisals = $family->appraisalApplies()->where('solar_return', '!=', 0)->orderBy('id', 'asc')->get();
+            return [$family->id => $solarAppraisals];
         });
-
-
         // dd($familySolarAppraisals);
         return view('user.solar_bookbindings.create2', [
             'bookbinding'                       => Bookbinding::where('solar_return',true)->where('is_enabled', true)->first(),

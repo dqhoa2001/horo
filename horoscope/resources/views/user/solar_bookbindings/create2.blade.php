@@ -34,8 +34,8 @@
 				<div id="Bookbinding" class="Pageframe-main-content">
 					<!-- ***** セクション名 ***** -->
 					<section class="sec Bookmaking C-form" id="Bookmaking">
-						<h2 class="Pageframe-main__title"><img src="{{ asset('mypage/assets/images/bookmaking/img_title.svg') }}"
-								alt="BOOK MAKING"></h2>
+						<h2 class="Pageframe-main__title"><img src="{{ asset('mypage/assets/images/solar-bookmaking/solar-return-bookmaking-title.png') }}"
+								alt="SOLAR #Bookbinding-appraisalBOOK MAKING"></h2>
 						@if ($personalSolarAppraisals->isNotEmpty() || $familySolarAppraisals->isNotEmpty())
 							<p class="C-form__message">下記フォームの<span class="C-form__message__req">必須項目</span>をご記入の上、ご購入ください。</p>
 							@if (Session::has('flash_alert'))
@@ -67,8 +67,7 @@
 
 							@include('components.form.error', ['name' => 'solar_pdf_types','class' => 'text-danger'])
 							@include('components.form.error', ['name' => 'solar_bookbinding_names','class' => 'text-danger'])
-                            @include('components.form.error', ['name' => 'personal_solar_appraisal_apply_ids','class' => 'text-danger'])
-							@include('components.form.error', ['name' => 'family_solar_appraisal_apply_ids','class' => 'text-danger'])
+                            @include('components.form.error', ['name' => 'choose_solar_appraisal_apply_ids','class' => 'text-danger'])
 
 							<form id="payment-form" method="POST" action="{{ route('user.solar_bookbindings.confirm') }}">
 								@csrf
@@ -112,7 +111,6 @@
 											<div class="original_checkbox-block">
 												{{-- ----------------------個人--------------↓ --}}
                                                 @if ($personalSolarAppraisals->isNotEmpty())
-
 													<div class="C-form-block__checkbox original_checkbox" style="margin-bottom: 20px">
 														<label class="C-form-block__checkbox__item" for="checkbox{{ $user->id }}">
 															<input type="checkbox"
@@ -215,118 +213,118 @@
 														</dd>
 													</dl>
 													<hr>
-
 												@endif
-
 												{{-- ----------------------個人--------------↑ --}}
+
 												{{-- ----------------------家族--------------↓ --}}
                                                 @if ($familySolarAppraisals->isNotEmpty())
 													@foreach ($familiesWithAppraisalApplies as $familiesWithAppraisalApply)
-													<div class="C-form-block__checkbox original_checkbox" style="margin-bottom: 20px">
-														<label class="C-form-block__checkbox__item" for="checkbox{{ $familiesWithAppraisalApply->id }}">
-															<input type="checkbox"
-																	name="person_ids[]"
-																	value="{{ $familiesWithAppraisalApply->id }}"
-																	id="checkbox{{ $familiesWithAppraisalApply->id }}"
-																	v-model="selectedPersons"
-																	>
-															<span class="C-form-block__checkbox__text">
-																名前：{{ $familiesWithAppraisalApply->full_name }}	<br>
-																続柄：{{ $familiesWithAppraisalApply->relationship }}<br>
-																出生地：{{ $familiesWithAppraisalApply->birthday_prefectures }}<br>
-																生年月日：{{ $familiesWithAppraisalApply->birthday->format('Y年m月d日') }}<br>
-																出生時間：{{ $familiesWithAppraisalApply->birthday_time->format('H:i') }}<br>
-															</span>
-														</label>
-													</div>
+													    <div class="C-form-block__checkbox original_checkbox" style="margin-bottom: 20px">
+													    	<label class="C-form-block__checkbox__item" for="checkbox{{ $familiesWithAppraisalApply->id }}">
+													    		<input type="checkbox"
+													    				name="person_ids[]"
+													    				value="{{ $familiesWithAppraisalApply->id }}"
+													    				id="checkbox{{ $familiesWithAppraisalApply->id }}"
+													    				v-model="selectedPersons"
+													    				>
+													    		<span class="C-form-block__checkbox__text">
+													    			名前：{{ $familiesWithAppraisalApply->full_name }}	<br>
+													    			続柄：{{ $familiesWithAppraisalApply->relationship }}<br>
+													    			出生地：{{ $familiesWithAppraisalApply->birthday_prefectures }}<br>
+													    			生年月日：{{ $familiesWithAppraisalApply->birthday->format('Y年m月d日') }}<br>
+													    			出生時間：{{ $familiesWithAppraisalApply->birthday_time->format('H:i') }}<br>
+													    		</span>
+													    	</label>
+													    </div>
 
-                                                     <!--Choose solar return year -->
-                                                     <dl class="C-form-block C-form-block--cash"
-                                                        style="display: none;"
-                                                        id="solar-appraisal_dom-{{ $familiesWithAppraisalApply->id  }}">
-                                                        <dt class="C-form-block__title C-form-block__title--req">鑑定年を選択してください</dt>
-                                                        <div >
-                                                            <hr>
-                                                            @foreach ( $familySolarAppraisals as $familySolarAppraisal)
-                                                                @php
-                                                                    $solar_return = $familySolarAppraisal->solar_return;
-                                                                    $birthday = $familySolarAppraisal->birthday;
-                                                                    $birthdayDate = \Carbon\Carbon::parse($birthday);
-                                                                    $age = $solar_return - $birthdayDate->year;
-                                                                    if (\Carbon\Carbon::parse($solar_return . '-12-31')->lt($birthdayDate->copy()->year($solar_return))) {
-                                                                        $age--;
-                                                                    }
-                                                                @endphp
-                                                                <label for="appraisal-{{ $familySolarAppraisal->id }}" class="" style="display: flex; margin-right:10px;">
-                                                                    <input type="radio"
-                                                                        name="family_solar_appraisal_apply_ids[]"
-                                                                        id="appraisal-{{ $familySolarAppraisal->id }}"
-                                                                        value="{{ $familySolarAppraisal->id }}"
-                                                                    >
-                                                                    <span>{{ $age }} 歳 {{ $solar_return }} -- {{ $solar_return + 1 }}
-                                                                        @if($familySolarAppraisal->bookbindingUserApplies()->exists()) ( Buyed )
-                                                                        @endif
-                                                                    </span>
-                                                                </label>
+                                                        <!--Choose solar return year -->
+                                                        <dl class="C-form-block C-form-block--cash"
+                                                            style="display: none;"
+                                                            id="solar-appraisal_dom-{{ $familiesWithAppraisalApply->id  }}">
+                                                            <dt class="C-form-block__title C-form-block__title--req">鑑定年を選択してください</dt>
+                                                            <div >
                                                                 <hr>
-                                                            @endforeach
-                                                        </div>
-                                                    </dl>
-													<!-- ご希望の表紙デザイン -->
-													<dl class="C-form-block C-form-block--cash" style="display: none;" id="pdf_dom-{{ $familiesWithAppraisalApply->id }}">
-														<dt class="C-form-block__title C-form-block__title--req">表紙デザイン</dt>
-														<div style="display: flex; align-items:center;">
-															@foreach(App\Models\AppraisalApply::PDF_TYPE as $k => $v)
-															<label for="pdf_type-{{ $v }}-{{ $familiesWithAppraisalApply->id }}" class="@error('pdf_types') is-invalid @enderror" style="display: flex; margin-right:10px;">
-																<input type="radio"
-																	name="pdf_type-{{ $familiesWithAppraisalApply->id }}"
-																	id="pdf_type-{{ $v }}-{{ $familiesWithAppraisalApply->id }}"
-																	value="{{ $k }}"
-																>
-																<span>{{ $v }}</span>
-															</label>
-															@endforeach
-														</div>
-													</dl>
-													<!-- 製本に表示するお名前 -->
-													<dl class="C-form-block C-form-block--name" style="display: none;" id="bookbinding_name_dom-{{ $familiesWithAppraisalApply->id }}">
-														<dt class="C-form-block__title C-form-block__title--req">表紙に表示したいお名前をご記入ください</dt>
-														<div style="display: flex;">
-															<p class="C-form-block--password__text" style="width: 170px;">例：Mai Kaibe　/　山田 太郎</p>
-															<p class="Personal-appraisal__notice-text">
-																<a href="{{ route('user.download_images.download_sample_pdf') }}" style="position: relative; top: 0.9rem;font-size: 1.2rem;">
-																	表紙イメージはこちら
-																</a>
-															</p>
-														</div>
-														<dd class="C-form-block__body">
-															<div class="C-form-block__field" style="display: flex;">
-																<label for="bookbinding_names1[{{ $familiesWithAppraisalApply->id }}]" style="width: 50px;">左側</label>
-																@include('components.form.text', [
-																'name' => "bookbinding_names1[$familiesWithAppraisalApply->id]",
-																'placeholder' => 'Mai　/　山田',
-																// 'value' => $data['bookbinding_names1'] ?? ''
-																])
-															</div>
-															@include('components.form.error', ['name' => 'bookbinding_name1','class' => 'text-danger'])
-														</dd>
-														<dd class="C-form-block__body">
-															<div class="C-form-block__field" style="display: flex;">
-																<label for="bookbinding_names2[{{ $familiesWithAppraisalApply->id }}]" style="width: 50px;">右側</label>
-																@include('components.form.text', [
-																'name' => "bookbinding_names2[$familiesWithAppraisalApply->id]",
-																'placeholder' => 'Kaibe　/　太郎',
-																// 'value' => $data['bookbinding_names2'] ?? ''
-																])
-															</div>
-															@include('components.form.error', ['name' => 'bookbinding_name2','class' => 'text-danger'])
-														</dd>
-													</dl>
-													<hr>
+                                                                @if($familySolarAppraisals->has($familiesWithAppraisalApply->id))
+                                                                    @foreach ( $familySolarAppraisals[$familiesWithAppraisalApply->id] as $familySolarAppraisal)
+                                                                        @php
+                                                                            $solar_return = $familySolarAppraisal->solar_return;
+                                                                            $birthday = $familySolarAppraisal->birthday;
+                                                                            $birthdayDate = \Carbon\Carbon::parse($birthday);
+                                                                            $age = $solar_return - $birthdayDate->year;
+                                                                            if (\Carbon\Carbon::parse($solar_return . '-12-31')->lt($birthdayDate->copy()->year($solar_return))) {
+                                                                                $age--;
+                                                                            }
+                                                                        @endphp
+                                                                        <label for="appraisal-{{ $familySolarAppraisal->id }}" class="" style="display: flex; margin-right:10px;">
+                                                                            <input type="radio"
+                                                                                name="family_solar_appraisal_apply_ids[{{ $familiesWithAppraisalApply->id }}]"
+                                                                                id="appraisal-{{ $familySolarAppraisal->id }}"
+                                                                                value="{{ $familySolarAppraisal->id }}"
+                                                                            >
+                                                                            <span>{{ $age }} 歳 {{ $solar_return }} -- {{ $solar_return + 1 }}
+                                                                                @if($familySolarAppraisal->bookbindingUserApplies()->exists()) ( Buyed )
+                                                                                @endif
+                                                                            </span>
+                                                                        </label>
+                                                                        <hr>
+                                                                    @endforeach
+                                                                @endif
+                                                            </div>
+                                                        </dl>
+													    <!-- ご希望の表紙デザイン -->
+													    <dl class="C-form-block C-form-block--cash" style="display: none;" id="pdf_dom-{{ $familiesWithAppraisalApply->id }}">
+													    	<dt class="C-form-block__title C-form-block__title--req">表紙デザイン</dt>
+													    	<div style="display: flex; align-items:center;">
+													    		@foreach(App\Models\AppraisalApply::PDF_TYPE as $k => $v)
+													    		<label for="pdf_type-{{ $v }}-{{ $familiesWithAppraisalApply->id }}" class="@error('pdf_types') is-invalid @enderror" style="display: flex; margin-right:10px;">
+													    			<input type="radio"
+													    				name="pdf_type-{{ $familiesWithAppraisalApply->id }}"
+													    				id="pdf_type-{{ $v }}-{{ $familiesWithAppraisalApply->id }}"
+													    				value="{{ $k }}"
+													    			>
+													    			<span>{{ $v }}</span>
+													    		</label>
+													    		@endforeach
+													    	</div>
+													    </dl>
+													    <!-- 製本に表示するお名前 -->
+													    <dl class="C-form-block C-form-block--name" style="display: none;" id="bookbinding_name_dom-{{ $familiesWithAppraisalApply->id }}">
+													    	<dt class="C-form-block__title C-form-block__title--req">表紙に表示したいお名前をご記入ください</dt>
+													    	<div style="display: flex;">
+													    		<p class="C-form-block--password__text" style="width: 170px;">例：Mai Kaibe　/　山田 太郎</p>
+													    		<p class="Personal-appraisal__notice-text">
+													    			<a href="{{ route('user.download_images.download_sample_pdf') }}" style="position: relative; top: 0.9rem;font-size: 1.2rem;">
+													    				表紙イメージはこちら
+													    			</a>
+													    		</p>
+													    	</div>
+													    	<dd class="C-form-block__body">
+													    		<div class="C-form-block__field" style="display: flex;">
+													    			<label for="bookbinding_names1[{{ $familiesWithAppraisalApply->id }}]" style="width: 50px;">左側</label>
+													    			@include('components.form.text', [
+													    			'name' => "bookbinding_names1[$familiesWithAppraisalApply->id]",
+													    			'placeholder' => 'Mai　/　山田',
+													    			// 'value' => $data['bookbinding_names1'] ?? ''
+													    			])
+													    		</div>
+													    		@include('components.form.error', ['name' => 'bookbinding_name1','class' => 'text-danger'])
+													    	</dd>
+													    	<dd class="C-form-block__body">
+													    		<div class="C-form-block__field" style="display: flex;">
+													    			<label for="bookbinding_names2[{{ $familiesWithAppraisalApply->id }}]" style="width: 50px;">右側</label>
+													    			@include('components.form.text', [
+													    			'name' => "bookbinding_names2[$familiesWithAppraisalApply->id]",
+													    			'placeholder' => 'Kaibe　/　太郎',
+													    			// 'value' => $data['bookbinding_names2'] ?? ''
+													    			])
+													    		</div>
+													    		@include('components.form.error', ['name' => 'bookbinding_name2','class' => 'text-danger'])
+													    	</dd>
+													    </dl>
+													    <hr>
 													@endforeach
 												@endif
 												{{-- ----------------------家族--------------↑ --}}
-
 											</div>
 										</dd>
 									</dl>

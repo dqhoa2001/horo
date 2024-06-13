@@ -44,13 +44,13 @@ class BookbindingController extends Controller
         $user = auth()->guard('user')->user();
 
         // 最新の個人鑑定申し込みを取得
-        $personalAppraisal = $user->appraisalApplies()->whereHas('appraisalClaim', static function ($query) {
+        $personalAppraisal = $user->appraisalApplies()->where('solar_return',0)->whereHas('appraisalClaim', static function ($query) {
             $query->where('is_paid', true);
         })->orderBy('id', 'desc')->first();
 
         // 家族の個人鑑定を取得
         $familyAppraisals = $user->families->map(static function ($family) {
-            return $family->appraisalApplies()->whereHas('appraisalClaim', static function ($query) {
+            return $family->appraisalApplies()->where('solar_return',0)->whereHas('appraisalClaim', static function ($query) {
                 $query->where('is_paid', true);
             })->orderBy('id', 'desc')->first();
         })->filter(static function ($family) {
