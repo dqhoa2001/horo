@@ -20,7 +20,7 @@
 
 			<header class="Pageframe-main-header">
 				<div class="Pageframe-main-header__first"><a href="{{ route('user.popup') }}">マイページ</a></div>
-				<h2 class="Pageframe-main-header__pagename">個人鑑定</h2>
+				<h2 class="Pageframe-main-header__pagename">MY太陽回帰鑑定</h2>
 			</header>
 
 			<div class="Pageframe-main__inner">

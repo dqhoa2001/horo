@@ -15,7 +15,15 @@
         <div class="Pageframe-main__scroll">
             <header class="Pageframe-main-header">
                 <div class="Pageframe-main-header__first"><a href="{{ route('user.popup') }}">マイページ</a></div>
-                <h2 class="Pageframe-main-header__pagename">個人鑑定</h2>
+                <h2 class="Pageframe-main-header__pagename">
+                    @if(isset($solarApply))
+                        @if($solarApply->reference_type === "App\Models\Family")
+                            家族の太陽回帰鑑定 結果
+                        @else
+                            SOLAR RETURN鑑定結果
+                        @endif
+                    @endif
+                </h2>
             </header>
 
             <div class="Pageframe-main__inner">
