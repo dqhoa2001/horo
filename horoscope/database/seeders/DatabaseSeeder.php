@@ -63,6 +63,7 @@ class DatabaseSeeder extends Seeder
             UpdateSolarPatternsSeeder::class,
             AppraisalSolarSeeder::class,
             BookbindingSolarSeeder::class,
+            TemplateSeeder10::class,
         ]);
 
     }
