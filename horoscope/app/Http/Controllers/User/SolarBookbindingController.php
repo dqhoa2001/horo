@@ -47,7 +47,6 @@ class SolarBookbindingController extends Controller
         $personalSolarAppraisals = $user->appraisalApplies()->where('solar_return','!=',0)->whereHas('appraisalClaim', static function ($query) {
             $query->where('is_paid', true);
         })->orderBy('id', 'desc')->get();
-
         $familySolarAppraisals = $user->families->mapWithKeys(function ($family) {
             $solarAppraisals = $family->appraisalApplies()->where('solar_return', '!=', 0)->orderBy('id', 'asc')->get();
             return [$family->id => $solarAppraisals];
@@ -66,12 +65,11 @@ class SolarBookbindingController extends Controller
     {
         $user = auth()->guard('user')->user();
         $data = $request->substitutable();
-        // dd($data);
         if((int) $data['discount_price'] === 0 && (int) $data['total_amount'] === 0 && !\array_key_exists('coupon_code', $data) || (int) $data['discount_price'] === 0 && (int) $data['total_amount'] === 0 && $data['coupon_code'] === null) {
             return redirect()->route('user.bookbindings.create')->withInput()->with('priceError', true);
         }
         $data['select_appraisal_applies_id'] =[];
-        //get appraisal apply id
+        //get choosen appraisal apply id
         if(isset( $data['solar_appraisal_apply_ids'])){
             $data['select_appraisal_applies_id'] = array_merge($data['select_appraisal_applies_id'], $data['solar_appraisal_apply_ids']);
         }
@@ -176,7 +174,7 @@ class SolarBookbindingController extends Controller
                     // dd($bulkBindingCount);
                     $bookbindingUserSolarApply = BookbindingUserApplyService::createForSolarBookbinding($request, $solarAppraisalApply, $bulkBindingKey, $bulkBindingCount);
                     // dd($bookbindingUserSolarApply);
-                    $contentType = AppraisalClaim::BOOKING;
+                    $contentType = AppraisalClaim::SOLAR;
 
                     // 請求データ作成
                     AppraisalClaimService::createForCredit(auth()->guard('user')->user()->id, $request, $solarAppraisalApply, $bookbindingUserSolarApply->id, $paymentIntent, $contentType);
