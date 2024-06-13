@@ -21,4 +21,6 @@ return [
     'title_en' => 'Title EN',
     'content_solar' => 'Solar Regression',
     'content_solar_en' => 'Solar Regression EN',
+    'title_solar' => 'Title Solar',
+    'title_solar_en' => 'Title Solar EN',
 ];

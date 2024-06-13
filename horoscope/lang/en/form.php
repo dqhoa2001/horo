@@ -13,6 +13,8 @@ return [
     'aspect_name' => 'Aspect Name',
     'title' => 'Title',
     'title_en' => 'Title English',
+    'title_solar' => 'Title Solar',
+    'title_solar_en' => 'Title Solar English',
     'from_planet_name' => 'From Planet Name',
     'to_planet_name' => 'To Planet Name',
     'sabian_degrees' => 'Sabian Degrees',
