@@ -269,6 +269,9 @@ class AppraisalApplyService
         if ((int) $design === AppraisalApply::PDF_DYNAMIS) {
             $blade = view('horoscope::cover3', $data);
         }
+        if ((int) $design === AppraisalApply::PDF_SOLAR_RETURN) {
+            $blade = view('horoscope::cover4', $data);
+        }
         $html = $blade->render();
 
         $pdfFilePath = public_path('/pdfs/' . $fileName);
