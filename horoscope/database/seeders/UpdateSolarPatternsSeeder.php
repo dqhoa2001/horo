@@ -49,6 +49,8 @@ class UpdateSolarPatternsSeeder extends Seeder
                     ->where('zodiac_id', $i)
                     ->where('sabian_degrees', $j)
                     ->update([
+                        'title_solar' => 'Solar title of the ' . $j . '° of ' . $i . ' zodiac',
+                        'title_solar_en' => 'Solar title of the ' . $j . '° of ' . $i . ' zodiac',
                         'content_solar' => 'Solar content of the ' . $j . '° of ' . $i . ' zodiac',
                         'content_solar_en' => 'Solar content of the ' . $j . '° of ' . $i . ' zodiac',
                         'updated_at' => Carbon::now()

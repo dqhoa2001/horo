@@ -33,10 +33,10 @@ class SabianPatternController extends Controller
         ];
         if (!empty($zodiacId) || !empty($sabianDegrees) || !empty($keyword) ) {
             $sabianPatterns = $this->sabianPatternRepository->searchSabianPattern($selectedValues);
-        } else {    
+        } else {
             $sabianPatterns = $this->sabianPatternRepository->getAllPaginate();
         }
-       
+
         return view(
             'admin.pattern.sabian.index',
             compact(['zodiacs', 'selectedValues', 'sabianPatterns'])
@@ -89,6 +89,9 @@ class SabianPatternController extends Controller
         }
         if (!isset($dataUpdate['content_solar_en'])) {
             $dataUpdate['content_solar_en'] = null;
+        }
+        if (!isset($dataUpdate['title_solar_en'])) {
+            $dataUpdate['title_solar_en'] = null;
         }
         $updateStatus = $this->sabianPatternRepository->update($id, $dataUpdate);
         $message = $updateStatus

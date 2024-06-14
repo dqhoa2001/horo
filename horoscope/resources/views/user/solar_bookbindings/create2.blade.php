@@ -35,8 +35,16 @@
 					<!-- ***** セクション名 ***** -->
 					<section class="sec Bookmaking C-form" id="Bookmaking">
 						<h2 class="Pageframe-main__title"><img src="{{ asset('mypage/assets/images/solar-bookmaking/solar-return-bookmaking-title.png') }}"
-								alt="SOLAR #Bookbinding-appraisalBOOK MAKING"></h2>
-						@if ($personalSolarAppraisals->isNotEmpty() || $familySolarAppraisals->isNotEmpty())
+								alt="SOLAR BOOK MAKING"></h2>
+                        @php
+                            $empty = false;
+                            foreach ($familySolarAppraisals as $familyId => $solarAppraisals) {
+                                if ($solarAppraisals->isEmpty()) {
+                                    $empty = true;
+                                }
+                            }
+                        @endphp
+						@if ($personalSolarAppraisals->isNotEmpty() || !$empty)
 							<p class="C-form__message">下記フォームの<span class="C-form__message__req">必須項目</span>をご記入の上、ご購入ください。</p>
 							@if (Session::has('flash_alert'))
 								<p style="color: red; font-size: larger;">{{ Session::get('flash_alert') }}</p>
@@ -608,8 +616,8 @@ Vue.createApp({
             paymentType: @json(old('payment_type', $request->payment_type ?? App\Models\AppraisalClaim::CREDIT)),
             isCalculating: false,
 						masterCheckbox: false,
-						personalAppraisal: @json($personalSolarAppraisals),
-						personalSolarAppraisals: @json($familySolarAppraisals->values()->all()),
+						personalAppraisal: @json($personalSolarAppraisals->values()->all()),
+						familySolarAppraisals: @json($familySolarAppraisals->values()->all()),
 						bookbindingPrice: @json($bookbinding->price),
 						selectedPersons: @json(old('person_ids', $request->person_ids ?? [])),
                         user: @json($user),
@@ -697,11 +705,11 @@ Vue.createApp({
 
         getAllPersonIds(){
             const allPersonIds = [];
-            if (this.user!== null) {
+            if (this.user!== null && this.personalAppraisal.length > 0) {
                 allPersonIds.push(this.user.id);
             }
             if (this.familiesWithAppraisalApplies.length > 0) {
-				allPersonIds.push(...this.familiesWithAppraisalApplies.map(appraisal => appraisal.id));
+				allPersonIds.push(...this.familiesWithAppraisalApplies.map(family => family.id));
 			}
 
             return allPersonIds;

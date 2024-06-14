@@ -86,8 +86,11 @@ class ConfirmRequest extends FormRequest
         $chooseAppraisalResult = true;
 
         foreach(  $data['select_appraisal_applies']  as $appraisalApply){
-            if (($data['pdf_types'][$appraisalApply->id]) === null) {
-                        $pdfResult = false;
+            // if (($data['pdf_types'][$appraisalApply->id]) === null) {
+            //             $pdfResult = false;
+            // }
+            if (empty($data['pdf_types'][$appraisalApply->id])) {
+                $pdfResult = false;
             }
             if ($data['bookbinding_names1'][$appraisalApply->reference->id] === null) {
                 $bookbindingNames1Result = false;

@@ -40,6 +40,23 @@
             </div>
 
             <div class="row">
+                <div class="col-md-6 col-12">
+                    <div class="form-group">
+                        <x-admin.label :label="__('form.title_solar')" name='title_solar' />
+                        <x-admin.text-area name='title_solar' value="{{ old('title_solar', session('title_solar')) }}" />
+                        <x-admin.error-message name='title_solar' />
+                    </div>
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="form-group">
+                        <x-admin.label :label="__('form.title_solar_en')" name='title_solar_en' />
+                        <x-admin.text-area name='title_solar_en' value="{{ old('title_solar_en', session('title_solar_en')) }}" />
+                        <x-admin.error-message name='title_solar_en' />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
                 <div class="form-group">
                     <label for="content" class="form-label">@lang('form.content_pattern')（最大：465文字）</label>
                     <div class="col-md-12 col-12">
@@ -136,6 +153,31 @@
                             <x-admin.text-area name='title_en' :value="$sabianPattern->title_en" />
                         @endif
                         <x-admin.error-message name='title_en' />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col-12">
+                    <div class="form-group">
+                        <x-admin.label :label="__('form.title_solar')" name='title_solar' />
+                        @if (!empty(old()) && array_key_exists('title_solar', old()))
+                            <x-admin.text-area name='title_solar' :value="old('title_solar', session('title_solar'))" />
+                        @else
+                            <x-admin.text-area name='title_solar' :value="$sabianPattern->title_solar" />
+                        @endif
+                        <x-admin.error-message name='title_solar' />
+                    </div>
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="form-group">
+                        <x-admin.label :label="__('form.title_solar_en')" name='title_solar_en' />
+                        @if (!empty(old()) && array_key_exists('title_solar_en', old()))
+                            <x-admin.text-area name='title_solar_en' :value="old('title_en', session('title_solar_en'))" />
+                        @else
+                            <x-admin.text-area name='title_solar_en' :value="$sabianPattern->title_solar_en" />
+                        @endif
+                        <x-admin.error-message name='title_solar_en' />
                     </div>
                 </div>
             </div>
