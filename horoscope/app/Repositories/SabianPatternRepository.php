@@ -34,7 +34,9 @@ class SabianPatternRepository extends EloquentRepository
                         ->orWhere('title', 'LIKE', '%' . $selectedValues['keyword'] . '%')
                         ->orWhere('title_en', 'LIKE', '%' . $selectedValues['keyword'] . '%')
                         ->orWhere('content_solar', 'LIKE', '%' . $selectedValues['keyword'] . '%')
-                        ->orWhere('content_solar_en', 'LIKE', '%' . $selectedValues['keyword'] . '%');
+                        ->orWhere('content_solar_en', 'LIKE', '%' . $selectedValues['keyword'] . '%')
+                        ->orWhere('title_solar', 'LIKE', '%' . $selectedValues['keyword'] . '%')
+                        ->orWhere('title_solar_en', 'LIKE', '%' . $selectedValues['keyword'] . '%');
                 });
             })
             ->paginate(PaginateEnum::Limit);

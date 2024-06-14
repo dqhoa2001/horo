@@ -21,7 +21,9 @@ class SabianPattern extends Model
         'content_en',
         'published',
         'content_solar',
-        'content_solar_en'
+        'content_solar_en',
+        'title_solar',
+        'title_solar_en',
     ];
 
     public function zodiac(): HasOne

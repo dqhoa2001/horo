@@ -48,6 +48,8 @@
                     <th class="text-center" style="width: 5%">@lang('table.degrees')</th>
                     <th class="text-center" style="width: 8%">@lang('table.title')</th>
                     <th class="text-center" style="width: 8%">@lang('table.title_en')</th>
+                    <th class="text-center" style="width: 8%">@lang('table.title_solar')</th>
+                    <th class="text-center" style="width: 8%">@lang('table.title_solar_en')</th>
                     <th class="text-center">@lang('table.content')</th>
                     <th class="text-center">@lang('table.content_en')</th>
                     <th class="text-center">@lang('table.content_solar')</th>
@@ -70,6 +72,8 @@
                             @endif
                             <td class="text-left text-truncate" style="max-width: 150px">{{ $pattern->title }}</td>
                             <td class="text-left text-truncate" style="max-width: 150px">{{ $pattern->title_en }}</td>
+                            <td class="text-left text-truncate" style="max-width: 150px">{{ $pattern->title_solar }}</td>
+                            <td class="text-left text-truncate" style="max-width: 150px">{{ $pattern->title_solar_en }}</td>
                             <td class="text-left text-truncate" style="max-width: 220px">{!! nl2br(e($pattern->content)) !!}</td>
                             <td class="text-left text-truncate" style="max-width: 220px">{!! nl2br(e($pattern->content_en)) !!}</td>
                             <td class="text-left text-truncate" style="max-width: 220px">{!! nl2br(e($pattern->content_solar)) !!}</td>
