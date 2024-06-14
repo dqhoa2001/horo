@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Services\SolarApplyService;
+use App\Services\AppraisalApplyService;
 use App\Services\SolarClaimService;
 use Illuminate\Http\Request;
 use App\Models\Bookbinding;
@@ -35,7 +35,7 @@ class SolarBookbindingController extends Controller
 {
     public function __construct(
         protected SolarClaimService $solarClaimService,
-        protected SolarApplyService $solarApplyService,
+        protected AppraisalApplyService $solarApplyService,
     ) {}
 
     // 製本申し込みの表示
