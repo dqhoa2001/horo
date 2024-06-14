@@ -16,11 +16,13 @@ use App\Repositories\SabianPatternRepository;
 use App\Repositories\ZodiacPatternRepository;
 use Modules\Horoscope\Http\Actions\Predict\ModifyLocation;
 use Modules\Horoscope\Http\Actions\GenerateHoroscopeChartAction;
+use Modules\Horoscope\Http\Actions\GenerateSolarHoroscopeChartAction;
 
 class AppraisalApplyService
 {
     public function __construct(
         protected GenerateHoroscopeChartAction $generateHoroscopeChartAction,
+        protected GenerateSolarHoroscopeChartAction $generateSolarHoroscopeChartAction,
         protected ZodiacRepository $zodiacRepository,
         protected PlanetRepository $planetRepository,
         protected HouseRepository $houseRepository,
@@ -144,10 +146,11 @@ class AppraisalApplyService
         if ($bookbindingUserApply->bookbinding_name1 === null && $bookbindingUserApply->bookbinding_name2 === null) {
             $bookbindingName = $appraisalApply->reference->name1 . $appraisalApply->reference->name2;
         }
+        $year = ($appraisalApply->solar_return == 0) ? $appraisalApply->birthday->format('Y') : $appraisalApply->solar_return;
         $formData = [
             "name" => $appraisalApply->reference->name1 . $appraisalApply->reference->name2,
             "bookbinding_name" => $bookbindingName,
-            "year" => $appraisalApply->birthday->format('Y'),
+            "year" => $year,
             "month" => $appraisalApply->birthday->format('m'),
             "day" => $appraisalApply->birthday->format('d'),
             "hour" => $appraisalApply->birthday_time->format('H'),
@@ -161,7 +164,8 @@ class AppraisalApplyService
         ];
 
         // ホロスコープ占いの処理
-        $chart = $this->generateHoroscopeChartAction->execute($formData, WheelRadiusEnum::WheelScale);
+
+        $chart = ($appraisalApply->solar_return == 0) ? $this->generateHoroscopeChartAction->execute($formData, WheelRadiusEnum::WheelScale) : $this->generateSolarHoroscopeChartAction->execute($formData, WheelRadiusEnum::WheelScale);
         $zodaics = $this->zodiacRepository->getAll();
         $planets = $this->planetRepository->getAll();
         $houses = $this->houseRepository->getAll();
@@ -199,6 +203,9 @@ class AppraisalApplyService
         }
         if ((int) $designType === AppraisalApply::PDF_DYNAMIS) {
             $blade = view('horoscope::dowload3', $data);
+        }
+        if ((int) $designType === AppraisalApply::PDF_SOLAR_RETURN) {
+            $blade = view('horoscope::download_solar', $data);
         }
         $html = $blade->render();
 

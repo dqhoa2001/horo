@@ -39,12 +39,16 @@ class AppraisalApply extends Model
     const PDF_KLEOS = 20; //クレオス
 
     const PDF_DYNAMIS = 30; //デュナミス
+    const PDF_SOLAR_RETURN = 40; //デュナミス
 
     // PDFの種類
     const PDF_TYPE = [
         self::PDF_SOPHIA => 'SOPHIA',
         self::PDF_KLEOS => 'KLEOS',
         self::PDF_DYNAMIS => 'DYNAMIS',
+    ];
+    const PDF_TYPE_SOLAR = [
+        self::PDF_SOLAR_RETURN => 'SOLAR',
     ];
 
     // 申し込み者

@@ -377,6 +377,11 @@
     width: 100px;
     height: 40px;
 }
+.C-form-block__radio-pdf-title4::after {
+    background-image: url(../../../images/common/Solar_return_title.svg);
+    width: 100px;
+    height: 40px;
+}
 .C-form-block__show-pdf-title1 {
     width: 90px;
     height: 40px;
@@ -386,6 +391,10 @@
     height: 40px;
 }
 .C-form-block__show-pdf-title3 {
+    width: 100px;
+    height: 40px;
+}
+.C-form-block__show-pdf-title4 {
     width: 100px;
     height: 40px;
 }
@@ -791,6 +800,11 @@
     }
     .C-form-block__radio-pdf-title3::after {
         background-image: url(../../../images/common/pdf-title3.svg);
+        width: 80px;
+        height: 40px;
+    }
+    .C-form-block__radio-pdf-title4::after {
+        background-image: url(../../../images/common/Solar_return_title.svg);
         width: 80px;
         height: 40px;
     }
