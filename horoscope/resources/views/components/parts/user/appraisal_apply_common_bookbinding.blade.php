@@ -2,7 +2,7 @@
     <dt class="C-form-block__title C-form-block__title--req">製本の希望</dt>
     <dd class="C-form-block__body">
         <div class="C-form-block__radio">
-            @if(str_contains(Request::url(), 'check_payment_solar'))
+            @if(str_contains(Request::url(), 'solar_appraisals'))
                 @include('components.form.original_radio', [
                     'name'     => 'is_bookbinding',
                     'class'    => 'C-form-block__radio__text',
@@ -30,12 +30,21 @@
     <dt class="C-form-block__title C-form-block__title--req">表紙のデザイン</dt>
     <dd class="C-form-block__body @if(str_contains(Request::url(), 'offer_appraisals')) offer_appraisals @endif">
         <div class="C-form-block__radio C-form-block__radio-pdf">
-            @include('components.form.original_radio-pdf', [
-                'name'     => 'is_design',
-                'class'    => 'C-form-block__radio__text',
-                'data'     => App\Models\AppraisalApply::PDF_TYPE,
-                'checked'  => $request->is_design ?? 1,
-            ])
+            @if(str_contains(Request::url(), 'solar_appraisals'))
+                @include('components.form.original_radio-pdf', [
+                    'name'     => 'is_design',
+                    'class'    => 'C-form-block__radio__text',
+                    'data'     => App\Models\AppraisalApply::PDF_TYPE_SOLAR,
+                    'checked'  => $request->is_design ?? 1,
+                ])
+            @else
+                @include('components.form.original_radio-pdf', [
+                    'name'     => 'is_design',
+                    'class'    => 'C-form-block__radio__text',
+                    'data'     => App\Models\AppraisalApply::PDF_TYPE,
+                    'checked'  => $request->is_design ?? 1,
+                ])
+            @endif
         </div>
         <p class="Personal-appraisal__notice-text"><a href="https://hoshinomai.jp/book-service" target="_blank" rel="noopener noreferrer">製本の詳細はこちら</a></p>
     </dd>

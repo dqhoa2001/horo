@@ -110,7 +110,7 @@ class AppraisalClaim extends Model
     // 製本の同時購入の有無
     public function isBookbinding(): bool
     {
-        return $this->content_type === self::PERSONAL_BOOKING || $this->content_type === self::FAMILY_BOOKING || $this->content_type === self::BOOKING;
+        return $this->content_type === self::PERSONAL_BOOKING || $this->content_type === self::FAMILY_BOOKING || $this->content_type === self::BOOKING || $this->content_type === self::SOLAR_RETURN_PERSONAL_BOOKING || $this->content_type === self::SOLAR_RETURN_FAMILY_BOOKING || $this->content_type === self::SOLAR_RETURN_BOOKING;
     }
 
     // クーポンコードの
