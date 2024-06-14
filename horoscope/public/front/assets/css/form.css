@@ -151,7 +151,7 @@
 /*----- テキストエリア */
 .C-form-block__textarea textarea{
     width: 100%;
-    height: 16.3rem; 
+    height: 16.3rem;
     padding: 1rem 1.8rem;
     border: 1px solid rgba(204,206,213,.5);
     border-radius: .6rem;
@@ -349,6 +349,12 @@
 }
 .C-form-block__radio-pdf-title3::after {
     background-image: url(../../../images/common/pdf-title3.svg);
+    width: 100px;
+    height: 40px;
+}
+
+.C-form-block__radio-pdf-title4::after {
+    background-image: url(../../../images/common/Solar_return_title.svg);
     width: 100px;
     height: 40px;
 }
@@ -608,27 +614,27 @@
     .C-form-block__body--half{
         width: 100%;
     }
-    
+
     .C-form-block-child:not(:last-child){
         margin-bottom: 3rem;
     }
     .C-form-block-child .C-form-block__title{
         margin-bottom: 1.7rem;
     }
-    
+
     /*----- テキスト */
     .C-form-block__field{
         padding-left: 1rem;
         padding-right: 1rem;
         padding-bottom: .8rem;
     }
-    
+
     /*----- テキストエリア */
     .C-form-block__textarea textarea{
-        height: 25rem; 
+        height: 25rem;
         padding: 1.5rem;
     }
-    
+
     /*----- セレクト */
     .C-form-block__select{
         width: 100%;
@@ -658,7 +664,7 @@
         padding: .5rem 2rem;
         color: rgba(57,56,93,.7);
     }
-    
+
     /*----- ラジオボタン */
     .C-form-block__radio{
         display: block;
@@ -695,12 +701,12 @@
     .C-form-block__radio-pdf__text:nth-child(3n) {
         margin-top: 20px;
     }
-    
+
     /*----- チェックボックス */
     .C-form-block__checkbox__text{
         padding-left: 3rem;
     }
-    
+
     /*----- メールアドレス */
     .C-form-block--email .C-form-block__field{
         width: calc((100% - 5rem) / 2);
@@ -716,7 +722,7 @@
         position: absolute;
         content: "@";
     }
-    
+
     /*----- パスワード */
     .C-form-block--password__text{
         width: 100%;
@@ -726,7 +732,7 @@
         height: 2.8rem;
         font-size: 1.2rem;
     }
-    
+
     /*----- ボタンあり */
     .C-form-block--hasbutton{
         max-width: 100%;
@@ -734,12 +740,12 @@
     .C-form-block--hasbutton .C-form-block__field{
         width: calc(100% - 10rem - 1.2rem);
     }
-    
+
     /*----- 送付先 */
     .C-form-block--sending:not(:last-child){
         margin-bottom: 5rem;
     }
-    
+
     /*----- 使用するクーポン */
     .C-form-block--couponno__tag{
         right: 1.2rem;
@@ -748,7 +754,7 @@
     .C-form-block--couponno__text{
         font-size: 1.3rem;
     }
-    
+
     /*----- プライバシーポリシー */
     .C-form-policy{
         width: 100%;
@@ -776,6 +782,11 @@
     }
     .C-form-block__radio-pdf-title3::after {
         background-image: url(../../../images/common/pdf-title3.svg);
+        width: 87px;
+        height: 40px;
+    }
+    .C-form-block__radio-pdf-title4::after {
+        background-image: url(../../../images/common/Solar_return_title.svg);
         width: 87px;
         height: 40px;
     }

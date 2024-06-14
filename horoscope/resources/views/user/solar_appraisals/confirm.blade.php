@@ -84,7 +84,7 @@
                                 <dl class="C-form-block C-form-block--cash">
                                     <dt class="C-form-block__title C-form-block__title--req">表紙のデザイン</dt>
                                     <dd class="C-form-block__body">
-                                        {{ \App\Models\AppraisalApply::PDF_TYPE[$data['is_design']] }}
+                                        {{ \App\Models\AppraisalApply::PDF_TYPE_SOLAR[$data['is_design']] }}
                                     </dd>
                                 </dl>
                                 <dl class="C-form-block C-form-block--cash">
