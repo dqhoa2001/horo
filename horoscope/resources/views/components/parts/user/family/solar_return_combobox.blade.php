@@ -11,7 +11,7 @@
                             <dl class="C-form-block-child C-form-block--birth">
                                 <div>
                                     <div class="div_left">
-                                        <dd class="C-form-block__select01">
+                                        <dd class="C-form-block__select01 C-form-block__select01-w">
                                             <select class="@if (!str_contains(Request::url(), 'families/edit')) active_Solar @endif" id="solar_date" onchange="navigateToLink(this)">
                                                     <option value=""@if (empty($solarApply)) selected @endif>[SOLAR RETURN]を選択してください。</option>
                                                     @foreach ($solarAppraisals as $SolarAppraisal)

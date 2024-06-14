@@ -19,11 +19,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC&display=swap" rel="stylesheet">
     <!-- Scripts -->
     <style>
-        /* Thêm lớp container để bao quanh nội dung */
         .container {
-            max-width: 800px; /* Điều chỉnh kích thước container tùy theo ý muốn của bạn */
-            margin: auto; /* Căn giữa container */
-            background-image: 
+            max-width: 800px;
+            margin: auto;
+            background-image:
         }
 
         @font-face {
@@ -101,7 +100,7 @@
 
 <body>
 
-    <div class="container"> <!-- Thêm container bao quanh nội dung -->
+    <div class="container">
         @php
             $removePlanet = Modules\Horoscope\Enums\ExplainEnum::removePlanet;
         @endphp
@@ -192,7 +191,7 @@
                 <x-horoscope::planetcard :planetExplain=$item />
             </div>
         @endforeach
-    </div> <!-- Kết thúc container -->
+    </div>
 
 </body>
 

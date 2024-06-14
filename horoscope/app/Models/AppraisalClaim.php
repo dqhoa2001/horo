@@ -42,14 +42,27 @@ class AppraisalClaim extends Model
 
     const BOOKING = 5;
 
-    const SOLAR = 6;
+    const SOLAR_RETURN_PERSONAL = 6;
+
+    const SOLAR_RETURN_FAMILY = 7;
+
+    const SOLAR_RETURN_PERSONAL_BOOKING = 8;
+
+    const SOLAR_RETURN_FAMILY_BOOKING = 9;
+
+    const SOLAR_RETURN_BOOKING = 10;
+
     const CONTENT_TYPE = [
         1 => '個人鑑定',
         2 => '家族鑑定',
         3 => '個人鑑定+製本',
         4 => '家族鑑定+製本',
         5 => '製本',
-        6 => 'SOLAR RETURN',
+        6 => '個人鑑定SOLAR RETURN',
+        7 => '家族鑑定SOLAR RETURN',
+        8 => '個人鑑定SOLAR RETURN+製本',
+        9 => '家族鑑定SOLAR RETURN+製本',
+        10 => '製本SOLAR RETURN',
     ];
 
     const PAID = 1;

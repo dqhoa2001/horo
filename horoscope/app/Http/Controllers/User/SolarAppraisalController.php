@@ -200,7 +200,7 @@ class SolarAppraisalController extends Controller
 
                 //家族の場合
                 if ((int) $request->target_type === TargetType::FAMILY->value) {
-                    $contentType = AppraisalClaim::FAMILY;
+                    $contentType = AppraisalClaim::SOLAR_RETURN_FAMILY;
                     // $user = UserService::create($request);
                     $user = auth()->guard('user')->user();
                     $family = FamilyService::updateOrCreate($request);
@@ -210,7 +210,7 @@ class SolarAppraisalController extends Controller
                     if ((int) $request->is_bookbinding === Bookbinding::BOOKBINDING) {
                         $bookbindingUserApply = BookbindingUserApplyService::create($request, $solarApply);
                         $bookbindingUserApplyId = $bookbindingUserApply->id;
-                        $contentType = AppraisalClaim::FAMILY_BOOKING;
+                        $contentType = AppraisalClaim::SOLAR_RETURN_FAMILY_BOOKING;
                     }
 
                     \Mail::to(GetMail::getMailForApply($solarApply))->send(new ThanksForFamilyAppraisal($solarApply));
@@ -218,7 +218,7 @@ class SolarAppraisalController extends Controller
 
                 //ユーザー自身の場合
                 } else {
-                    $contentType = AppraisalClaim::SOLAR;
+                    $contentType = AppraisalClaim::SOLAR_RETURN_PERSONAL;
 
                     // $user = UserService::createUserAndHoroscope($request);
                     $user = auth()->guard('user')->user();
@@ -231,7 +231,7 @@ class SolarAppraisalController extends Controller
                     if ((int) $request->is_bookbinding === Bookbinding::BOOKBINDING) {
                         $bookbindingUserApply = BookbindingUserApplyService::create($request, $solarApply);
                         $bookbindingUserApplyId = $bookbindingUserApply->id;
-                        $contentType = AppraisalClaim::PERSONAL_BOOKING;
+                        $contentType = AppraisalClaim::SOLAR_RETURN_PERSONAL_BOOKING;
                     }
                 }
 
@@ -249,26 +249,26 @@ class SolarAppraisalController extends Controller
         } else {
             //家族の場合
             if ((int) $request->target_type === TargetType::FAMILY->value) {
-                $contentType = AppraisalClaim::FAMILY;
+                $contentType = AppraisalClaim::SOLAR_RETURN_FAMILY;
                 $user = auth()->guard('user')->user();
                 $family = FamilyService::updateOrCreate($request);
                 $solarApply = AppraisalApplyService::create($request, Family::class, $family->id);
                 if ((int) $request->is_bookbinding === Bookbinding::BOOKBINDING) {
                     $bookbindingUserApply = BookbindingUserApplyService::create($request, $solarApply);
                     $bookbindingUserApplyId = $bookbindingUserApply->id;
-                    $contentType = AppraisalClaim::FAMILY_BOOKING;
+                    $contentType = AppraisalClaim::SOLAR_RETURN_FAMILY_BOOKING;
                     \Mail::to($user->email)->send(new BookbindingUserApplyMailForBank($bookbindingUserApply, $user));
                 }
             //ユーザー自身の場合
             } else {
-                $contentType = AppraisalClaim::PERSONAL;
+                $contentType = AppraisalClaim::SOLAR_RETURN_PERSONAL;
                 // $user = UserService::createUserAndHoroscope($request);
                 $user = auth()->guard('user')->user();
                 $solarApply = AppraisalApplyService::create($request, User::class, $user->id);
                 if ((int) $request->is_bookbinding === Bookbinding::BOOKBINDING) {
                     $bookbindingUserApply = BookbindingUserApplyService::create($request, $solarApply);
                     $bookbindingUserApplyId = $bookbindingUserApply->id;
-                    $contentType = AppraisalClaim::PERSONAL_BOOKING;
+                    $contentType = AppraisalClaim::SOLAR_RETURN_PERSONAL_BOOKING;
                     \Mail::to($user->email)->send(new BookbindingUserApplyMailForBank($bookbindingUserApply, $user));
                 }
 
