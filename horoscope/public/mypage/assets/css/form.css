@@ -378,7 +378,7 @@
     height: 40px;
 }
 .C-form-block__radio-pdf-title4::after {
-    background-image: url(../../../images/common/Solar_return_title.svg);
+    background-image: url(../../../images/common/pdf-title4.svg);
     width: 100px;
     height: 40px;
 }
@@ -804,7 +804,7 @@
         height: 40px;
     }
     .C-form-block__radio-pdf-title4::after {
-        background-image: url(../../../images/common/Solar_return_title.svg);
+        background-image: url(../../../images/common/pdf-title4.svg);
         width: 80px;
         height: 40px;
     }
