@@ -62,10 +62,10 @@
 								<dt class="C-form-block__title C-form-block__title--req">表紙のデザイン</dt>
 								<dd class="C-form-block__body">
 									<div style="display:flex; justify-content: space-between;">
-										@foreach(App\Models\AppraisalApply::PDF_TYPE as $k => $v)
+										@foreach(App\Models\AppraisalApply::PDF_TYPE_SOLAR as $k => $v)
 											<div style="width: calc((100% - 1.4rem) / 3); display:flex; flex-direction: column; align-items: center; border: 1px solid rgba(204,206,213,.35); border-radius: 0.6rem;">
-												<img class="C-form-block__show-pdf-title{{ $loop->iteration }}" src="{{ asset('images/common/pdf-title') }}{{ $loop->iteration }}.svg" alt="">
-												<img style="width: 120px; height: 160px;" src="{{ asset('images/common/pdf') }}{{ $loop->iteration }}.svg" alt="">
+												<img class="C-form-block__show-pdf-title{{ '4' }}" src="{{ asset('images/common/pdf-title') }}{{ '4' }}.svg" alt="">
+												<img style="width: 120px; height: 160px;" src="{{ asset('images/common/pdf') }}{{ '4' }}.svg" alt="">
 											</div>
 										@endforeach
 									</div>
@@ -173,7 +173,7 @@
 													<dl class="C-form-block C-form-block--cash" style="display: none;" id="pdf_dom-{{ $user->id }}" >
 														<dt class="C-form-block__title C-form-block__title--req">表紙デザイン</dt>
 														<div style="display: flex; align-items:center;">
-															@foreach(App\Models\AppraisalApply::PDF_TYPE as $k => $v)
+															@foreach(App\Models\AppraisalApply::PDF_TYPE_SOLAR as $k => $v)
 															<label for="pdf_type-{{ $v }}-{{  $user->id }}" class="@error('pdf_types') is-invalid @enderror" style="display: flex; margin-right:10px;">
 																<input type="radio"
 																	name="pdf_type-{{ $user->id }}"
@@ -283,7 +283,7 @@
 													    <dl class="C-form-block C-form-block--cash" style="display: none;" id="pdf_dom-{{ $familiesWithAppraisalApply->id }}">
 													    	<dt class="C-form-block__title C-form-block__title--req">表紙デザイン</dt>
 													    	<div style="display: flex; align-items:center;">
-													    		@foreach(App\Models\AppraisalApply::PDF_TYPE as $k => $v)
+													    		@foreach(App\Models\AppraisalApply::PDF_TYPE_SOLAR as $k => $v)
 													    		<label for="pdf_type-{{ $v }}-{{ $familiesWithAppraisalApply->id }}" class="@error('pdf_types') is-invalid @enderror" style="display: flex; margin-right:10px;">
 													    			<input type="radio"
 													    				name="pdf_type-{{ $familiesWithAppraisalApply->id }}"
