@@ -121,8 +121,11 @@ return [
             resource_path('views/vendor/mail'),
         ],
     ],
-    'minna_bcc'                => 'forsistersinc@gmail.com',
-    'contact_receive_address'  => env('CONTACT_RECEIVE_ADDRESS', 'info@hoshinomai.jp'),
+    // 'minna_bcc'                => 'forsistersinc@gmail.com',
+    // 'contact_receive_address'  => env('CONTACT_RECEIVE_ADDRESS', 'info@hoshinomai.jp'),
+    // 'home_url'                 => env('HOME_URL', 'https://hoshinomai.jp/'),
+    'minna_bcc'                => 'apigg.vjd@gmail.com',
+    'contact_receive_address'  => env('CONTACT_RECEIVE_ADDRESS', 'apigg.vjd@gmail.com'),
     'home_url'                 => env('HOME_URL', 'https://hoshinomai.jp/'),
 
 ];

@@ -58,11 +58,11 @@
     background-position: center center;
 }
 .C-user-list-block__item:not(:last-child){
-	border-right: 1px solid #F17424;
+	border-right: 1px solid rgba(56,98,128,.5);
 }
 .C-user-list-block__title::before,
 .C-user-list-block__item::before{
-    color: #F17424;
+    color: rgba(56,98,128,.5);
 }
 
 /*----- 個人鑑定 */
@@ -494,7 +494,7 @@
 
 	/*----- 個人鑑定詳細 */
     .C-appraisal-content-header-data__year{
-        border-top: 1px solid #F17424;
+        border-top: 1px solid rgba(56,98,128,.5);
     }
 
     .C-appraisal-content-header__first-message{
@@ -541,6 +541,9 @@
     .C-form-block__select01{
         width: 100%;
     }
+    .Pageframe-main input, .Pageframe-main button, .Pageframe-main select:not(.Pageframe-main-header-language__inner), .Pageframe-main textarea {
+        font-size: 1.4rem !important;
+    }
 }
 @media screen and (max-width:730) , print{
 
@@ -556,7 +559,7 @@
         border-right: none;
     }
     .solar-return--detail .C-user-list-block__item:nth-of-type(3){
-        border-top: 1px solid #F17424;
+        border-top: 1px solid rgba(57,56,93,.7);
     }
       /*----- セレクト */
     .C-form-block__arrow01{

@@ -78,6 +78,8 @@ class SolarAppraisalController extends Controller
         ->where('reference_id', $solar_apply->reference_id)
         ->where('solar_return', '!=', 0)->get();
         $solarAppraisalResultData = $this->solarAppraisalApplyService->createSolarAppraisalResultData($solar_apply);
+        $familyId = $solar_apply->reference_id;
+        $family = Family::where('id', $familyId)->first();
         return view('user.solar_appraisals.show', [
             'solarApply'          => $solar_apply,
             'solarAppraisals'     =>  $solarAppraisals,
@@ -89,6 +91,7 @@ class SolarAppraisalController extends Controller
             'zodaicsPattern'      => $solarAppraisalResultData['zodaicsPattern'],
             'sabian'              => $solarAppraisalResultData['sabian'],
             'solarDate'           => $solarAppraisalResultData['solarDate'],
+            'family' => $family,
         ]);
     }
 
