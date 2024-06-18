@@ -11,8 +11,10 @@
                         <!-- <p class="C-user-list-block__item" data-tag="Solar Year">{{ $solarDate->format('Y') }}</p>
                         <p class="C-user-list-block__item" data-tag="Solar Time">{{ $solarDate->format('H : i') }}</p>
                         <p class="C-user-list-block__item" data-tag="Location">{{ auth()->guard('user')->user()->birthday_prefectures }}</p> -->
+                        <p class="C-user-list-block__item" data-tag="Relationship">
+                            {{$family->relationship}}</p>
                         <p class="C-user-list-block__item" data-tag="Birthday">
-                        {{$solarApply->birthday->format('Y-m-d') }}
+                            {{$solarApply->birthday->format('Y-m-d') }}
                         </p>
                         <p class="C-user-list-block__item" data-tag="Birth Time">
                             {{ $solarApply->birthday_time->format('H:i') }}

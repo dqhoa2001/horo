@@ -2,16 +2,16 @@
   <div class="Pageframe-main-header__first"><a href="{{ route('user.popup') }}">マイページ</a></div>
   <h2 class="Pageframe-main-header__pagename">
     {{-- @if ((int)\Request::get('target_type') !== \App\Models\AppraisalApply::FAMILY) --}}
-    @if((int)Request::get('target_type') === \App\Models\AppraisalApply::FAMILY)
+    <!-- @if((int)Request::get('target_type') === \App\Models\AppraisalApply::FAMILY)
         家族の
     @else
         私の
-    @endif
-    @if(isset($solarApply))
+    @endif -->
+    @if(isset($solarApply  ))
         @if($solarApply->reference_type === "App\Models\Family")
         家族の太陽回帰鑑定 結果
-        @else
-        SOLAR RETURN鑑定結果
+        @elseif($solarApply->reference_type === "App\Models\User")
+        SOLAR RETURN鑑定結果 私の
         @endif
     @endif
     @switch(Request::url())

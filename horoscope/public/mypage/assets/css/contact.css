@@ -19,9 +19,9 @@
     max-width: 45rem;
     margin-bottom: -2.5rem;
 }
-.Pageframe-main-content{
+/* .Pageframe-main-content{
     margin-top: -10rem;
-}
+} */
 
 @media screen and (width >= 1600px) , print{
 
@@ -60,9 +60,9 @@
 
 }
 @media screen and (max-width:500px) , print{
-    .Pageframe-main-content{
+    /* .Pageframe-main-content{
         margin-top: -5rem;
-    }
+    } */
     .C-form-block--type:not(:last-child){
         margin-bottom: 3rem;
     }
