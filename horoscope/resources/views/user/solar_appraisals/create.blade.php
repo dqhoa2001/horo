@@ -167,7 +167,7 @@
                                                             </select>
                                                         </dd>
                                                         <dd class="C-form-block__select">
-                                                            <select id="select_day" name="birth_day">
+                                                            <select id="select_day" name="birth_day" @change="changeDate">
                                                                 {{-- デフォルト値はjsで実装 --}}
                                                             </select>
                                                         </dd>
@@ -271,7 +271,7 @@
                                                 {{-- </div> --}}
                                             {{-- </div> --}}
                                             <dl class="C-form-block-child">
-                                                <dt class="C-form-block__title C-form-block__title--req">生まれた場所</dt>
+                                                <dt class="C-form-block__title C-form-block__title--req">鑑定年</dt>
                                                 <dd class="C-form-block__body">
                                                     <div class="C-form-block__radio unsetFlex">
                                                         @include('components.form.original_solar_radio', [
@@ -570,20 +570,33 @@ Vue.createApp({
                 this.totalAmount = this.totalAmount - this.bookbindingPrice;
             }
         },
+        changeDate(){
+            let selectYear = document.getElementById('select_year');
+			let selectMonth = document.getElementById('select_month');
+			let selectDay = document.getElementById('select_day');
+            if(selectYear.value !== '' &&  selectMonth.value !== '' &&  selectDay.value !== ''){
+                let year = parseInt(selectYear.value);
+                let month = parseInt(selectMonth.value) - 1;
+                let day = parseInt(selectDay.value);
+                let birthday = new Date(year, month, day);
+                this.setAge(birthday);
+            }
+        },
         //家族を選択したらその家族の情報をセットする
         setAge(birthday){
             let currentDate = new Date();
 
             let age = currentDate.getFullYear() - birthday.getFullYear();
-
+            let currentYear = currentDate.getFullYear();
             if (currentDate.getMonth() < birthday.getMonth() || (currentDate.getMonth() === birthday.getMonth() && currentDate.getDate() < birthday.getDate())) {
                 age--;
+                currentYear--;
             }
 
-            let formattedCurrentDate = `${currentDate.getFullYear()}年${(birthday.getMonth()+1).toString().padStart(2, '0')}月${(birthday.getDate()).toString().padStart(2, '0')}日`;
-            let formattedNextDate = `${currentDate.getFullYear()+1}年${(birthday.getMonth()+1).toString().padStart(2, '0')}月${(birthday.getDate()).toString().padStart(2, '0')}日`;
-            let formattedCurrentDate1 = `${currentDate.getFullYear()+1}年${(birthday.getMonth()+1).toString().padStart(2, '0')}月${(birthday.getDate()).toString().padStart(2, '0')}日`;
-            let formattedNextDate1 = `${currentDate.getFullYear()+2}年${(birthday.getMonth()+1).toString().padStart(2, '0')}月${(birthday.getDate()).toString().padStart(2, '0')}日`;
+            let formattedCurrentDate = `${currentYear}年${(birthday.getMonth()+1).toString().padStart(2, '0')}月${(birthday.getDate()).toString().padStart(2, '0')}日`;
+            let formattedNextDate = `${currentYear+1}年${(birthday.getMonth()+1).toString().padStart(2, '0')}月${(birthday.getDate()).toString().padStart(2, '0')}日`;
+            let formattedCurrentDate1 = `${currentYear+1}年${(birthday.getMonth()+1).toString().padStart(2, '0')}月${(birthday.getDate()).toString().padStart(2, '0')}日`;
+            let formattedNextDate1 = `${currentYear+2}年${(birthday.getMonth()+1).toString().padStart(2, '0')}月${(birthday.getDate()).toString().padStart(2, '0')}日`;
 
             const currentAge = document.querySelector('span.C-form-block__radio__text[for="solar_return1"]');
             const nextAge = document.querySelector('span.C-form-block__radio__text[for="solar_return2"]');
@@ -815,6 +828,9 @@ Vue.createApp({
         if (!(birthday instanceof Date)) {
             birthday = new Date(birthday);
         }
+        // 日付をUTCからJSTに変換
+        let timezoneOffset = 9 * 60; // JSTはUTCより9時間進んでいます
+        birthday.setMinutes(birthday.getMinutes() + timezoneOffset);
         this.setAge(birthday);
     }
 }).mount('#Personal-appraisal');

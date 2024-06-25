@@ -2,6 +2,7 @@
 
 namespace Modules\Horoscope\Http\Actions;
 
+use App\Models\AppraisalApply;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
@@ -19,7 +20,6 @@ use Modules\Horoscope\Enums\AngleEnum;
 
 class GenerateSolarHoroscopeChartAction
 {
-    protected Carbon $solarDate;
     /**
      * @param GenerateImageAction $generateImageAction
      * @param GetListWheelAction $getListWheelAction
@@ -43,6 +43,8 @@ class GenerateSolarHoroscopeChartAction
 
     public function execute(array $request, float $scale = 1): Collection
     {
+        #solar_return_year
+        $solarYear = $request['solar_year'];
         # modify request data
         $date = Carbon::create(
             $request['year'],
@@ -61,12 +63,12 @@ class GenerateSolarHoroscopeChartAction
         # init image object
         $randomBG = rand(1, 5);
         $bgPath = $useBg
-            ? module_path('horoscope', 'Resources/assets/images/' . $randomBG . '.png')
-            : "";
+        ? module_path('horoscope', 'Resources/assets/images/' . $randomBG . '.png')
+        : "";
         $image = $this->generateImageAction->execute($scale);
         $wheels = $this->getListWheelAction->execute($scale, $useBg);
         # get data from request
-        $swephData = $this->findDayOfBirthSolar($date, $localtion);
+        $swephData = $this->findDayOfBirthSolar($date, $localtion,$solarYear);
         if (empty($swephData)) {
             return collect([
                 'status' => false
@@ -91,11 +93,10 @@ class GenerateSolarHoroscopeChartAction
             'image' => $image,
             'degreeData' => $degreeData,
             'explain' => $explainData,
-            'solarDate' => $this->solarDate
         ]);
     }
 
-    private function findDayOfBirthSolar(Carbon $date, Collection $localtion): array
+    private function findDayOfBirthSolar(Carbon $date, Collection $localtion, Int $solar_year): array
     {
         // day of birth
         $swephData = $this->predictDayOfBirthAction->execute(
@@ -106,7 +107,7 @@ class GenerateSolarHoroscopeChartAction
         );
         $dayOfBirthDegrees = $this->calculateSolarDegrees($swephData);
         // day of birth solar
-        $solarDate = Carbon::create($date->year, $date->month, $date->day, $date->hour, $date->minute)->subDays(3);
+        $solarDate = Carbon::create($solar_year, $date->month, $date->day, $date->hour, $date->minute)->subDays(3);
         $counter = 0;
         $dayOfBirthSolarDegrees = 0;
         do {
@@ -122,7 +123,6 @@ class GenerateSolarHoroscopeChartAction
             $dayOfBirthSolarDegrees = $this->calculateSolarDegrees($swephSolarData);
             $counter++;
         } while ($dayOfBirthSolarDegrees !== $dayOfBirthDegrees);
-        $this->solarDate = $solarDate;
         return $this->predictDayOfBirthAction->execute(
             $solarDate->format('d.m.Y'),
             $solarDate->format('H:i'),

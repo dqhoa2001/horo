@@ -19,7 +19,7 @@
       マイページ
       @break
       @case(str_contains(Request::url(), 'horoscope'))
-      MYホロスコープチャート
+      ホロスコープチャート
       @break
       @case(str_contains(Request::url(), 'user/appraisals'))
       個人鑑定

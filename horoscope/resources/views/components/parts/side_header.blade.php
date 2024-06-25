@@ -28,14 +28,14 @@
                     @else
                         <a href="{{ route('user.my_horoscopes.create') }}">
                     @endif
-                    <span>MYホロスコープ<br class="sp">チャート</span></a>
+                    <span>ホロスコープ<br class="sp">チャート</span></a>
                 </li>
                 <li class="header-nav__item header-nav__item--appraisal"><a href="{{ route('user.appraisals.index') }}"><span>Stellar Blueprint</span></a></li>
-                <li class="header-nav__item header-nav__item--appraisal">
+                <li class="header-nav__item header-nav__item--solar">
                     <a href="{{ route('user.solar_appraisals.index') }}">
                     <span>SOLAR RETURN</span></a>
                 </li>
-                <li class="header-nav__item header-nav__item--familyappraisal"><a href="{{ route('user.family_list.index') }}"><span>家族の<br class="sp">個人鑑定</span></a></li>
+                <li class="header-nav__item header-nav__item--familylist"><a href="{{ route('user.family_list.index') }}"><span>家族一覧</span></a></li>
                 <li class="header-nav__item header-nav__item--coupon"><a href="{{ route('user.coupon') }}"><span>ご紹介クーポン</span></a></li>
                 <li class="header-nav__item header-nav__item--contact"><a href="{{ route('user.contacts.create') }}"><span>お問い合わせ</span></a></li>
             </ul>

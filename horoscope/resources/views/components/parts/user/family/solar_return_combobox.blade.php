@@ -20,13 +20,14 @@
                                                                 $birthday = $SolarAppraisal->birthday;
                                                                 $birthdayDate = \Carbon\Carbon::parse($birthday);
                                                                 $age = $solar_return - $birthdayDate->year;
-                                                                if (\Carbon\Carbon::parse($solar_return . '-12-31')->lt($birthdayDate->copy()->year($solar_return))) {
+                                                                if (\Carbon\Carbon::now()->lt($birthdayDate->copy()->year($solar_return))) {
                                                                     $age--;
+                                                                    $solar_return--;
                                                                 }
                                                                 $url = route('user.families.show', ['family' => $family, 'solar_apply' => $SolarAppraisal]);
                                                         @endphp
                                                         <option value="{{ $url }}" @if (isset($solarApply)){{ $solarApply->id == $SolarAppraisal->id ? 'selected' : '' }}@endif>
-                                                            太陽回帰図 | {{ $age }} 歳 {{ $solar_return }} -- {{ $solar_return + 1 }}
+                                                            {{ $age }}歳　({{ $solar_return }}年{{$birthdayDate->month}}月{{$birthdayDate->day}}日　-　{{ $solar_return+1}}年{{$birthdayDate->month}}月{{$birthdayDate->day}}日)
                                                         </option>
                                                     @endforeach
                                             </select>

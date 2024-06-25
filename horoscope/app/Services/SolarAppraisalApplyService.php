@@ -97,6 +97,7 @@ class SolarAppraisalApplyService
             "map-city" => $solarApply->birthday_city,
             "timezone" => $solarApply->timezome,
             "background" => 'normal',
+            "solar_year"=> $solarApply->solar_return,
         ];
 
         // ホロスコープ占いの処理
@@ -108,8 +109,7 @@ class SolarAppraisalApplyService
         $explain = $chart->get('explain');
         $zodaicsPattern = $this->zodiacPatternRepository->getAll();
         $sabian = $this->sabianPatternRepository->getAll();
-        $solarDate = $chart->get('solarDate');
-        // dd($solarDate);
+        $solarDate =   $solarApply->solar_date;
         foreach ($explain as $key => $item) {
             //$removePlanetの中に$keyがあるかどうかを判定し、あれば削除する
             if (\in_array($key, ExplainEnum::removePlanet, true)) {

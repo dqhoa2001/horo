@@ -58,15 +58,30 @@ class SolarAppraisalController extends Controller
 
     public function index(): View|RedirectResponse
     {
-        return view('user.solar_appraisals.index', [
-            'solarAppraisals' => AppraisalApply::whereHas('user', static function ($query) {
-                $query->where('id', auth()->guard('user')->user()->id);
-            })->whereHas('appraisalClaim', static function ($query) {
-                $query->where('is_paid', true);
-            })->where('reference_type', User::class)->where('solar_return', '!=', 0)->get(),
-            'solar_appraisal'         => Appraisal::where('is_enabled', true)->where('solar_return',true)->first(),
-            'bookbinding'       => Bookbinding::where('is_enabled', true)->where('solar_return',true)->first(),
+        $latestAppraisalApply = AppraisalApply::whereHas('user', static function ($query) {
+            $query->where('id', auth()->guard('user')->user()->id);
+        })->whereHas('appraisalClaim', static function ($query) {
+            $query->where('is_paid', true);
+        })->where('reference_type', User::class)
+        ->where('solar_return',0)->latest()->first();
+        // 鑑定結果がある場合showへリダイレクト
+        if ($latestAppraisalApply) {
+            return view('user.solar_appraisals.index', [
+                'solarAppraisals' => AppraisalApply::whereHas('user', static function ($query) {
+                    $query->where('id', auth()->guard('user')->user()->id);
+                })->whereHas('appraisalClaim', static function ($query) {
+                    $query->where('is_paid', true);
+                })->where('reference_type', User::class)->where('solar_return', '!=', 0)->get(),
+                'solar_appraisal'         => Appraisal::where('is_enabled', true)->where('solar_return',true)->first(),
+                'bookbinding'       => Bookbinding::where('is_enabled', true)->where('solar_return',true)->first(),
+            ]);
+        }
+
+        return view('user.appraisals.index', [
+            'appraisal'         => Appraisal::where('is_enabled', true)->first(),
+            'bookbinding'       => Bookbinding::where('is_enabled', true)->first(),
         ]);
+
     }
 
     //show solar appraisal data
@@ -136,7 +151,6 @@ class SolarAppraisalController extends Controller
             'defaultBirthdayTime' => $defaultBirthdayTime,
             'defaultBirthdayPrefectures' => $defaultBirthdayPrefectures,
             'defaultAddress' => $defaultAddress,
-            'solarYear' => now()->year,
         ]);
     }
 

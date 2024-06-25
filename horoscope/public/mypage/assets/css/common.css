@@ -1274,7 +1274,28 @@ print {
 	height: 1.8rem;
 	background-image: url(../images/common/icon_nav-appraisal_hover.svg);
 }
+.header-nav__item--solar a::before {
+	width: 1.7rem;
+	height: 1.8rem;
+	background-image: url(../images/common/icon_nav-solar_return.svg);
+}
 
+.header-nav__item--solar a::after {
+	width: 1.7rem;
+	height: 1.8rem;
+	background-image: url(../images/common/icon_nav-solar_return_hover.svg);
+}
+.header-nav__item--familylist a::before {
+	width: 1.7rem;
+	height: 1.8rem;
+	background-image: url(../images/common/icon_nav-family_list.svg);
+}
+
+.header-nav__item--familylist a::after {
+	width: 1.7rem;
+	height: 1.8rem;
+	background-image: url(../images/common/icon_nav-family_list_hover.svg);
+}
 .header-nav__item--familyhoroscope a::before {
 	width: 1.6rem;
 	height: 1.6rem;
