@@ -4,11 +4,8 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Services\AppraisalApplyService;
-use App\Services\SolarClaimService;
 use Illuminate\Http\Request;
 use App\Models\Bookbinding;
-use App\Models\SolarApply;
-use App\Models\Solar;
 use App\Models\Appraisal;
 use Illuminate\View\View;
 use App\Http\Requests\User\SolarBookbindingController\ConfirmRequest;
@@ -21,8 +18,6 @@ use App\Services\UserService;
 use Illuminate\Http\RedirectResponse;
 use App\Library\GetBccMail;
 use App\Library\GetPrefNum;
-use App\Models\SolarClaim;
-use App\Services\BookbindingUserSolarApplyService;
 use App\Mail\User\BookbindingBankInfoMailForBank;
 use App\Mail\User\BookbindingUserApplyMailForBank;
 use App\Models\BankInfo;
@@ -34,7 +29,6 @@ use App\Services\AppraisalClaimService;
 class SolarBookbindingController extends Controller
 {
     public function __construct(
-        protected SolarClaimService $solarClaimService,
         protected AppraisalApplyService $solarApplyService,
     ) {}
 

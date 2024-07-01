@@ -20,7 +20,6 @@ use App\Repositories\ZodiacRepository;
 use App\Services\MyHoroscopeService;
 use Modules\Horoscope\Http\Actions\GenerateSolarHoroscopeChartAction;
 use Modules\Horoscope\Enums\WheelRadiusEnum;
-use App\Services\SolarAppraisalApplyService;
 use Carbon\Carbon;
 use Stripe\Stripe;
 use App\Models\Family;
@@ -43,7 +42,7 @@ use App\Services\AppraisalClaimService;
 use App\Services\BookbindingUserApplyService;
 use App\Services\FamilyService;
 use App\Library\GetBccMail;
-
+use App\Services\SolarComboboxService;
 class SolarAppraisalController extends Controller
 {
     public function __construct(
@@ -53,7 +52,6 @@ class SolarAppraisalController extends Controller
         protected PlanetRepository $planetRepository,
         protected HouseRepository $houseRepository,
         protected SabianPatternRepository $sabianPatternRepository,
-        protected SolarAppraisalApplyService $solarAppraisalApplyService,
     ) {}
 
     public function index(): View|RedirectResponse
@@ -65,13 +63,10 @@ class SolarAppraisalController extends Controller
         })->where('reference_type', User::class)
         ->where('solar_return',0)->latest()->first();
         // 鑑定結果がある場合showへリダイレクト
+        $solarAppraisals =  SolarComboboxService::SolarCombobox(auth()->guard('user')->user()->id,User::class);
         if ($latestAppraisalApply) {
             return view('user.solar_appraisals.index', [
-                'solarAppraisals' => AppraisalApply::whereHas('user', static function ($query) {
-                    $query->where('id', auth()->guard('user')->user()->id);
-                })->whereHas('appraisalClaim', static function ($query) {
-                    $query->where('is_paid', true);
-                })->where('reference_type', User::class)->where('solar_return', '!=', 0)->get(),
+                'solarAppraisals' => $solarAppraisals,
                 'solar_appraisal'         => Appraisal::where('is_enabled', true)->where('solar_return',true)->first(),
                 'bookbinding'       => Bookbinding::where('is_enabled', true)->where('solar_return',true)->first(),
             ]);
@@ -87,14 +82,10 @@ class SolarAppraisalController extends Controller
     //show solar appraisal data
     public function show(AppraisalApply $solar_apply): View
     {
-        $solarAppraisals = AppraisalApply::whereHas('appraisalClaim', static function ($query) {
-            $query->where('is_paid', true);
-        })->where('reference_type', $solar_apply->reference_type)
-        ->where('reference_id', $solar_apply->reference_id)
-        ->where('solar_return', '!=', 0)->get();
-        $solarAppraisalResultData = $this->solarAppraisalApplyService->createSolarAppraisalResultData($solar_apply);
+        $solarAppraisalResultData = $this->appraisalApplyService->createAppraisalResultData($solar_apply);
         $familyId = $solar_apply->reference_id;
         $family = Family::where('id', $familyId)->first();
+        $solarAppraisals =  SolarComboboxService::SolarCombobox($solar_apply->reference_id,$solar_apply->reference_type);
         return view('user.solar_appraisals.show', [
             'solarApply'          => $solar_apply,
             'solarAppraisals'     =>  $solarAppraisals,
@@ -105,7 +96,6 @@ class SolarAppraisalController extends Controller
             'houses'              => $solarAppraisalResultData['houses'],
             'zodaicsPattern'      => $solarAppraisalResultData['zodaicsPattern'],
             'sabian'              => $solarAppraisalResultData['sabian'],
-            'solarDate'           => $solarAppraisalResultData['solarDate'],
             'family' => $family,
         ]);
     }

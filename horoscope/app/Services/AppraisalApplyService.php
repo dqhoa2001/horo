@@ -99,10 +99,12 @@ class AppraisalApplyService
             "map-city" => $appraisalApply->birthday_prefectures,
             "timezone" => $appraisalApply->timezome, //海外展開時にはここが変更できるようにする。現在は日本のみ
             "background" => 'normal', //仮
+            "solar_year" => $appraisalApply->solar_return,
         ];
 
         // ホロスコープ占いの処理
-        $chart = $this->generateHoroscopeChartAction->execute($formData, WheelRadiusEnum::WheelScale);
+        // $chart = $this->generateHoroscopeChartAction->execute($formData, WheelRadiusEnum::WheelScale);
+        $chart = ($appraisalApply->solar_return == 0) ? $this->generateHoroscopeChartAction->execute($formData, WheelRadiusEnum::WheelScale) : $this->generateSolarHoroscopeChartAction->execute($formData, WheelRadiusEnum::WheelScale);
         $zodaics = $this->zodiacRepository->getAll();
         $planets = $this->planetRepository->getAll();
         $houses = $this->houseRepository->getAll();
@@ -161,6 +163,7 @@ class AppraisalApplyService
             "timezone" => $appraisalApply->timezome, //海外展開時にはここが変更できるようにする。現在は日本のみ
             "background" => 'normal', //仮
             "relationship" => 'nullable', // 仮
+            "solar_year" => $appraisalApply->solar_return,
         ];
 
         // ホロスコープ占いの処理

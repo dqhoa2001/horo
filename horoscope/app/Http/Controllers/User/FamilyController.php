@@ -65,7 +65,7 @@ class FamilyController extends Controller
             \Log::warning("ホロスコープの生成に失敗しました。原因：{$th->getMessage()}");
             return back()->with('flash_alert', 'ホロスコープの生成に失敗しました。時間をあけて再度お試しください。')->withInput();
         }
-        return to_route('user.families.index')->with('status', 'ホロスコープを作成しました！');
+        return to_route('user.family_list.index')->with('status', 'ホロスコープを作成しました！');
     }
 
     // 家族のホロスコープ表示と編集
@@ -136,6 +136,7 @@ class FamilyController extends Controller
             "map-city" => $solar_apply->birthday_city,
             "timezone" => $solar_apply->timezome, //海外展開時にはここが変更できるようにする。現在は日本のみ
             "background" => 'normal', //仮
+            "solar_year"=> $solar_apply->solar_return,
         ];
         $chart = $this->generateSolarHoroscopeChartAction->execute($formData, WheelRadiusEnum::WheelScale);
         $zodiacs = $this->zodiacRepository->getAll();
