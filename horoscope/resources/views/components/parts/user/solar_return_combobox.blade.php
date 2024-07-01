@@ -22,7 +22,7 @@
                                                                 $birthday = $SolarAppraisal->birthday;
                                                                 $birthdayDate = \Carbon\Carbon::parse($birthday);
                                                                 $age = $solar_return - $birthdayDate->year;
-                                                                if (\Carbon\Carbon::now()->lt($birthdayDate->copy()->year($solar_return))) {
+                                                                if (\Carbon\Carbon::now()->isBefore($birthdayDate->copy()->year($solar_return)->endOfYear())) {
                                                                     $age--;
                                                                     $solar_return--;
                                                                 }
@@ -68,7 +68,7 @@
                                                                 $birthday = $SolarAppraisal->birthday;
                                                                 $birthdayDate = \Carbon\Carbon::parse($birthday);
                                                                 $age = $solar_return - $birthdayDate->year;
-                                                                if (\Carbon\Carbon::now()->lt($birthdayDate->copy()->year($solar_return))) {
+                                                                if (\Carbon\Carbon::now()->isBefore($birthdayDate->copy()->year($solar_return)->endOfYear())) {
                                                                     $age--;
                                                                     $solar_return--;
                                                                 }

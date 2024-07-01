@@ -276,8 +276,7 @@
                                                     <div class="C-form-block__radio unsetFlex">
                                                         @include('components.form.original_solar_radio', [
                                                             'name'    => 'solar_return',
-                                                            'data'    => [0 => now()->year, 1 => now()->year+1],
-                                                            'birthday' => 'birthday',
+                                                            'data'    => [0 , 1],
                                                         ])
                                                     </div>
                                                 </dd>
@@ -502,8 +501,6 @@ Vue.createApp({
 			marker: null,
 			map: null,
 			geocoder: new google.maps.Geocoder(),
-            age: '',
-            nextAge: '',
         }
     },
     methods: {
@@ -600,8 +597,12 @@ Vue.createApp({
 
             const currentAge = document.querySelector('span.C-form-block__radio__text[for="solar_return1"]');
             const nextAge = document.querySelector('span.C-form-block__radio__text[for="solar_return2"]');
+            const solarReturn1 = document.getElementById('solar_return1');
+            const solarReturn2 = document.getElementById('solar_return2');
             currentAge.textContent = `${age}歳(${formattedCurrentDate}-${formattedNextDate})`;
             nextAge.textContent = `${age+1}歳(${formattedCurrentDate1}-${formattedNextDate1})`;
+            solarReturn1.value = currentYear+1;
+            solarReturn2.value = currentYear+2;
         },
         setFamilyInfo(){
             const family = this.families.find(family => family.id == event.target.value);

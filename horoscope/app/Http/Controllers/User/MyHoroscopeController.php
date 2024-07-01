@@ -19,11 +19,12 @@ use Modules\Horoscope\Http\Actions\GenerateHoroscopeChartAction;
 use Modules\Horoscope\Http\Requests\HoroscopeRequest;
 use Illuminate\Http\RedirectResponse;
 use App\Services\MyHoroscopeService;
+use App\Services\SolarComboboxService;
 use Modules\Horoscope\Http\Actions\Predict\ModifyLocation;
 use App\Repositories\SabianPatternRepository;
 use App\Repositories\ZodiacPatternRepository;
-use App\Services\SolarAppraisalApplyService;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Modules\Horoscope\Http\Actions\GenerateSolarHoroscopeChartAction;
 
 class MyHoroscopeController extends Controller
@@ -37,7 +38,6 @@ class MyHoroscopeController extends Controller
         protected ModifyLocation $modifyLocation,
         protected SabianPatternRepository $sabianPatternRepository,
         protected ZodiacPatternRepository $zodiacPatternRepository,
-        protected SolarAppraisalApplyService $solarAppraisalApplyService,
     ) {
     }
 
@@ -94,6 +94,7 @@ class MyHoroscopeController extends Controller
         $defaultBirthdayPrefectures = $user->birthday_prefectures ?? '東京都杉並区';
         $defaultAddress = $defaultBirthdayPrefectures;
         $defaultBirthDay = $user->birthday;
+        $solarAppraisals =  SolarComboboxService::SolarCombobox($user->id,User::class);
         return view('user.my_horoscopes.edit', [
             'imgBase64'  => $imgBase64,
             'degreeData' => $degreeData,
@@ -103,11 +104,7 @@ class MyHoroscopeController extends Controller
             'houses'     => $houses,
             'defaultAddress' => $defaultAddress,
             'defaultBirthDay' => $defaultBirthDay,
-            'solarAppraisals' => AppraisalApply::whereHas('user', static function ($query) {
-                $query->where('id', auth()->guard('user')->user()->id);
-            })->whereHas('appraisalClaim', static function ($query) {
-                $query->where('is_paid', true);
-            })->where('reference_type', User::class)->where('solar_return', '!=', 0)->get(),
+            'solarAppraisals' => $solarAppraisals,
         ]);
     }
 
@@ -121,7 +118,7 @@ class MyHoroscopeController extends Controller
             "year" => $user->birthday->format('Y'),
             "month" => $user->birthday->format('m'),
             "day" => $user->birthday->format('d'),
-            "hour" => $user->birthday_time->format('H'), 
+            "hour" => $user->birthday_time->format('H'),
             "minute" => $user->birthday_time->format('i'),
             "longitude" => $user->longitude,
             "latitude" => $user->latitude,
@@ -141,6 +138,7 @@ class MyHoroscopeController extends Controller
         $defaultBirthdayPrefectures = $user->birthday_prefectures ?? '東京都杉並区';
         $defaultAddress = $defaultBirthdayPrefectures;
         $defaultBirthDay = $user->birthday;
+        $solarAppraisals =  SolarComboboxService::SolarCombobox($user->id,User::class);
         return view('user.my_horoscopes.edit', [
             'solarApply' => $solar_apply,
             'imgBase64'  => $imgBase64,
@@ -151,11 +149,7 @@ class MyHoroscopeController extends Controller
             'houses'     => $houses,
             'defaultAddress' => $defaultAddress,
             'defaultBirthDay' => $defaultBirthDay,
-            'solarAppraisals' => AppraisalApply::whereHas('user', static function ($query) {
-                $query->where('id', auth()->guard('user')->user()->id);
-            })->whereHas('appraisalClaim', static function ($query) {
-                $query->where('is_paid', true);
-            })->where('reference_type', User::class)->where('solar_return', '!=', 0)->get(),
+            'solarAppraisals' => $solarAppraisals,
         ]);
     }
     public function update(UpdateRequest $request): RedirectResponse
