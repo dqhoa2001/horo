@@ -165,9 +165,17 @@ class AppraisalApplyService
             "relationship" => 'nullable', // 仮
             "solar_year" => $appraisalApply->solar_return,
         ];
-
+        $solar_return = $appraisalApply->solar_return + 1;
+        $birthday = $appraisalApply->birthday;
+        $birthdayDate = \Carbon\Carbon::parse($birthday);
+        $age = $solar_return - $birthdayDate->year;
+        if (\Carbon\Carbon::now()->isBefore($birthdayDate->copy()->year($solar_return)->endOfYear())) {
+            $age--;
+            $solar_return--;
+        }
+        $formattedAge = 'Age ' . $age .' '. $solar_return.'/' . $birthdayDate->month . '/' . $birthdayDate->day . ' ~ ' . ($solar_return + 1) . '/' . $birthdayDate->month . '/' . $birthdayDate->day;
         // ホロスコープ占いの処理
-
+        $formattedAge2 = $age .'歳　'. $solar_return.'年' . $birthdayDate->month . '月' . $birthdayDate->day . '日 ~ ' . ($solar_return + 1) . '年' . $birthdayDate->month . '月' . $birthdayDate->day.'日';
         $chart = ($appraisalApply->solar_return == 0) ? $this->generateHoroscopeChartAction->execute($formData, WheelRadiusEnum::WheelScale) : $this->generateSolarHoroscopeChartAction->execute($formData, WheelRadiusEnum::WheelScale);
         $zodaics = $this->zodiacRepository->getAll();
         $planets = $this->planetRepository->getAll();
@@ -193,6 +201,8 @@ class AppraisalApplyService
             'zodaicsPattern' => $zodaicsPattern,
             'zodiacColors' => $zodiacColors,
             'dayCreate' => $dayCreate,
+            'formattedAge' => $formattedAge,
+            'formattedAge2' => $formattedAge2,
         ];
         $fileName = $formData['name'] . '_' . now()->format('Ymd-His') . '.pdf';
 

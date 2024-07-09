@@ -1,0 +1,256 @@
+@charset "utf-8";
+.page--cover-foot .page__inner::before{
+    height: 23rem;
+    bottom: -23rem;
+    background-image: url(../images/line_cover-foot-solar.svg);
+}
+.page0{
+    /* background-image: url(../images/bg_cover3.jpg);
+    background-image: image-set(url(../images/bg_cover3.jpg) 1x, url(../images/bg_cover3@2x.jpg) 2x);
+    background-image: -webkit-image-set(url(../images/bg_cover3.jpg) 1x, url(../images/bg_cover3@2x.jpg) 2x); */
+    background-image: url(../images/hyou1.png);
+    /* background-image: image-set(url(../images/bg_cover3.jpg) 1x, url(../images/bg_cover3@2x.jpg) 2x);
+    background-image: -webkit-image-set(url(../images/bg_cover3.jpg) 1x, url(../images/bg_cover3@2x.jpg) 2x); */
+}
+.page0-header{
+    padding-top: 9rem;
+    margin-bottom: 2rem;
+}
+.page0-header__logo{
+    width: 5rem;
+    margin-bottom: .5rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+.page0-header__logo img{
+    width: 100%;
+}
+/* .page0-header__catchcopy{
+    font-size: 2.3rem;
+    font-size: 2.3rem;
+    color: #92a4ab;
+} */
+.page0-header__catchcopy{
+    width: 26.8rem;
+}
+.page0-header__catchcopy img{
+    width: 100%;
+}
+.page0-pdftitle{
+    width: 100%;
+    max-width: 33.7rem;
+    transform: translate(2.2rem, 0);
+    margin-bottom: 2rem;
+}
+.page0-pdftitle img{
+    width: 100%;
+}
+.page0-footer__text{
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #595757;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+}
+.page0-footer__name{
+    font-size: 1.8rem;
+    /* min-width: 25.5rem;
+    padding-top: 1rem;
+    min-height: 3.2rem;
+    border-radius: 1.6rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center; */
+    position: absolute;
+    top: 69.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #91a3ab;
+}
+.page01 .page__inner::after{
+    width: 25rem;
+    height: 3.5rem;
+    left: 0;
+    right: 0;
+    bottom: 7rem;
+    position: absolute;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: url(../images/line_cover-foot-solar.svg);
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    content: "";
+}
+.page1{
+    background-image: url(../images/bg_page_1_solar.png);
+}
+.page2{
+    background-image: url(../images/bg_page_2_solar.png);
+}
+.page5 .page__inner::after{
+    background-image: url(../images/line_cover-foot-solar.svg);
+}
+.page5__title{
+    color: #BC884F;
+}
+.page5__title::before{
+    background-image: url(../images/line_horoscope-title_left_solar.svg);
+}
+.page5__title::after{
+    background-image: url(../images/line_horoscope-title_right_solar.svg);
+}
+.page7 .page--cover__title,
+.page7 .page--cover-block1__title,
+.page7 .page-block--1__title{
+    color: #BC884F;
+}
+.page7 .page--cover__title::before{
+    background-image: url(../images/line_cover-title-acmc_left-solar.svg);
+}
+.page7 .page--cover__title::after{
+    background-image: url(../images/line_cover-title-acmc_right-solar.svg);
+}
+.page7 .page-block--1__title .icon-sign--Cancer:nth-of-type(1)::after{
+    background-image: url(../images/acmc/acmc_solar/icon_kani.svg);
+}
+.page7 .page-block--1__title .icon-sign--Gemini:nth-of-type(1)::after{
+    background-image: url(../images/acmc/acmc_solar/icon_hutago.svg);
+}
+.page7 .page-block--1__title .icon-sign--Sagittarius:nth-of-type(1)::after{
+    background-image: url(../images/acmc/acmc_solar/icon_ite.svg);
+}
+.page7 .page-block--1__title .icon-sign--Aquarius:nth-of-type(1)::after{
+    background-image: url(../images/acmc/acmc_solar/icon_mizugame.svg);
+}
+.page7 .page-block--1__title .icon-sign--Aries:nth-of-type(1)::after{
+    background-image: url(../images/acmc/acmc_solar/icon_ohitsuji.svg);
+}
+.page7 .page-block--1__title .icon-sign--Virgo:nth-of-type(1)::after{
+    background-image: url(../images/acmc/acmc_solar/icon_otome.svg);
+}
+.page7 .page-block--1__title .icon-sign--Taurus:nth-of-type(1)::after{
+    background-image: url(../images/acmc/acmc_solar/icon_oushi.svg);
+}
+.page7 .page-block--1__title .icon-sign--Scorpio:nth-of-type(1)::after{
+    background-image: url(../images/acmc/acmc_solar/icon_sasori.svg);
+}
+.page7 .page-block--1__title .icon-sign--Leo:nth-of-type(1)::after{
+    background-image: url(../images/acmc/acmc_solar/icon_shishi.svg);
+}
+.page7 .page-block--1__title .icon-sign--Libra:nth-of-type(1)::after{
+    background-image: url(../images/acmc/acmc_solar/icon_tenbin.svg);
+}
+.page7 .page-block--1__title .icon-sign--Pisces:nth-of-type(1)::after{
+    background-image: url(../images/acmc/acmc_solar/icon_uo.svg);
+}
+.page7 .page-block--1__title .icon-sign--Capricorn:nth-of-type(1)::after{
+    background-image: url(../images/acmc/acmc_solar/icon_yagi.svg);
+}
+/*-------------------------------
+	太陽
+-------------------------------*/
+
+.page--sun{
+    background: #F5D09B;
+}
+.page--sun::before{
+    background-image: url(../images/title_sun.svg);
+}
+.page--sun .page--cover__title::before{
+    background-image: url(../images/line_cover-title-sun_left-solar.svg);
+}
+.page--sun .page--cover__title::after{
+    background-image: url(../images/line_cover-title-sun_right-solar.svg);
+}
+.page--sun .page--cover__frame{
+    border-left-color: #F5D09B;
+    border-right-color: #F5D09B;
+}
+.page--sun .page--cover__frame::after{
+    border-color: #F5D09B;
+}
+
+.page--sun .page-block--1__title .icon-sign--Cancer:nth-of-type(1)::after,
+.page--sun .page-block--5__title.icon-sign--Cancer::after{
+    background-image: url(../images/sun/icon_kani.svg);
+}
+.page--sun .page-block--1__title .icon-sign--Gemini:nth-of-type(1)::after,
+.page--sun .page-block--5__title.icon-sign--Gemini::after{
+    background-image: url(../images/sun/icon_hutago.svg);
+}
+.page--sun .page-block--1__title .icon-sign--Sagittarius:nth-of-type(1)::after,
+.page--sun .page-block--5__title.icon-sign--Sagittarius::after{
+    background-image: url(../images/sun/icon_ite.svg);
+}
+.page--sun .page-block--1__title .icon-sign--Aquarius:nth-of-type(1)::after,
+.page--sun .page-block--5__title.icon-sign--Aquarius::after{
+    background-image: url(../images/sun/icon_mizugame.svg);
+}
+.page--sun .page-block--1__title .icon-sign--Aries:nth-of-type(1)::after,
+.page--sun .page-block--5__title.icon-sign--Aries::after{
+    background-image: url(../images/sun/icon_ohitsuji.svg);
+}
+.page--sun .page-block--1__title .icon-sign--Virgo:nth-of-type(1)::after,
+.page--sun .page-block--5__title.icon-sign--Virgo::after{
+    background-image: url(../images/sun/icon_otome.svg);
+}
+.page--sun .page-block--1__title .icon-sign--Taurus:nth-of-type(1)::after,
+.page--sun .page-block--5__title.icon-sign--Taurus::after{
+    background-image: url(../images/sun/icon_oushi.svg);
+}
+.page--sun .page-block--1__title .icon-sign--Scorpio:nth-of-type(1)::after,
+.page--sun .page-block--5__title.icon-sign--Scorpio::after{
+    background-image: url(../images/sun/icon_sasori.svg);
+}
+.page--sun .page-block--1__title .icon-sign--Leo:nth-of-type(1)::after,
+.page--sun .page-block--5__title.icon-sign--Leo::after{
+    background-image: url(../images/sun/icon_shishi.svg);
+}
+.page--sun .page-block--1__title .icon-sign--Libra:nth-of-type(1)::after,
+.page--sun .page-block--5__title.icon-sign--Libra::after{
+    background-image: url(../images/sun/icon_tenbin.svg);
+}
+.page--sun .page-block--1__title .icon-sign--Pisces:nth-of-type(1)::after,
+.page--sun .page-block--5__title.icon-sign--Pisces::after{
+    background-image: url(../images/sun/icon_uo.svg);
+}
+.page--sun .page-block--1__title .icon-sign--Capricorn:nth-of-type(1)::after,
+.page--sun .page-block--5__title.icon-sign--Capricorn::after{
+    background-image: url(../images/sun/icon_yagi.svg);
+}
+
+.page--sun .page-block--2 .page__text{
+    background: #F5D09B;
+}
+.page--sun .page-block--5__half{
+    border-color: #F5D09B;
+}
+.page--sun .page--cover__title,
+.page--sun .page--cover-block1__title,
+.page--sun .page-block--1__title,
+.page--sun .page-block--2__title,
+.page--sun .page-block--3__title,
+.page--sun .page-block--4__title,
+.page--sun .page-block--5__title{
+    color: #BC884F;
+}
+.page--sun .page-block--3__title::before{
+    background-image: url(../images/icon_sun3.svg);
+}
+.page--sun .page--cover__title span::before{
+    background-image: url(../images/icon_sun-solar.svg);
+}
+
+/*-------------------------------
+	ページ42（背表紙）
+-------------------------------*/
+
+.page42{
+    background-size: cover;
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-image: url(../images/hyou4.png);
+}
