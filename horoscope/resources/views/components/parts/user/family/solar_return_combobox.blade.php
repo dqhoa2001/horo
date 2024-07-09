@@ -16,7 +16,7 @@
                                                     <option value=""@if (empty($solarApply)) selected @endif>[SOLAR RETURN]を選択してください。</option>
                                                     @foreach ($solarAppraisals as $SolarAppraisal)
                                                         @php
-                                                                $solar_return = $SolarAppraisal->solar_return;
+                                                                $solar_return = $SolarAppraisal->solar_return + 1;
                                                                 $birthday = $SolarAppraisal->birthday;
                                                                 $birthdayDate = \Carbon\Carbon::parse($birthday);
                                                                 $age = $solar_return - $birthdayDate->year;

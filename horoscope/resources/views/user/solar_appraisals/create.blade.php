@@ -601,8 +601,8 @@ Vue.createApp({
             const solarReturn2 = document.getElementById('solar_return2');
             currentAge.textContent = `${age}歳(${formattedCurrentDate}-${formattedNextDate})`;
             nextAge.textContent = `${age+1}歳(${formattedCurrentDate1}-${formattedNextDate1})`;
-            solarReturn1.value = currentYear+1;
-            solarReturn2.value = currentYear+2;
+            solarReturn1.value = currentYear;
+            solarReturn2.value = currentYear+1;
         },
         setFamilyInfo(){
             const family = this.families.find(family => family.id == event.target.value);
