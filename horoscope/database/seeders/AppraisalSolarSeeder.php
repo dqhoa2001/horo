@@ -15,7 +15,7 @@ class AppraisalSolarSeeder extends Seeder
     {
         \DB::table('appraisals')->insert([
             'price' => Appraisal::PRICE_SOLAR,
-            'family_price' => 6820,
+            'family_price' => 7480,
             'is_enabled' => Appraisal::PRICE_FLAG_TRUE,
             'solar_return' => Appraisal::SOLAR_FLAG_TRUE,
             'created_at' => now(),
