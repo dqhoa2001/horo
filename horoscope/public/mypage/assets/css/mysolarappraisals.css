@@ -8,7 +8,7 @@
 	width: 2.5rem;
 	height: 2.5rem;
 	top: calc(50% - 1.25rem);
-	background-image: url(../images/myappraisal/icon_mark-pagename.svg);
+	background-image: url(../images/common/icon_nav-solar_return.svg);
 }
 
 .Pageframe-main .fcolor2{
@@ -21,11 +21,6 @@
 .Pageframe-main__title.result{
     max-width: 56rem;
     margin-bottom: 2rem;
-}
-.Pageframe-main__firstmessage{
-    font-size: 1.8rem;
-    margin-bottom: 4rem;
-    line-height: 1.714285;
 }
 .Pageframe-main__firstmessage::after{
     background-image: url(../images/myhoroscope/icon_content-mark.svg);
@@ -335,7 +330,6 @@
 
 .C-solar-appraisal-banner__price-appraisal {
 	color: #F17424 !important;
-    font-weight: 700;
 }
 
 .C-solar-appraisal-banner__book-price {
@@ -343,13 +337,11 @@
 	color: #735539 !important;
 	margin-top: 10px;
 	text-align: center;
-    font-weight:700;
 }
 
 .C-solar-appraisal-banner__book-price .book-price{
 	font-size: 1.3rem;
 	color: #735539 !important;
-    font-weight: 800;
 }
 
 .C-solar-appraisal-banner__box {
@@ -418,35 +410,12 @@
     letter-spacing: .01em;
     margin-bottom: 0.75rem;
     position: relative;
-    font-weight: 700;
 }
 .C-solar-form__message::before{
     width: .9rem;
     height: 1.2rem;
     left: 0;
     top: calc(50% - .6rem);
-    position: absolute;
-    background-image: url(../images/common/icon_sun.svg);
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    display: block;
-    content: "";
-}
-
-.C-solar-form__message-line4{
-    font-size: 1.5rem;
-    padding-left: 1.5rem;
-    letter-spacing: .01em;
-    margin-bottom: 0.75rem;
-    position: relative;
-    font-weight: 700;
-}
-.C-solar-form__message-line4::before{
-    width: .9rem;
-    height: 1.2rem;
-    left: 0;
-    top: .7rem;
     position: absolute;
     background-image: url(../images/common/icon_sun.svg);
     background-position: center center;
@@ -474,11 +443,9 @@
 	margin-top: 30px;
     color: #735539;
     font-size: 1.6rem;
-    font-weight: 700;
 }
 
 .C-appraisal-banner__sub-flex .C-appraisal-banner__sub-sample-text{
-    font-weight: 700;
     color: #735539;
     font-size: 1.6rem;
 }
@@ -511,7 +478,6 @@
 
 	.C-appraisal-banner__price {
 		font-size: 25px;
-        font-weight: 700;
 	}
 	.C-form__message .C-appraisal-banner__book-text {
 		font-size: 28px;
@@ -547,7 +513,6 @@
         color: #735539 !important;
         margin-top: 8px;
         text-align: center;
-        font-weight:700;
     }
     .C-solar-appraisal-banner__sub-box-image {
 	/* width: 230px; */

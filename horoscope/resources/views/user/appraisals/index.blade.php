@@ -26,9 +26,14 @@
 				<div class="Pageframe-main-content">
 					<!-- ***** セクション名 ***** -->
 					<section class="sec Familyappraisal" id="Familyappraisal">
+                        <p class="Pageframe-main__firstmessage fcolor3">太陽回帰をご購入ご希望のお客様には、先 <br>に個人鑑定の購入をお願いしております。</p>
 						<h2 class="Pageframe-main__title">
-							<img src="{{ asset('mypage/assets/images/myappraisal/img_title.svg') }}" alt="PERSONAL APPRAISAL">
-						</h2>						
+                            <picture>
+                                <source srcset="{{ asset('mypage/assets/images/myappraisal/img_title_sp.svg') }}"
+                                    media="(max-width: 600px)">
+                                <img src="{{ asset('mypage/assets/images/myappraisal/img_title_pc.svg') }}" alt="PERSONAL APPRAISAL">
+                            </picture>
+						</h2>
 						<p class="Pageframe-main__firstmessage">{{ auth()->user()->full_name }}さんの個人鑑定をします。<br>個人鑑定をすることで、自分の星をより深く理解することができます。</p>
 						<div class="Pageframe-main__body">
 							{{-- <div class="C-appraisal-item">
