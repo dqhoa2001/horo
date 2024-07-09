@@ -9,9 +9,9 @@
     @endif -->
     @if(isset($solarApply  ))
         @if($solarApply->reference_type === "App\Models\Family")
-        家族の太陽回帰鑑定 結果
+        家族の太陽回帰鑑定
         @elseif($solarApply->reference_type === "App\Models\User")
-        SOLAR RETURN鑑定結果 私の
+        SOLAR RETURN　鑑定結果
         @endif
     @endif
     @switch(Request::url())
@@ -33,6 +33,9 @@
       @case(str_contains(Request::url(), 'family_list'))
       家族一覧
       @break
+      @case(str_contains(Request::url(), 'solar_bookbindings'))
+      製本 申込フォーム
+      @break
       @case(str_contains(Request::url(), 'bookbinding'))
       製本の申し込み
       @break
@@ -44,6 +47,14 @@
       @break
       @case(str_contains(Request::url(), 'settings'))
       ユーザー設定
+      @break
+      @case(str_contains(Request::url(), 'solar_appraisals/create'))
+      太陽回帰鑑定 申込フォーム
+      @break
+      @case(str_contains(Request::url(), 'solar_appraisals'))
+        @if(empty($solarApply))
+            MY 太陽回帰鑑定
+        @endif
       @break
     @endswitch
   </h2>

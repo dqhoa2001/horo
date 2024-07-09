@@ -72,10 +72,7 @@ class SolarAppraisalController extends Controller
             ]);
         }
 
-        return view('user.appraisals.index', [
-            'appraisal'         => Appraisal::where('is_enabled', true)->first(),
-            'bookbinding'       => Bookbinding::where('is_enabled', true)->first(),
-        ]);
+        return  redirect()->route('user.appraisals.index');
 
     }
 

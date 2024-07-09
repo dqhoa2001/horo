@@ -8,7 +8,7 @@
 	width: 2.5rem;
 	height: 2.5rem;
 	top: calc(50% - 1.25rem);
-	background-image: url(../images/solar-return/icon_mark-pagename.svg);
+	background-image: url(../images/common/icon_nav-solar_return.svg);
 }
 
 .Pageframe-main .fcolor2{
@@ -129,7 +129,7 @@
     transition: box-shadow 0.3s ease;
 }
 .C-form-block__select01-w{
-    width: 100%;
+    width: fit-content;
 }
 .C-form-block__select01::after{
     width: 0;

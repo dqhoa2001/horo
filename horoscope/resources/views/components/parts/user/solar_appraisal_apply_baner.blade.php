@@ -26,9 +26,9 @@
     <div class="C-solar-appraisal-banner__box">
         <p class="C-solar-form__message C-appraisal-banner__book-text">
             海部舞がすべて書き下ろした鑑定文で、あなただけの唯一無二の内容</p>
-        <p class="C-solar-form__message C-appraisal-banner__book-text">A4サイズで約40ページのボリューム</p>
+        <p class="C-solar-form__message C-appraisal-banner__book-text">A4サイズで約25ページのボリューム</p>
         <p class="C-solar-form__message C-appraisal-banner__book-text">ひとつの天体だけで3ページ以上のボリューム</p>
-        <p class="C-solar-form__message-line4 C-appraisal-banner__book-text ">星々の特性が更に具体的になる！<br>
+        <p class="C-solar-form__message C-appraisal-banner__book-text ">星々の特性が更に具体的になる！<br>
             「サビアンシンボル」と「アスペクト」も掲載！</p>
     </div>
     <div class="C-solar-appraisal-banner__sub-box">

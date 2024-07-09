@@ -10,12 +10,14 @@
 	top: calc(50% - 1.25rem);
 	background-image: url(../images/myappraisal/icon_mark-pagename.svg);
 }
-
+.Pageframe-main .fcolor3{
+    color: #F17424;
+}
 .Pageframe-main .fcolor2{
     color: #345e97;
 }
 .Pageframe-main__title{
-    max-width: 32.3rem;
+    max-width: 50rem;
     margin-bottom: 4.5rem;
 }
 .Pageframe-main__title.result{
@@ -25,13 +27,13 @@
 .Pageframe-main__firstmessage::after{
     background-image: url(../images/myhoroscope/icon_content-mark.svg);
 }
-.Pageframe-main__title::after{
+/* .Pageframe-main__title::after{
     width: 9rem;
     height: 13rem;
     right: -11rem;
     top: -2.5rem;
     background-image: url(../images/myappraisal/icon_title.svg);
-}
+} */
 .result.Pageframe-main__title::after{
     width: 9rem;
     height: 13rem;
