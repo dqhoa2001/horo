@@ -3,7 +3,12 @@
 /*-------------------------------
 	common.css
 -------------------------------*/
-
+.C-appraisal-content--top__first-message{
+	background-image: url(../images/common/bg_appraisal-top-first-message-solar.png);
+}
+.C-appraisal-content--top .C-appraisal-content--top__first-message * {
+    color: black;
+}
 .Pageframe-main-header__pagename::before{
 	width: 2.5rem;
 	height: 2.5rem;

@@ -20,47 +20,22 @@
         {{-- TOPタブ --}}
         <div class="C-appraisal-content C-appraisal-content--top C-appraisal-content--current">
             <dl class="C-appraisal-content--top__first-message">
-                <dt class="C-appraisal-content--top__first-message__title mincho">As above, so below.</dt>
+                <dt class="C-appraisal-content--top__first-message__title mincho">太陽が戻り、新たな一年が巡りゆく</dt>
                 <dd class="C-appraisal-content--top__first-message__body">
-                    <p class="C-appraisal-content--top__first-message__text">
-                        上なるもののごとく、下なるものはあり<br>あなたが生まれたとき、星々がどんな状態だったかを知っていますか?<br>あなたが「どんな星の元に生まれたか」を知ることは、<br>あなたの「魂のブループリント」を知ることでもあります。<br>星のエネルギーが魂に転写されて、あなたの唯一無二の個性を紡ぎあげているのです。
-                    </p>
-                    <p class="C-appraisal-content--top__first-message__text">
-                        わたしの願いは、多くの人が、自分の生まれた時の星の配置を知ることで、<br>自分の人生を星々のようにさらに輝かせて生きていくことです。</p>
-                    <p class="C-appraisal-content--top__first-message__text">占星術は古代シュメール時代にその原型ができ、<br>ヘレニズム時代に今の形になったといわれます。
-                    </p>
-                    <p class="C-appraisal-content--top__first-message__text">長い歴史を経て、現代にまで継承され続けた秘密の情報でもあるのです。</p>
-                    <p class="C-appraisal-content--top__first-message__text">
-                        このシステムをつくった海部舞は、2014年に西洋占星術に出会い、<br>その情報の深遠さ、素晴らしさに魅了された、日本に住む一介の占星術師です。</p>
-                    <p class="C-appraisal-content--top__first-message__text">
-                        自分のホロスコープを知り、自己認識を深め、理想の誰かとか、親が望む誰かではない、<br>自分自身を真っすぐに生きることの重要性に気がつきました。</p>
-                    <p class="C-appraisal-content--top__first-message__text">そのおかげで人生が大きく変わり、精神的にも大きく成長することができました。</p>
-                    <p class="C-appraisal-content--top__first-message__text">
-                        人生を誰かのせいにしなくなり、他者の人生や価値観に寛容になることができ、<br>自分と宇宙を信頼して生きることができるようになりました。</p>
-                    <p class="C-appraisal-content--top__first-message__text">
-                        魂のブループリントを知ることで、「わたしとして生まれてよかった!」と思える人が一人<br>でも増えることを願っています。</p>
+                    <p class="C-appraisal-content--top__first-message__text">わたしたちの住まう太陽系の軸である太陽の周りを、<br>地球は３６５日かけて回っています。</p>
+                    <p class="C-appraisal-content--top__first-message__text">わたしたちは太陽と地球の関わりのサイクルから暦を作っているため、<br>あなたの誕生日は、あなたが生まれた時の場所に太陽が戻る日でもあります。<br>（太陽の周期と暦のズレで1 日ほど前後することがあります）</p>
+                    <p class="C-appraisal-content--top__first-message__text">誕生日には、あなたがこの星にやってきたことを祝います。</p>
+                    <p class="C-appraisal-content--top__first-message__text">西洋占星術では、あなたが生まれた時の場所に太陽が戻ってくることを<br>Solar Returen（太陽回帰）といい、<br>そのタイミングのホロスコープがあなたの1 年をあらわすとされます。</p>
+                    <p class="C-appraisal-content--top__first-message__text">しかし、太陽の位置は毎年同じでも、<br>同じ春はないように、<br>他の天体との組み合わせなどは毎年異なります。</p>
+                    <p class="C-appraisal-content--top__first-message__text">あなたの意識は、太陽が戻るたびにリセットされます。</p>
+                    <p class="C-appraisal-content--top__first-message__text">毎年、自分の誕生日を祝うように、<br>毎年、ソーラーリターンのホロスコープから、一年を予測する。<br>そして、その一年を楽しみに生きて、いろいろな体験をして、<br>ソーラーリターンのホロスコープを再び確認し、<br>目標を決めたり、修正したり、気持ちを新たに日々を楽しく生きる。</p>
+                    <p class="C-appraisal-content--top__first-message__text">そんな風に使っていただきたくて、本サービスを開発しました。</p>
+                    <p class="C-appraisal-content--top__first-message__text">この星で唯一無二のあなたの1 年が、唯一無二の輝きを放つように。<br>人生をよりクリエイティブに楽しく送ることが出来るように。<br>お役に立てますと幸いです。</p>
                     <p class="C-appraisal-content--top__first-message__name">海部 舞</p>
                 </dd>
             </dl>
             <div class="C-appraisal-content-header">
                 <div class="C-appraisal-content-header__inner">
-                    <dl class="C-appraisal-content-header-block">
-                        <dt class="C-appraisal-content-header-block__title"><span
-                                class="fcolor2">生まれた時の天体の情報を読み解く</span>
-                        </dt>
-                        <dd class="C-appraisal-content-header-block__text">この Stellar Blueprint
-                            に掲載するのは、月、水星、金星、太陽、火星、木星、土星の情報をメインとしています。また、ドラゴンヘッドという月と太陽の軌道が交わるポイントから分かる、あなたの魂の課題や AC
-                            と呼ばれる東の地平線、MC
-                            と呼ばれる天頂の星座から分かることなどをお伝えします。<br>各天体や感受点にはそれぞれ、個人に影響を及ぼすテーマと、天体の性質が最も強く現れる「年齢域」があります。
-                            また、それぞれの天体が、生まれた時にどのサイン(12星座)にあり、どのハウスにあるか、他の天体とどんな角度をとっているか、といった情報を総合的に見ていくことになります。</dd>
-                    </dl>
-                    <dl class="C-appraisal-content-header-block">
-                        <dt class="C-appraisal-content-header-block__title"><span
-                                class="fcolor2">サイン</span></dt>
-                        <dd class="C-appraisal-content-header-block__text">
-                            サイン(星座)とはいわゆる12星座のことですが、西洋占星術では生まれた時の星の配置から、すべての星がサインを持っています。そのサインは、それぞれの天体が持つ特性や感受性をあらわしています。舞台であらわすと、登場人物の性格(キャラクター)をがサインです。
-                        </dd>
-                    </dl>
                     <dl class="C-appraisal-content-header-block">
                         <dt class="C-appraisal-content-header-block__title C-appraisal-content-header-block__title--square">
                             <span class="fcolor2">ハウス</span>
@@ -106,14 +81,6 @@
                             の体験をかなり具体的に理解できるようになります。<br>なお、本鑑定書では、天体ではない「感受点」と呼ばれるものも解釈をしていきますが、これらは12星座の度数にずれが生じやすいため、サビアンシンボルは天体の解釈のみでしか採用していません。
                         </dd>
                     </dl>
-                    <dl class="C-appraisal-content-header-block">
-                        <dt class="C-appraisal-content-header-block__title"><span
-                                class="fcolor2">鑑定書を読む際に意識して欲しいこと</span>
-                        </dt>
-                        <dd class="C-appraisal-content-header-block__text">
-                            これを読む中で、おそらくあなたにはいろいろな感情が沸き起こることと思います。<br>「すごい!その通りだ!」と思う場合もあれば、現状からはとても遠く感じられて、「本当だろうか?」と思うこともあるでしょう。もしくはあなたの生きにくさや痛みが書かれていることもあるでしょう。ここに書かれていることは、あなたの魂の設定であり、遺伝子の情報に似たものです。それを生かすか、気が付かずに使わないで生きるかはあなた次第。<br>この、星のブループリントが、あなたの本来の可能性にスイッチを入れる役割となることを願っています。また、過去の苦しい体験も生きにくさも、すべて何かを学ぶためだった、魂の設定だった、とわかると、癒しが起こります。そのような、心の昇華体験にもつながると幸いです。
-                        </dd>
-                    </dl>
                 </div>
             </div>
             <div class="C-appraisal-content--top-last">
@@ -147,7 +114,7 @@
                             <div class="C-appraisal-content-header-data__jp planet" style="font-size: 25px; display: flex; align-items: center;">{{ $zodaics->where('id', $house->get('zodiac_num'))->pluck('symbol')->first() }}</div>
                             <div class="C-appraisal-content-header-data__en font">{{ $zodaics->where('id', $house->get('zodiac_num'))->pluck('name')->first() }}</div>
                             <div class="C-appraisal-content-header-data__year mincho">{{ $zodaics->where('id', $house->get('zodiac_num'))->pluck('name_en')->first() }}</div>
-                        </div>  
+                        </div>
 
                         <div class="C-appraisal-content-header__first-message">
                             <p class="C-appraisal-content-header__first-message__text">
@@ -266,19 +233,12 @@
                     </div>
 
                     <div class="C-appraisal-content-header__inner">
-                        <dl class="C-appraisal-content-header-block">
-                            <dt class="C-appraisal-content-header-block__title C-appraisal-content-header-block__title--{{$planetExplain->get('zodiac_pattern')->zodiac->name_en}}">
-                                <span class="fcolor2">{{$planetExplain->get('zodiac_pattern')->zodiac->name}}</span>
-                            </dt>
-                            <dd class="C-appraisal-content-header-block__text">{!! nl2br ($planetExplain->get('zodiac_pattern')->content_solar ?? '') !!}</dd>
-                        </dl>
-
-                        @if ($planet == 'SUN')
-                            <dl class="C-appraisal-content-header-message">
-                                <dt class="C-appraisal-content-header-message__title">太陽のサビアンシンボル</dt>
-                                <dd class="C-appraisal-content-header-message__text">
-                                    太陽のサビアンシンボルからは、あなたの人生の目的の詳細がわかります。また、太陽の年齢域に自身の目的に気が付くためにどんな体験をするかといったことがあらわれる場合もあります。太陽の意識はあなたの人生の根幹にかかわるものですのでよく理解しましょう。
-                                </dd>
+                        @if ($planet != 'SUN')
+                            <dl class="C-appraisal-content-header-block">
+                                <dt class="C-appraisal-content-header-block__title C-appraisal-content-header-block__title--{{$planetExplain->get('zodiac_pattern')->zodiac->name_en}}">
+                                    <span class="fcolor2">{{$planetExplain->get('zodiac_pattern')->zodiac->name}}</span>
+                                </dt>
+                                <dd class="C-appraisal-content-header-block__text">{!! nl2br ($planetExplain->get('zodiac_pattern')->content_solar ?? '') !!}</dd>
                             </dl>
                         @endif
                         @if ($planet == 'MOON')
@@ -337,7 +297,7 @@
                         @endif --}}
 
 
-                        @if ($planet != 'CHIRON')
+                        @if ($planet != 'CHIRON' && $planet != 'SUN')
                             <dl class="C-appraisal-content-header-block">
                                 <dt class="C-appraisal-content-header-block__title">
                                     <span class="fcolor2">
@@ -416,15 +376,6 @@
                                 </dd>
                             </dl>
                         @endif
-                        @if ($planet == 'SATURN')
-                            <dl class="C-appraisal-content-header-message">
-                                <dt class="C-appraisal-content-header-message__title">アスペクト<br
-                                        class="sp">（他の天体との関わりからわかること）</dt>
-                                <dd class="C-appraisal-content-header-message__text">
-                                    土星は他の天体とアスペクトすると、その天体の意味するテーマに制限をかけたり「苦手」にしてしまうことが多くなります。アスペクトがあればすでに出ている天体の箇所に記載済みです。天王星、海王星、冥王星とのアスペクトをお持ちの場合はここに記載されます。世代的な傾向ではありますが、社会生活の中で感じられる面も多いと思います。
-                                </dd>
-                            </dl>
-                        @endif
                         {{-- @if ($planet == 'CHIRON')
                             <dl class="C-appraisal-content-header-message">
                                 <dt class="C-appraisal-content-header-message__title">アスペクト<br
@@ -439,32 +390,34 @@
                 {{-- 他の天体との関わり --}}
                 <div class="C-appraisal-content-footer">
                     <div class="C-appraisal-content-footer__inner">
-                        @foreach ( $planetExplain->get('aspect_pattern') as $item)
-                            {{-- $itemがnullの場合はスキップ --}}
-                            @if ($item === null)
-                                @continue
-                            @endif
-                            @if ($item->toPlanet && $item->toPlanet->name != 'キロン')
-                                <div class="C-appraisal-content-footer-block">
-                                    <dl class="C-appraisal-content-footer-block__inner">
-                                        <dt class="C-appraisal-content-footer-block__title fcolor2">{{ $item->fromPlanet->name }} - {{ $item->toPlanet->name }}</dt>
-                                        <dd class="C-appraisal-content-footer-block__text">{!! nl2br($item->content_solar ?? '') !!}</dd>
-                                    </dl>
-                                    <div class="C-appraisal-content-footer-block__last">
-                                        <p class="C-appraisal-content-footer-block__last planet">
-                                            {{ $item->fromPlanet->symbol }}
-                                            @if ($item->aspect->symbol === 'q')
-                                                <img src="{{ asset('images/Sextile_symbol.svg') }}" alt="" width="20" height="20" alt="セクスタイルの記号" style="margin: 10px">
-                                            @else
-                                                {{ $item->aspect->symbol }}
-                                            @endif
-                                            {{ $item->toPlanet->symbol }}
-                                        </p>
-                                        <p class="C-appraisal-content-footer-block__last__text font">{{ $item->fromPlanet->name_en }} - {{ $item->toPlanet->name_en }}</p>
+                        @if ($planet != 'SATURN')
+                            @foreach ( $planetExplain->get('aspect_pattern') as $item)
+                                {{-- $itemがnullの場合はスキップ --}}
+                                @if ($item === null)
+                                    @continue
+                                @endif
+                                @if ($item->toPlanet && $item->toPlanet->name != 'キロン')
+                                    <div class="C-appraisal-content-footer-block">
+                                        <dl class="C-appraisal-content-footer-block__inner">
+                                            <dt class="C-appraisal-content-footer-block__title fcolor2">{{ $item->fromPlanet->name }} - {{ $item->toPlanet->name }}</dt>
+                                            <dd class="C-appraisal-content-footer-block__text">{!! nl2br($item->content_solar ?? '') !!}</dd>
+                                        </dl>
+                                        <div class="C-appraisal-content-footer-block__last">
+                                            <p class="C-appraisal-content-footer-block__last planet">
+                                                {{ $item->fromPlanet->symbol }}
+                                                @if ($item->aspect->symbol === 'q')
+                                                    <img src="{{ asset('images/Sextile_symbol.svg') }}" alt="" width="20" height="20" alt="セクスタイルの記号" style="margin: 10px">
+                                                @else
+                                                    {{ $item->aspect->symbol }}
+                                                @endif
+                                                {{ $item->toPlanet->symbol }}
+                                            </p>
+                                            <p class="C-appraisal-content-footer-block__last__text font">{{ $item->fromPlanet->name_en }} - {{ $item->toPlanet->name_en }}</p>
+                                        </div>
                                     </div>
-                                </div>
-                            @endif
-                        @endforeach
+                                @endif
+                            @endforeach
+                        @endif
                         {{-- @foreach ($planetExplain->get('aspect_pattern') as $item)
                             <div class="C-appraisal-content-footer-block">
                                 <dl class="C-appraisal-content-footer-block__inner">
