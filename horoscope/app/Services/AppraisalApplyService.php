@@ -112,14 +112,14 @@ class AppraisalApplyService
         $explain = $chart->get('explain');
         $zodaicsPattern = $this->zodiacPatternRepository->getAll();
         $sabian = $this->sabianPatternRepository->getAll();
-
+        $removePlanet = ($appraisalApply->solar_return == 0) ? ExplainEnum::removePlanet : ExplainEnum::removePlanetSolar;
         foreach ($explain as $key => $item) {
             //$removePlanetの中に$keyがあるかどうかを判定し、あれば削除する
-            if (\in_array($key, ExplainEnum::removePlanet, true)) {
+            if (\in_array($key,  $removePlanet, true)) {
                 unset($explain[$key]);
             }
         }
-        $sortPlanet = ExplainEnum::sortPlanet;
+        $sortPlanet =($appraisalApply->solar_return == 0) ? ExplainEnum::sortPlanet : ExplainEnum::sortPlanetSolar;
         $explain = \Arr::sort($explain, static function ($value, $key) use ($sortPlanet) {
             return array_search($key, $sortPlanet, true);
         });
