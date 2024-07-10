@@ -145,7 +145,7 @@ $(window).on('load', function () {
 	} else {
 		// PC
 		$(".Pageframe-main__scroll").mCustomScrollbar({
-			//scrollInertia: 300,
+			scrollInertia: 300,
 			scrollEasing: 'linear',
 			callbacks: {
 				onScrollStart: function () {
@@ -154,7 +154,10 @@ $(window).on('load', function () {
 				onTotalScrollBack: function () {
 					$('.header').removeClass('on');
 				}
-			}
+			},
+            mouseWheel: {
+            deltaFactor: 30 // Điều chỉnh phạm vi cuộn
+            }
 		});
 	}
 });

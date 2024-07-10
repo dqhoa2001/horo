@@ -26,7 +26,6 @@
 				<div class="Pageframe-main-content">
 					<!-- ***** セクション名 ***** -->
 					<section class="sec Familyappraisal" id="Familyappraisal">
-                        <p class="Pageframe-main__firstmessage fcolor3">太陽回帰をご購入ご希望のお客様には、先 <br>に個人鑑定の購入をお願いしております。</p>
 						<h2 class="Pageframe-main__title">
                             <picture>
                                 <source srcset="{{ asset('mypage/assets/images/myappraisal/img_title_sp.svg') }}"
