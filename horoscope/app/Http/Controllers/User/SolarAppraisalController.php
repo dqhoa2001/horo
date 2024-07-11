@@ -56,24 +56,13 @@ class SolarAppraisalController extends Controller
 
     public function index(): View|RedirectResponse
     {
-        $latestAppraisalApply = AppraisalApply::whereHas('user', static function ($query) {
-            $query->where('id', auth()->guard('user')->user()->id);
-        })->whereHas('appraisalClaim', static function ($query) {
-            $query->where('is_paid', true);
-        })->where('reference_type', User::class)
-        ->where('solar_return',0)->latest()->first();
         // 鑑定結果がある場合showへリダイレクト
-        $solarAppraisals =  SolarComboboxService::SolarCombobox(auth()->guard('user')->user()->id,User::class);
-        if ($latestAppraisalApply) {
-            return view('user.solar_appraisals.index', [
-                'solarAppraisals' => $solarAppraisals,
-                'solar_appraisal'         => Appraisal::where('is_enabled', true)->where('solar_return',true)->first(),
-                'bookbinding'       => Bookbinding::where('is_enabled', true)->where('solar_return',true)->first(),
-            ]);
-        }
-
-        return  redirect()->route('user.appraisals.index');
-
+        $solarAppraisals =  SolarComboboxService::SolarCombobox(auth()->guard('user')->user()->id, User::class);
+        return view('user.solar_appraisals.index', [
+            'solarAppraisals' => $solarAppraisals,
+            'solar_appraisal'         => Appraisal::where('is_enabled', true)->where('solar_return', true)->first(),
+            'bookbinding'       => Bookbinding::where('is_enabled', true)->where('solar_return', true)->first(),
+        ]);
     }
 
     //show solar appraisal data

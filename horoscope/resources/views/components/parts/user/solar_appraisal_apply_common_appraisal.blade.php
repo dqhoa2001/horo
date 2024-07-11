@@ -34,55 +34,6 @@
                     <p class="C-appraisal-content--top__first-message__name">海部 舞</p>
                 </dd>
             </dl>
-            <div class="C-appraisal-content-header">
-                <div class="C-appraisal-content-header__inner">
-                    <dl class="C-appraisal-content-header-block">
-                        <dt class="C-appraisal-content-header-block__title C-appraisal-content-header-block__title--square">
-                            <span class="fcolor2">ハウス</span>
-                        </dt>
-                        <dd class="C-appraisal-content-header-block__text">ハウスというのは、東の地平線から順番に 1 日の流れ(24
-                            時間)を時間を基準に割ったもので、より地上的な 領域にかかわります。あなたがその天体のテーマをどのような領域で学び、サインの特性をどのような場で発揮し
-                            ていくのかをあらわします。舞台の背景にあたるのがハウスです。
-                            <br>なお、通常ハウスを読む際は５度前ルール（ハウスの切り替わりの位置の５度前から次のハウスとして読む）を採用することが多いですが、今回はシステムの都合上５度前ルールとはなっておりません。とはいえ、ハウスの境目はグラデーション的で明確な切り替わりラインというのはないため、特に違和感なく読むことが出来ると思います。</dd>
-                    </dl>
-                    <dl class="C-appraisal-content-header-block">
-                        <dt class="C-appraisal-content-header-block__title C-appraisal-content-header-block__title--square">
-                            <span class="fcolor2">天体の年齢域</span>
-                        </dt>
-                        <dd class="C-appraisal-content-header-block__text">
-                            年齢域とはその天体のエネルギーが最も強く影響する年代をあらわします。私たちは成長しながら、一つ一つの 天体の学びをしていくという考えが西洋占星術にはあります。
-                            この鑑定書には、年齢域の小さい順に月から解説をしていきますので、幼少期のあなた(月)、学童期(水星)、
-                            思春期(金星)...と順番に読んでいくことで、あなたの特性がどのように変化をしていき、どのような体験をし、
-                            どのような学びをし、どのような能力を手に入れるかをこれまでの人生の答え合わせをするかのように理解していけます。また、年齢域を過ぎた天体はずっとあなたの中に記憶や経験、特性として残り続けますし、天体同 士の響き合いによってその後も学びなおしをすることもあります。
-                            さらに、現在の年齢域の天体を見ることで、現在のあなたがどのような体験をし、どう成長していくかを知るこ とが出来ますし、まだ先の年齢域の天体は「これからそうなるのだ」と考えるようにします。
-                            この「年齢域」という考えは非常に重要になりますので必ず理解をしてください。</dd>
-                    </dl>
-                    <dl class="C-appraisal-content-header-block">
-                        <dt class="C-appraisal-content-header-block__title C-appraisal-content-header-block__title--square">
-                            <span class="fcolor2">アスペクト</span>
-                        </dt>
-                        <dd class="C-appraisal-content-header-block__text">
-                            この鑑定書では、星同士が特定の角度を作った際にできる「アスペクト」からの影響も読み解きます。この意味がよく分からなくても、記された内容にはハッとすることが多いのではないかと思います。<br>なお、この項目に何も出てこなかった場合、他の天体とつながりがなく"ノーアスペクト"と呼ばれ、その天体の意味するテーマの発揮のしかたがわからなくなるとされます。</dd>
-                    </dl>
-                    <dl class="C-appraisal-content-header-block">
-                        <dt class="C-appraisal-content-header-block__title C-appraisal-content-header-block__title--square">
-                            <span
-                                class="fcolor2">サビアン占星術という新しい技法</span>
-                        </dt>
-                        <dd class="C-appraisal-content-header-block__text">さらに、ここには、サビアンシンボルの情報も掲載しています。
-                            サビアンシンボルとは、12 星座の度数ごとのエネルギーを詩的な文章であらわしたもので、1925 年にアメリカの
-                            マーク・エドモンド・ジョーンズという占星術家が、エリス・フィラーという霊能者と共に実験的に 12 サインの 各度数から浮かび上がるイメージを記録していく実験を行ったところから生まれています。
-                            サビアンシンボルの「サビアン」とは、この実験時にエリスが古代メソポタミアのハッラーンというエリアに住 んでいた「サービア人」の助けを借りたと証言したことから名づけられています。面白いですね。
-                            なお、サビアンシンボルにはジョーンズ版とその後ディーン・ルディアによって改定されたルディア版がありま
-                            すが、本書はエリス・フィラーの言葉を純粋に採用することを大切に考えるためにジョーンズ版を採用しています。
-                            ルディア版に親しんでいる方には違和感がある可能性もありますが、ご理解いただけますと幸いです。
-                            監修者の海部舞はこのサビアンシンボルを鑑定の際に非常に重視しており、各天体ごとの解説の中にサビアンシ
-                            ンボルとその解釈も掲載しています。サビアンシンボルを取り入れることで、各天体のテーマやその天体の年齢域
-                            の体験をかなり具体的に理解できるようになります。<br>なお、本鑑定書では、天体ではない「感受点」と呼ばれるものも解釈をしていきますが、これらは12星座の度数にずれが生じやすいため、サビアンシンボルは天体の解釈のみでしか採用していません。
-                        </dd>
-                    </dl>
-                </div>
-            </div>
             <div class="C-appraisal-content--top-last">
                 <p class="C-appraisal-content--top-last__title">さぁ、それでは、星々が織りなす<br
                         class="sp">唯一無二のハーモニー<br>あなたのブループリントを<br class="sp">見ていきましょう。</p>
