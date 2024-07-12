@@ -35,7 +35,11 @@
                                 <img src="{{ asset('mypage/assets/images/solarappraisal/solar_img_title_3.svg') }}" alt="PERSONAL APPRAISAL">
                             </picture>
                         </h2>
-						<p class="Pageframe-main__firstmessage">{{ auth()->user()->full_name }}さんの個人鑑定をします。<br>1 年間に絞って鑑定をすることで、より詳細な運勢を読むことができます。</p>
+						<p class="Pageframe-main__firstmessage">{{auth()->user()->full_name}}さんのソーラーリターンの鑑定をします。<br>
+                            太陽が生まれた場所に戻った時の星の配置から、あなたの一年間の運勢を詳細に読み解くこと<br>
+                            ができます。よりよい一年とするためにぜひご活用ください。<br>
+                            <span> 太陽回帰 (SolarReturn) はすでにステラブループリントを購入済み、もしくはご自身の出生図 <br>を読める(読んでもらったことがある)人向けのものになります。</span>
+                        </p>
 						<div class="Pageframe-main__body">
                             <!-- Combobox -->
                             @include('components.parts.user.solar_return_combobox')

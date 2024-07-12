@@ -25,7 +25,10 @@
 .Pageframe-main__firstmessage::after{
     background-image: url(../images/myhoroscope/icon_content-mark.svg);
 }
-
+.Pageframe-main__firstmessage span{
+    color: red;
+    font-weight: 700;
+}
 .Pageframe-main__title::after{
     width: 9rem;
     height: 13rem;

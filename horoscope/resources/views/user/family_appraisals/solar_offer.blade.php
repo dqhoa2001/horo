@@ -34,7 +34,8 @@
                                 <img src="{{ asset('mypage/assets/images/solarappraisal/solar_img_title_3.svg') }}" alt="PERSONAL APPRAISAL">
                             </picture>
 						</h2>
-						<p class="Pageframe-main__firstmessage">{{ auth()->user()->full_name }}さんの個人鑑定をします。<br>1 年間に絞って鑑定をすることで、より詳細な運勢を読むことができます。</p>
+						<p class="Pageframe-main__firstmessage">{{ auth()->user()->full_name }}さんの家族の太陽回帰鑑定をすることで<br>大切なご家族の1年間を、より深く理解することができます。
+                        </p>
 						<div class="Pageframe-main__body">
 							{{-- <div class="C-appraisal-item">
 								<div class="C-appraisal-item__body">
