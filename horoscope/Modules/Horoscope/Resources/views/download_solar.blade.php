@@ -1945,219 +1945,177 @@
                         <span style="text-indent: 0;">{!! nl2br($explain->get('SATURN')->get('house_pattern')->content_solar) !!}</span>
                     </p>
                 </div>
-                <div class="page-block page-block--2">
-                    <p class="page-block--2__title">アスペクト<span>他の天体との関わりからわかること</span></p>
-                    <p class="page__text">
-                        <span>　土星は他の天体とアスペクトすると、その天体の意味するテーマに制限をかけたり「苦手」にしてしまうことが多くなります。アスペクトがあればすでに出ている天体の箇所に記載済みです。天王星、海王星、冥王星とのアスペクトをお持ちの場合はここに記載されます。世代的な傾向ではありますが、社会生活の中で感じられる面も多いと思います。
+            </div>
+        </div>
+        <div class="page page01"
+            data-pageno="{{ $page++ }}">
+            <div class="page__inner">
+                <div class="page-block page-block--1">
+                    <p class="page-block--1__title">
+                        <span>
+                        トランスサタニアン
                         </span>
                     </p>
-                </div>
-                <div class="page-block page-block--5">
-                    {{-- @if (!$explain->get('SATURN')->get('aspect_pattern')->isNotEmpty())
-                        <p class="page__text">
-                            <span>この天体は他の天体との関わりがなく、天体の力をうまく発揮できないとされます。</span>
-                        </p>
-                    @endif --}}
-                    @if ($explain->get('SATURN')->get('aspect_pattern')->isNotEmpty())
-                        @foreach ($explain->get('SATURN')->get('aspect_pattern') as $key => $item)
-                            @if (is_null($item))
-                                @if ($key == 0)
-                                    <p class="page__text">
-                                        <span>この天体は他の天体との関わりがなく、天体の力をうまく発揮できないとされます。</span>
-                                    </p>
-                                @else
-                                    <p></p>
-                                @endif
-                            @else
-                                @if ($key < 2)
-                                    <div class="page-block--5__half">
-                                        <p class="planet page-block--5__title icon-sign icon-sign" style="font-size: 16px !important">
-                                             <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
-
-                                                <svg xmlns:dc="http://purl.org/dc/elements/1.1/"
-                                                    xmlns:cc="http://creativecommons.org/ns#"
-                                                    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-                                                    xmlns:svg="http://www.w3.org/2000/svg"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-                                                    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-                                                   width="12px" height="12px" viewBox="0 0 12 12"
-                                                    version="1.1" id="svg9"
-                                                    sodipodi:docname="Pallas_symbol_(fixed_width).svg"
-                                                    inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
-                                                    style="margin-left: 5px ; margin-right: 5px">
-                                                    <metadata id="metadata15">
-                                                        <rdf:RDF>
-                                                            <cc:Work rdf:about="">
-                                                                <dc:format>image/svg+xml</dc:format>
-                                                                <dc:type
-                                                                    rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-                                                            </cc:Work>
-                                                        </rdf:RDF>
-                                                    </metadata>
-                                                    <defs id="defs13" />
-                                                    <sodipodi:namedview pagecolor="#ffffff" bordercolor="#666666"
-                                                        borderopacity="1" objecttolerance="10" gridtolerance="10"
-                                                        guidetolerance="10" inkscape:pageopacity="0"
-                                                        inkscape:pageshadow="2" inkscape:window-width="1920"
-                                                        inkscape:window-height="1015" id="namedview11"
-                                                        showgrid="false" inkscape:zoom="29.5"
-                                                        inkscape:cx="7.5762712" inkscape:cy="5.9661012"
-                                                        inkscape:window-x="0" inkscape:window-y="0"
-                                                        inkscape:window-maximized="1"
-                                                        inkscape:current-layer="svg9" />
-                                                    <path inkscape:connector-curvature="0" id="path4-3"
-                                                        d="M 11.00025,6 H 0.99975"
-                                                        style="fill:none;stroke: #A29381;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-                                                        sodipodi:nodetypes="cc" />
-                                                    <path inkscape:connector-curvature="0" id="path4-3-6-27-9"
-                                                        d="m 6.0000002,6.0000001 2.499937,4.3300179"
-                                                        style="fill:none;stroke: #A29381;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-                                                        sodipodi:nodetypes="cc" />
-                                                    <path inkscape:connector-curvature="0" id="path4-3-6-27-3"
-                                                        d="M 3.5000629,1.6699816 5.9999993,5.9999992"
-                                                        style="fill:none;stroke: #A29381;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-                                                        sodipodi:nodetypes="cc" />
-                                                    <path inkscape:connector-curvature="0" id="path4-3-6-1-6"
-                                                        d="M 8.4999375,1.6699816 6.0000005,5.9999999"
-                                                        style="fill:none;stroke: #A29381;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-                                                        sodipodi:nodetypes="cc" />
-                                                    <path inkscape:connector-curvature="0" id="path4-3-6-1-0"
-                                                        d="M 5.9999995,6.0000002 3.5000625,10.330018"
-                                                        style="fill:none;stroke: #A29381;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-                                                        sodipodi:nodetypes="cc" />
-                                                </svg>
-
-                                            @else
-
-                                                <span style="font-size: 12px">{{ $item->aspect->symbol }}</span>
-
-                                            @endif
-                                            <span>{{ $item->toPlanet->symbol }}</span>
-                                        </p>
-                                        <p class="page__text">{!! nl2br($item->content_solar) !!}</p>
-                                    </div>
-                                @endif
-                            @endif
-                        @endforeach
-                    @else
-                        <p class="page__text">
-                            <span>この天体は他の天体との関わりがなく、天体の力をうまく発揮できないとされます。</span>
-                        </p>
-                    @endif
+                    <p class="page__text">
+                        太陽の外側にあり、「トランススサタニアン」と呼ばれる天王星、海王星、冥王星は、太帰において、アスペクトのみならずハウスにおいても無意識的で強い影響を与えます。<br>
+                        天王星は、新しいものを取り入れたり、あなたの独自性を出したくなるテーマが現れています。<br>
+                        海王星は、あなたが抱く理想。<br>
+                        冥王星は、その1年で最も「変わる」テーマ。<br>
+                        各天体のサビアンシンボルとハウスへの影響をまとめます"。
+                    </p>
                 </div>
             </div>
         </div>
-        {{-- @if ($explain->get('SATURN')->get('aspect_pattern')->count() > 2 && $explain->get('SATURN')->get('aspect_pattern')[2] !== null) --}}
-        {{-- @if ($explain->get('SATURN')->get('aspect_pattern')->count() > 2 && !empty($explain->get('SATURN')->get('aspect_pattern')[2])) --}}
-        @if ($explain->get('SATURN')->get('aspect_pattern')->forget([0,1])->values()->count() > 0)
-            @php
-                $items = $explain->get('SATURN')->get('aspect_pattern')->forget([0,1])->values();
-                $itemPairs = array_chunk($items->all(), 4);
-            @endphp
-            @foreach($itemPairs as $itemPair)
-            @if ($itemPair[0] !== null)
-            <div class="page page37 page--content page--number page--number_left page--saturn"
-                data-pageno="{{ $page++ }}">
-                <div class="page__inner">
-                    <div class="page-block page-block--5">
-                        @if ($explain->get('SATURN')->get('aspect_pattern')->isNotEmpty())
-                            {{-- @foreach ($explain->get('SATURN')->get('aspect_pattern') as $key => $item) --}}
-                            @foreach($itemPair as $key => $item)
-                                @if (is_null($item))
-                                    @if ($key == 0)
-                                    <p class="page__text">
-                                        <span>この天体は他の天体との関わりがなく、天体の力をうまく発揮できないとされます。</span>
-                                    </p>
-                                @else
-                                    <p></p>
-                                @endif
-                                @else
-                                    {{-- @if ($key >= 2) --}}
-                                        {{-- <div class="page-block--5__half"> --}}
-                                            <div class="page-block--5__half @if ($key >= 2) flex-margin-top @endif">
-                                            <p class="planet page-block--5__title icon-sign icon-sign" style="font-size: 16px !important">
-                                                 <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
-
-                                                    <svg xmlns:dc="http://purl.org/dc/elements/1.1/"
-                                                        xmlns:cc="http://creativecommons.org/ns#"
-                                                        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-                                                        xmlns:svg="http://www.w3.org/2000/svg"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-                                                        xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-                                                       width="12px" height="12px" viewBox="0 0 12 12"
-                                                        version="1.1" id="svg9"
-                                                        sodipodi:docname="Pallas_symbol_(fixed_width).svg"
-                                                        inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
-                                                    style="margin-left: 5px ; margin-right: 5px">
-                                                        <metadata id="metadata15">
-                                                            <rdf:RDF>
-                                                                <cc:Work rdf:about="">
-                                                                    <dc:format>image/svg+xml</dc:format>
-                                                                    <dc:type
-                                                                        rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-                                                                </cc:Work>
-                                                            </rdf:RDF>
-                                                        </metadata>
-                                                        <defs id="defs13" />
-                                                        <sodipodi:namedview pagecolor="#ffffff"
-                                                            bordercolor="#666666" borderopacity="1"
-                                                            objecttolerance="10" gridtolerance="10"
-                                                            guidetolerance="10" inkscape:pageopacity="0"
-                                                            inkscape:pageshadow="2" inkscape:window-width="1920"
-                                                            inkscape:window-height="1015" id="namedview11"
-                                                            showgrid="false" inkscape:zoom="29.5"
-                                                            inkscape:cx="7.5762712" inkscape:cy="5.9661012"
-                                                            inkscape:window-x="0" inkscape:window-y="0"
-                                                            inkscape:window-maximized="1"
-                                                            inkscape:current-layer="svg9" />
-                                                        <path inkscape:connector-curvature="0" id="path4-3"
-                                                            d="M 11.00025,6 H 0.99975"
-                                                            style="fill:none;stroke: #A29381;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-                                                            sodipodi:nodetypes="cc" />
-                                                        <path inkscape:connector-curvature="0" id="path4-3-6-27-9"
-                                                            d="m 6.0000002,6.0000001 2.499937,4.3300179"
-                                                            style="fill:none;stroke: #A29381;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-                                                            sodipodi:nodetypes="cc" />
-                                                        <path inkscape:connector-curvature="0" id="path4-3-6-27-3"
-                                                            d="M 3.5000629,1.6699816 5.9999993,5.9999992"
-                                                            style="fill:none;stroke: #A29381;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-                                                            sodipodi:nodetypes="cc" />
-                                                        <path inkscape:connector-curvature="0" id="path4-3-6-1-6"
-                                                            d="M 8.4999375,1.6699816 6.0000005,5.9999999"
-                                                            style="fill:none;stroke: #A29381;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-                                                            sodipodi:nodetypes="cc" />
-                                                        <path inkscape:connector-curvature="0" id="path4-3-6-1-0"
-                                                            d="M 5.9999995,6.0000002 3.5000625,10.330018"
-                                                            style="fill:none;stroke: #A29381;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-                                                            sodipodi:nodetypes="cc" />
-                                                    </svg>
-
-                                                @else
-
-                                                    <span style="font-size: 12px">{{ $item->aspect->symbol }}</span>
-
-                                                @endif
-                                                <span>{{ $item->toPlanet->symbol }}</span>
-                                            </p>
-                                            <p class="page__text">{!! nl2br($item->content_solar) !!}</p>
-                                        </div>
-                                    {{-- @endif --}}
-                                @endif
-                            @endforeach
-                        @else
-                            <p class="page__text">
-                                <span>この天体は他の天体との関わりがなく、天体の力をうまく発揮できないとされます。</span>
-                            </p>
-                        @endif
-                    </div>
+        <div class="page-break-before"></div>
+        <div class="page page35 page--cover page--uranus page--number page--number_right"
+            data-pageno="" data-title="Uranus">
+            <div class="page__inner">
+                <p class="page--cover__title"><span>天王星</span></p>
+                <div class="page--cover-block1">
+                    <p class="page--cover-block1__title">変革させること、あなたの独自性を出すテーマ</p>
+                    <p class="page__text">
+                        <span>Content Uranus</span>
+                    </p>
+                </div>
+                <div class="page--cover__image saturn">
+                    <svg style="height: 285px; width: 450px;"></svg>
+                </div>
+                <span class="page--cover__frame"></span>
+            </div>
+        </div>
+        @php
+            $page++;
+        @endphp
+        <div class="page-break-before"></div>
+        <div class="page page36 page--content page--uranus page--number page--number_left"data-pageno="{{ $page++ }}">
+            <div class="page__inner">
+                <div class="page-block page-block--2">
+                    <p class="page-block--2__title">天王星のサビアンシンボル</p>
+                    <p class="page__text">
+                        <span>content</span>
+                    </p>
+                </div>
+                <div class="page-block page-block--3">
+                    @if (empty($explain->get('URANUS')->get('sabian_pattern')))
+                        <p class="page-block--3__title">これは特殊なケースです。 角度が0度の場合はサビアンは存在しません</p>
+                    @else
+                        <p class="page-block--3__title">
+                            {{ $explain->get('URANUS')->get('sabian_pattern')->zodiac->name }}{{ $explain->get('URANUS')->get('sabian_pattern')->sabian_degrees }}
+                            度「{{ $explain->get('URANUS')->get('sabian_pattern')->title_solar }}」</p>
+                        <p class="page__text">
+                            <span style="text-indent: 0;">{!! nl2br($explain->get('URANUS')->get('sabian_pattern')->content_solar) !!}</span>
+                        </p>
+                    @endif
+                </div>
+                <div class="page-block page-block--4">
+                    <p class="page-block--4__title">
+                        ハウス<span>{{ $explain->get('URANUS')->get('house_pattern')->house->symbol }}</span></p>
+                    <p class="page__text">
+                        <span style="text-indent: 0;">{!! nl2br($explain->get('URANUS')->get('house_pattern')->content_solar) !!}</span>
+                    </p>
                 </div>
             </div>
-            <div class="page-break-before"></div>
-            @endif
-            @endforeach
-        @endif
+        </div>
+        <div class="page-break-before"></div>
+        <div class="page page35 page--cover page--neptune page--number page--number_right"
+            data-pageno="" data-title="Neptune">
+            <div class="page__inner">
+                <p class="page--cover__title"><span>海王星</span></p>
+                <div class="page--cover-block1">
+                    <p class="page--cover-block1__title">あなたが描く理想</p>
+                    <p class="page__text">
+                        <span>Content Neptune</span>
+                    </p>
+                </div>
+                <div class="page--cover__image saturn">
+                    <svg style="height: 285px; width: 450px;"></svg>
+                </div>
+                <span class="page--cover__frame"></span>
+            </div>
+        </div>
+        @php
+            $page++;
+        @endphp
+        <div class="page-break-before"></div>
+        <div class="page page36 page--content page--neptune page--number page--number_left"data-pageno="{{ $page++ }}">
+            <div class="page__inner">
+                <div class="page-block page-block--2">
+                    <p class="page-block--2__title">海王星のサビアンシンボル</p>
+                    <p class="page__text">
+                        <span>content</span>
+                    </p>
+                </div>
+                <div class="page-block page-block--3">
+                    @if (empty($explain->get('NEPTUNE')->get('sabian_pattern')))
+                        <p class="page-block--3__title">これは特殊なケースです。 角度が0度の場合はサビアンは存在しません</p>
+                    @else
+                        <p class="page-block--3__title">
+                            {{ $explain->get('NEPTUNE')->get('sabian_pattern')->zodiac->name }}{{ $explain->get('NEPTUNE')->get('sabian_pattern')->sabian_degrees }}
+                            度「{{ $explain->get('NEPTUNE')->get('sabian_pattern')->title_solar }}」</p>
+                        <p class="page__text">
+                            <span style="text-indent: 0;">{!! nl2br($explain->get('NEPTUNE')->get('sabian_pattern')->content_solar) !!}</span>
+                        </p>
+                    @endif
+                </div>
+                <div class="page-block page-block--4">
+                    <p class="page-block--4__title">
+                        ハウス<span>{{ $explain->get('NEPTUNE')->get('house_pattern')->house->symbol }}</span></p>
+                    <p class="page__text">
+                        <span style="text-indent: 0;">{!! nl2br($explain->get('NEPTUNE')->get('house_pattern')->content_solar) !!}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="page-break-before"></div>
+        <div class="page page35 page--cover page--pluto page--number page--number_right"
+            data-pageno="" data-title="Pluto">
+            <div class="page__inner">
+                <p class="page--cover__title"><span>冥王星</span></p>
+                <div class="page--cover-block1">
+                    <p class="page--cover-block1__title">最も大きく変わるテーマ</p>
+                    <p class="page__text">
+                        <span>Content Pluto</span>
+                    </p>
+                </div>
+                <div class="page--cover__image saturn">
+                    <svg style="height: 285px; width: 450px;"></svg>
+                </div>
+                <span class="page--cover__frame"></span>
+            </div>
+        </div>
+        @php
+            $page++;
+        @endphp
+        <div class="page-break-before"></div>
+        <div class="page page36 page--content page--pluto page--number page--number_left"data-pageno="{{ $page++ }}">
+            <div class="page__inner">
+                <div class="page-block page-block--2">
+                    <p class="page-block--2__title">冥王星のサビアンシンボル</p>
+                    <p class="page__text">
+                        <span>content</span>
+                    </p>
+                </div>
+                <div class="page-block page-block--3">
+                    @if (empty($explain->get('PLUTO')->get('sabian_pattern')))
+                        <p class="page-block--3__title">これは特殊なケースです。 角度が0度の場合はサビアンは存在しません</p>
+                    @else
+                        <p class="page-block--3__title">
+                            {{ $explain->get('PLUTO')->get('sabian_pattern')->zodiac->name }}{{ $explain->get('PLUTO')->get('sabian_pattern')->sabian_degrees }}
+                            度「{{ $explain->get('PLUTO')->get('sabian_pattern')->title_solar }}」</p>
+                        <p class="page__text">
+                            <span style="text-indent: 0;">{!! nl2br($explain->get('PLUTO')->get('sabian_pattern')->content_solar) !!}</span>
+                        </p>
+                    @endif
+                </div>
+                <div class="page-block page-block--4">
+                    <p class="page-block--4__title">
+                        ハウス<span>{{ $explain->get('PLUTO')->get('house_pattern')->house->symbol }}</span></p>
+                    <p class="page__text">
+                        <span style="text-indent: 0;">{!! nl2br($explain->get('PLUTO')->get('house_pattern')->content_solar) !!}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
         <div class="page-break-before"></div>
         <div class="page page42 page--last">
 			<div class="page__inner">

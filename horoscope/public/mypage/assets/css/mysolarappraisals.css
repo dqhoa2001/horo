@@ -160,18 +160,18 @@
     background-image: url(../images/myappraisal/icon_dosei.svg);
 }
 
-.C-appraisal-content--tennousei .C-appraisal-content-header-data__mark::before,
-.C-appraisal-content--tennousei .C-appraisal-content-footer-block__last__mark::before {
+.C-appraisal-content--URANUS .C-appraisal-content-header-data__mark::before,
+.C-appraisal-content--URANUS .C-appraisal-content-footer-block__last__mark::before {
     background-image: url(../images/myappraisal/icon_tennousei.svg);
 }
 
-.C-appraisal-content--kaiousei .C-appraisal-content-header-data__mark::before,
-.C-appraisal-content--kaiousei .C-appraisal-content-footer-block__last__mark::before {
+.C-appraisal-content--NEPTUNE .C-appraisal-content-header-data__mark::before,
+.C-appraisal-content--NEPTUNE .C-appraisal-content-footer-block__last__mark::before {
     background-image: url(../images/myappraisal/icon_kaiousei.svg);
 }
 
-.C-appraisal-content--meiousei .C-appraisal-content-header-data__mark::before,
-.C-appraisal-content--meiousei .C-appraisal-content-footer-block__last__mark::before {
+.C-appraisal-content--PLUTO .C-appraisal-content-header-data__mark::before,
+.C-appraisal-content--PLUTO .C-appraisal-content-footer-block__last__mark::before {
     background-image: url(../images/myappraisal/icon_meiousei.svg);
 }
 

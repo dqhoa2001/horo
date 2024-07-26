@@ -176,15 +176,25 @@
                                 　土星は肉眼で見える最も遠い星で、わたしたちの個性にかかわる天体は土星までだといえます。また、土星の内側の世界は時間と空間に支配され、この太陽系の「ルール」や「制限」にかかわります。わたしたちは、生まれた時から制限の中で生きています。この体も特性もある種の制限です。しかし、あらゆる創造活動にはルールや制限が必要です。描くべきキャンバスや画材、テーマが無ければ絵を描くことはできないように、この人生はあなたにしかできない何らかの創造活動の場なのです。占星術において、この人生であなたが達成したいことをあらわすのが土星です。若いうちはそれが苦手だと感じても、土星の年齢域である晩年期にはたいてい、それが安定してできるようになっています。土星のテーマは人生の課題であるとされますし、古典的な占星術では大凶星とされますが、本来は、あなたの社会的な基盤や安定にかかわるとともに、人生をより成熟させてくれる大切な天体です。鑑定文を読みながら、あなたがすでに土星の課題を克服できているか、まだまだ苦手なままか、などを感じ取ってみましょう。
                             </p>
                         @endif
-                        @if ($planet == 'CHIRON')
+                        @if ($planet == 'URANUS')
                             <p class="C-appraisal-content-header__first-message__text">
-                                　ドラゴンヘッドは月と太陽の軌道の交点であり、このそばでの新月や満月は「日食」や「月食」となります。太陽は魂の目的意識であり、月は過去や記憶、潜在意識にかかわります。それらが交わるポイントであるドラゴンヘッドは、魂の出入りが行われるホール（穴）のようになっているイメージがあります。魂の出入り口である筒状の穴が「龍」をあらわすのかもしれません。また、「ドラゴンヘッド」の名の通り、世界中の神話に出てくる、一体が輪になって自分のしっぽを噛む蛇や龍のシンボル「ウロボロス」との関連もある感受点です。西洋占星術では、この龍の姿がわたしたちの命の循環すなわち輪廻転生に例えられます。しっぽはカルマであり、龍の頭部は成長しようとする意識です。それらを踏まえ、わたしたちがどのようなテーマをもって魂の成長を目指して生まれてきたのかを表すのがドラゴンヘッドという感受点です。
+                                　Content URANUS
+                            </p>
+                        @endif
+                        @if ($planet == 'NEPTUNE')
+                            <p class="C-appraisal-content-header__first-message__text">
+                                　Content NEPTUNE
+                            </p>
+                        @endif
+                        @if ($planet == 'PLUTO')
+                            <p class="C-appraisal-content-header__first-message__text">
+                                　Content PLUTO
                             </p>
                         @endif
                     </div>
 
                     <div class="C-appraisal-content-header__inner">
-                        @if ($planet != 'SUN')
+                        @if ($planet != 'SUN' && $planet != 'URANUS' && $planet != 'NEPTUNE' && $planet != 'PLUTO')
                             <dl class="C-appraisal-content-header-block">
                                 <dt class="C-appraisal-content-header-block__title C-appraisal-content-header-block__title--{{$planetExplain->get('zodiac_pattern')->zodiac->name_en}}">
                                     <span class="fcolor2">{{$planetExplain->get('zodiac_pattern')->zodiac->name}}</span>
@@ -341,7 +351,7 @@
                 {{-- 他の天体との関わり --}}
                 <div class="C-appraisal-content-footer">
                     <div class="C-appraisal-content-footer__inner">
-                        @if ($planet != 'SATURN')
+                        @if ($planet != 'SATURN' && $planet != 'URANUS' && $planet != 'NEPTUNE' && $planet != 'PLUTO')
                             @foreach ( $planetExplain->get('aspect_pattern') as $item)
                                 {{-- $itemがnullの場合はスキップ --}}
                                 @if ($item === null)
