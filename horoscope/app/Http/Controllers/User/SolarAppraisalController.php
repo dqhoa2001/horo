@@ -58,7 +58,14 @@ class SolarAppraisalController extends Controller
     {
         // 鑑定結果がある場合showへリダイレクト
         $solarAppraisals =  SolarComboboxService::SolarCombobox(auth()->guard('user')->user()->id, User::class);
+        $latestSolarAppraisalApply = AppraisalApply::whereHas('user', static function ($query) {
+            $query->where('id', auth()->guard('user')->user()->id);
+        })->whereHas('appraisalClaim', static function ($query) {
+            $query->where('is_paid', true);
+        })->where('reference_type', User::class)
+        ->where('solar_return','!=',0)->latest()->first();
         return view('user.solar_appraisals.index', [
+            'latestSolarAppraisalApply' => $latestSolarAppraisalApply,
             'solarAppraisals' => $solarAppraisals,
             'solar_appraisal'         => Appraisal::where('is_enabled', true)->where('solar_return', true)->first(),
             'bookbinding'       => Bookbinding::where('is_enabled', true)->where('solar_return', true)->first(),

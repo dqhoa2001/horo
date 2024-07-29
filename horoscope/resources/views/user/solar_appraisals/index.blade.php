@@ -38,6 +38,14 @@
 						<p class="Pageframe-main__firstmessage">{{auth()->user()->full_name}}さんのソーラーリターンの鑑定をします。<br>
                             太陽が生まれた場所に戻った時の星の配置から、あなたの一年間の運勢を詳細に読み解くこと<br>
                             ができます。よりよい一年とするためにぜひご活用ください。<br>
+                            <br>
+                            @if ($latestSolarAppraisalApply)
+                                <a style="text-decoration: underline" href="{{route('user.solar_appraisals.show', $latestSolarAppraisalApply)}}">ソーラーリターンについて詳しくはこちら</a>
+                            @else
+                                <a style="text-decoration: underline" href="{{route('user.solar_appraisals.create')}}">ソーラーリターンについて詳しくはこちら</a>
+                            @endif
+                            <br>
+                            <br>
                             <span> 太陽回帰 (SolarReturn) はすでにステラブループリントを購入済み、もしくはご自身の出生図 <br>を読める(読んでもらったことがある)人向けのものになります。</span>
                         </p>
 						<div class="Pageframe-main__body">
