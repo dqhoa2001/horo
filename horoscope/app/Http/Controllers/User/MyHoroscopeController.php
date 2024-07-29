@@ -115,15 +115,15 @@ class MyHoroscopeController extends Controller
         // ホロスコープ生成なデータを作成
         $formData = [
             "name" => $user->name1 . $user->name2,
-            "year" => $user->birthday->format('Y'),
-            "month" => $user->birthday->format('m'),
-            "day" => $user->birthday->format('d'),
-            "hour" => $user->birthday_time->format('H'),
-            "minute" => $user->birthday_time->format('i'),
-            "longitude" => $user->longitude,
-            "latitude" => $user->latitude,
-            "map-city" => $user->birthday_city,
-            "timezone" => $user->timezome, //海外展開時にはここが変更できるようにする。現在は日本のみ
+            "year" => $solar_apply->birthday->format('Y'),
+            "month" => $solar_apply->birthday->format('m'),
+            "day" => $solar_apply->birthday->format('d'),
+            "hour" => $solar_apply->birthday_time->format('H'),
+            "minute" => $solar_apply->birthday_time->format('i'),
+            "longitude" => $solar_apply->longitude,
+            "latitude" => $solar_apply->latitude,
+            "map-city" => $solar_apply->birthday_prefectures,
+            "timezone" => $solar_apply->timezome, //海外展開時にはここが変更できるようにする。現在は日本のみ
             "background" => 'normal', //仮
             "solar_year"=> $solar_apply->solar_return,
         ];

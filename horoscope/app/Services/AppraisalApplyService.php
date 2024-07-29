@@ -148,11 +148,10 @@ class AppraisalApplyService
         if ($bookbindingUserApply->bookbinding_name1 === null && $bookbindingUserApply->bookbinding_name2 === null) {
             $bookbindingName = $appraisalApply->reference->name1 . $appraisalApply->reference->name2;
         }
-        $year = ($appraisalApply->solar_return == 0) ? $appraisalApply->birthday->format('Y') : $appraisalApply->solar_return;
         $formData = [
             "name" => $appraisalApply->reference->name1 . $appraisalApply->reference->name2,
             "bookbinding_name" => $bookbindingName,
-            "year" => $year,
+            "year" => $appraisalApply->birthday->format('Y'),
             "month" => $appraisalApply->birthday->format('m'),
             "day" => $appraisalApply->birthday->format('d'),
             "hour" => $appraisalApply->birthday_time->format('H'),
