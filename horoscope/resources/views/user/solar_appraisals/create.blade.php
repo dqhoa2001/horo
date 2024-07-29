@@ -932,5 +932,17 @@ Vue.createApp({
         form.appendChild(hiddenInput);
     }
 </script>
-
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let oldSolarReturn = "{{ old('solar_return') }}";
+        if (oldSolarReturn !== "") {
+            let solarReturnInputs = document.querySelectorAll('input[name="solar_return"]');
+            solarReturnInputs.forEach(function(input) {
+                if (input.value == oldSolarReturn) {
+                    input.checked = true;
+                }
+            });
+        }
+    });
+</script>
 @endsection
