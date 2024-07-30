@@ -6,8 +6,8 @@
             <li class="C-appraisal-tab__item">AC</li>
             <li class="C-appraisal-tab__item">MC</li>
             @foreach ( $explain as $planet => $planetExplain)
-                @if ($planet == 'CHIRON')
-                    <li class="C-appraisal-tab__item" style="width: calc((100% / 4) + (0.1rem * 9));">{{ $planetExplain->get('planet')->name }}</li>
+                @if ($planet == 'URANUS' or $planet == 'NEPTUNE' or $planet == 'PLUTO')
+                    <li class="C-appraisal-tab__item" style="width: 12rem;">{{ $planetExplain->get('planet')->name }}</li>
                 @else
                     <li class="C-appraisal-tab__item">{{ $planetExplain->get('planet')->name }}</li>
                 @endif

@@ -75,6 +75,7 @@
     background-color: rgba(57,57,92,.1);
 }
 .C-appraisal-tab__item--current{
+    width: calc((100% / 9) + (.1rem * 20));
 	background-image: url(../images/solar-return/bg_appraisal-tab.png);
     background-image: image-set(url(../images/solar-return/bg_appraisal-tab.png) 1x, url(../images/solar-return/bg_appraisal-tab@2x.png) 2x);
     background-image: -webkit-image-set(url(../images/solar-return/bg_appraisal-tab.png) 1x, url(../images/solar-return/bg_appraisal-tab@2x.png) 2x);
