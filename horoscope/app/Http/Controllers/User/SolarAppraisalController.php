@@ -30,18 +30,18 @@ use Stripe\PaymentIntent;
 use Stripe\PaymentMethod;
 use App\Library\GetPrefNum;
 use App\Services\CouponService;
-use App\Mail\User\AppraisalReceivedForBank;
-use App\Mail\User\BookbindingUserApplyMailForBank;
+use App\Mail\User\BookbindingUserApplySolarMailForBank;
 use App\Http\Requests\User\SolarAppraisalController\ConfirmRequest;
-use App\Mail\User\CompleteForPersonalAppraisal;
-use App\Mail\User\CompleteForFamilyAppraisal;
-use App\Mail\User\ThanksForPersonalAppraisal;
-use App\Mail\User\ThanksForFamilyAppraisal;
 use App\Models\AppraisalClaim;
 use App\Services\AppraisalClaimService;
 use App\Services\BookbindingUserApplyService;
 use App\Services\FamilyService;
 use App\Library\GetBccMail;
+use App\Mail\User\CompleteForFamilySolarAppraisal;
+use App\Mail\User\CompleteForPersonalSolarAppraisal;
+use App\Mail\User\SolarAppraisalReceivedForBank;
+use App\Mail\User\ThanksForFamilySolarAppraisal;
+use App\Mail\User\ThanksForPersonalSolarAppraisal;
 use App\Services\SolarComboboxService;
 class SolarAppraisalController extends Controller
 {
@@ -213,8 +213,8 @@ class SolarAppraisalController extends Controller
                         $contentType = AppraisalClaim::SOLAR_RETURN_FAMILY_BOOKING;
                     }
 
-                    \Mail::to(GetMail::getMailForApply($solarApply))->send(new ThanksForFamilyAppraisal($solarApply));
-                    \Mail::to(GetMail::getMailForApply($solarApply))->send(new CompleteForFamilyAppraisal($solarApply));
+                    \Mail::to(GetMail::getMailForApply($solarApply))->send(new ThanksForFamilySolarAppraisal($solarApply));
+                    \Mail::to(GetMail::getMailForApply($solarApply))->send(new CompleteForFamilySolarAppraisal($solarApply));
 
                 //ユーザー自身の場合
                 } else {
@@ -223,9 +223,9 @@ class SolarAppraisalController extends Controller
                     // $user = UserService::createUserAndHoroscope($request);
                     $user = auth()->guard('user')->user();
                     $solarApply = AppraisalApplyService::create($request, User::class, $user->id);
-                    \Mail::to(GetMail::getMailForApply($solarApply))->send(new ThanksForPersonalAppraisal($solarApply));
+                    \Mail::to(GetMail::getMailForApply($solarApply))->send(new ThanksForPersonalSolarAppraisal($solarApply));
 
-                    \Mail::to(GetMail::getMailForApply($solarApply))->send(new CompleteForPersonalAppraisal($solarApply));
+                    \Mail::to(GetMail::getMailForApply($solarApply))->send(new CompleteForPersonalSolarAppraisal($solarApply));
 
                     //製本の場合
                     if ((int) $request->is_bookbinding === Bookbinding::BOOKBINDING) {
@@ -257,7 +257,7 @@ class SolarAppraisalController extends Controller
                     $bookbindingUserApply = BookbindingUserApplyService::create($request, $solarApply);
                     $bookbindingUserApplyId = $bookbindingUserApply->id;
                     $contentType = AppraisalClaim::SOLAR_RETURN_FAMILY_BOOKING;
-                    \Mail::to($user->email)->send(new BookbindingUserApplyMailForBank($bookbindingUserApply, $user));
+                    \Mail::to($user->email)->send(new BookbindingUserApplySolarMailForBank($bookbindingUserApply, $user));
                 }
             //ユーザー自身の場合
             } else {
@@ -269,7 +269,7 @@ class SolarAppraisalController extends Controller
                     $bookbindingUserApply = BookbindingUserApplyService::create($request, $solarApply);
                     $bookbindingUserApplyId = $bookbindingUserApply->id;
                     $contentType = AppraisalClaim::SOLAR_RETURN_PERSONAL_BOOKING;
-                    \Mail::to($user->email)->send(new BookbindingUserApplyMailForBank($bookbindingUserApply, $user));
+                    \Mail::to($user->email)->send(new BookbindingUserApplySolarMailForBank($bookbindingUserApply, $user));
                 }
 
             }
@@ -279,7 +279,7 @@ class SolarAppraisalController extends Controller
             \DB::commit();
 
             $bccMails = GetBccMail::getBccMail();
-            \Mail::to(GetMail::getMailForApply($solarApply))->bcc($bccMails)->send(new AppraisalReceivedForBank(BankInfo::first(), $AppraisalClaim));
+            \Mail::to(GetMail::getMailForApply($solarApply))->bcc($bccMails)->send(new SolarAppraisalReceivedForBank(BankInfo::first(), $AppraisalClaim));
         }
 
         // クーポンの使用

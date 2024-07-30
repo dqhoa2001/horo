@@ -18,8 +18,8 @@ use App\Services\UserService;
 use Illuminate\Http\RedirectResponse;
 use App\Library\GetBccMail;
 use App\Library\GetPrefNum;
-use App\Mail\User\BookbindingBankInfoMailForBank;
-use App\Mail\User\BookbindingUserApplyMailForBank;
+use App\Mail\User\BookbindingBankInfoMailForBankSolar;
+use App\Mail\User\BookbindingUserApplySolarMailForBank;
 use App\Models\BankInfo;
 use App\Models\AppraisalApply;
 use App\Models\AppraisalClaim;
@@ -199,10 +199,10 @@ class SolarBookbindingController extends Controller
 
                 // 最後の申し込みの場合、メール送信
                 if ($solarAppraisalApply->id === $solarAppraisalApplies->last()->id) {
-                    \Mail::to(auth()->guard('user')->user()->email)->send(new BookbindingUserApplyMailForBank($bookbindingUserSolarApply, auth()->guard('user')->user()));
+                    \Mail::to(auth()->guard('user')->user()->email)->send(new BookbindingUserApplySolarMailForBank($bookbindingUserSolarApply, auth()->guard('user')->user()));
 
                     $bccMails = GetBccMail::getBccMail();
-                    \Mail::to(auth()->guard('user')->user()->email)->bcc($bccMails)->send(new BookbindingBankInfoMailForBank(BankInfo::first(), $solarAppraisalClaim));
+                    \Mail::to(auth()->guard('user')->user()->email)->bcc($bccMails)->send(new BookbindingBankInfoMailForBankSolar(BankInfo::first(), $solarAppraisalClaim));
                 }
             }
 

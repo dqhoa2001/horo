@@ -90,6 +90,47 @@ class TemplateSeeder3 extends Seeder
                     株式会社星の舞
                 ',
             ],
+            [
+                'template_name' => 'この度は個人Solar Return鑑定のご購入ありがとうございました。',
+                'class_name' => 'CompleteForPersonalSolarAppraisal',
+                'title' => '【星の舞】ご購入ありがとうございました',
+                'content' => '
+                    {{$name}}様
+                    このたびは、Solar Return（個人鑑定システム）をご購入頂き誠にありがとうございます。
+
+                    鑑定結果は、星の舞マイページより早速ご覧いただけます。
+                    https://mypage.hoshinomai.jp/user/login
+
+                    お申し込み時に設定いただきましたメールアドレスとパスワードにてログインくださいますようお願いいたします。
+
+                    本サービスによる個人鑑定が皆様の今後の人生のお役に立てましたら幸いです。
+
+
+                    株式会社星の舞
+                ',
+            ],
+            [
+                'template_name' => 'この度は家族Solar Return鑑定のご購入ありがとうございました。',
+                'class_name' => 'CompleteForFamilySolarAppraisal',
+                'title' => '【星の舞】ご購入ありがとうございました',
+                'content' => '
+                    {{$name}}様
+
+                    このたびは、Solar Return（個人鑑定システム）の家族鑑定をご購入頂き誠にありがとうございます。
+
+                    鑑定結果は、星の舞マイページより早速ご覧いただけます。
+                    https://mypage.hoshinomai.jp/user/login
+
+                    お申し込み時に設定いただきましたメールアドレスとパスワードにてログインくださいますようお願いいたします。
+
+                    本サービスによる個人鑑定が皆様の今後の人生のお役に立てましたら幸いです。
+
+                    株式会社星の舞
+
+                    銀行振り込みにてお支払いを頂いた場合は、お振込み案内メールをお送りしております。
+                    お手数をおかけしますが、ご確認お願いします。
+                ',
+            ],
         ]);
     }
 }
