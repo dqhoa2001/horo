@@ -16,7 +16,7 @@ class TemplateSeeder10 extends Seeder
             [
                 'template_name' => '個人鑑定のご購入ありがとうございました',
                 'class_name' => 'ThanksForPersonalAppraisal',
-                'title' => '【星の舞】購入ありがとうございました',
+                'title' => '【星の舞】ご購入ありがとうございました',
                 'content' => '
                     この度は個人鑑定のご購入ありがとうございました。
                     ご登録頂いたメールアドレスへ、購入完了メールをお送りしております。
@@ -28,7 +28,7 @@ class TemplateSeeder10 extends Seeder
             [
                 'template_name' => '個人Solar Return鑑定のご購入ありがとうございました',
                 'class_name' => 'ThanksForPersonalSolarAppraisal',
-                'title' => '【星の舞】購入ありがとうございました',
+                'title' => '【星の舞】ご購入ありがとうございました',
                 'content' => '
                     この度は個人Solar Return鑑定のご購入ありがとうございました。
                     ご登録頂いたメールアドレスへ、購入完了メールをお送りしております。
@@ -40,7 +40,7 @@ class TemplateSeeder10 extends Seeder
             [
                 'template_name' => '家族Solar Return鑑定のご購入ありがとうございました',
                 'class_name' => 'ThanksForFamilySolarAppraisal',
-                'title' => '【星の舞】購入ありがとうございました',
+                'title' => '【星の舞】ご購入ありがとうございました',
                 'content' => '
                     この度は家族Solar Return鑑定のご購入ありがとうございました。
                     ご登録頂いたメールアドレスへ、購入完了メールをお送りしております。
