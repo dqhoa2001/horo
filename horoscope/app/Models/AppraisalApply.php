@@ -62,7 +62,10 @@ class AppraisalApply extends Model
         self::USER => '個人',
         self::FAMILY => '家族',
     ];
-
+    const COMPLETE_TARGET_TYPE_SOLAR = [
+        self::USER => 'SolarReturn（個人鑑定）',
+        self::FAMILY => 'SolarReturn（家族鑑定）',
+    ];
     // 製本の希望
     // const IS_BOOKBINDING = [
     //     self::BOOK_ENABLED => '希望する',
