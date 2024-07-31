@@ -2,8 +2,6 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('mypage/assets/css/personal-appraisal-form.css') }}">
-<link rel="stylesheet" href="{{ asset('mypage/assets/plugins/mCustomScrollbar/jquery.mCustomScrollbar.min.css') }}">
-
 @endsection
 
 @section('content')
