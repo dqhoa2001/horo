@@ -231,7 +231,9 @@
                                                 </select>
                                             </form>
                                         </td>
-                                        <td class="text-nowrap px-2 text-center">{{ $appraisalClaim->getContentTypeText() }}・{{ $appraisalClaim->appraisalApply->reference->full_name ?? '' }}</td>
+                                        <td class="text-nowrap px-2 text-center">@if ($appraisalClaim->appraisalApply->solar_return !== 0)
+                                            {{$appraisalClaim->appraisalApply->solar_return}}・
+                                        @endif{{ $appraisalClaim->getContentTypeText() }}・{{ $appraisalClaim->appraisalApply->reference->full_name ?? '' }}</td>
                                         <td class="text-nowrap px-2 text-center">{{ $appraisalClaim->purchase_date->format('Y年m月d日') }}</td>
                                         <td class="text-nowrap px-2 text-center">{{ number_format($appraisalClaim->price) }}円</td>
                                         <td class="text-nowrap px-2 text-center">{{ $appraisalClaim->getPaymentTypeText() }}</td>
