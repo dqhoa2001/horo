@@ -225,19 +225,7 @@
                                         <dl class="C-form-block-child C-form-block--birth">
                                             <dt class="C-form-block__title">鑑定年</dt>
                                             <dd class="C-form-block__body C-form-block__body--half">
-                                                {{-- {{ $data['birthday'] }} --}}
-                                                @if (is_string($data['solar_return']))
-                                                    @php
-                                                        $date = \DateTime::createFromFormat('Y', $data['solar_return']);
-                                                    @endphp
-                                                    @if ($date)
-                                                        {{ $date->format('Y年m月d日') }}
-                                                    @else
-                                                        <span>Error: Invalid date format</span>
-                                                    @endif
-                                                @else
-                                                    {{ $data['solar_return']->format('Y年m月d日') }}
-                                                @endif
+                                                {{$data['solar_return-text']}}
                                             </dd>
                                         </dl>
                                     </dd>

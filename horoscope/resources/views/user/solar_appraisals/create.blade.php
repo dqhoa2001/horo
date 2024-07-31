@@ -944,5 +944,18 @@ Vue.createApp({
             });
         }
     });
+    document.addEventListener('DOMContentLoaded', function() {
+        const firstRadio = document.querySelector('input[name="solar_return"]:first-of-type');
+        if (firstRadio) {
+            firstRadio.dispatchEvent(new Event('change'));
+        }
+    });
+    function updateHiddenInput(name, iteration) {
+        const selectedRadio = document.getElementById(name + iteration);
+        const hiddenInput = document.getElementById('text-solar_return');
+        const spanText = document.querySelector('span[for="' + name + iteration + '"]').textContent;
+        hiddenInput.value = spanText;
+        console.log(spanText);
+    }
 </script>
 @endsection
