@@ -292,6 +292,15 @@ p.planet {
     height: 300px;
     background-position: center;
 }
+.saturnians svg{
+    max-width: 100%;
+    background-image: url(../images/img_saturnians.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    /* height: 230px; */
+    height: 300px;
+    background-position: center;
+}
 .dragonhead svg{
     max-width: 100%;
     background-image: url(../images/img_dragonhead.png);
@@ -1309,6 +1318,29 @@ p.planet {
     font-size: 5.3rem;
 } */
 
+.page--saturnians{
+    background: #8BCEC6;
+}
+.page--saturnians::before{
+    background-image: url(../images/title_saturnians.png);
+}
+.page--saturnians .page--cover__title::before{
+    background-image: url(../images/line_cover-title-saturnians_left.svg);
+}
+.page--saturnians .page--cover__title::after{
+    background-image: url(../images/line_cover-title-saturnians_right.svg);
+}
+.page--saturnians .page--cover__frame{
+    border-left-color: #8BCEC6;
+    border-right-color: #8BCEC6;
+}
+.page--saturnians .page--cover__frame::after{
+    border-color: #8BCEC6;
+}
+.page--saturnians .page--cover__title
+{
+    color: #8BCEC6;
+}
 /*-------------------------------
 	天王星
 -------------------------------*/

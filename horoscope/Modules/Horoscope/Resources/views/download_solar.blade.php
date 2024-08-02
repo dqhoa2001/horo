@@ -1947,25 +1947,35 @@
                 </div>
             </div>
         </div>
-        <div class="page page01"
-            data-pageno="{{ $page++ }}">
+        @php
+            $page++;
+        @endphp
+        <div class="page page--cover page--saturnians page--number page--number_right"
+            data-pageno="" data-title="トランスサタニアン">
             <div class="page__inner">
-                <div class="page-block page-block--1">
-                    <p class="page-block--1__title">
-                        <span>
-                        トランスサタニアン
-                        </span>
-                    </p>
+                <p class="page--cover__title">トランスサタニアン</p>
+                <div class="page--cover-block1">
                     <p class="page__text">
-                        太陽の外側にあり、「トランスサタニアン」と呼ばれる天王星、海王星、冥王星は、太陽回帰において、アスペクトのみならずハウスにおいても無意識的で強い影響を与えます。<br>
-                        天王星は、新しいものを取り入れたり、あなたの独自性を出したくなるテーマが現れています。<br>
+                        <span>　太陽の外側にあり、「トランスサタニアン」と呼ばれる天王星、海王星、冥王
+                            星は、太陽回帰において、アスペクトのみならずハウスにおいても無意識的で
+                            強い影響を与えます。</span>
+                            <br>
+                        <span>　天王星は、新しいものを取り入れたり、あなたの独自性を出したくなるテー
+                            マがあらわれています。</span>
+                        <span>　また、海王星は、あなたが抱くようになる理想。</span>
+                        <span>　冥王星は、その一年で最も「変わる」テーマをあらわします。</span>
                         <br>
-                        海王星は、あなたが抱く理想。<br>
-                        冥王星は、その1年で最も「変わる」テーマ。<br>
+                        <span>　各天体のサビアンシンボルとハウスへの影響をまとめます。</span>
                         <br>
-                        各天体のサビアンシンボルとハウスへの影響をまとめます。
+                        <span>　ハウスに関してはわかりやすいと思いますが、サビアンシンボルは読んでも
+                            あまりピンと来ない可能性もあります。その場合は、一年経ったあとに改めて
+                            読んでみると、なるほど！と思えるかもしれません。</span>
                     </p>
                 </div>
+                <div class="page--cover__image saturnians">
+                    <svg style="height: 415px; width: 580px;"></svg>
+                </div>
+                <span class="page--cover__frame"></span>
             </div>
         </div>
         <div class="page-break-before"></div>
