@@ -657,6 +657,7 @@ Vue.createApp({
                     let address = `${family.birthday_prefectures}`;
                     // console.log(family.birthday_prefectures);
                     this.updateMapAndMarker(family.birthday_prefectures);
+                    this.triggerSolarReturnChange();
                 });
             } else {
                 this.$nextTick(() => {
@@ -669,6 +670,12 @@ Vue.createApp({
                     this.$refs.birthday_time.value = '';
                     this.birthday = '';
                 });
+            }
+        },
+        triggerSolarReturnChange() {
+            const firstRadio = document.querySelector('input[name="solar_return"]:first-of-type');
+            if (firstRadio) {
+                firstRadio.dispatchEvent(new Event('change'));
             }
         },
         //自分を選択したら自分の情報をセットする

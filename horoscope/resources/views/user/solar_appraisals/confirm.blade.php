@@ -285,7 +285,7 @@
                                 </dl>
                             </div>
                             <button type="button" @click="submitForm" :disabled="isLoading" class="Button Button--lightblue"><span>申し込み</span></button>
-                            <button type="submit" formaction="{{ route('user.solar_appraisals.back') }}" formmethod="POST" class="previous-btn previous-btn-left">
+                            <button type="button" class="previous-btn previous-btn-left" onclick="window.history.back();">
                                 <span>入力内容を修正する</span>
                             </button>
                         </form>
