@@ -14,11 +14,39 @@ class TemplateSeeder10 extends Seeder
     {
         \DB::table('templates')->insert([
             [
-                'template_name' => '申し込み後のサンクスメール',
+                'template_name' => '個人鑑定のご購入ありがとうございました',
                 'class_name' => 'ThanksForPersonalAppraisal',
-                'title' => '【星の舞】会員登録が完了致しました',
+                'title' => '【星の舞】ご購入ありがとうございました',
                 'content' => '
-                    当社の製品をお買い上げいただきありがとうございます
+                    この度は個人鑑定のご購入ありがとうございました。
+                    ご登録頂いたメールアドレスへ、購入完了メールをお送りしております。
+                    しばらく経ってもメールが届かない場合は、入力頂いたメールアドレスが間違っているか、迷惑メールフォルダに振り分けられている可能性がございます。
+                    鑑定結果は下記、マイページ内「家族鑑定」メニューにてご確認ください。
+                    <a href="{{ $personal_appraisals_show_url }}" target="_blank">{{ $personal_appraisals_show_url }}</a>
+                ',
+            ],
+            [
+                'template_name' => '個人Solar Return鑑定のご購入ありがとうございました',
+                'class_name' => 'ThanksForPersonalSolarAppraisal',
+                'title' => '【星の舞】ご購入ありがとうございました',
+                'content' => '
+                    この度は個人Solar Return鑑定のご購入ありがとうございました。
+                    ご登録頂いたメールアドレスへ、購入完了メールをお送りしております。
+                    しばらく経ってもメールが届かない場合は、入力頂いたメールアドレスが間違っているか、迷惑メールフォルダに振り分けられている可能性がございます。
+                    鑑定結果は下記、マイページ内「家族鑑定」メニューにてご確認ください。
+                    <a href="{{ $personal_solar_appraisals_show_url }}" target="_blank">{{ $personal_solar_appraisals_show_url }}</a>
+                ',
+            ],
+            [
+                'template_name' => '家族Solar Return鑑定のご購入ありがとうございました',
+                'class_name' => 'ThanksForFamilySolarAppraisal',
+                'title' => '【星の舞】ご購入ありがとうございました',
+                'content' => '
+                    この度は家族Solar Return鑑定のご購入ありがとうございました。
+                    ご登録頂いたメールアドレスへ、購入完了メールをお送りしております。
+                    しばらく経ってもメールが届かない場合は、入力頂いたメールアドレスが間違っているか、迷惑メールフォルダに振り分けられている可能性がございます。
+                    鑑定結果は下記、マイページ内「家族鑑定」メニューにてご確認ください。
+                    <a href="{{ $family_solar_appraisals_show_url }}" target="_blank">{{ $family_solar_appraisals_show_url }}</a>
                 ',
             ],
         ]);

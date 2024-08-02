@@ -13,6 +13,7 @@
             name="{{ $name }}"
             id="{{ $name . $loop->iteration }}"
             value="{{ $v }}"
+            onchange="updateHiddenInput('{{ $name }}', '{{ $loop->iteration }}')"
             @isset($checked)
                 @if(old($name, $checked) == $k) checked @elseif($loop->iteration == 1 && empty($noChecked)) checked @endif
             @else
@@ -27,4 +28,5 @@
         >
         <span class="C-form-block__radio__text" for="{{ $name . $loop->iteration }}">{{ $v }}</span>
     </label>
-@endforeach
+    @endforeach
+    <input type="hidden" name="{{ $name }}-text" id="text-{{ $name }}" value="">

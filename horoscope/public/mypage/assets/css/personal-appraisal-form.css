@@ -3,7 +3,12 @@
 /*-------------------------------
 	common.css
 -------------------------------*/
-
+.Pageframe-main-header__pagename::before{
+	width: 2.5rem;
+	height: 2.5rem;
+	top: calc(50% - 1.25rem);
+	background-image: url(../images/common/icon_nav-solar_return.svg);
+}
 .Pageframe-main__title{
     max-width: 50.8rem;
     margin-bottom: 4.5rem;

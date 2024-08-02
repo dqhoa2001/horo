@@ -18,18 +18,24 @@
                                                     <option value=""@if (empty($solarApply)) selected @endif>[SOLAR RETURN]を選択してください。</option>
                                                     @foreach ($solarAppraisals as $SolarAppraisal)
                                                         @php
-                                                                $solar_return = $SolarAppraisal->solar_return + 1;
-                                                                $birthday = $SolarAppraisal->birthday;
-                                                                $birthdayDate = \Carbon\Carbon::parse($birthday);
-                                                                $age = $solar_return - $birthdayDate->year;
-                                                                if (\Carbon\Carbon::now()->isBefore($birthdayDate->copy()->year($solar_return)->endOfYear())) {
-                                                                    $age--;
-                                                                    $solar_return--;
-                                                                }
-                                                                $url = route('user.solar_appraisals.show', $SolarAppraisal);
+                                                            $solar_return = $SolarAppraisal->solar_return + 1;
+                                                            $birthday = $SolarAppraisal->birthday;
+                                                            $birthdayDate = \Carbon\Carbon::parse($birthday);
+                                                            $age = $solar_return - $birthdayDate->year;
+
+                                                            if (\Carbon\Carbon::now()->isBefore($birthdayDate->copy()->year($solar_return)->endOfYear())) {
+                                                                $age--;
+                                                                $solar_return--;
+                                                            }
+
+                                                            $currentYearFormattedDate = $birthdayDate->copy()->year($solar_return)->format('Y年m月d日');
+
+                                                            $nextYearEndDate = $birthdayDate->copy()->year($solar_return + 1)->subDay()->format('Y年m月d日');
+
+                                                            $url = route('user.solar_appraisals.show', $SolarAppraisal);
                                                         @endphp
                                                         <option value="{{ $url }}" @if (isset($solarApply)){{ $solarApply->id == $SolarAppraisal->id ? 'selected' : '' }}@endif>
-                                                            {{ $age }}歳　({{ $solar_return }}年{{$birthdayDate->month}}月{{$birthdayDate->day}}日　-　{{ $solar_return+1}}年{{$birthdayDate->month}}月{{$birthdayDate->day}}日)
+                                                            {{ $age }}歳　({{$currentYearFormattedDate}}　-　{{ $nextYearEndDate}})
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -64,18 +70,24 @@
                                                     <option value=""@if (empty($solarApply)) selected @endif>[SOLAR RETURN]を選択してください。</option>
                                                     @foreach ($solarAppraisals as $SolarAppraisal)
                                                         @php
-                                                                $solar_return = $SolarAppraisal->solar_return + 1;
-                                                                $birthday = $SolarAppraisal->birthday;
-                                                                $birthdayDate = \Carbon\Carbon::parse($birthday);
-                                                                $age = $solar_return - $birthdayDate->year;
-                                                                if (\Carbon\Carbon::now()->isBefore($birthdayDate->copy()->year($solar_return)->endOfYear())) {
-                                                                    $age--;
-                                                                    $solar_return--;
-                                                                }
-                                                                $url = route('user.my_horoscopes.show', $SolarAppraisal);
+                                                            $solar_return = $SolarAppraisal->solar_return + 1;
+                                                            $birthday = $SolarAppraisal->birthday;
+                                                            $birthdayDate = \Carbon\Carbon::parse($birthday);
+                                                            $age = $solar_return - $birthdayDate->year;
+
+                                                            if (\Carbon\Carbon::now()->isBefore($birthdayDate->copy()->year($solar_return)->endOfYear())) {
+                                                                $age--;
+                                                                $solar_return--;
+                                                            }
+
+                                                            $currentYearFormattedDate = $birthdayDate->copy()->year($solar_return)->format('Y年m月d日');
+
+                                                            $nextYearEndDate = $birthdayDate->copy()->year($solar_return + 1)->subDay()->format('Y年m月d日');
+
+                                                            $url = route('user.my_horoscopes.show', $SolarAppraisal);
                                                         @endphp
                                                         <option value="{{ $url }}" @if (isset($solarApply)){{ $solarApply->id == $SolarAppraisal->id ? 'selected' : '' }}@endif>
-                                                            {{ $age }}歳　({{ $solar_return }}年{{$birthdayDate->month}}月{{$birthdayDate->day}}日　-　{{ $solar_return+1}}年{{$birthdayDate->month}}月{{$birthdayDate->day}}日)
+                                                            {{ $age }}歳　({{$currentYearFormattedDate}}　-　{{ $nextYearEndDate}})
                                                         </option>
                                                     @endforeach
                                             </select>

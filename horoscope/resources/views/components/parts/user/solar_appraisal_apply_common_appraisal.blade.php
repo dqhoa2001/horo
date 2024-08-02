@@ -6,8 +6,8 @@
             <li class="C-appraisal-tab__item">AC</li>
             <li class="C-appraisal-tab__item">MC</li>
             @foreach ( $explain as $planet => $planetExplain)
-                @if ($planet == 'CHIRON')
-                    <li class="C-appraisal-tab__item" style="width: calc((100% / 4) + (0.1rem * 9));">{{ $planetExplain->get('planet')->name }}</li>
+                @if ($planet == 'URANUS' or $planet == 'NEPTUNE' or $planet == 'PLUTO')
+                    <li class="C-appraisal-tab__item" style="width: 12rem;">{{ $planetExplain->get('planet')->name }}</li>
                 @else
                     <li class="C-appraisal-tab__item">{{ $planetExplain->get('planet')->name }}</li>
                 @endif
@@ -178,17 +178,17 @@
                         @endif
                         @if ($planet == 'URANUS')
                             <p class="C-appraisal-content-header__first-message__text">
-                                　Content URANUS
+                                　変革させること、あなたの独自性を出すテーマ
                             </p>
                         @endif
                         @if ($planet == 'NEPTUNE')
                             <p class="C-appraisal-content-header__first-message__text">
-                                　Content NEPTUNE
+                                　この時期、あなたが描く理想
                             </p>
                         @endif
                         @if ($planet == 'PLUTO')
                             <p class="C-appraisal-content-header__first-message__text">
-                                　Content PLUTO
+                                　最も大きく変わるテーマ
                             </p>
                         @endif
                     </div>
@@ -246,6 +246,30 @@
                                 <dt class="C-appraisal-content-header-message__title">土星のサビアンシンボル</dt>
                                 <dd class="C-appraisal-content-header-message__text">
                                     土星のサビアンシンボルには、あなたが時間をかけ、努力して手に入れる能力が表れています。こういう人です、こういう能力があります、などと書かれた解説文でも、それを手に入れるのは晩年期であり、最終的な目標なのだと認識しておきましょう。また、土星の年齢域の頃にどのように生きるかをサビアンシンボルが示唆していることも多いでしょう。
+                                </dd>
+                            </dl>
+                        @endif
+                        @if ($planet == 'URANUS')
+                            <dl class="C-appraisal-content-header-message">
+                                <dt class="C-appraisal-content-header-message__title">天王星のサビアンシンボル</dt>
+                                <dd class="C-appraisal-content-header-message__text">
+                                    あなたが変革したい、生き方を変えたい、新たに取り入れたいことなどについて、その具体的な方向 性が天王星のサビアンシンボルにあらわれます。
+                                </dd>
+                            </dl>
+                        @endif
+                        @if ($planet == 'NEPTUNE')
+                            <dl class="C-appraisal-content-header-message">
+                                <dt class="C-appraisal-content-header-message__title">海王星のサビアンシンボル</dt>
+                                <dd class="C-appraisal-content-header-message__text">
+                                    あなたが無意識的にどんな理想を描くのかが具体的にあらわれています。また、第六感的な感受性 をどんな領域で発揮させるか、どんな感覚が育つかがわかることもあります。
+                                </dd>
+                            </dl>
+                        @endif
+                        @if ($planet == 'PLUTO')
+                            <dl class="C-appraisal-content-header-message">
+                                <dt class="C-appraisal-content-header-message__title">冥王星のサビアンシンボル</dt>
+                                <dd class="C-appraisal-content-header-message__text">
+                                    冥王星は一年かけて3度ほどしか進まないため、太陽回帰のサビアンシンボルを多くの人が共有します。そのため、より集合意識的な意味が強まります。とはいえ、あなたが深いレベルで変えようとしと ていることや手に入れようとしている力をあらわしていると考えて読んでみましょう。
                                 </dd>
                             </dl>
                         @endif

@@ -17,7 +17,7 @@
                             <span class="C-form__message__req">{{ \App\Models\AppraisalApply::COMPLETE_TARGET_TYPE[(int)$target_type] }}鑑定申し込み完了</span>
                         </p> --}}
                         <p class="C-form-block--text">
-                            {{ \App\Models\AppraisalApply::COMPLETE_TARGET_TYPE[(int)$target_type] }}鑑定のご購入ありがとうございました。<br>
+                            {{ \App\Models\AppraisalApply::COMPLETE_TARGET_TYPE_SOLAR[(int)$target_type] }}鑑定のご購入ありがとうございました。<br>
                         </p>
                         <br>
                         <p>
@@ -34,14 +34,14 @@
                             @if((int)$target_type === \App\Enums\TargetType::FAMILY->value)
                                 <div class="Button Button--lightblue btn-block-mt">
                                     <a href="{{ route('user.solar_appraisals.show', $solarApply->id) }}">
-                                        家族の個人鑑定結果はこちら
+                                        SolarReturn（家族鑑定）結果はこちら
                                     </a>
                                 </div>
                             @else
                                 <!--個人の場合-->
                                 <div class="Button Button--lightblue btn-block-mt">
                                     <a href="{{ route('user.solar_appraisals.show', $solarApply->id) }}">
-                                        個人鑑定結果はこちら
+                                        SolarReturn（個人鑑定）結果はこちら
                                     </a>
                                 </div>
                             @endif

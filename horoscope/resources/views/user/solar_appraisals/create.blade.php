@@ -2,8 +2,6 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('mypage/assets/css/personal-appraisal-form.css') }}">
-<link rel="stylesheet" href="{{ asset('mypage/assets/plugins/mCustomScrollbar/jquery.mCustomScrollbar.min.css') }}">
-
 @endsection
 
 @section('content')
@@ -281,6 +279,7 @@
                                                     </div>
                                                 </dd>
                                             </dl>
+                                            <p class="C-form-block--birthdata__text">※太陽回帰が起こる日付は暦と太陽の運行のずれにより1日程度ずれることがあります。</p>
                                         </dd>
                                     </dl>
 
@@ -589,12 +588,11 @@ Vue.createApp({
                 age--;
                 currentYear--;
             }
-
+            let formattedNextDate = new Date(currentYear + 1, birthday.getMonth(), birthday.getDate() - 1);
+            let formattedNextDate1 = new Date(currentYear + 2, birthday.getMonth(), birthday.getDate() - 1);
             let formattedCurrentDate = `${currentYear}年${(birthday.getMonth()+1).toString().padStart(2, '0')}月${(birthday.getDate()).toString().padStart(2, '0')}日`;
-            let formattedNextDate = `${currentYear+1}年${(birthday.getMonth()+1).toString().padStart(2, '0')}月${(birthday.getDate()).toString().padStart(2, '0')}日`;
-            let formattedCurrentDate1 = `${currentYear+1}年${(birthday.getMonth()+1).toString().padStart(2, '0')}月${(birthday.getDate()).toString().padStart(2, '0')}日`;
-            let formattedNextDate1 = `${currentYear+2}年${(birthday.getMonth()+1).toString().padStart(2, '0')}月${(birthday.getDate()).toString().padStart(2, '0')}日`;
-
+            formattedNextDate = `${formattedNextDate.getFullYear()}年${(formattedNextDate.getMonth() + 1).toString().padStart(2, '0')}月${formattedNextDate.getDate().toString().padStart(2, '0')}日`;            let formattedCurrentDate1 = `${currentYear+1}年${(birthday.getMonth()+1).toString().padStart(2, '0')}月${(birthday.getDate()).toString().padStart(2, '0')}日`;
+            formattedNextDate1 = `${formattedNextDate1.getFullYear()}年${(formattedNextDate1.getMonth() + 1).toString().padStart(2, '0')}月${formattedNextDate1.getDate().toString().padStart(2, '0')}日`;
             const currentAge = document.querySelector('span.C-form-block__radio__text[for="solar_return1"]');
             const nextAge = document.querySelector('span.C-form-block__radio__text[for="solar_return2"]');
             const solarReturn1 = document.getElementById('solar_return1');
@@ -659,6 +657,7 @@ Vue.createApp({
                     let address = `${family.birthday_prefectures}`;
                     // console.log(family.birthday_prefectures);
                     this.updateMapAndMarker(family.birthday_prefectures);
+                    this.triggerSolarReturnChange();
                 });
             } else {
                 this.$nextTick(() => {
@@ -671,6 +670,12 @@ Vue.createApp({
                     this.$refs.birthday_time.value = '';
                     this.birthday = '';
                 });
+            }
+        },
+        triggerSolarReturnChange() {
+            const firstRadio = document.querySelector('input[name="solar_return"]:first-of-type');
+            if (firstRadio) {
+                firstRadio.dispatchEvent(new Event('change'));
             }
         },
         //自分を選択したら自分の情報をセットする
@@ -932,5 +937,30 @@ Vue.createApp({
         form.appendChild(hiddenInput);
     }
 </script>
-
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let oldSolarReturn = "{{ old('solar_return') }}";
+        if (oldSolarReturn !== "") {
+            let solarReturnInputs = document.querySelectorAll('input[name="solar_return"]');
+            solarReturnInputs.forEach(function(input) {
+                if (input.value == oldSolarReturn) {
+                    input.checked = true;
+                }
+            });
+        }
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        const firstRadio = document.querySelector('input[name="solar_return"]:first-of-type');
+        if (firstRadio) {
+            firstRadio.dispatchEvent(new Event('change'));
+        }
+    });
+    function updateHiddenInput(name, iteration) {
+        const selectedRadio = document.getElementById(name + iteration);
+        const hiddenInput = document.getElementById('text-solar_return');
+        const spanText = document.querySelector('span[for="' + name + iteration + '"]').textContent;
+        hiddenInput.value = spanText;
+        console.log(spanText);
+    }
+</script>
 @endsection
