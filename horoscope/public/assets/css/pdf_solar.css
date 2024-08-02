@@ -66,7 +66,7 @@
     top: 69.5rem;
     left: 50%;
     transform: translateX(-50%);
-    color: #91a3ab;
+    color: #403f41;
 }
 .page01 .page__inner::after{
     width: 25rem;
@@ -223,7 +223,8 @@
 }
 
 .page--sun .page-block--2 .page__text{
-    background: #F5D09B;
+    /* background: #F5D09B; */
+    background: #fbeee0;
 }
 .page--sun .page-block--5__half{
     border-color: #F5D09B;
