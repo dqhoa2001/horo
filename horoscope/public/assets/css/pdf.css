@@ -1415,7 +1415,8 @@ p.planet {
 }
 
 .page--uranus .page-block--2 .page__text{
-    background: rgba(225,220,207,.3);
+    /* background: rgba(225,220,207,.3); */
+    background: #d9f0ed;
 }
 .page--uranus .page-block--5__half{
     border-color: #AFDBF5;
@@ -1440,7 +1441,9 @@ p.planet {
 -------------------------------*/
 
 .page--neptune{
-    background: #2E3A87;
+    /* background: #2E3A87; */
+    background: #72a3bb;
+
 }
 .page--neptune::before{
     background-image: url(../images/title_saturn.svg);
@@ -1509,7 +1512,8 @@ p.planet {
 }
 
 .page--neptune .page-block--2 .page__text{
-    background: rgba(225,220,207,.3);
+    /* background: rgba(225,220,207,.3); */
+    background: #eeeff2;
 }
 .page--neptune .page-block--5__half{
     border-color: #2E3A87;
@@ -1535,7 +1539,8 @@ p.planet {
 -------------------------------*/
 
 .page--pluto{
-    background: #BFA58A;
+    /* background: #BFA58A; */
+    background: #c9ccd4;
 }
 .page--pluto::before{
     background-image: url(../images/title_saturn.svg);
@@ -1605,6 +1610,8 @@ p.planet {
 
 .page--pluto .page-block--2 .page__text{
     background: rgba(225,220,207,.3);
+    background: #eeeff2;
+
 }
 .page--pluto .page-block--5__half{
     border-color: #BFA58A;
@@ -2521,6 +2528,7 @@ p.planet {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 400;
 }
+
 
 /*-------------------------------
 	ページ01（中表紙）

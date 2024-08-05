@@ -202,10 +202,10 @@
             <div class="page__inner" style="height: 460px;">
                 <p class="page--cover__title"><span data-tag="（アセンダント）">AC</span></p>
                 <div class="page--cover-block1">
-                    <p class="page--cover-block1__title">見た目や癖、振る舞いなど</p>
+                    <p class="page--cover-block1__title">1年のエネルギーに大きく影響</p>
                     <p class="page__text">
-                        <span>　アセンダントとはソーラーリターンの瞬間の東の地平線の位置をさし、ここにあった星座（サイン）が、あなたの1 年の無意識的な行動パターンとして現れやすくなります。</span>
-                        <span>　また、アセンダントのサインとエネルギーが近い天体（チャートルーラー）の力が強まるため、チャートルーラが何なのかを解説文に入れています。後程チャートルーラーの天体を読む際に意識してみましょう。ントの星座の特徴に当てはまることが多いでしょう。</span>
+                        <span>　アセンダントとはソーラーリターンの瞬間の東の地平線の置をさし、ここにあった星座(サイン)が、あなたの1年の無意識的な行動パターンとして現れやすくなります。</span>
+                        <span>　また、アセンダントのサインとエネルギーが近い天体(チャートルーラー)の力が強まるため、チャートルーラが何なのかを解説文に入れています。後程チャートルーラーの天体を読む際に意識してみましょう。ントの星座の特徴に当てはまることが多いでしょう。</span>
                     </p>
                 </div>
                 <div class="page-block page-block--1">
@@ -264,7 +264,7 @@
             <div class="page-block page-block--2">
                 <p class="page-block--2__title">アスペクト<span>他の天体との関わりからわかること</span></p>
                 <p class="page__text">
-                    <span>　太陽が他の天体とどうかかわっているかがこの1 年を読み解く重要なカギになります。一つ一つ丁寧に読み解いて、自分がやりたいことと比べてどうかを考えてみましょう。</span>
+                    <span>　太陽が他の天体とどうかかわっているかがこの一年を読み解く重要なカギになります。一つひとつ丁寧に読み解いて、自分がやりたいことと比較し、進むヒントにしててください。</span>
                 </p>
             </div>
             <div class="page-block page-block--5">
@@ -482,10 +482,19 @@
             <div class="page__inner">
                 <p class="page--cover__title"><span>月</span></p>
                 <div class="page--cover-block1">
-                    <p class="page--cover-block1__title">心の向かう先</p>
+                    <p class="page--cover-block1__title">あなたの暮らし。心は平穏か</p>
                     <p class="page__text">
-                        <span>　月は、この1 年の心の状況や私生活をあらわします。生まれたときとは全く違う星座であることが多く、ソーラーリターンでは、この年のあなたの精神的な中心テーマが月のサインやハウスに表れやすくなっています。</span>
-                        <span>　どんなことに気持ちが向かうか、感受性にどんな変化があるか、健康や暮らし、私生活全廃がどんなふうになりそうかがあらわれています。</span>
+                        <span>　月は、この一年の心の状況や私生活をあらわします。生まれたときとは全く
+                            違う星座であることが多く、ソーラーリターンでは、この年のあなたの精神的
+                            な中心テーマが月のサインやハウスにあらわれますので、とても重要です。
+                            </span>
+                        <span>　どんなことに気持ちが向かうか、感受性にどんな変化カあるか、健康や暮らし、
+                            私生活全般がどんなふうになりそうかがあらわれています。
+                            </span>
+                        <span>　月の配置が豊かだと、暮らしや気持ちが安定する一年でであることがわかりま
+                            すし、月の配置が厳しいときは、実際に精神的に厳しいことが起こりやすいと
+                            暗示されます。
+                            </span>
                     </p>
                 </div>
                 <div class="page--cover__image moon"><svg></svg></div>
@@ -759,10 +768,20 @@
                 <div class="page--cover-block1">
                     <p class="page--cover-block1__title">知的な活動</p>
                     <p class="page__text">
-                        <span>あなたは学童期にどのようなことに関心を持ち、どのように友人と接していましたか？ 学童期である8～15
-                            歳ごろに最も強く作用し、あなたの知的興味関心や学習、人とのコミュニケーションなどにかかわるのが生まれた時の水星です。</span>
-                        <span>あなたがこの頃に関心があったこと、得意だった教科、どんなタイプの子どもだったか、といったことを思い出すと、以下の水星にかかわる鑑定内容と合致するでしょう。</span>
-                        <span>わたしたちは学童期に得た知的関心や学習方法、人とのかかわり方などを、大人になっても仕事の技術や興味関心のある分野、ものの考え方や言葉での伝え方、人とのかかわり方などの形で影響し続けます。</span>
+                        <span>　水星からはこの一年、あなたが何に関心を示し、何を学ぼうとし、どのよう
+                            な交友関係を結ぶのかといったことがわかります。
+                            </span>
+                        <span>　水星は太陽のそばにあることが多いため、出生図と同じ星座になることも多
+                            いでしょうし、生まれた時の位置の前後の星座に入っていることもあるでしょ
+                            う。出生図の水星と同じ星座の場合は普段通り、違う場合は、知的な関心ごと
+                            や言葉で表現したいことのテーマがいつもと違う年にることがわかります。
+                            </span>
+                        <span>　ンシンボル、水星へのアスペクトは毎年異なりますから、知
+                            的な成長や学びがその年ごとに刷新されていきます。
+                            </span>
+                        <span>　また、太陽があらわす目的意識を達成するために、知性やコミュニケーショ
+                            ン能力をどう活かすといいかが示されていると考えるといいてしょう。
+                            </span>
                     </p>
                 </div>
                 <div class="page--cover__image mercury"> <svg></svg>
@@ -1978,8 +1997,8 @@
                 <span class="page--cover__frame"></span>
             </div>
         </div>
-        <div class="page-break-before"></div>
-        <div class="page page35 page--cover page--uranus page--number page--number_right"
+        {{--<div class="page-break-before"></div>
+         <div class="page page35 page--cover page--uranus page--number page--number_right"
             data-pageno="" data-title="Uranus">
             <div class="page__inner">
                 <p class="page--cover__title"><span>天王星</span></p>
@@ -1994,19 +2013,36 @@
                 </div>
                 <span class="page--cover__frame"></span>
             </div>
-        </div>
+        </div>--}}
         @php
             $page++;
         @endphp
         <div class="page-break-before"></div>
         <div class="page page36 page--content page--uranus page--number page--number_left"data-pageno="{{ $page++ }}">
             <div class="page__inner">
-                <div class="page-block page-block--2">
+                {{-- <div class="page-block page-block--2">
                     <p class="page-block--2__title">天王星のサビアンシンボル</p>
                     <p class="page__text">
                         <span>content</span>
                     </p>
+                </div> --}}
+                <div class="page-block page-block--4">
+                    <p class="page-block--4__title">
+                        ハウス<span>{{ $explain->get('URANUS')->get('house_pattern')->house->symbol }}</span></p>
+                    <p class="page__text">
+                        <span style="text-indent: 0;">{!! nl2br($explain->get('URANUS')->get('house_pattern')->content_solar) !!}</span>
+                    </p>
                 </div>
+
+                <div class="page-block page-block--2">
+                    <p class="page-block--2__title">天王星のサビアンシンボル</p>
+                    <p class="page__text">
+                        <span style="text-indent: 0;">あなたが変革したい、生き方を変えたい、新たに取り入れたいことなどについて、その具体的な方向性が天王星の
+                            サビアンシンボルにあらわれます。
+                        </span>
+                    </p>
+                </div>
+
                 <div class="page-block page-block--3">
                     @if (empty($explain->get('URANUS')->get('sabian_pattern')))
                         <p class="page-block--3__title">これは特殊なケースです。 角度が0度の場合はサビアンは存在しません</p>
@@ -2019,17 +2055,11 @@
                         </p>
                     @endif
                 </div>
-                <div class="page-block page-block--4">
-                    <p class="page-block--4__title">
-                        ハウス<span>{{ $explain->get('URANUS')->get('house_pattern')->house->symbol }}</span></p>
-                    <p class="page__text">
-                        <span style="text-indent: 0;">{!! nl2br($explain->get('URANUS')->get('house_pattern')->content_solar) !!}</span>
-                    </p>
-                </div>
+
             </div>
         </div>
         <div class="page-break-before"></div>
-        <div class="page page35 page--cover page--neptune page--number page--number_right"
+        {{-- <div class="page page35 page--cover page--neptune page--number page--number_right"
             data-pageno="" data-title="Neptune">
             <div class="page__inner">
                 <p class="page--cover__title"><span>海王星</span></p>
@@ -2044,17 +2074,27 @@
                 </div>
                 <span class="page--cover__frame"></span>
             </div>
-        </div>
+        </div> --}}
         @php
             $page++;
         @endphp
         <div class="page-break-before"></div>
         <div class="page page36 page--content page--neptune page--number page--number_left"data-pageno="{{ $page++ }}">
             <div class="page__inner">
+                <div class="page-block page-block--4">
+                    <p class="page-block--4__title">
+                        ハウス<span>{{ $explain->get('NEPTUNE')->get('house_pattern')->house->symbol }}</span></p>
+                    <p class="page__text">
+                        <span style="text-indent: 0;">{!! nl2br($explain->get('NEPTUNE')->get('house_pattern')->content_solar) !!}</span>
+                    </p>
+                </div>
+
                 <div class="page-block page-block--2">
                     <p class="page-block--2__title">海王星のサビアンシンボル</p>
                     <p class="page__text">
-                        <span>content</span>
+                        <span>あなたが無意識的にどんな理想を描くのかが具体的にあらわれています。また、第六感的な感受性をどんな領域で
+                            発揮させるか、どんな感覚が育つかがわかることもあります。
+                            </span>
                     </p>
                 </div>
                 <div class="page-block page-block--3">
@@ -2069,17 +2109,11 @@
                         </p>
                     @endif
                 </div>
-                <div class="page-block page-block--4">
-                    <p class="page-block--4__title">
-                        ハウス<span>{{ $explain->get('NEPTUNE')->get('house_pattern')->house->symbol }}</span></p>
-                    <p class="page__text">
-                        <span style="text-indent: 0;">{!! nl2br($explain->get('NEPTUNE')->get('house_pattern')->content_solar) !!}</span>
-                    </p>
-                </div>
+
             </div>
         </div>
         <div class="page-break-before"></div>
-        <div class="page page35 page--cover page--pluto page--number page--number_right"
+        {{-- <div class="page page35 page--cover page--pluto page--number page--number_right"
             data-pageno="" data-title="Pluto">
             <div class="page__inner">
                 <p class="page--cover__title"><span>冥王星</span></p>
@@ -2094,17 +2128,27 @@
                 </div>
                 <span class="page--cover__frame"></span>
             </div>
-        </div>
+        </div> --}}
         @php
             $page++;
         @endphp
         <div class="page-break-before"></div>
         <div class="page page36 page--content page--pluto page--number page--number_left"data-pageno="{{ $page++ }}">
             <div class="page__inner">
+                <div class="page-block page-block--4">
+                    <p class="page-block--4__title">
+                        ハウス<span>{{ $explain->get('PLUTO')->get('house_pattern')->house->symbol }}</span></p>
+                    <p class="page__text">
+                        <span style="text-indent: 0;">{!! nl2br($explain->get('PLUTO')->get('house_pattern')->content_solar) !!}</span>
+                    </p>
+                </div>
                 <div class="page-block page-block--2">
                     <p class="page-block--2__title">冥王星のサビアンシンボル</p>
                     <p class="page__text">
-                        <span>content</span>
+                        <span>冥王星は一年かけてホロスコープ上をわずかしか進まないため、太陽回縁では多くの人が同じ冥王星のサビアンシ
+                            ンボルを共有します。そのため、より集合意識的な意味が強まります。,とはいえ、あなたが深いレベルで変えようと
+                            していることや手に入れようとしている力をあらわしていると考えてえんでみましょう。
+                        </span>
                     </p>
                 </div>
                 <div class="page-block page-block--3">
@@ -2119,15 +2163,19 @@
                         </p>
                     @endif
                 </div>
-                <div class="page-block page-block--4">
-                    <p class="page-block--4__title">
-                        ハウス<span>{{ $explain->get('PLUTO')->get('house_pattern')->house->symbol }}</span></p>
-                    <p class="page__text">
-                        <span style="text-indent: 0;">{!! nl2br($explain->get('PLUTO')->get('house_pattern')->content_solar) !!}</span>
-                    </p>
-                </div>
+
             </div>
         </div>
+
+        <div class="page-break-before"></div>
+        <div class="page page41 page--thanks page--cover">
+			<div class="page__inner">
+                <p class="page--cover__title"><span></span></p>
+                <div class="page--cover__thank-image thanks"><svg></svg></div>
+                <div class="page--cover__image hand"><svg></svg></div>
+                <span class="page--cover__frame"></span>
+			</div>
+		</div>
         <div class="page-break-before"></div>
         <div class="page page42 page--last">
 			<div class="page__inner">
