@@ -2074,9 +2074,9 @@
                 <span class="page--cover__frame"></span>
             </div>
         </div>--}}
-        @php
+        {{-- @php
             $page++;
-        @endphp
+        @endphp --}}
         <div class="page-break-before"></div>
         <div class="page page36 page--content page--uranus page--number page--number_left"data-pageno="{{ $page++ }}">
             <div class="page__inner">
@@ -2135,9 +2135,9 @@
                 <span class="page--cover__frame"></span>
             </div>
         </div> --}}
-        @php
+        {{-- @php
             $page++;
-        @endphp
+        @endphp --}}
         <div class="page-break-before"></div>
         <div class="page page36 page--content page--neptune page--number page--number_left"data-pageno="{{ $page++ }}">
             <div class="page__inner">
@@ -2196,9 +2196,9 @@
                 <span class="page--cover__frame"></span>
             </div>
         </div> --}}
-        @php
+        {{-- @php
             $page++;
-        @endphp
+        @endphp --}}
         <div class="page-break-before"></div>
         <div class="page page36 page--content page--pluto page--number page--number_left"data-pageno="{{ $page++ }}">
             <div class="page__inner">
