@@ -25,6 +25,8 @@ class AspectPatternSeeder extends Seeder
                         'to_planet_id' => $j,
                         'content' => 'Aspect content from planet ' . $i . ' to planet ' . $j . ' with aspect ' . $k,
                         'content_en' => 'Aspect content from planet ' . $i . ' to planet ' . $j . ' with aspect ' . $k,
+                        'content_solar' => 'Solar content from planet ' . $i . ' to planet ' . $j . ' with aspect ' . $k,
+                        'content_solar_en' => 'Solar content from planet ' . $i . ' to planet ' . $j . ' with aspect ' . $k,
                         'created_at' => now(),
                         'updated_at' => now()
                     ];
