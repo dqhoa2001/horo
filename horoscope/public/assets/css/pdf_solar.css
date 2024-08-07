@@ -66,7 +66,7 @@
     top: 69.5rem;
     left: 50%;
     transform: translateX(-50%);
-    color: #91a3ab;
+    color: #403f41;
 }
 .page01 .page__inner::after{
     width: 25rem;
@@ -223,7 +223,8 @@
 }
 
 .page--sun .page-block--2 .page__text{
-    background: #F5D09B;
+    /* background: #F5D09B; */
+    background: #fbeee0;
 }
 .page--sun .page-block--5__half{
     border-color: #F5D09B;
@@ -253,4 +254,328 @@
     background-position: left center;
     background-repeat: no-repeat;
     background-image: url(../images/hyou4.png);
+}
+
+
+/*-------------------------------
+	Thanks page
+-------------------------------*/
+.page--thanks{
+    background: #f4c898;
+}
+/* .page--thanks::before{
+    background-image: url(../images/page_thanks_date.png);
+} */
+
+.page--thanks .page--cover::before{
+    font-size: 3.3rem;
+    justify-content: center;
+    color: #fff;
+    content: attr(data-title);
+    font-family: 'Meie Script', cursive;
+}
+
+.page--thanks .page--cover_icon img{
+    max-width: 70%;
+    margin-bottom: 2em;
+}
+
+.page--thanks .page--title{
+    background-image: url(../images/title_icon.svg);
+}
+
+/* .page--thanks .page--cover__title{
+    background-image: url(../images/logo-icon.svg);
+} */
+
+.page--thanks .page--cover__title::before{
+    background-image: url(../images/line_cover-title-thanks_left.svg);
+}
+.page--thanks .page--cover__title::after{
+    background-image: url(../images/line_cover-title-thanks_right.svg);
+}
+
+.page--thanks .page--cover__frame{
+    border-left-color: #F3F0B7;
+    border-right-color: #F3F0B7;
+}
+.page--thanks .page--cover__frame::after{
+    border-color: #F3F0B7;
+}
+
+.page--cover__thank-image{
+    width: 100%;
+    left: 0;
+    right: 0;
+    position: absolute;
+    text-align: center;
+    margin-top: 0.5em;
+    bottom: 2em;
+}
+
+.page--cover__bottom-image{
+    width: 100%;
+    left: 0;
+    /* bottom: calc(-10rem + 3.5rem); */
+    right: 0;
+    position: absolute;
+    text-align: center;
+}
+.page--cover__bottom-image img{
+    max-width: 150%;
+}
+
+.thanks svg{
+    width: 100%;
+    /* max-width: none; */
+    background-image: url(../images/img_thanks.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 300px;
+    background-position: center;
+}
+.hand svg{
+    /* max-width: 150%; */
+    width: 425px;
+    background-image: url(../images/img_hand.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 425px;
+    background-position: center;
+    /* padding-bottom: 2rem; */
+    /* font-size: 400px; */
+}
+/*-------------------------------
+	 Page neptune
+-------------------------------*/
+.page--neptune{
+    /* background: #2E3A87; */
+    background: #72a3bb;
+
+}
+.page--neptune::before{
+    background-image: url(../images/title_saturn.svg);
+}
+.page--neptune .page--cover__title::before{
+    background-image: url(../images/line_cover-title-neptune_left.svg);
+}
+.page--neptune .page--cover__title::after{
+    background-image: url(../images/line_cover-title-neptune_right.svg);
+}
+.page--neptune .page--cover__frame{
+    border-left-color: #2E3A87;
+    border-right-color: #2E3A87;
+}
+.page--neptune .page--cover__frame::after{
+    border-color: #2E3A87;
+}
+
+
+.page--neptune .page-block--2 .page__text{
+    /* background: rgba(225,220,207,.3); */
+    background: #eeeff2;
+}
+.page--neptune .page-block--5__half{
+    border-color: #2E3A87;
+}
+.page--neptune .page--cover__title,
+.page--neptune .page--cover-block1__title,
+.page--neptune .page-block--1__title,
+.page--neptune .page-block--2__title,
+.page--neptune .page-block--3__title,
+.page--neptune .page-block--4__title,
+.page--neptune .page-block--5__title{
+    color: #3e7da6;
+}
+.page--neptune .page-block--3__title::before{
+    background-image: url(../images/icon_neptune_solar.svg);
+}
+.page--neptune .page--cover__title span::before{
+    background-image: url(../images/icon_neptune.svg);
+}
+
+/*-------------------------------
+	 Page uranus
+-------------------------------*/
+.page--uranus{
+    background: #AFDBF5;
+}
+.page--uranus::before{
+    background-image: url(../images/title_saturn.svg);
+}
+.page--uranus .page--cover__title::before{
+    background-image: url(../images/line_cover-title-uranus_left.svg);
+}
+.page--uranus .page--cover__title::after{
+    background-image: url(../images/line_cover-title-uranus_right.svg);
+}
+.page--uranus .page--cover__frame{
+    border-left-color: #AFDBF5;
+    border-right-color: #AFDBF5;
+}
+.page--uranus .page--cover__frame::after{
+    border-color: #AFDBF5;
+}
+
+.page--uranus .page-block--2 .page__text{
+    /* background: rgba(225,220,207,.3); */
+    background: #d9f0ed;
+}
+.page--uranus .page-block--5__half{
+    border-color: #AFDBF5;
+}
+.page--uranus .page--cover__title,
+.page--uranus .page--cover-block1__title,
+.page--uranus .page-block--1__title,
+.page--uranus .page-block--2__title,
+.page--uranus .page-block--3__title,
+.page--uranus .page-block--4__title,
+.page--uranus .page-block--5__title{
+    color: #61a5a2;
+}
+.page--uranus .page-block--3__title::before{
+    background-image: url(../images/icon_uranus_solar.svg);
+}
+.page--uranus .page--cover__title span::before{
+    background-image: url(../images/icon_uranus.svg);
+}
+/*-------------------------------
+	 Page pluto
+-------------------------------*/
+
+.page--pluto{
+    /* background: #BFA58A; */
+    background: #c9ccd4;
+}
+
+.page--pluto .page__title::before{
+    background-image: url(../images/line_cover-title-pluto_left.svg);
+}
+.page--pluto .page__title::after{
+    background-image: url(../images/line_cover-title-pluto_right.svg);
+}
+
+.page--pluto::before{
+    background-image: url(../images/title_saturn.svg);
+}
+.page--pluto .page--cover__title::before{
+    background-image: url(../images/line_cover-title-pluto_left.svg);
+}
+.page--pluto .page--cover__title::after{
+    background-image: url(../images/line_cover-title-pluto_right.svg);
+}
+.page--pluto .page--cover__frame{
+    border-left-color: #BFA58A;
+    border-right-color: #BFA58A;
+}
+.page--pluto .page--cover__frame::after{
+    border-color: #BFA58A;
+}
+
+.page--pluto .page-block--2 .page__text{
+    background: #eeeff2;
+
+}
+.page--pluto .page-block--5__half{
+    border-color: #BFA58A;
+}
+.page--pluto .page--cover__title,
+.page--pluto .page--cover-block1__title,
+.page--pluto .page-block--1__title,
+.page--pluto .page-block--2__title,
+.page--pluto .page-block--3__title,
+.page--pluto .page-block--4__title,
+.page--pluto .page-block--5__title{
+    color: #938fa4;
+}
+.page--pluto .page-block--3__title::before{
+    background-image: url(../images/icon_pluto_solar.svg);
+}
+.page--pluto .page--cover__title span::before{
+    background-image: url(../images/icon_pluto.svg);
+}
+
+.page--pluto .page-block--4__title-solar{
+    color: #938fa4;
+}
+
+/* --------------------- */
+
+
+
+.page--title {
+    margin-bottom: 6em;
+}
+
+.page--logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.5em;
+}
+
+.page--logo img{
+    width: 50%    !important;
+}
+
+/* Page cover */
+
+.page--cover{
+    padding-top: 0;
+    padding-bottom: 36.5rem;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    position: relative;
+}
+.page--cover::before{
+    line-height: 1;
+    height: calc(38.5rem - 23rem);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: auto;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    content: "";
+}
+
+.page--cover .page__inner{
+    width: calc(102% - 12rem);
+    min-height: calc(84rem - 38.5rem);
+    /* ACが隠れるので、最大を決定 */
+    /* max-height: 460px;  */
+    padding: 4.5rem 6.5rem 5rem;
+    background: #fff;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 6000;
+    position: relative;
+    text-align: center;
+}
+.page--cover .page__inner::after{
+    width: 100%;
+    height: 46rem;
+    border-radius: 50%;
+    left: 0;
+    right: 0;
+    bottom: calc(-23rem + 1px);
+    z-index: -1;
+    position: absolute;
+    background: #fff;
+    display: block;
+    content: "";
+}
+.page__inner.height {
+    max-height: 460px;
+    min-height: auto;
+}
+.page--cover .page__inner > *:not(.page--cover__frame):not(.page--cover__image){
+    z-index: 5000;
+    position: relative;
 }

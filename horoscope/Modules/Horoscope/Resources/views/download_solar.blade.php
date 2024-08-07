@@ -72,6 +72,9 @@
 				</div>
 			</div>
 		</div>
+        @php
+            $page++;
+        @endphp
         <div class="page page1 page--bg page--number page--number_right" data-pageno="">
             <div class="page__inner">
                 {{-- <p class="page1__title">As above, so below.</p> --}}
@@ -202,10 +205,10 @@
             <div class="page__inner" style="height: 460px;">
                 <p class="page--cover__title"><span data-tag="（アセンダント）">AC</span></p>
                 <div class="page--cover-block1">
-                    <p class="page--cover-block1__title">見た目や癖、振る舞いなど</p>
+                    <p class="page--cover-block1__title">1年のエネルギーに大きく影響</p>
                     <p class="page__text">
-                        <span>　アセンダントとはソーラーリターンの瞬間の東の地平線の位置をさし、ここにあった星座（サイン）が、あなたの1 年の無意識的な行動パターンとして現れやすくなります。</span>
-                        <span>　また、アセンダントのサインとエネルギーが近い天体（チャートルーラー）の力が強まるため、チャートルーラが何なのかを解説文に入れています。後程チャートルーラーの天体を読む際に意識してみましょう。ントの星座の特徴に当てはまることが多いでしょう。</span>
+                        <span>　アセンダントとはソーラーリターンの瞬間の東の地平線の置をさし、ここにあった星座(サイン)が、あなたの1年の無意識的な行動パターンとして現れやすくなります。</span>
+                        <span>　また、アセンダントのサインとエネルギーが近い天体(チャートルーラー)の力が強まるため、チャートルーラが何なのかを解説文に入れています。後程チャートルーラーの天体を読む際に意識してみましょう。ントの星座の特徴に当てはまることが多いでしょう。</span>
                     </p>
                 </div>
                 <div class="page-block page-block--1">
@@ -264,7 +267,7 @@
             <div class="page-block page-block--2">
                 <p class="page-block--2__title">アスペクト<span>他の天体との関わりからわかること</span></p>
                 <p class="page__text">
-                    <span>　太陽が他の天体とどうかかわっているかがこの1 年を読み解く重要なカギになります。一つ一つ丁寧に読み解いて、自分がやりたいことと比べてどうかを考えてみましょう。</span>
+                    <span>　太陽が他の天体とどうかかわっているかがこの一年を読み解く重要なカギになります。一つひとつ丁寧に読み解いて、自分がやりたいことと比較し、進むヒントにしててください。</span>
                 </p>
             </div>
             <div class="page-block page-block--5">
@@ -482,19 +485,25 @@
             <div class="page__inner">
                 <p class="page--cover__title"><span>月</span></p>
                 <div class="page--cover-block1">
-                    <p class="page--cover-block1__title">心の向かう先</p>
+                    <p class="page--cover-block1__title">あなたの暮らし。心は平穏か</p>
                     <p class="page__text">
-                        <span>　月は、この1 年の心の状況や私生活をあらわします。生まれたときとは全く違う星座であることが多く、ソーラーリターンでは、この年のあなたの精神的な中心テーマが月のサインやハウスに表れやすくなっています。</span>
-                        <span>　どんなことに気持ちが向かうか、感受性にどんな変化があるか、健康や暮らし、私生活全廃がどんなふうになりそうかがあらわれています。</span>
+                        <span>　月は、この一年の心の状況や私生活をあらわします。生まれたときとは全く
+                            違う星座であることが多く、ソーラーリターンでは、この年のあなたの精神的
+                            な中心テーマが月のサインやハウスにあらわれますので、とても重要です。
+                            </span>
+                        <span>　どんなことに気持ちが向かうか、感受性にどんな変化カあるか、健康や暮らし、
+                            私生活全般がどんなふうになりそうかがあらわれています。
+                            </span>
+                        <span>　月の配置が豊かだと、暮らしや気持ちが安定する一年でであることがわかりま
+                            すし、月の配置が厳しいときは、実際に精神的に厳しいことが起こりやすいと
+                            暗示されます。
+                            </span>
                     </p>
                 </div>
                 <div class="page--cover__image moon"><svg></svg></div>
                 <span class="page--cover__frame"></span>
             </div>
         </div>
-        @php
-            $page++;
-        @endphp
         <div class="page-break-before"></div>
         <div class="page page11 page--content page--number page--number_left page--moon"
             data-pageno="{{ $page++ }}">
@@ -514,7 +523,9 @@
                 <div class="page-block page-block--2">
                     <p class="page-block--2__title">月のサビアンシンボル</p>
                     <p class="page__text">
-                        <span>　今年、暮らしや心の中であなたが抱くテーマを具体的にあらわします。サビアンシンボルが示すような体験や気づきがあるでしょう。</span>
+                        <span>　今年、暮らしや心の中であなたが抱くテーマを具体的にあらわします。サビアンシンボルが示すような体験や気づ
+                            きがあるでしょう。
+                        </span>
                     </p>
                 </div>
                 <div class="page-block page-block--3">
@@ -759,10 +770,20 @@
                 <div class="page--cover-block1">
                     <p class="page--cover-block1__title">知的な活動</p>
                     <p class="page__text">
-                        <span>あなたは学童期にどのようなことに関心を持ち、どのように友人と接していましたか？ 学童期である8～15
-                            歳ごろに最も強く作用し、あなたの知的興味関心や学習、人とのコミュニケーションなどにかかわるのが生まれた時の水星です。</span>
-                        <span>あなたがこの頃に関心があったこと、得意だった教科、どんなタイプの子どもだったか、といったことを思い出すと、以下の水星にかかわる鑑定内容と合致するでしょう。</span>
-                        <span>わたしたちは学童期に得た知的関心や学習方法、人とのかかわり方などを、大人になっても仕事の技術や興味関心のある分野、ものの考え方や言葉での伝え方、人とのかかわり方などの形で影響し続けます。</span>
+                        <span>　水星からはこの一年、あなたが何に関心を示し、何を学ぼうとし、どのよう
+                            な交友関係を結ぶのかといったことがわかります。
+                            </span>
+                        <span>　水星は太陽のそばにあることが多いため、出生図と同じ星座になることも多
+                            いでしょうし、生まれた時の位置の前後の星座に入っていることもあるでしょ
+                            う。出生図の水星と同じ星座の場合は普段通り、違う場合は、知的な関心ごと
+                            や言葉で表現したいことのテーマがいつもと違う年にることがわかります。
+                            </span>
+                        <span>　スやサビアンシンボル、水星へのアスペクトは毎年異なりますから、知
+                            的な成長や学びがその年ごとに刷新されていきます。
+                            </span>
+                        <span>　また、太陽があらわす目的意識を達成するために、知性やコミュニケーショ
+                            ン能力をどう活かすといいかが示されていると考えるといいてしょう。
+                            </span>
                     </p>
                 </div>
                 <div class="page--cover__image mercury"> <svg></svg>
@@ -792,7 +813,9 @@
                 <div class="page-block page-block--2">
                     <p class="page-block--2__title">水星のサビアンシンボル</p>
                     <p class="page__text">
-                        <span>　水星のサビアンシンボルからは、あなたのもって生まれた知性の特徴がわかります。シンボルの解説文を読むときには、あなたが、学習や人とのコミュニケーションといった知的な活動をどのようにしようとしているか、といったことについて言及されているのだという意識で見てみましょう。</span>
+                        <span>　今年の知的な関心ごとやテーマが具体的にわかります。サビアンシンボルには、知識や認知的な領域で変わったり
+                            獲得していくテーマが示されています。
+                        </span>
                     </p>
                 </div>
                 <div class="page-block page-block--3">
@@ -823,7 +846,9 @@
                 <div class="page-block page-block--2">
                     <p class="page-block--2__title">アスペクト<span>他の天体との関わりからわかること</span></p>
                     <p class="page__text">
-                        <span>　あなたの知性がどう活かされるか、その発揮にどのような課題があるか、逆にどのような才能や個性を伴うか、といったことを、他の天体とのかかわりを理解することが出来ます。</span>
+                        <span>　言葉を用いたコミュニケーションや発信、情報の伝達などかがどうなりそうか、どのように発揮され、活かされるか
+                            が示されています。
+                        </span>
                     </p>
                 </div>
                 <div class="page-block page-block--5">
@@ -1038,10 +1063,21 @@
                 <div class="page--cover-block1">
                     <p class="page--cover-block1__title">その年の楽しみや喜び</p>
                     <p class="page__text">
-                        <span>感受性が生き生きと豊かさを増す思春期に、あなたは何かに夢中になったり、誰かを好きになったりしませんでしたか？そういった、あなたの好みや楽しみの方向性や何に魅力を感じるのか、といったことにかかわるのが、「宵の明星」「明けの明星」として知られ、美の女神が支配する金星です。</span>
-                        <span>あなたの金星のサインやハウス、サビアンシンボルは、あなたがどんなことに夢中になるか、何を美しいと感じるか、何を好むか、ということをあらわします。思春期は金星の性質があなた自身のキャラクターとして最も強く影響します。そして、その後の人生においても、この頃大好きだったものを今も好きでい続けることが多いでしょう。</span>
-                        <span>以下の金星の鑑定内容を、青春時代の自分、そしてその頃から変わらない自分の「好きなもの」を思い出しながら読んでみると、多くの気づきがあるでしょう。</span>
-                        <span>また、女性にとっては恋愛の傾向があらわれており、男性にとっては好みの女性のタイプを金星のサインやハウスなどがあらわしている、とされますので気にして読んでみてください。</span>
+                        <span>　地球から見て金星は、太陽から約47度までしか離れませんので、生まれた時
+                            の星座と同じ場所に金星があることも多いですが、異なる場合もあります。同
+                            じ場合は、好きなことや楽しみごとにあまり変化がないともいえますし、星座
+                            が異なるときにはその質が変化することがわかります。
+                        </span>
+                        <span>　それ以外にも、サビアンシンボルからはあなたが今年獲得する楽しみや喜び
+                            がどんなものなのかを具体的に知ることができますし、ハウスやアスペクトで
+                            どんなふうに感受性が豊かに育まれるのか、魅力をどう打ち出していくことが
+                            できそうか、などがあらわれています。
+                        </span>
+                        <span>　ソーラーリターンの場合は太陽があらわす目的意識を成し遂げるために使わ
+                            れる意味として読んでいくため、私生活ではなく仕事でこの感性が活かされる
+                            か、仕事で楽しみが多いか、といったことがわかると考えます。
+                        </span>
+                        <span>　社会であなたの魅力的を表現するためにとても重要です。</span>
                     </p>
                 </div>
                 <div class="page--cover__image venus"><svg></svg>
@@ -1071,7 +1107,10 @@
                 <div class="page-block page-block--2">
                     <p class="page-block--2__title">金星のサビアンシンボル</p>
                     <p class="page__text">
-                        <span>　金星のサビアンシンボルからは、あなたのもって生まれた好みや感性の特徴が具体的にわかります。以下のシンボル解説の内容は、「好きなことに関係するテーマ」で発揮されるのだということを頭に入れて読んでいきましょう。また、先の金星のハウスのテーマを通して発揮できる面もあります。</span>
+                        <span>　金星のサビアンシンボルからは、あなたのもって生まれた好みや感性の特徴が具体的にわかります。以下のシンボ
+                            ル解説の内容は、「好きなことに関係するテーマ」で発揮されるのだということを頭に入れて読んでいきましょう。また、
+                            先の金星のハウスのテーマを通して発揮できる面もあります。
+                            </span>
                     </p>
                 </div>
                 <div class="page-block page-block--3">
@@ -1102,8 +1141,10 @@
                 <div class="page-block page-block--2">
                     <p class="page-block--2__title">アスペクト<span>他の天体との関わりからわかること</span></p>
                     <p class="page__text">
-                        <span>　あなたの魅力や感性をうまく発揮できるか、もしくはそれが制限されやすいか、そしてあなたの魅力の独創性は…？といったことが他の天体とのアスペクトから理解できます。</span>
-                        <span>　恋愛運や金運もまた、金星が他の天体とうまく調和しているかどうかなどから判断することが出来ます。</span>
+                        <span>　あなたの魅力や感性がうまく発揮されていきそうかが、他の天体とのかかわりから示されます。何らかの魅力や才
+                            能を獲得しやすいのか、逆に制限してしまうのか、感性が高まるのか、出会いが多いか、など、さまざまなことがこ
+                            こにあらわれます。
+                        </span>
                     </p>
                 </div>
                 <div class="page-block page-block--5">
@@ -1322,9 +1363,17 @@
                 <div class="page--cover-block1">
                     <p class="page--cover-block1__title">情熱を注入するが危なさも</p>
                     <p class="page__text">
-                        <span>「働き盛り」といわれる年代が火星の年齢域で、この頃あなたが社会的にどのようなことを頑張るのか、どんな志を持ちチャレンジしていくのかを火星があらわしています。火星は地球よりも外側にある天体で、より大きな宇宙への架け橋となります。</span>
-                        <span>この年齢域の頃は、自分の限界や枠を広げようと新しいチャレンジをすることが重要になります。失敗もあるかもしれませんが、そうしたことも乗り越えていくことで、次の木星があらわす社会的な成功や拡大につながっていくのです。</span>
-                        <span>女性のホロスコープにおいて、火星は好みの男性のタイプをあらわすともされます。このような男性が好みかどうか、女性の皆様は鑑定をみながら感じてみてください。そして、本来は、男性に期待することとしてではなく、自分自身が社会に発揮して打ち出すものとして火星の性質を持っているのであり、たとえパートナーであってもそれを代行することはできないのだと理解しましょう。</span>
+                        <span> この一年、自分がどんなことに情熱を注ぐか、同時にどんなことに怒りを感
+                            じやすいかがあらわれています。生まれたときとは全く追違う場所に位置してい
+                            ることが多く、どんなことのために行動し、何を得ようとするのかがわかります。
+                        </span>
+                        <span>何かを成し遂げるためにうまく使うことができれば、大きな推進力となります。</span>
+                        <span> 火星にハードな配置が多い場合はフラストレーションカがたまりやすく、人と
+                            争いやすいときかもしれません。火星はうまく扱う意識が大変重要になります。
+                        </span>
+                        <span> 火星のエネルギーを志のためにうまく扱えば、大きな成長を果たすことができ
+                            るでしょう。
+                        </span>
                     </p>
                 </div>
                 <div class="page--cover__image mars"><svg></svg></div>
@@ -1353,7 +1402,7 @@
                 <div class="page-block page-block--2">
                     <p class="page-block--2__title">火星のサビアンシンボル</p>
                     <p class="page__text">
-                        <span>　火星のサビアンシンボルからは、あなたの火星の年齢域の頃の特徴やそのころに獲得する能力、社会で実現させようと情熱を傾けるテーマなどが詳しくわかります。</span>
+                        <span>　この時期、社会的にどのようなことに集中して励むのか、どんなパッションをもって行動するのか、といったことが具体的に示されています</span>
                     </p>
                 </div>
                 <div class="page-block page-block--3">
@@ -1384,7 +1433,7 @@
                 <div class="page-block page-block--2">
                     <p class="page-block--2__title">アスペクト<span>他の天体との関わりからわかること</span></p>
                     <p class="page__text">
-                        <span>　あなたが自分の野心をまっすぐに注ぎ達成することが出来るか、もしくは困難に多く突き当たるかといったことが他の天体とのかかわりからわかります。</span>
+                        <span>　この時期、社会的にどのようなことに集中して励むのか、どんなパッションをもって行動するのか、といったことが具体的に示されています。</span>
                     </p>
                 </div>
                 <div class="page-block page-block--5">
@@ -1597,11 +1646,25 @@
             <div class="page__inner">
                 <p class="page--cover__title"><span>木星</span></p>
                 <div class="page--cover-block1">
-                    <p class="page--cover-block1__title">その年の幸運や拡大のありか</p>
+                    <p class="page--cover-block1__title">その年の幸運のありか</p>
                     <p class="page__text">
-                        <span>太陽系の惑星の中で最も大きな、大神ゼウスの星です。木星のサインやハウスなどからは、あなたがもともと恵まれていること、社会的に成功しやすいこと、お金につながる能力などを読み取ることが出来ます。</span>
-                        <span>また、木星の年齢域にあたる４０代後半からが最も木星と自己同一化しやすいため、木星のサインやハウスのテーマを社会の中で体現しやすくなります。</span>
-                        <span>人は恵まれていることには鈍感になりやすいのですが、木星を生かさなければ社会的な成功はありえません。ぜひ意識してよりよく生きる糧にしてください。</span>
+                        <span>　拡大と幸運の星です。ソーラーリターンの木星からは、この一年、あなたが
+                            どんなものを得ることができ、どんなチャンスや幸運がもたらされるのかが示
+                            されています。
+                            </span>
+                        <span>　木星は一つの星座に一年ほど滞在するため、星座のテーマからは、その時期
+                            に広がること、流行すること、好まれることなどがあらわれています。そのため、
+                            12サインについての記述はあなた以外にも多くの人が当する内容になりま
+                            す。
+                            </span>
+                        <span>　それに対して、ソーラーリターンの木星のハウス、サビアンシンボル、
+                            ペクトはあなた個人の一年の運勢としてとても重要になります。
+                            </span>
+                        <span>　木星は拡大と幸運の星ですから、どんなことをすれば社会的にうまくいくの
+                            か、どんなことに恵まれるのかがわかります。特に、社上会的·経済的な成功や、
+                            だれもが気になるお金については、木星に示されています。
+                            </span>
+
                     </p>
                 </div>
                 <div class="page--cover__image jupiter"><svg></svg>
@@ -1631,7 +1694,7 @@
                 <div class="page-block page-block--2">
                     <p class="page-block--2__title">木星のサビアンシンボル</p>
                     <p class="page__text">
-                        <span>　木星は一つのサインにおよそ１年間滞在するため、あなたの木星の性質は、サビアンシンボルが最もよくあらわしています。木星のシンボル解説に書かれた能力などが、あなたの社会的な成功につながるのだとはっきりと認識できるといいでしょう。</span>
+                        <span>　あなたの今年の幸運にかかわるテーマがサビアンシンボルに具体的こあらわれています。そのような能力を身につけ、社会的に活かせるかもしれませんし、やるとうまくいきやすいことをあらわしていることもあります。そんな意識で見てみましょう。</span>
                     </p>
                 </div>
                 <div class="page-block page-block--3">
@@ -1662,7 +1725,9 @@
                 <div class="page-block page-block--2">
                     <p class="page-block--2__title">アスペクト<span>他の天体との関わりからわかること</span></p>
                     <p class="page__text">
-                        <span>　あなたの人生の目的を社会においてうまく発揮できるかどうか、社会でどのような困難にぶつかる可能性があるか、などといったことが太陽とのアスペクトから分かります。太陽の場合は、他の天体とのハードな配置を持っていても、乗り越えていく力や行動力が強いため、それを成長の糧にしていくことが可能です。
+                        <span>　木星と個人天体がかかわると、その天体の意味を拡大させ、幸運につながりますので、非常に重要です。記載済み
+                            のものも改めてご覧ください。また、ここに鑑定内容が記載される土星やトランスサタニアンとのアスペクトは時代
+                            的な意味が強まりますので、だれにとっても今がそういう時期なのたと理解しましょう。
                         </span>
                     </p>
                 </div>
@@ -1880,13 +1945,19 @@
             <div class="page__inner">
                 <p class="page--cover__title"><span>土星</span></p>
                 <div class="page--cover-block1">
-                    <p class="page--cover-block1__title">社会的な役割の変遷</p>
+                    <p class="page--cover-block1__title">今年努力して手に入れるもの</p>
                     <p class="page__text">
-                        <span>土星は肉眼で見える最も遠い星で、わたしたちの個性にかかわる天体は土星までだといえます。また、土星の内側の世界は時間と空間に支配され、この太陽系の「ルール」や「制限」にかかわります。</span>
-                        <span>わたしたちは、生まれた時から制限の中で生きています。この体も特性もある種の制限です。しかし、あらゆる創造活動にはルールや制限が必ず必要です。描くべきキャンバスや画材、テーマが無ければ絵を描くことはできないように、この人生はあなたにしかできない何らかの創造活動の場なのです。</span>
-                        <span>西洋占星術において、この人生であなたが達成したいことをあらわすのが土星です。若いうちはそれが苦手だと感じても、土星の年齢域である晩年期にはたいてい、それが安定してできるようになっています。</span>
-                        <span>土星のテーマは人生の課題であるとされますし、古典的な占星術では大凶星とされますが、本来は、あなたの社会的な基盤や安定にかかわるとともに、人生をより成熟させてくれる大切な天体です。</span>
-                        <span>鑑定文を読みながら、あなたがすでに土星の課題を克服できているか、まだまだ苦手なままか、などを感じ取ってみましょう。</span>
+                        <span> あなたがこの一年どんな努力をし何を形にしようとするのか、どのように社
+                            会的な役割の基盤を構築するのかをあらわします。努力というとあまりいい気
+                            分がしないかもしれませんが、しっかりと目的意識に合わせて努力ができてこ
+                            そ、社会的な基盤が安定していきます。また、社会的な成功は責任とセットで
+                            あることは否めないでしょう。
+                        </span>
+                        <span> 土星は一つの星座に 3年前後滞在するため、その影響は集合意識的なものに
+                            なります。そのため12サインについては、みんなそういう時期なんだな、と思
+                            うようにしてください。
+                        </span>
+                        <span> 個人として重要なのは、サビアンシンボルとハウスになります。</span>
                     </p>
                 </div>
                 <div class="page--cover__image saturn">
@@ -1917,7 +1988,7 @@
                 <div class="page-block page-block--2">
                     <p class="page-block--2__title">土星のサビアンシンボル</p>
                     <p class="page__text">
-                        <span>　土星のサビアンシンボルには、あなたが時間をかけ、努力して手に入れる能力が表れています。こういう人です、こういう能力があります、などと書かれた解説文でも、それを手に入れるのは晩年期であり、最終的な目標なのだと認識しておきましょう。また、土星の年齢域の頃にどのように生きるかをサビアンシンボルが示唆していることも多いでしょう。</span>
+                        <span>　この一年、あなたが努力して手に入れようとすること、時間をかけて行っていこうとすることが具体的に示されています。社会的にはとても重要なテーマとなり、これを達成することで、社会基盤がさらに強固になるでしょう。</span>
                     </p>
                 </div>
                 <div class="page-block page-block--3">
@@ -1945,31 +2016,49 @@
                         <span style="text-indent: 0;">{!! nl2br($explain->get('SATURN')->get('house_pattern')->content_solar) !!}</span>
                     </p>
                 </div>
-            </div>
-        </div>
-        <div class="page page01"
-            data-pageno="{{ $page++ }}">
-            <div class="page__inner">
-                <div class="page-block page-block--1">
-                    <p class="page-block--1__title">
-                        <span>
-                        トランスサタニアン
-                        </span>
-                    </p>
+                <div class="page-block page-block--2">
+                    <p class="page-block--2__title">アスペクト<span>他の天体との関わりからわかること</span></p>
                     <p class="page__text">
-                        太陽の外側にあり、「トランスサタニアン」と呼ばれる天王星、海王星、冥王星は、太陽回帰において、アスペクトのみならずハウスにおいても無意識的で強い影響を与えます。<br>
-                        天王星は、新しいものを取り入れたり、あなたの独自性を出したくなるテーマが現れています。<br>
-                        <br>
-                        海王星は、あなたが抱く理想。<br>
-                        冥王星は、その1年で最も「変わる」テーマ。<br>
-                        <br>
-                        各天体のサビアンシンボルとハウスへの影響をまとめます。
+                        <span>　土星のアスペクトについては、月から木星とのかかわりがある場合には記載済みです。土星とドラゴンヘッドのア
+                            スペクトは時代に関わり、個人には影響しないため、記載を省略します。
+                        </span>
                     </p>
                 </div>
             </div>
         </div>
-        <div class="page-break-before"></div>
-        <div class="page page35 page--cover page--uranus page--number page--number_right"
+        @php
+            $page++;
+        @endphp
+        <div class="page page--cover page--saturnians page--number page--number_right"
+            data-pageno="" data-title="トランスサタニアン">
+            <div class="page__inner">
+                <p class="page--cover__title">トランスサタニアン</p>
+                <div class="page--cover-block1">
+                    <p class="page__text">
+                        <span>　太陽の外側にあり、「トランスサタニアン」と呼ばれる天王星、海王星、冥王
+                            星は、太陽回帰において、アスペクトのみならずハウスにおいても無意識的で
+                            強い影響を与えます。</span>
+                            <br>
+                        <span>　天王星は、新しいものを取り入れたり、あなたの独自性を出したくなるテー
+                            マがあらわれています。</span>
+                        <span>　また、海王星は、あなたが抱くようになる理想。</span>
+                        <span>　冥王星は、その一年で最も「変わる」テーマをあらわします。</span>
+                        <br>
+                        <span>　各天体のサビアンシンボルとハウスへの影響をまとめます。</span>
+                        <br>
+                        <span>　ハウスに関してはわかりやすいと思いますが、サビアンシンボルは読んでも
+                            あまりピンと来ない可能性もあります。その場合は、一年経ったあとに改めて
+                            読んでみると、なるほど！と思えるかもしれません。</span>
+                    </p>
+                </div>
+                <div class="page--cover__image saturnians">
+                    <svg style="height: 415px; width: 580px;"></svg>
+                </div>
+                <span class="page--cover__frame"></span>
+            </div>
+        </div>
+        {{--<div class="page-break-before"></div>
+         <div class="page page35 page--cover page--uranus page--number page--number_right"
             data-pageno="" data-title="Uranus">
             <div class="page__inner">
                 <p class="page--cover__title"><span>天王星</span></p>
@@ -1984,19 +2073,36 @@
                 </div>
                 <span class="page--cover__frame"></span>
             </div>
-        </div>
-        @php
+        </div>--}}
+        {{-- @php
             $page++;
-        @endphp
+        @endphp --}}
         <div class="page-break-before"></div>
         <div class="page page36 page--content page--uranus page--number page--number_left"data-pageno="{{ $page++ }}">
             <div class="page__inner">
+                <div class="page--logo">
+                    <img src="{{public_path('assets/images/logo_uranus.svg')}}" alt="">
+                </div>
+                <div class="page--title">
+                    <p class="page-block--4__title">変革させること、あなたの独自性を出すテーマ</p>
+                </div>
+                <div class="page-block page-block--4">
+                    <p class="page-block--4__title">
+                        ハウス<span>{{ $explain->get('URANUS')->get('house_pattern')->house->symbol }}</span></p>
+                    <p class="page__text">
+                        <span style="text-indent: 0;">{!! nl2br($explain->get('URANUS')->get('house_pattern')->content_solar) !!}</span>
+                    </p>
+                </div>
+
                 <div class="page-block page-block--2">
                     <p class="page-block--2__title">天王星のサビアンシンボル</p>
                     <p class="page__text">
-                        <span>content</span>
+                        <span style="text-indent: 0;">　あなたが変革したい、生き方を変えたい、新たに取り入れたいことなどについて、その具体的な方向性が天王星の
+                            サビアンシンボルにあらわれます。
+                        </span>
                     </p>
                 </div>
+
                 <div class="page-block page-block--3">
                     @if (empty($explain->get('URANUS')->get('sabian_pattern')))
                         <p class="page-block--3__title">これは特殊なケースです。 角度が0度の場合はサビアンは存在しません</p>
@@ -2009,17 +2115,11 @@
                         </p>
                     @endif
                 </div>
-                <div class="page-block page-block--4">
-                    <p class="page-block--4__title">
-                        ハウス<span>{{ $explain->get('URANUS')->get('house_pattern')->house->symbol }}</span></p>
-                    <p class="page__text">
-                        <span style="text-indent: 0;">{!! nl2br($explain->get('URANUS')->get('house_pattern')->content_solar) !!}</span>
-                    </p>
-                </div>
+
             </div>
         </div>
-        <div class="page-break-before"></div>
-        <div class="page page35 page--cover page--neptune page--number page--number_right"
+        {{-- <div class="page-break-before"></div> --}}
+        {{-- <div class="page page35 page--cover page--neptune page--number page--number_right"
             data-pageno="" data-title="Neptune">
             <div class="page__inner">
                 <p class="page--cover__title"><span>海王星</span></p>
@@ -2034,17 +2134,34 @@
                 </div>
                 <span class="page--cover__frame"></span>
             </div>
-        </div>
-        @php
+        </div> --}}
+        {{-- @php
             $page++;
-        @endphp
+        @endphp --}}
         <div class="page-break-before"></div>
         <div class="page page36 page--content page--neptune page--number page--number_left"data-pageno="{{ $page++ }}">
             <div class="page__inner">
+                <div class="page--logo">
+                    <img src="{{public_path('assets/images/logo_neptune.svg')}}" alt="">
+                </div>
+                <div class="page--title">
+                    <p class="page-block--4__title">この時期、あなたが描く理想</p>
+                </div>
+
+                <div class="page-block page-block--4">
+                    <p class="page-block--4__title">
+                        ハウス<span>{{ $explain->get('NEPTUNE')->get('house_pattern')->house->symbol }}</span></p>
+                    <p class="page__text">
+                        <span style="text-indent: 0;">{!! nl2br($explain->get('NEPTUNE')->get('house_pattern')->content_solar) !!}</span>
+                    </p>
+                </div>
+
                 <div class="page-block page-block--2">
                     <p class="page-block--2__title">海王星のサビアンシンボル</p>
                     <p class="page__text">
-                        <span>content</span>
+                        <span>あなたが無意識的にどんな理想を描くのかが具体的にあらわれています。また、第六感的な感受性をどんな領域で
+                            発揮させるか、どんな感覚が育つかがわかることもあります。
+                            </span>
                     </p>
                 </div>
                 <div class="page-block page-block--3">
@@ -2059,17 +2176,11 @@
                         </p>
                     @endif
                 </div>
-                <div class="page-block page-block--4">
-                    <p class="page-block--4__title">
-                        ハウス<span>{{ $explain->get('NEPTUNE')->get('house_pattern')->house->symbol }}</span></p>
-                    <p class="page__text">
-                        <span style="text-indent: 0;">{!! nl2br($explain->get('NEPTUNE')->get('house_pattern')->content_solar) !!}</span>
-                    </p>
-                </div>
+
             </div>
         </div>
         <div class="page-break-before"></div>
-        <div class="page page35 page--cover page--pluto page--number page--number_right"
+        {{-- <div class="page page35 page--cover page--pluto page--number page--number_right"
             data-pageno="" data-title="Pluto">
             <div class="page__inner">
                 <p class="page--cover__title"><span>冥王星</span></p>
@@ -2084,17 +2195,33 @@
                 </div>
                 <span class="page--cover__frame"></span>
             </div>
-        </div>
-        @php
+        </div> --}}
+        {{-- @php
             $page++;
-        @endphp
+        @endphp --}}
         <div class="page-break-before"></div>
         <div class="page page36 page--content page--pluto page--number page--number_left"data-pageno="{{ $page++ }}">
             <div class="page__inner">
+                <div class="page--logo">
+                    <img src="{{public_path('assets/images/logo_pluto.svg')}}" alt="">
+                </div>
+                <div class="page--title">
+                    <p class="page-block--4__title">最も大きく変わるテーマ</p>
+                </div>
+                <div class="page-block page-block--4">
+                    <p class="page-block--4__title">
+                        ハウス<span>{{ $explain->get('PLUTO')->get('house_pattern')->house->symbol }}</span></p>
+                    <p class="page__text">
+                        <span style="text-indent: 0;">{!! nl2br($explain->get('PLUTO')->get('house_pattern')->content_solar) !!}</span>
+                    </p>
+                </div>
                 <div class="page-block page-block--2">
                     <p class="page-block--2__title">冥王星のサビアンシンボル</p>
                     <p class="page__text">
-                        <span>content</span>
+                        <span>冥王星は一年かけてホロスコープ上をわずかしか進まないため、太陽回縁では多くの人が同じ冥王星のサビアンシ
+                            ンボルを共有します。そのため、より集合意識的な意味が強まります。,とはいえ、あなたが深いレベルで変えようと
+                            していることや手に入れようとしている力をあらわしていると考えてえんでみましょう。
+                        </span>
                     </p>
                 </div>
                 <div class="page-block page-block--3">
@@ -2109,20 +2236,26 @@
                         </p>
                     @endif
                 </div>
-                <div class="page-block page-block--4">
-                    <p class="page-block--4__title">
-                        ハウス<span>{{ $explain->get('PLUTO')->get('house_pattern')->house->symbol }}</span></p>
-                    <p class="page__text">
-                        <span style="text-indent: 0;">{!! nl2br($explain->get('PLUTO')->get('house_pattern')->content_solar) !!}</span>
-                    </p>
-                </div>
+
             </div>
         </div>
+
+        <div class="page-break-before"></div>
+        <div class="page page41 page--thanks page--cover" data-title="{{ $dayCreate }}">
+			<div class="page__inner">
+                <div class="page--cover_icon"><img src="{{public_path('assets/images/title_icon.svg')}}" alt=""></div>
+                <div class="page--cover__thank-image thanks"><svg></svg></div>
+                <div class="page--cover__image hand"><svg></svg></div>
+                <span class="page--cover__frame"></span>
+			</div>
+		</div>
+
         <div class="page-break-before"></div>
         <div class="page page42 page--last">
 			<div class="page__inner">
 			</div>
 		</div>
+
     </div>
 
 </body>
