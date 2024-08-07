@@ -72,6 +72,9 @@
 				</div>
 			</div>
 		</div>
+        @php
+            $page++;
+        @endphp
         <div class="page page1 page--bg page--number page--number_right" data-pageno="">
             <div class="page__inner">
                 {{-- <p class="page1__title">As above, so below.</p> --}}
@@ -501,9 +504,6 @@
                 <span class="page--cover__frame"></span>
             </div>
         </div>
-        @php
-            $page++;
-        @endphp
         <div class="page-break-before"></div>
         <div class="page page11 page--content page--number page--number_left page--moon"
             data-pageno="{{ $page++ }}">
@@ -1646,7 +1646,7 @@
             <div class="page__inner">
                 <p class="page--cover__title"><span>木星</span></p>
                 <div class="page--cover-block1">
-                    <p class="page--cover-block1__title">その年の幸運や拡大のありか</p>
+                    <p class="page--cover-block1__title">その年の幸運のありか</p>
                     <p class="page__text">
                         <span>　拡大と幸運の星です。ソーラーリターンの木星からは、この一年、あなたが
                             どんなものを得ることができ、どんなチャンスや幸運がもたらされるのかが示
