@@ -59,7 +59,7 @@
         <div class="page page01">
 			<div class="page__inner">
 				<div class="page01-header">
-					<p class="page01-header__logo"><img src="{{ public_path('/assets/images/logo1.svg') }}" alt="HOSI NO MAI"></p>
+					<p class="page01-header__logo"><img src="{{ public_path('/assets/images/logo1.png') }}" alt="HOSI NO MAI"></p>
 					<p class="page01-header__name">HOSHI NO MAI</p>
 					<p class="page01-header__catchcopy handfont1">
                         <img src="{{ public_path('/assets/images/Know〜.png') }}" alt="Know the universe , Live your life">
@@ -107,7 +107,7 @@
         <div class="page-break-before"></div>
         <div class="page page5 page--number page--number_left" data-pageno="{{ $page++ }}">
             <div class="page__inner">
-                <p class="page5__title"><span>YOUR SOLAR RETURN CHAR</span></p>
+                <p class="page5__title"><span>YOUR SOLAR RETURN CHART</span></p>
                 <div class="page5-data">
                     <p class="page5-data__day">
                         {{ $formattedAge2}}

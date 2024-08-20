@@ -19,8 +19,8 @@ return [
     'action' => '操作',
     'title' => 'タイトル',
     'title_en' => 'タイトル（英）',
-    'content_solar' => '太陽退行',
-    'content_solar_en' => '太陽退行 (英)',
+    'content_solar' => 'solarReturn',
+    'content_solar_en' => 'solarReturn (英)',
     'title_solar' => '太陽タイトル',
     'title_solar_en' => '太陽タイトル（英)',
 ];
