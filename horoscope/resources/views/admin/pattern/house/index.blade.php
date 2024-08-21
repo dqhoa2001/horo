@@ -39,7 +39,7 @@
             </div>
         </div>
     </form>
-    
+
     <div class="table-responsive">
         <x-admin.table>
             <x-slot name='header'>
@@ -50,7 +50,7 @@
                     <th class="text-center">@lang('table.content')</th>
                     <th class="text-center">@lang('table.content_en')</th>
                     <th class="text-center">@lang('table.content_solar')</th>
-                    <th class="text-center">@lang('table.content_en')</th>
+                    <th class="text-center">@lang('table.content_solar_en')</th>
                     <th  class="text-center">@lang('table.action')</th>
                 </tr>
             </x-slot>
