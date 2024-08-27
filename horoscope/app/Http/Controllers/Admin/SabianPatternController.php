@@ -56,7 +56,9 @@ class SabianPatternController extends Controller
 
     function create(SabianPatternRequest $request): RedirectResponse
     {
+        dd($request->all());
         $data = $request->validated();
+
         $sabian = $this->sabianPatternRepository->create($data);
         $status = !empty($sabian);
         $message = $status

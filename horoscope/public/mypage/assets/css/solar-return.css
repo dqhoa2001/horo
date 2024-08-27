@@ -5,6 +5,8 @@
 -------------------------------*/
 .C-appraisal-content--top__first-message{
 	background-image: url(../images/common/bg_appraisal-top-first-message-solar.png);
+    border-bottom-left-radius: 2rem;
+	border-bottom-right-radius: 2rem;
 }
 .C-appraisal-content--top .C-appraisal-content--top__first-message * {
     color: black;

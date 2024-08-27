@@ -22,7 +22,7 @@ return [
     'content_japanese' => '内容（日）',
     'content_english' => '内容（英）',
     'content_pattern' => 'パターン内容',
-    'content_solar_pattern' => 'solarReturn',
+    'content_solar_pattern' => '「SolarReturnの内容」としてください。',
     # button
     'create' => '作成',
     'update' => '更新',

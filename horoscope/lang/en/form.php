@@ -22,7 +22,9 @@ return [
     'content_japanese' => 'Content Japanese',
     'content_english' => 'Content English',
     'content_pattern' => 'Content Pattern',
-    'content_solar_pattern' => 'solarReturn',
+    'content_solar_pattern' => 'SolarReturn',
+    'content_solar_japanese' => 'Content Solar Japanese',
+    'content_solar_english' => 'Content Solar English',
     # button
     'create' => 'Create',
     'update' => 'Update',
