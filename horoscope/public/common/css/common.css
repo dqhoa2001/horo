@@ -355,7 +355,7 @@ print {
 }
 
 .mCSB_scrollTools {
-	right: -30px !important;
+	/* right: -30px !important; */
 }
 
 .C-appraisal-banner-block {

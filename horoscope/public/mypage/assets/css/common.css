@@ -613,7 +613,7 @@ html.useragent-tab .Pageframe-main__scroll::-webkit-scrollbar {
 }
 
 .Pageframe-main__scroll > .mCustomScrollBox > .mCSB_scrollTools{
-	opacity: 0 !important;
+	/* opacity: 0 !important; */
 }
 
 .Pageframe-main-content {
