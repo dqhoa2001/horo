@@ -10,7 +10,7 @@ class Appraisal extends Model
     use HasFactory;
 
     const PRICE = 8800; // 鑑定の金額
-    const PRICE_SOLAR = 8480; // 鑑定の金額
+    const PRICE_SOLAR = 8580; // 鑑定の金額
     const PRICE_FLAG_FALSE = 0; // 鑑定金額のフラグ_なし
 
     const PRICE_FLAG_TRUE = 1; // 鑑定金額のフラグ_あり
