@@ -41,7 +41,7 @@ class SabianPatternRequest extends FormRequest
             'sabian_degrees.required' => __('message.required', ['attribute' => __('form.sabian_degrees')]),
             'content.max_mb' => __('message.max_mb', ['attribute' => __('form.content_japanese'), 'max' => 465]),
             'content_solar.required' => __('message.required', ['attribute' => __('form.content_japanese')]),
-            'content_solar.max_mb' => __('message.max_mb', ['attribute' => __('form.content_japanese'), 'max' => 465]),
+            'content_solar.max_mb' => __('message.max_mb', ['attribute' => __('form.content_solar_japanese'), 'max' => 465]),
             'title_solar.required' => __('message.required', ['attribute' => __('form.title_solar')]),
             'title_solar_en.required' => __('message.required', ['attribute' => __('form.title_solar_en')]),
         ];

@@ -19,8 +19,8 @@ return [
     'action' => 'Action',
     'title' => 'Title',
     'title_en' => 'Title EN',
-    'content_solar' => 'Solar Regression',
-    'content_solar_en' => 'Solar Regression EN',
+    'content_solar' => 'Solar Return Content',
+    'content_solar_en' => 'Solar Return Content EN',
     'title_solar' => 'Title Solar',
     'title_solar_en' => 'Title Solar EN',
 ];

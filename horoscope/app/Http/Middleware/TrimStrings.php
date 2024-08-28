@@ -17,5 +17,11 @@ class TrimStrings extends Middleware
         'password_confirmation',
         'content',
         'content_en',
+        'content_solar',
+        'content_solar_en',
+        'title_solar',
+        'title_solar_en',
+        'title',
+        'title_en',
     ];
 }
