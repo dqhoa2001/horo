@@ -311,7 +311,7 @@
                             <dl class="C-appraisal-content-header-message">
                                 <dt class="C-appraisal-content-header-message__title">冥王星のサビアンシンボル</dt>
                                 <dd class="C-appraisal-content-header-message__text">
-                                    冥王星は一年かけて3度ほどしか進まないため、太陽回帰のサビアンシンボルを多くの人が共有
+                                    　冥王星は一年かけて3度ほどしか進まないため、太陽回帰のサビアンシンボルを多くの人が共有
                                     します。そのため、より集合意識的な意味が強まります。とはいえ、あなたカ深いレベルで変えようと
                                     していることや手に入れようとしている力をあらわしていると考えて読んでみましょう。
                                 </dd>
@@ -367,8 +367,7 @@
                                 <dt class="C-appraisal-content-header-message__title">アスペクト<br
                                         class="sp">（他の天体との関わりからわかること）</dt>
                                 <dd class="C-appraisal-content-header-message__text">
-                                    今年、暮らしや心の中であなたが抱くテーマを具体的にあらわします。サビアンシンボルが
-                                    示すような体験や気づきがあるでしょう。
+                                    暮らしそのものにストレスが多いか、楽しみや癒しが多いか、といったことは、月とのアスペクトにあらわれている場合が多くなります。
                                 </dd>
                             </dl>
                         @endif
@@ -377,8 +376,8 @@
                                 <dt class="C-appraisal-content-header-message__title">アスペクト<br
                                         class="sp">（他の天体との関わりからわかること）</dt>
                                 <dd class="C-appraisal-content-header-message__text">
-                                    今年の知的な関心ごとやテーマが具体的にわかります。サビアンシンボルには、知識や認知的な
-                                    領域で変わったり獲得していくテーマが示されています。
+                                    言葉を用いたコミュニケーションや発信、情報の伝達などがどうなりそうか、どのように発揮され、活かされるかが示されています。
+
                                 </dd>
                             </dl>
                         @endif
@@ -387,8 +386,7 @@
                                 <dt class="C-appraisal-content-header-message__title">アスペクト<br
                                         class="sp">（他の天体との関わりからわかること）</dt>
                                 <dd class="C-appraisal-content-header-message__text">
-                                    この一年、どんなことが楽しいのか、どんな能力を得ることで魅力を高るのか、と
-                                    いったことが具体的に示されています。
+                                    あなたの魅力や感性がうまく発揮されていきそうかが、他の天体とのかかわりから示されます。何らかの魅力や才能を獲得しやすいのか、逆に制限してしまうのか、感性が高まるのか、出会いが多いか、など、さまざまなことがここにあらわれます。
                                 </dd>
                             </dl>
                         @endif
@@ -397,8 +395,7 @@
                                 <dt class="C-appraisal-content-header-message__title">アスペクト<br
                                         class="sp">（他の天体との関わりからわかること）</dt>
                                 <dd class="C-appraisal-content-header-message__text">
-                                    この時期、社会的にどのようなことに集中して励むのか、どんなパッションをもって行動する
-                                    のか、といったことが具体的に示されています。
+                                    他の天体とうまく連携して志を達成できるのか、それにどのような変化が起ここるのか、他の天体からの制限や制約があるのか、といったことがわかります。
                                 </dd>
                             </dl>
                         @endif
@@ -407,10 +404,7 @@
                                 <dt class="C-appraisal-content-header-message__title">アスペクト<br
                                         class="sp">（他の天体との関わりからわかること）</dt>
                                 <dd class="C-appraisal-content-header-message__text">
-                                    あなたの今年の幸運にかかわるテーマがサビアンシンボルに具体的にあらわれています。そのよう
-                                な能力を身につけ、社会的に活かせるかもしれませんし、やるとうまくいきやすいことをあらわしてい
-                                ることもあります。そんな意識で見てみましょう。
-
+                                    木星と個人天体がかわると、その天体の意味を拡大させ、幸運につながりますので、非常に重要です。記載済みのものも改めてご覧ください。また、ここに鑑定内容が記載される土星やトランスサタニアンとのアスペクトは時代的な意味が強まりますので、だれにとっても今がそういう時期なのだと理解しましょう。
                                 </dd>
                             </dl>
                         @endif
@@ -419,9 +413,8 @@
                                 <dt class="C-appraisal-content-header-message__title">アスペクト<br
                                         class="sp">（他の天体との関わりからわかること）</dt>
                                 <dd class="C-appraisal-content-header-message__text">
-                                    この一年、あなたが努力して手に入れようとすること、時間をかけて行っていこうとすることが具体的
-                                    に示されています。社会的にはとても重要なテーマとなり、これを達成することで、社会基盤がさらに
-                                    強固になるでしょう。
+                                    土星のアスペクトについては、月から木星とのかかわりがある場合には記載済みです。土星とドラゴ
+                                    ンヘッドのアスペクトは時代に関わり、個人には影響しないため、記載を省略します。
                                 </dd>
                             </dl>
                         @endif
