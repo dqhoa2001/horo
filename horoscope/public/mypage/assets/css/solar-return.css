@@ -3,6 +3,10 @@
 /*-------------------------------
 	common.css
 -------------------------------*/
+/* scrollbar height */
+.Pageframe-main__scroll .mCustomScrollbar .mCSB_scrollTools .mCSB_dragger {
+    height: 420px;
+}
 .C-appraisal-content--top__first-message{
 	background-image: url(../images/common/bg_appraisal-top-first-message-solar.png);
     border-bottom-left-radius: 2rem;
@@ -454,6 +458,11 @@
 }
 @media screen and (max-width:1093px) , print{
 
+}
+@media screen and (max-width:900px) , print{
+    .Pageframe-main__scroll > .mCustomScrollBox > .mCSB_scrollTools{
+        opacity: 0 !important;
+    }
 }
 @media screen and (max-width:897px) , print{
 

@@ -3,7 +3,13 @@
 /*-------------------------------
 	common.css
 -------------------------------*/
-
+/* scrollbar height */
+.mCustomScrollbar .mCSB_scrollTools .mCSB_dragger {
+    height: 420px;
+}
+.C-popup-content__inner .mCSB_draggerContainer{
+    opacity: 0 !important;
+}
 .Pageframe-main input,
 .Pageframe-main button,
 .Pageframe-main select:not(.Pageframe-main-header-language__inner),

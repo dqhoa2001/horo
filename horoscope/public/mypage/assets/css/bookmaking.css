@@ -3,7 +3,10 @@
 /*-------------------------------
 	common.css
 -------------------------------*/
-
+/* scrollbar height */
+.mCustomScrollbar .mCSB_scrollTools .mCSB_dragger {
+    height: 420px;
+}
 .Pageframe-main__title{
     max-width: 43.6rem;
     margin-bottom: 4.5rem;
@@ -23,6 +26,11 @@
 }
 @media screen and (max-width:1128px) , print{
 
+}
+@media screen and (max-width:900px) , print{
+    .Pageframe-main__scroll > .mCustomScrollBox > .mCSB_scrollTools{
+        opacity: 0 !important;
+    }
 }
 @media screen and (max-width:500px) , print{
 

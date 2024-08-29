@@ -3,7 +3,9 @@
 /*-------------------------------
 	common.css
 -------------------------------*/
-
+.Pageframe-main__inner {
+    padding-right: 0rem;
+}
 .Pageframe-main input,
 .Pageframe-main button,
 .Pageframe-main select:not(.Pageframe-main-header-language__inner),
@@ -56,7 +58,6 @@
         height: 2.7rem;
         top: calc(50% - 1.35rem);
     }
-    
     .Pageframe-main__title{
         max-width: 24.5rem;
         margin-bottom: 4rem;
@@ -231,7 +232,7 @@
     .Setting-form__title{
         margin-bottom: 2.5rem;
     }
-    
+
     .Setting-form-block--half{
         width: 100%;
         margin-bottom: 3rem;
@@ -246,7 +247,7 @@
         padding-right: 1rem;
         padding-bottom: .8rem;
     }
-    
+
     .Setting-create .Button{
         margin-bottom: 3rem;
     }

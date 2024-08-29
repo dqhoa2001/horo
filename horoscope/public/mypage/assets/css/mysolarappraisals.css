@@ -3,7 +3,10 @@
 /*-------------------------------
 	common.css
 -------------------------------*/
-
+/* scrollbar height */
+.mCustomScrollbar .mCSB_scrollTools .mCSB_dragger {
+    height: 420px;
+}
 .Pageframe-main-header__pagename::before{
 	width: 2.5rem;
 	height: 2.5rem;
@@ -462,7 +465,11 @@
 @media screen and (max-width:1128px) , print{
 
 }
-
+@media screen and (max-width:900px) , print{
+    .Pageframe-main__scroll > .mCustomScrollBox > .mCSB_scrollTools{
+        opacity: 0 !important;
+    }
+}
 @media screen and (max-width: 600px) {
     .C-appraisal-banner-block {
 		padding: 18px;
