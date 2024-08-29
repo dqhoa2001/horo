@@ -308,15 +308,3 @@
 	position: absolute;
 	content: "・";
 }
-
-.brand-title{
-    font-size: 3.5rem;
-    font-family: 'Baskervville', serif;
-    margin-bottom: -2rem;
-    letter-spacing: .5rem;
-}
-
-.small-pagetitle{
-    font-size: 2.5rem;
-    margin-bottom: 3rem;
-}
