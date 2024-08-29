@@ -34,8 +34,8 @@
 				<div id="Bookbinding" class="Pageframe-main-content">
 					<!-- ***** セクション名 ***** -->
 					<section class="sec Bookmaking C-form" id="Bookmaking">
-						<h2 class="Pageframe-main__title"><img src="{{ asset('mypage/assets/images/solar-bookmaking/solar-return-bookmaking-title.png') }}"
-								alt="SOLAR BOOK MAKING"></h2>
+						<h2 class="Pageframe-main__title"><img src="{{ asset('mypage/assets/images/solar-bookmaking/img_title_SR.svg') }}"
+								alt="SOLAR RETURN BOOK MAKING"></h2>
                         @php
                             $empty = false;
                             foreach ($familySolarAppraisals as $familyId => $solarAppraisals) {
