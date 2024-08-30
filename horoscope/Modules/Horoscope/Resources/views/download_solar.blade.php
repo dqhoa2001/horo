@@ -110,7 +110,8 @@
                 <p class="page5__title"><span>YOUR SOLAR RETURN CHART</span></p>
                 <div class="page5-data">
                     <p class="page5-data__day">
-                        {{ $formattedAge3}}
+                        {{$formattedAge2}}<br>
+                        {{$formattedAge3}}
                     </p>
                 </div>
                 <div class="page5-horoscope"><img src="data:image/png;base64, {{ $image }}"
