@@ -4,7 +4,7 @@
 	common.css
 -------------------------------*/
 /* scrollbar height */
-.Pageframe-main__scroll .mCustomScrollbar .mCSB_scrollTools .mCSB_dragger {
+.mCustomScrollbar .mCSB_scrollTools .mCSB_dragger {
     height: 420px;
 }
 .C-appraisal-content--top__first-message{
