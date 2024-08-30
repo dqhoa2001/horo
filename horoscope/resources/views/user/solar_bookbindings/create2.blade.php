@@ -179,6 +179,7 @@
 																	name="pdf_type-{{ $user->id }}"
 																		id="pdf_type-{{ $v }}-{{ $user->id }}"
 																	value="{{ $k }}"
+                                                                    checked
 																>
 																<span>{{ $v }}</span>
 															</label>
@@ -289,6 +290,7 @@
 													    				name="pdf_type-{{ $familiesWithAppraisalApply->id }}"
 													    				id="pdf_type-{{ $v }}-{{ $familiesWithAppraisalApply->id }}"
 													    				value="{{ $k }}"
+                                                                        checked
 													    			>
 													    			<span>{{ $v }}</span>
 													    		</label>
