@@ -21,6 +21,6 @@ return [
     'title_en' => 'タイトル（英）',
     'content_solar' => 'SolarReturnの内容',
     'content_solar_en' => 'SolarReturnの内容 (英)',
-    'title_solar' => '太陽タイトル',
-    'title_solar_en' => '太陽タイトル（英)',
+    'title_solar' => 'SolarReturnのタイトル',
+    'title_solar_en' => 'SolarReturnのタイトル（英)',
 ];
