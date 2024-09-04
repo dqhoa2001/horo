@@ -64,7 +64,7 @@
 									<div style="display:flex; justify-content: space-between;">
 										@foreach(App\Models\AppraisalApply::PDF_TYPE_SOLAR as $k => $v)
 											<div style="width: calc((100% - 1.4rem) / 3); display:flex; flex-direction: column; align-items: center; border: 1px solid rgba(204,206,213,.35); border-radius: 0.6rem;">
-												<img class="C-form-block__show-pdf-title{{ '4' }}" src="{{ asset('images/common/pdf-title') }}{{ '4' }}.svg" alt="">
+												{{-- <img class="C-form-block__show-pdf-title{{ '4' }}" src="{{ asset('images/common/pdf-title') }}{{ '4' }}.svg" alt=""> --}}
 												<img style="width: 120px; height: 160px;" src="{{ asset('assets/images/hyou1.png') }}" alt="">
 											</div>
 										@endforeach
