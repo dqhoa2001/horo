@@ -31,7 +31,7 @@
                             $adminCoupon->coupon_price])
                             @include('components.form.error', ['name' => 'coupon_price'])
                         </div>
-                        
+
                         <div class="col-md-8 mb-3 mx-auto">
                             <label class="" for="user_id">ポイントバックする対象ユーザー</label>
                             @include('components.form.select', ['name' => 'user_id', 'required' => true, 'data' =>
@@ -60,15 +60,25 @@
                                 <input class="me-2" type="checkbox" name="is_family_appr_enabled" id="is_family_appr_enabled" value="1" {{ old('is_family_appr_enabled', $adminCoupon->is_family_appr_enabled) ? 'checked' : '' }}>
                                 <label for="is_family_appr_enabled">家族の個人鑑定</label>
                             </div>
+                            <div>
+                                <input type="hidden" name="is_personal_solar_return_appr_enabled" value="0">
+                                <input class="me-2" type="checkbox" name="is_personal_solar_return_appr_enabled" id="is_personal_solar_return_appr_enabled" value="1" {{ old('is_personal_solar_return_appr_enabled', $adminCoupon->is_personal_solar_return_appr_enabled) ? 'checked' : '' }}>
+                                <label for="is_personal_solar_return_appr_enabled">SR個人鑑定</label>
+                            </div>
+                            <div>
+                                <input type="hidden" name="is_family_solar_return_appr_enabled" value="0">
+                                <input class="me-2" type="checkbox" name="is_family_solar_return_appr_enabled" id="is_family_solar_return_appr_enabled" value="1" {{ old('is_family_solar_return_appr_enabled', $adminCoupon->is_family_solar_return_appr_enabled) ? 'checked' : '' }}>
+                                <label for="is_family_solar_return_appr_enabled">SR家族の個人鑑定</label>
+                            </div>
                         </div>
-                        
+
                         <div class="col-md-8 mb-3 mx-auto">
                             <label class="" for="is_infinite">使用期限を無期限に設定</label>
-                            <input type="checkbox" name="is_infinite" id="is_infinite" value="1" v-on:click="toggleInput('no_infinity')" 
+                            <input type="checkbox" name="is_infinite" id="is_infinite" value="1" v-on:click="toggleInput('no_infinity')"
                             {{ old('is_infinite', $adminCoupon->time_limit_day->format('Y-m-d') == '2099-12-31' ? true : false) ? 'checked' : '' }}>
                             @include('components.form.error', ['name' => 'is_infinite'])
                         </div>
-                        
+
                         @include('components.form.error', ['name' => 'time_limit_day'])
                         <div class="col-md-8 mb-3 mx-auto" v-if="inputs['no_infinity']">
                             <label class="" for="time_limit_day">使用期限</label>
