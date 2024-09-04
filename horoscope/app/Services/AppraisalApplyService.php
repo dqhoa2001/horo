@@ -178,9 +178,12 @@ class AppraisalApplyService
             $age--;
             $solar_return--;
         }
+        $currentYearFormattedDate = $birthdayDate->copy()->year($solar_return)->format('Y年m月d日');
+        $nextYearEndDate = $birthdayDate->copy()->year($solar_return + 1)->subDay()->format('Y年m月d日');
         $formattedAge = 'Age ' . $age .' '. $solar_return.'/' . $birthdayDate->month . '/' . $birthdayDate->day . ' ~ ' . ($solar_return + 1) . '/' . $birthdayDate->month . '/' . $birthdayDate->day;
+        $formattedAge2 = $age .'歳　'.$currentYearFormattedDate. ' ~ ' .$nextYearEndDate;
         // ホロスコープ占いの処理
-        $formattedAge2 = $age .'歳　'. $solar_return.'年' . $birthdayDate->month . '月' . $birthdayDate->day . '日 ~ ' . ($solar_return + 1) . '年' . $birthdayDate->month . '月' . ($birthdayDate->day - 1).'日';
+        // $formattedAge2 = $age .'歳　'. $solar_return.'年' . $birthdayDate->month . '月' . $birthdayDate->day . '日 ~ ' . ($solar_return + 1) . '年' . $birthdayDate->month . '月' . ($birthdayDate->day - 1).'日';
         $formattedAge3 = '太陽回帰年月日　' . $solar_return.'年' . $birthdayDate->month . '月' . $birthdayDate->day . '日　' .  $birthHour . '時' . $birthMinute . '分';
         $chart = ($appraisalApply->solar_return == 0) ? $this->generateHoroscopeChartAction->execute($formData, WheelRadiusEnum::WheelScale) : $this->generateSolarHoroscopeChartAction->execute($formData, WheelRadiusEnum::WheelScale);
         $zodaics = $this->zodiacRepository->getAll();
