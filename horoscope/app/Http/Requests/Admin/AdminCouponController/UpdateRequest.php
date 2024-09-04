@@ -33,12 +33,13 @@ class UpdateRequest extends FormRequest
             'back_point' => ['required', 'integer', 'min:0'],
             'is_personal_appr_enabled' => ['required', 'boolean'],
             'is_family_appr_enabled' => ['required', 'boolean'],
-            'is_infinite' => ['nullable'], 
+            'is_infinite' => ['nullable'],
             'time_limit_day' => ['nullable', 'required_without:is_infinite', 'date'],
             'use_limit' => ['required', 'integer', 'min:0', 'max:99'],
+            'is_personal_solar_return_appr_enabled' => ['required', 'boolean'],
+            'is_family_solar_return_appr_enabled' => ['required', 'boolean'],
         ];
     }
-
     /**
      * @return array
      */
@@ -54,6 +55,8 @@ class UpdateRequest extends FormRequest
             'is_family_appr_enabled',
             'time_limit_day',
             'use_limit',
+            'is_personal_solar_return_appr_enabled',
+            'is_family_solar_return_appr_enabled',
         ]);
 
         if (!empty($this->is_infinite)) {

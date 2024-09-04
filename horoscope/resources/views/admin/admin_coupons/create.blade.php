@@ -9,25 +9,25 @@
                     <form method="POST" action="{{ route('admin.admin_coupons.store') }}" enctype="multipart/form-data" id="admin-coupon-create">
                         @csrf
 
-                        
+
                         <div class="col-md-8 mb-3 mx-auto">
                             <label class="" for="coupon_name">クーポン名</label>
                             @include('components.form.text', ['name' => 'coupon_name', 'required' => true])
                             @include('components.form.error', ['name' => 'coupon_name'])
                         </div>
-                        
+
                         <div class="col-md-8 mb-3 mx-auto">
                             <label class="" for="coupon_code">クーポンコード</label>
                             @include('components.form.text', ['name' => 'coupon_code', 'required' => true])
                             @include('components.form.error', ['name' => 'coupon_code'])
                         </div>
-                        
+
                         <div class="col-md-8 mb-3 mx-auto">
                             <label class="" for="coupon_price">金額</label>
                             @include('components.form.number', ['name' => 'coupon_price', 'required' => true])
                             @include('components.form.error', ['name' => 'coupon_price'])
                         </div>
-                        
+
                         @if(isset($user))
                             <div class="col-md-8 mb-3 mx-auto">
                                 <label class="" for="user_id">ポイントバックする対象ユーザー</label>
@@ -79,7 +79,16 @@
                                 <input class="me-2" type="checkbox" name="is_family_appr_enabled" id="is_family_appr_enabled" value="1" checked>
                                 <label for="is_family_appr_enabled">家族の個人鑑定</label>
                             </div>
-
+                            <div>
+                                <input type="hidden" name="is_personal_solar_return_appr_enabled" value="0">
+                                <input class="me-2" type="checkbox" name="is_personal_solar_return_appr_enabled" id="is_personal_solar_return_appr_enabled" value="1" checked>
+                                <label for="is_personal_solar_return_appr_enabled">SR個人鑑定</label>
+                            </div>
+                            <div>
+                                <input type="hidden" name="is_family_solar_return_appr_enabled" value="0">
+                                <input class="me-2" type="checkbox" name="is_family_solar_return_appr_enabled" id="is_family_solar_return_appr_enabled" value="1" checked>
+                                <label for="is_family_solar_return_appr_enabled">SR家族の個人鑑定</label>
+                            </div>
                         </div>
 
                         <div class="col-md-8 mb-3 mx-auto">
