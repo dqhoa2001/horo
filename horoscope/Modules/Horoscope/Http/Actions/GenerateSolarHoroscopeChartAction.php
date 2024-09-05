@@ -142,6 +142,6 @@ class GenerateSolarHoroscopeChartAction
         $degrees = Str::of(Arr::first($planetRow))->trim()->toFloat();
         $zodiacNum = floor($degrees / AngleEnum::Zodiac);
         $sabianDegrees = (int) floor($degrees - ($zodiacNum * AngleEnum::Zodiac));
-        return $sabianDegrees;
+        return $degrees;
     }
 }
