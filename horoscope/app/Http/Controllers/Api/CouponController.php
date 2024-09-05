@@ -30,7 +30,7 @@ class CouponController extends Controller
                         ]);
                     }
                 }
-    
+
                 if ($request['params']['request_type'] === 'family') {
                     if (!$adminCoupon->is_family_appr_enabled) {
                         return response()->json([
@@ -50,7 +50,23 @@ class CouponController extends Controller
                         }
                     }
                 }
-                    
+
+                if ($request['params']['request_type'] === 'personalSR') {
+                    if (!$adminCoupon->is_personal_solar_return_appr_enabled) {
+                        return response()->json([
+                            'message' => 'SR個人鑑定にクーポンを使用できません。',
+                        ]);
+                    }
+                }
+
+                if ($request['params']['request_type'] === 'familySR') {
+                    if (!$adminCoupon->is_family_solar_return_appr_enabled) {
+                        return response()->json([
+                            'message' => 'SR家族の個人鑑定にクーポンを使用できません。',
+                        ]);
+                    }
+                }
+
             }
 
             // 例）time_limit_dayが2021-01-01の場合、2021-01-01まで使える
@@ -88,7 +104,7 @@ class CouponController extends Controller
                         ]);
                     }
                 }
-    
+
                 if ($request['params']['request_type'] === 'family') {
                     if (!RegisterCoupon::first()->is_family_appr_enabled) {
                         return response()->json([

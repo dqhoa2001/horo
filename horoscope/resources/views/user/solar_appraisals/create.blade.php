@@ -705,7 +705,7 @@ Vue.createApp({
             axios.post('/api/coupon/get_discount_price', {
                 params: {
                     coupon_code: this.couponCode,
-                    request_type: this.personalClick == '1' ? 'personal' : 'family',
+                    request_type: this.personalClick == '1' ? 'personalSR' : 'familySR',
                     user_id: '{{ auth()->guard('user')->user()->id }}',
                 }
             })
