@@ -28,7 +28,8 @@
                 @endisset
             >
             <span class="C-form-block__radio-pdf__text" for="{{ $name . '4' }}">
-                <img src="{{ asset('images/common/pdf') }}{{ '4' }}.svg" alt="">
+                {{-- <img src="{{ asset('images/common/pdf') }}{{ '4' }}.svg" alt=""> --}}
+                <img src="{{ asset('images/common/pdf') }}{{ '4' }}.png" alt="">
             </span>
         </label>
     @endforeach
