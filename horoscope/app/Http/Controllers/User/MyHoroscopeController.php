@@ -139,6 +139,23 @@ class MyHoroscopeController extends Controller
         $defaultAddress = $defaultBirthdayPrefectures;
         $defaultBirthDay = $user->birthday;
         $solarAppraisals =  SolarComboboxService::SolarCombobox($user->id,User::class);
+        $solar_return = $solar_apply->solar_return + 1;
+        $birthday = $solar_apply->birthday;
+        $birthdayDate = \Carbon\Carbon::parse($birthday);
+        $birthdayTime = $solar_apply->birthday_time;
+        $birthdayTime = new \DateTime($birthdayTime);
+        $birthHour = $birthdayTime->format('H');
+        $birthMinute = $birthdayTime->format('i');
+        $age = $solar_return - $birthdayDate->year;
+        if (\Carbon\Carbon::now()->isBefore($birthdayDate->copy()->year($solar_return)->endOfYear())) {
+            $age--;
+            $solar_return--;
+        }
+        $currentYearFormattedDate = $birthdayDate->copy()->year($solar_return)->format('Y年m月d日');
+        $nextYearEndDate = $birthdayDate->copy()->year($solar_return + 1)->subDay()->format('Y年m月d日');
+        $formattedAge = $age .'歳　'.$currentYearFormattedDate. ' ~ ' .$nextYearEndDate;
+        $formattedAge1 = '太陽回帰年月日　' . $solar_return.'年' . $birthdayDate->month . '月' . $birthdayDate->day . '日　' .  $birthHour . '時' . $birthMinute . '分';
+
         return view('user.my_horoscopes.edit', [
             'solarApply' => $solar_apply,
             'imgBase64'  => $imgBase64,
@@ -150,6 +167,8 @@ class MyHoroscopeController extends Controller
             'defaultAddress' => $defaultAddress,
             'defaultBirthDay' => $defaultBirthDay,
             'solarAppraisals' => $solarAppraisals,
+            'formattedAge' => $formattedAge,
+            'formattedAge1' => $formattedAge1,
         ]);
     }
     public function update(UpdateRequest $request): RedirectResponse
