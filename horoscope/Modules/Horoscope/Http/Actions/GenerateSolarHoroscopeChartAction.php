@@ -17,7 +17,7 @@ use Imagick;
 use Modules\Horoscope\Enums\SwephEnum;
 use Illuminate\Support\Str;
 use Modules\Horoscope\Enums\AngleEnum;
-
+use Modules\Horoscope\Http\Actions\Convert\ConvertDecimalToDegrees;
 class GenerateSolarHoroscopeChartAction
 {
     /**
@@ -38,6 +38,7 @@ class GenerateSolarHoroscopeChartAction
         protected DrawWheelAction $drawWheelAction,
         protected ModifyLocation $modifyLocation,
         protected GetExplainData $getExplainData,
+        protected ConvertDecimalToDegrees $convertDecimalToDegrees,
     ) {
     }
 
@@ -109,11 +110,13 @@ class GenerateSolarHoroscopeChartAction
         // day of birth solar
         $solarDate = Carbon::create($solar_year, $date->month, $date->day, $date->hour, $date->minute)->subDays(3);
         $counter = 0;
-        $dayOfBirthSolarDegrees = 0;
+
         do {
+
             if ($counter > 0) {
-                $solarDate = $solarDate->addHour();
+                $solarDate->addMinutes();
             }
+
             $swephSolarData = $this->predictDayOfBirthAction->execute(
                 $solarDate->format('d.m.Y'),
                 $solarDate->format('H:i'),
@@ -121,8 +124,15 @@ class GenerateSolarHoroscopeChartAction
                 $localtion->get('latitude')
             );
             $dayOfBirthSolarDegrees = $this->calculateSolarDegrees($swephSolarData);
+
+            $isMatch = (
+                $dayOfBirthSolarDegrees['degrees'] == $dayOfBirthDegrees['degrees'] &&
+                $dayOfBirthSolarDegrees['minnute'] == $dayOfBirthDegrees['minnute'] &&
+                $dayOfBirthSolarDegrees['second'] == $dayOfBirthDegrees['second']
+            );
             $counter++;
-        } while ($dayOfBirthSolarDegrees !== $dayOfBirthDegrees);
+        } while (!$isMatch);
+
         return $this->predictDayOfBirthAction->execute(
             $solarDate->format('d.m.Y'),
             $solarDate->format('H:i'),
@@ -131,7 +141,8 @@ class GenerateSolarHoroscopeChartAction
         );
     }
 
-    private function calculateSolarDegrees(array $predictData): int
+
+    private function calculateSolarDegrees(array $predictData)
     {
         $planetList = collect($predictData)
             ->splice(
@@ -141,7 +152,8 @@ class GenerateSolarHoroscopeChartAction
         $planetRow = $planetList->first();
         $degrees = Str::of(Arr::first($planetRow))->trim()->toFloat();
         $zodiacNum = floor($degrees / AngleEnum::Zodiac);
-        $sabianDegrees = (int) floor($degrees - ($zodiacNum * AngleEnum::Zodiac));
-        return $degrees;
+        $sabianDegrees = $degrees - ($zodiacNum * AngleEnum::Zodiac);
+        $sabianDegreesDms = $this->convertDecimalToDegrees->execute($sabianDegrees);
+        return $sabianDegreesDms;
     }
 }
