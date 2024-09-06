@@ -55,9 +55,15 @@
     <div style="display: flex;">
         <p class="C-form-block--password__text" style="width: 170px;">例：Mai Kaibe　/　山田 太郎</p>
         <p class="Personal-appraisal__notice-text">
-            <a href="{{ route('user.download_images.download_sample_pdf') }}" style="position: relative; top: 0.6rem;">
-                表紙イメージはこちら
-            </a>
+            @if(str_contains(Request::url(), 'solar_appraisals'))
+                <a href="{{ route('user.download_images.download_solar_sample_pdf') }}" style="position: relative; top: 0.6rem;">
+                    表紙イメージはこちら
+                </a>
+            @else
+                <a href="{{ route('user.download_images.download_sample_pdf') }}" style="position: relative; top: 0.6rem;">
+                    表紙イメージはこちら
+                </a>
+            @endif
         </p>
     </div>
     <dd class="C-form-block__body">
