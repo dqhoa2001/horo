@@ -20,9 +20,9 @@ class ConvertDecimalToDegrees
         $second = round(($fullMinute - $minnute) * 60);
 
         return collect([
-            'degrees' => strlen($degrees) > 1 ? $degrees : '0' . $degrees,
-            'minnute' => strlen($minnute) > 1 ? $minnute : '0' . $minnute,
-            'second' => strlen($second) > 1 ? $second : '0' . $second,
+            'degrees' => strlen((int)$degrees) > 1 ? (int)$degrees : '0' . (int)$degrees,
+            'minnute' => strlen((int) $minnute) > 1 ? (int) $minnute : '0' . (int) $minnute,
+            'second' => strlen((int) $second) > 1 ? (int) $second : '0' . (int) $second,
         ]);
     }
 }
