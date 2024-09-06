@@ -267,4 +267,10 @@ class BookbindingController extends Controller
         $pdfData = $this->appraisalApplyService->makeCoverImage($design, $name1, $name2);
         return response()->download($pdfData['pdfFilePath'], $pdfData['fileName']);
     }
+
+    //solar return pdf cover sample
+    public function downloadSRSamplePdf(): \Symfony\Component\HttpFoundation\BinaryFileResponse
+    {
+        return response()->download(public_path('pdfs/SolarReturn_sample_cover.pdf'));
+    }
 }

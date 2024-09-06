@@ -192,7 +192,7 @@
 														<div style="display: flex;">
 															<p class="C-form-block--password__text" style="width: 170px;">例：Mai Kaibe　/　山田 太郎</p>
 															<p class="Personal-appraisal__notice-text">
-																<a href="{{ route('user.download_images.download_sample_pdf') }}" style="position: relative; top: 0.9rem;font-size: 1.2rem;">
+																<a href="{{ route('user.download_images.download_solar_sample_pdf') }}" style="position: relative; top: 0.9rem;font-size: 1.2rem;">
 																	表紙イメージはこちら
 																</a>
 															</p>
@@ -303,7 +303,7 @@
 													    	<div style="display: flex;">
 													    		<p class="C-form-block--password__text" style="width: 170px;">例：Mai Kaibe　/　山田 太郎</p>
 													    		<p class="Personal-appraisal__notice-text">
-													    			<a href="{{ route('user.download_images.download_sample_pdf') }}" style="position: relative; top: 0.9rem;font-size: 1.2rem;">
+													    			<a href="{{ route('user.download_images.download_solar_sample_pdf') }}" style="position: relative; top: 0.9rem;font-size: 1.2rem;">
 													    				表紙イメージはこちら
 													    			</a>
 													    		</p>

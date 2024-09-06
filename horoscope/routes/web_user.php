@@ -119,6 +119,8 @@ Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('
 Route::prefix('download_images')->name('download_images.')->group(static function () {
     // 表紙イメージ
     Route::get('download_sample_pdf',  [BookbindingController::class, 'downloadSamplePdf'])->name('download_sample_pdf');
+    //solar return pdf cover sample
+    Route::get('download_solar_sample_pdf',  [BookbindingController::class, 'downloadSRSamplePdf'])->name('download_solar_sample_pdf');
     // 表紙イメージ（お客様お名前入り）
     Route::get('download_cover_pdf/{design}/{name1}/{name2}',  [BookbindingController::class, 'downloadCoverPdf'])->name('download_cover_pdf');
     Route::get('download_solar_cover_pdf/{design}/{name1}/{name2}',  [SolarBookbindingController::class, 'downloadCoverPdf'])->name('download_solar_cover_pdf');
