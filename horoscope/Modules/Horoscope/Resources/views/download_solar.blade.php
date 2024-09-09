@@ -224,7 +224,7 @@
                             </p>
                             <p class="page__text">
                                 <span style="text-indent: 0;">
-                                    {{ $zodaicsPattern->where('zodiac_id', $house->get('zodiac_num'))->where('planet_id', 14)->pluck('content_solar')->first() }}</span>
+                                    {!! nl2br($zodaicsPattern->where('zodiac_id', $house->get('zodiac_num'))->where('planet_id', 14)->pluck('content_solar')->first()) !!}</span>
                             </p>
                         @endif
                     @endforeach
@@ -1986,9 +1986,7 @@
                         <br>
                         <span> 各天体のサビアンシンボルとハウスへの影響をまとめます。</span>
                         <br>
-                        <span> ハウスに関してはわかりやすいと思いますが、サビアンシンボルは読んでも
-                            あまりピンと来ない可能性もあります。その場合は、一年経ったあとに改めて
-                            読んでみると、なるほど！と思えるかもしれません。</span>
+                        <span> ハウスに関してはわかりやすいと思いますが、サビアンシンボルは読んでもあまりピンと来ない可能性もあります。その場合は、一年経ったあとに改めて読んでみると、なるほど！と思えるかもしれません。</span>
                     </p>
                 </div>
                 <div class="page--cover__image saturnians">
@@ -2154,8 +2152,7 @@
                 <div class="page-block page-block--2">
                     <p class="page-block--2__title">冥王星のサビアンシンボル</p>
                     <p class="page__text">
-                        <span>冥王星は一年かけてホロスコープ上をわずかしか進まないため、ノーラーリターンでは多くの人が同じ冥王星のサビアンシンボルを共有します。そのため、より集合意識的な意味が強まります。とはいえ、あなたが深いレベルで変えようとしていることや手に入れようとしている力をあらわしていると考えて読んでみましょう。
-                        </span>
+                        <span>冥王星は一年かけてホロスコープ上をわずかしか進まないため、ソーラーリターンでは多くの人が同じ冥王星のサビアンシンボルを共有します。そのため、より集合意識的な意味が強まります。とはいえ、あなたが深いレベルで変えようとしていることや手に入れようとしている力をあらわしていると考えて読んでみましょう。</span>
                     </p>
                 </div>
                 <div class="page-block page-block--3">
