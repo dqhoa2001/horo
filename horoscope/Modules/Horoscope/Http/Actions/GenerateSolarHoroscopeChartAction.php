@@ -97,47 +97,68 @@ class GenerateSolarHoroscopeChartAction
         ]);
     }
 
-    private function findDayOfBirthSolar(Carbon $date, Collection $localtion, Int $solar_year): array
+    private function findDayOfBirthSolar(Carbon $date, Collection $location, Int $solar_year): array
     {
         // day of birth
         $swephData = $this->predictDayOfBirthAction->execute(
             $date->format('d.m.Y'),
-            $date->format('H:i'),
-            $localtion->get('longitude'),
-            $localtion->get('latitude')
+            $date->format('H:i:s'),
+            $location->get('longitude'),
+            $location->get('latitude')
         );
         $dayOfBirthDegrees = $this->calculateSolarDegrees($swephData);
+
         // day of birth solar
-        $solarDate = Carbon::create($solar_year, $date->month, $date->day, $date->hour, $date->minute)->subDays(3);
-        $counter = 0;
+        $solarDate = Carbon::create($solar_year, $date->month, $date->day, $date->hour, $date->minute)->subDays(1);
+
 
         do {
-
-            if ($counter > 0) {
-                $solarDate->addMinutes();
-            }
-
             $swephSolarData = $this->predictDayOfBirthAction->execute(
                 $solarDate->format('d.m.Y'),
-                $solarDate->format('H:i'),
-                $localtion->get('longitude'),
-                $localtion->get('latitude')
+                $solarDate->format('H:i:s'),
+                $location->get('longitude'),
+                $location->get('latitude')
             );
             $dayOfBirthSolarDegrees = $this->calculateSolarDegrees($swephSolarData);
 
-            $isMatch = (
-                $dayOfBirthSolarDegrees['degrees'] == $dayOfBirthDegrees['degrees'] &&
-                $dayOfBirthSolarDegrees['minnute'] == $dayOfBirthDegrees['minnute'] &&
-                $dayOfBirthSolarDegrees['second'] == $dayOfBirthDegrees['second']
+            if ($dayOfBirthSolarDegrees['degrees'] !== $dayOfBirthDegrees['degrees']) {
+                $solarDate->addHour();
+            }
+        } while ($dayOfBirthSolarDegrees['degrees'] !== $dayOfBirthDegrees['degrees']);
+
+        do {
+            $swephSolarData = $this->predictDayOfBirthAction->execute(
+                $solarDate->format('d.m.Y'),
+                $solarDate->format('H:i:s'),
+                $location->get('longitude'),
+                $location->get('latitude')
             );
-            $counter++;
-        } while (!$isMatch);
+            $dayOfBirthSolarDegrees = $this->calculateSolarDegrees($swephSolarData);
+
+            if ($dayOfBirthSolarDegrees['minnute'] !== $dayOfBirthDegrees['minnute']) {
+                $solarDate->addMinute();
+            }
+        } while ($dayOfBirthSolarDegrees['minnute'] !== $dayOfBirthDegrees['minnute']);
+
+        do {
+            $swephSolarData = $this->predictDayOfBirthAction->execute(
+                $solarDate->format('d.m.Y'),
+                $solarDate->format('H:i:s'),
+                $location->get('longitude'),
+                $location->get('latitude')
+            );
+            $dayOfBirthSolarDegrees = $this->calculateSolarDegrees($swephSolarData);
+
+            if ($dayOfBirthSolarDegrees['second'] !== $dayOfBirthDegrees['second']) {
+                $solarDate->addSecond();
+            }
+        } while ($dayOfBirthSolarDegrees['second'] !== $dayOfBirthDegrees['second']);
 
         return $this->predictDayOfBirthAction->execute(
             $solarDate->format('d.m.Y'),
-            $solarDate->format('H:i'),
-            $localtion->get('longitude'),
-            $localtion->get('latitude')
+            $solarDate->format('H:i:s'),
+            $location->get('longitude'),
+            $location->get('latitude')
         );
     }
 
