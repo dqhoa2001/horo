@@ -79,12 +79,14 @@
                                 @include('components.parts.user.solar_return_combobox')
                             </div>
                             {{--Date information--}}
-                            {{-- @if (!str_contains(Request::url(), 'my_horoscopes/edit'))
-                                <p class="date--info">
-                                    {{$formattedAge}}<br>
-                                    {{$formattedAge1}}
-                                </p>
-                            @endif --}}
+                            @if (!str_contains(Request::url(), 'my_horoscopes/edit'))
+                                <div class="date-info">
+                                    <p>
+                                        {{$formattedAge}}<br>
+                                        {{$formattedAge1}}
+                                    </p>
+                                </div>
+                            @endif
                             <br>
                             <div class="C-horoscope-detail">
                                 <div class="C-horoscope-detail-header">

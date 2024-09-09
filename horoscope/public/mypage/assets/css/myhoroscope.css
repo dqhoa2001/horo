@@ -11,6 +11,13 @@
 .C-popup-content__inner .mCSB_draggerContainer{
     opacity: 0 !important;
 }
+
+.date-info{
+    text-align: center;
+    font-size: 1.4rem;
+    margin-top: 11rem;
+    margin-left: 5rem;
+}
 .Pageframe-main-header__pagename::before{
 	width: 2.5rem;
 	height: 2.5rem;
@@ -224,6 +231,11 @@
 @media screen and (width >= 1600px) , print{
 
 }
+@media screen and (width <= 1600px) , print{
+.date-info{
+    margin-left:9rem
+}
+}
 @media screen and (max-width:1188px) , print{
 
 }
@@ -238,6 +250,9 @@
 
     .Pageframe-main__scroll > .mCustomScrollBox > .mCSB_scrollTools{
         opacity: 0 !important;
+    }
+    .date-info{
+        margin-left: 21rem;
     }
 }
 @media screen and (max-width:500px) , print{
@@ -282,7 +297,18 @@
     .Myhoroscope--detail .Pageframe-main__title .sp{
 		display: block !important;
 	}
+    .date-info{
+        margin-left: 17rem;
+        font-size: 1.3rem;
+        margin-right: 2rem;
+    }
+}
 
+@media screen and (max-width:650px) , print{
+    .date-info{
+        margin-left: 16rem;
+        font-size: 1.13rem;
+    }
 }
 @media screen and (max-width:500px) , print{
 
@@ -305,6 +331,12 @@
     }
     .Myhoroscope--detail .C-user-list-block__item:nth-of-type(3){
         border-top: 1px solid rgba(57,57,92,.5);
+    }
+
+    .date-info{
+        font-size: 1.3rem;
+        margin-left: 2rem;
+        margin-right: 2rem;
     }
 
 }
