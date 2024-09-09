@@ -9,7 +9,7 @@
 @isset($solar)
 @foreach($data as $k => $v)
         <label class="C-form-block__radio-pdf__item @error($name) is-invalid @enderror">
-            <span class="C-form-block__radio-pdf-title C-form-block__radio-pdf-title{{ '4' }}"></span>
+            {{-- <span class="C-form-block__radio-pdf-title C-form-block__radio-pdf-title{{ '4' }}"></span> --}}
             <input class="form-check-input"
                 type="radio"
                 name="{{ $name }}"
