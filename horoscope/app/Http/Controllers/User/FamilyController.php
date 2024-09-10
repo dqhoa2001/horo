@@ -126,7 +126,8 @@ class FamilyController extends Controller
         // ホロスコープ生成なデータを作成
         $formData = [
             "name" => $family->name1 . $family->name2,
-            "year" => $solar_apply->solar_return,
+            // "year" => $solar_apply->solar_return,
+            "year" => $solar_apply->birthday->format('Y'),
             "month" => $solar_apply->birthday->format('m'),
             "day" => $solar_apply->birthday->format('d'),
             "hour" => $solar_apply->birthday_time->format('H'),
