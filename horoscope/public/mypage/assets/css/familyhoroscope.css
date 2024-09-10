@@ -10,6 +10,13 @@
 .C-popup-content__inner .mCSB_draggerContainer{
     opacity: 0 !important;
 }
+/*Solar date text*/
+.date-info{
+    text-align: center;
+    font-size: 1.4rem;
+    margin-top: 11rem;
+    margin-left: 5rem;
+}
 .Pageframe-main input,
 .Pageframe-main button,
 .Pageframe-main select:not(.Pageframe-main-header-language__inner),
@@ -168,11 +175,23 @@
 @media screen and (width >= 1600px) , print{
 
 }
+@media screen and (width <= 1600px) , print{
+    /*Solar date text*/
+    .date-info{
+        margin-left:9rem
+    }
+}
 @media screen and (max-width:1188px) , print{
 
 }
 @media screen and (max-width:1128px) , print{
 
+}
+@media screen and (max-width:900px) , print{
+    /*Solar date text*/
+    .date-info{
+        margin-left: 21rem;
+    }
 }
 @media screen and (min-width:501px) and (max-width:750px) , print{
 
@@ -180,7 +199,19 @@
 	.C-user-list-block__item:nth-of-type(4){
         border-top: 1px solid rgba(56,98,128,.5);
     }
-
+    /*Solar date text*/
+    .date-info{
+        margin-left: 17rem;
+        font-size: 1.3rem;
+        margin-right: 2rem;
+    }
+}
+@media screen and (max-width:650px) , print{
+    /*Solar date text*/
+    .date-info{
+        margin-left: 16rem;
+        font-size: 1.13rem;
+    }
 }
 @media screen and (max-width:500px) , print{
 
@@ -195,7 +226,12 @@
 	.C-user-list-block__item:nth-of-type(4){
         border-top: 1px solid #386280;
     }
-
+    /*Solar date text*/
+    .date-info{
+        font-size: 1.3rem;
+        margin-left: 2rem;
+        margin-right: 2rem;
+    }
 }
 
 

@@ -232,9 +232,9 @@
 
 }
 @media screen and (width <= 1600px) , print{
-.date-info{
-    margin-left:9rem
-}
+    .date-info{
+        margin-left:9rem
+    }
 }
 @media screen and (max-width:1188px) , print{
 

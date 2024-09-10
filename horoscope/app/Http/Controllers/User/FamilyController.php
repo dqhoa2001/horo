@@ -150,6 +150,19 @@ class FamilyController extends Controller
         $defaultAddress = $defaultBirthdayPrefectures;
         $defaultBirthDay = $family->birthday;
         $isAppraisalClaimed = $family->appraisalApplies()->whereHas('appraisalClaim')->exists();
+        $solar_return = $solar_apply->solar_return + 1;
+        $birthday = $solar_apply->birthday;
+        $birthdayDate = \Carbon\Carbon::parse($birthday);
+        $birthdayTime = $solar_apply->birthday_time;
+        $birthdayTime = new \DateTime($birthdayTime);
+        $birthHour = $birthdayTime->format('H');
+        $birthMinute = $birthdayTime->format('i');
+        $age = $solar_return - $birthdayDate->year;
+        if (\Carbon\Carbon::now()->isBefore($birthdayDate->copy()->year($solar_return)->endOfYear())) {
+            $age--;
+            $solar_return--;
+        }
+        $formattedAge = '太陽回帰年月日　' . $solar_return.'年' . $birthdayDate->month . '月' . $birthdayDate->day . '日　' .  $birthHour . '時' . $birthMinute . '分';
         return view('user.families.edit', [
             'family'     => $family,
             'solarApply' => $solar_apply,
@@ -167,6 +180,7 @@ class FamilyController extends Controller
             })->where('reference_type', $solar_apply->reference_type)
             ->where('reference_id', $solar_apply->reference_id)
             ->where('solar_return', '!=', 0)->get(),
+            'formattedAge' => $formattedAge,
         ]);
     }
     // 家族のホロスコープ更新

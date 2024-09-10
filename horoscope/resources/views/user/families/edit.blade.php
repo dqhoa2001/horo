@@ -78,6 +78,14 @@
                                 </dl>
                                 @include('components.parts.user.family.solar_return_combobox')
                             </div>
+                            {{--Date information--}}
+                            @if (!str_contains(Request::url(), 'families/edit'))
+                                <div class="date-info">
+                                    <p>
+                                        {{$formattedAge}}
+                                    </p>
+                                </div>
+                            @endif
                             <br>
                             <div class="C-horoscope-detail">
                                 <div class="C-horoscope-detail-header">

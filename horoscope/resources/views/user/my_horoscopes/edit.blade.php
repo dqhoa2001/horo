@@ -82,8 +82,7 @@
                             @if (!str_contains(Request::url(), 'my_horoscopes/edit'))
                                 <div class="date-info">
                                     <p>
-                                        {{$formattedAge}}<br>
-                                        {{$formattedAge1}}
+                                        {{$formattedAge}}
                                     </p>
                                 </div>
                             @endif
