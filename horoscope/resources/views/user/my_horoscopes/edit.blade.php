@@ -47,11 +47,11 @@
                                 <p class="C-user-list__change"><span>出生情報を訂正する</span></p>
                             </div>
                             {{--SolarDate Combobox--}}
-                            <div id="popup-horoscope">
+                            {{-- <div id="popup-horoscope"> --}}
                                 <dl class="C-form-block C-form-block--birthdata">
                                     <dd class="C-form-block__body">
                                         <dl class="C-form-block-child C-form-block--birth">
-                                            <div id="popup-horoscope">
+                                            {{-- <div id="popup-horoscope"> --}}
                                             <dl class="C-form-block C-form-block--birthdata">
                                                 <dd class="C-form-block__body">
                                                     <dl class="C-form-block-child C-form-block--birth">
@@ -77,7 +77,7 @@
                                     </dd>
                                 </dl>
                                 @include('components.parts.user.solar_return_combobox')
-                            </div>
+                            {{-- </div> --}}
                             {{--Date information--}}
                             @if (!str_contains(Request::url(), 'my_horoscopes/edit'))
                                 <div class="date-info">
@@ -438,6 +438,9 @@
             this.setYear(oldYear);
             this.setMonth(oldMonth);
             this.setDay(oldDay);
+
+            const input = document.getElementById('birthday_prefectures');
+            input.addEventListener('input', this.handleInputChange);
         }
     }).mount('#popup-horoscope');
 </script>
