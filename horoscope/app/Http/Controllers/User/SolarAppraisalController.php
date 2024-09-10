@@ -158,7 +158,6 @@ class SolarAppraisalController extends Controller
     // 申し込み処理
     public function apply(Request $request): RedirectResponse
     {
-        // dd($request);
         \DB::beginTransaction();
         Stripe::setApiKey(config('services.stripe.secret'));
 

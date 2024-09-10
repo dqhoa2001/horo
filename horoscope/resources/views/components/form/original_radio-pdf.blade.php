@@ -10,7 +10,7 @@
 @foreach($data as $k => $v)
         <label class="C-form-block__radio-pdf__item @error($name) is-invalid @enderror">
             {{-- <span class="C-form-block__radio-pdf-title C-form-block__radio-pdf-title{{ '4' }}"></span> --}}
-            {{-- <input class="form-check-input"
+            <input class="form-check-input"
                 type="radio"
                 name="{{ $name }}"
                 id="{{ $name . '4' }}"
@@ -26,8 +26,8 @@
                 @isset($onChange)
                     @change="{{ $onChange }}"
                 @endisset
-            > --}}
-            <span class="C-form-block__radio-pdf__text" for="{{ $name . '4' }}">
+            >
+            <span class="C-form-block__radio-pdf-sr__text" for="{{ $name . '4' }}">
                 {{-- <img src="{{ asset('images/common/pdf') }}{{ '4' }}.svg" alt=""> --}}
                 {{-- <img src="{{ asset('images/common/pdf') }}{{ '4' }}.png" alt=""> --}}
                 <img src="{{ asset('images/common/solarreturn.png') }}" alt="">
