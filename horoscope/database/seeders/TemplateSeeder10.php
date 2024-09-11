@@ -30,11 +30,16 @@ class TemplateSeeder10 extends Seeder
                 'class_name' => 'ThanksForPersonalSolarAppraisal',
                 'title' => '【星の舞】ご購入ありがとうございました',
                 'content' => '
-                    この度は個人Solar Return鑑定のご購入ありがとうございました。
-                    ご登録頂いたメールアドレスへ、購入完了メールをお送りしております。
-                    しばらく経ってもメールが届かない場合は、入力頂いたメールアドレスが間違っているか、迷惑メールフォルダに振り分けられている可能性がございます。
-                    鑑定結果は下記、マイページ内「家族鑑定」メニューにてご確認ください。
+                    {{$name}}様
+
+                    このたびは、太陽回帰自動鑑定システム「Solar Return」のご購入をいただき、ありがとうございました。
+                    ご登録頂いたメールアドレスへ、購入完了メールをお送りいたしました。
+                    しばらく経ってもメールが届かない場合は、ご入力いただいたメールアドレスが間違っているか、迷惑メールフォルダに振り分けられている可能性がございます。
+
+                    鑑定結果は下記、マイページ内「Solar Return」メニューにてご確認ください。
                     <a href="{{ $personal_solar_appraisals_show_url }}" target="_blank">{{ $personal_solar_appraisals_show_url }}</a>
+
+                    株式会社　星の舞
                 ',
             ],
             [
@@ -42,11 +47,16 @@ class TemplateSeeder10 extends Seeder
                 'class_name' => 'ThanksForFamilySolarAppraisal',
                 'title' => '【星の舞】ご購入ありがとうございました',
                 'content' => '
-                    この度は家族Solar Return鑑定のご購入ありがとうございました。
-                    ご登録頂いたメールアドレスへ、購入完了メールをお送りしております。
-                    しばらく経ってもメールが届かない場合は、入力頂いたメールアドレスが間違っているか、迷惑メールフォルダに振り分けられている可能性がございます。
+                    {{$name}}様
+                
+                    このたびは、ご家族の「Solar Return」鑑定のご購入をいただき、ありがとうございました。
+                    ご登録頂いたメールアドレスへ、購入完了メールをお送りいたしました。
+                    しばらく経ってもメールが届かない場合は、ご入力いただいたメールアドレスが間違っているか、迷惑メールフォルダに振り分けられている可能性がございます。
+
                     鑑定結果は下記、マイページ内「家族鑑定」メニューにてご確認ください。
                     <a href="{{ $family_solar_appraisals_show_url }}" target="_blank">{{ $family_solar_appraisals_show_url }}</a>
+
+                    株式会社　星の舞
                 ',
             ],
         ]);

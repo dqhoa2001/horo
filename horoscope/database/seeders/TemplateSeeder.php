@@ -141,7 +141,7 @@ class TemplateSeeder extends Seeder
                 'content' => '
                     {{ $name }}様
 
-                    この度はSolar Returnをお求めくださりありがとうございます。
+                    このたびは、太陽回帰自動鑑定システム「Solar Return」をお求めくださりありがとうございます。
                     銀行振込のお支払いを確認いたしました。
 
                     以下に、ご購入頂いた鑑定結果のご案内をお送りいたします。

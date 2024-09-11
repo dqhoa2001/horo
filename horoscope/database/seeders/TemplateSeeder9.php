@@ -16,12 +16,27 @@ class TemplateSeeder9 extends Seeder
             [
                 'template_name' => 'リマインダー 太陽光発電購入メール',
                 'class_name' => 'ReminderPurchaseSolar',
-                'title' => '【星の舞】リマインダー 太陽光発電購入',
+                'title' => '【星の舞】Solar Returnのご案内',
                 'content' => '
                     {{$full_name}}様
 
-                    あなたの誕生日は3か月後です。
-                    太陽光発電を購入したいですか?
+                    いつもお世話になっております。
+
+                    {{$full_name}}様のお誕生日が近づいてまいりました。
+                    弊社が提供している未来予測鑑定、Solar Returnは、お誕生日の3ヵ月前から該当し始め、
+                    1ヵ月前からははっきりと影響が強くなります。
+
+                    太陽が生まれた時の位置に戻ってからの新たな一年がどうなりそうか、Solar Returnで予測してみませんか。
+
+                    {{$full_name}}様がこの一年をよりクリエイティブに楽しく送るためのお手伝いができましたら幸いです。
+
+                    Solar Returnについて、詳しくはこちらをご覧ください。
+                    ※Solar ReturnのLPページリンク
+
+                    お申し込みはこちらよりお願いいたします。
+                    <a href=""{{$homepage_url}}"" target=""_blank"">{{$homepage_url}}</a>
+
+                    株式会社　星の舞
                 ',
             ],
         ]);
