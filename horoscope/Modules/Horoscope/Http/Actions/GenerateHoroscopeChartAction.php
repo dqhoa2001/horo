@@ -38,6 +38,7 @@ class GenerateHoroscopeChartAction
 
     function execute(array $request, float $scale = 1): Collection
     {
+        $solar = false;
         # modify request data
         $date = Carbon::create(
             $request['year'],
@@ -73,10 +74,10 @@ class GenerateHoroscopeChartAction
             ]);
         }
         # degree data about ascendant, planet: Sun ~ Vertex, house: 1 ~ 12
-        $degreeData = $this->getDegreesDataByPredictAction->execute($swephData, $scale, $useBg);
+        $degreeData = $this->getDegreesDataByPredictAction->execute($swephData, $scale, $useBg, $solar);
         $explainData = $this->getExplainData->execute($degreeData);
         # draw to wheels
-        $this->drawWheelAction->execute($image, $wheels, $degreeData, $scale);
+        $this->drawWheelAction->execute($image, $wheels, $degreeData, $scale,  $solar);
         // dd($bgPath);
         if (!empty($bgPath)) {
             $imageBack = new Imagick();

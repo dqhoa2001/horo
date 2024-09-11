@@ -45,7 +45,8 @@ class DrawWheelAction
         Imagick $image,
         Collection $wheels,
         Collection $degreesData,
-        float $scale
+        float $scale,
+        bool $solar
     ): void {
         # draw line 10 degrees outer wheel
         $this->drawLineAction->execute(
@@ -127,7 +128,8 @@ class DrawWheelAction
         $this->drawPlanetLineAction->execute(
             $wheels->get('outer_main'),
             $degreesData->get('planet_line'),
-            $scale
+            $scale,
+            $solar
         );
         foreach ($wheels as $key => $wheel) {
             $image->drawImage($wheel);

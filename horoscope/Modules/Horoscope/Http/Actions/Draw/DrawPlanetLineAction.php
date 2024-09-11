@@ -22,10 +22,19 @@ class DrawPlanetLineAction
         ImagickDraw $draw,
         Collection $lines,
         float $scale,
+        bool  $solar,
     ): void {
         $radiusFrom = WheelRadiusEnum::PlanetLineFrom * $scale;
         $radiusTo = WheelRadiusEnum::PlanetLineTo * $scale;
-        foreach (PlanetIndex::getKeys() as $key => $planetName) {
+        $keys = PlanetIndex::getKeys(); 
+        
+        if ($solar &&($key = array_search("CHIRON", $keys)) !== false) {
+            unset($keys[$key]); 
+        }
+        
+        $keys = array_values($keys);
+        
+        foreach ($keys as $key => $planetName) {
             $radianFromX = $lines->get('from')[$key]->get('radian_x');
             $radianFromY = $lines->get('from')[$key]->get('radian_y');
             $radianToX = $lines->get('to')[$key]->get('radian_x');

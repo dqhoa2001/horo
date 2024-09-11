@@ -44,6 +44,7 @@ class GenerateSolarHoroscopeChartAction
 
     public function execute(array $request, float $scale = 1): Collection
     {
+        $solar = true;
         #solar_return_year
         $solarYear = $request['solar_year'];
         # modify request data
@@ -76,11 +77,11 @@ class GenerateSolarHoroscopeChartAction
             ]);
         }
         # degree data about ascendant, planet: Sun ~ Vertex, house: 1 ~ 12
-        $degreeData = $this->getDegreesDataByPredictAction->execute($swephData, $scale, $useBg);
+        $degreeData = $this->getDegreesDataByPredictAction->execute($swephData, $scale, $useBg, $solar);
         $explainData = $this->getExplainData->execute($degreeData);
         // dd($explainData);
         # draw to wheels
-        $this->drawWheelAction->execute($image, $wheels, $degreeData, $scale);
+        $this->drawWheelAction->execute($image, $wheels, $degreeData, $scale,$solar);
         // dd($bgPath);
         if (!empty($bgPath)) {
             $imageBack = new Imagick();

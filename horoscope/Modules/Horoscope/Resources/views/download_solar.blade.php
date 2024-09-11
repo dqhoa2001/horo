@@ -165,10 +165,10 @@
 								<p class="page6-data-position__title page6-data-position__title--pluto"><span>冥王星</span></p>
 								<p class="page6-data-position__text page6-data-position__text--{{$zodaics->where('id', $degreeData->get('planets')->get('9')->get('zodiac_num'))->pluck('name_en')->first()}}"><span>{{$zodaics->where('id', $degreeData->get('planets')->get('9')->get('zodiac_num'))->pluck('name')->first()}} {{ $degreeData->get('planets')->get('9')->get('sabian_degrees_dms')->get('degrees') . '°' . $degreeData->get('planets')->get('9')->get('sabian_degrees_dms')->get('minnute') . "'" . $degreeData->get('planets')->get('9')->get('sabian_degrees_dms')->get('second') . '"' }}</span></p>
 							</div>
-							<div class="page6-data-position__item">
+							{{-- <div class="page6-data-position__item">
 								<p class="page6-data-position__title page6-data-position__title--dragonhead"><span>ドラゴンヘッド</span></p>
 								<p class="page6-data-position__text page6-data-position__text--{{$zodaics->where('id', $degreeData->get('planets')->get('10')->get('zodiac_num'))->pluck('name_en')->first()}}"><span>{{$zodaics->where('id', $degreeData->get('planets')->get('10')->get('zodiac_num'))->pluck('name')->first()}} {{ $degreeData->get('planets')->get('10')->get('sabian_degrees_dms')->get('degrees') . '°' . $degreeData->get('planets')->get('10')->get('sabian_degrees_dms')->get('minnute') . "'" . $degreeData->get('planets')->get('10')->get('sabian_degrees_dms')->get('second') . '"' }}</span></p>
-							</div>
+							</div> --}}
 							<div class="page6-data-position__item">
 								<p class="page6-data-position__title page6-data-position__title--kiron"><span>キロン</span></p>
 								<p class="page6-data-position__text page6-data-position__text--{{$zodaics->where('id', $degreeData->get('planets')->get('11')->get('zodiac_num'))->pluck('name_en')->first()}}"><span>{{$zodaics->where('id', $degreeData->get('planets')->get('11')->get('zodiac_num'))->pluck('name')->first()}} {{ $degreeData->get('planets')->get('11')->get('sabian_degrees_dms')->get('degrees') . '°' . $degreeData->get('planets')->get('11')->get('sabian_degrees_dms')->get('minnute') . "'" . $degreeData->get('planets')->get('11')->get('sabian_degrees_dms')->get('second') . '"' }}</span></p>

@@ -58,7 +58,7 @@ class GetDegreesDataByPredictAction
      * @param bool $useBg
      * @return Collection
      */
-    function execute(array $predictData, float $scale, bool $useBg): Collection
+    function execute(array $predictData, float $scale, bool $useBg, bool $solar): Collection
     {
         $degreeData = new Collection();
         #------------ASCENDANT-START--------------------------
@@ -100,10 +100,15 @@ class GetDegreesDataByPredictAction
             ]);
             $planets->push($planet);
         }
+        if($solar){
+            $planets = $planets->reject(function ($planet) {
+                return $planet['name'] === 'CHIRON';
+            });
+        }
         # 2 - put spot degrees of planet after sort asc
         $this->findPlanetSpotDegrees->execute($planets);
         # 3 - put degrees of planet glyph
-        $planetGlyph = $this->findPlanetGlyphDegrees->execute($ascendant, $planets, $scale, $useBg);
+        $planetGlyph = $this->findPlanetGlyphDegrees->execute($ascendant, $planets, $scale, $useBg ,$solar);
         # 4 - put degrees of planet line
         $planetLine = $this->findPlanetLineDegrees->execute($ascendant, $planets);
         #------------PLANETS-END--------------------------------
@@ -174,7 +179,7 @@ class GetDegreesDataByPredictAction
 
         #------------ASPECT-START--------------------------------
         # add aspect of planet to planets
-        $aspectLine = $this->findAspecLine->execute($ascendant, $planets);
+        $aspectLine = $this->findAspecLine->execute($ascendant, $planets,$solar);
 
         #-----------LINE-ANNOTATION-OTHER-START----------------
         # current degree of ascendant

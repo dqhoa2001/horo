@@ -16,7 +16,7 @@ class FindAspecLine
      * @param Collection $planets
      * @param Collection
      */
-    function execute(float $ascendant, Collection $planets): Collection
+    function execute(float $ascendant, Collection $planets,bool $solar): Collection
     {
         $aspectLine = new Collection();
         $asp = [];
@@ -24,7 +24,9 @@ class FindAspecLine
             $aspects = new Collection();
             $aspectTo = new Collection();
 
-
+            if ($solar && $i == 10) {
+                continue;
+            }
             $aspects->put('from', collect([
                 $planets[$i]->get('name') => collect([
                     'degrees' => $planets[$i]->get('degrees') - $ascendant,
@@ -39,8 +41,8 @@ class FindAspecLine
 
                 // @MOD 2023/12/13 by kaibetty.
                 //  ドラゴンヘッド(idx==10)は0度, 180度の時だけ採用するよう変更
-                if ($i == 10 || $j == 10) {
-                    // continue;
+                if ($solar && $j == 10) {
+                    continue;
                 }
 
                 $q = -1; // @MOD 2023/12/13  デフォルト値:-1 コンジャンクションで"0"を使うため

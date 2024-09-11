@@ -23,10 +23,15 @@ class FindPlanetGlyphDegrees
         Collection $planets,
         float $scale,
         bool $useBackground = false,
+        bool $solar,
     ): Collection {
         $planetGlyphs = new Collection();
         $glyphs = new Collection();
         foreach ($planets as $planet) {
+            if($solar && $planet->get('name') == 'CHIRON')
+            {
+                continue;
+            }
             $degrees = $planet->get('spot_degrees') - $ascendant;
             $glyphs->push(collect([
                 'degrees' => $degrees,
