@@ -13,9 +13,9 @@
 /*Solar date text*/
 .date-info{
     text-align: center;
-    font-size: 1.4rem;
-    margin-top: 11rem;
-    margin-left: 5rem;
+    font-size: 2rem;
+    margin-top: 18rem;
+    margin-bottom: -10rem;
 }
 .Pageframe-main input,
 .Pageframe-main button,
@@ -178,7 +178,6 @@
 @media screen and (width <= 1600px) , print{
     /*Solar date text*/
     .date-info{
-        margin-left:9rem
     }
 }
 @media screen and (max-width:1188px) , print{
@@ -190,7 +189,7 @@
 @media screen and (max-width:900px) , print{
     /*Solar date text*/
     .date-info{
-        margin-left: 21rem;
+        /* margin-left: 21rem; */
     }
 }
 @media screen and (min-width:501px) and (max-width:750px) , print{
@@ -201,16 +200,14 @@
     }
     /*Solar date text*/
     .date-info{
-        margin-left: 17rem;
-        font-size: 1.3rem;
-        margin-right: 2rem;
+        margin-bottom: -8rem;
+        font-size: 1.8rem;
     }
 }
 @media screen and (max-width:650px) , print{
     /*Solar date text*/
     .date-info{
-        margin-left: 16rem;
-        font-size: 1.13rem;
+        font-size: 1.4rem;
     }
 }
 @media screen and (max-width:500px) , print{
@@ -228,9 +225,9 @@
     }
     /*Solar date text*/
     .date-info{
-        font-size: 1.3rem;
-        margin-left: 2rem;
-        margin-right: 2rem;
+        font-size: .9rem;
+        margin-top: 13rem;
+        margin-bottom: -7rem;
     }
 }
 

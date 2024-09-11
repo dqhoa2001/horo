@@ -14,9 +14,9 @@
 
 .date-info{
     text-align: center;
-    font-size: 1.4rem;
-    margin-top: 11rem;
-    margin-left: 5rem;
+    font-size: 2rem;
+    margin-top: 18rem;
+    margin-bottom: -10rem;
 }
 .Pageframe-main-header__pagename::before{
 	width: 2.5rem;
@@ -233,7 +233,7 @@
 }
 @media screen and (width <= 1600px) , print{
     .date-info{
-        margin-left:9rem
+        /* margin-left:9rem */
     }
 }
 @media screen and (max-width:1188px) , print{
@@ -252,7 +252,7 @@
         opacity: 0 !important;
     }
     .date-info{
-        margin-left: 21rem;
+        /* margin-left: 21rem; */
     }
 }
 @media screen and (max-width:500px) , print{
@@ -298,16 +298,18 @@
 		display: block !important;
 	}
     .date-info{
-        margin-left: 17rem;
+        /* margin-left: 17rem;
         font-size: 1.3rem;
-        margin-right: 2rem;
+        margin-right: 2rem; */
+        margin-bottom: -8rem;
+        font-size: 1.8rem;
     }
 }
 
 @media screen and (max-width:650px) , print{
     .date-info{
-        margin-left: 16rem;
-        font-size: 1.13rem;
+        /* margin-left: 16rem; */
+        font-size: 1.4rem;
     }
 }
 @media screen and (max-width:500px) , print{
@@ -334,9 +336,9 @@
     }
 
     .date-info{
-        font-size: 1.3rem;
-        margin-left: 2rem;
-        margin-right: 2rem;
+        font-size: .9rem;
+        margin-top: 13rem;
+        margin-bottom: -7rem;
     }
 
 }
