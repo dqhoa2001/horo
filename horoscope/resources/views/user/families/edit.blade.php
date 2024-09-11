@@ -547,21 +547,24 @@
             this.setMonth(oldMonth);
             this.setDay(oldDay);
 
-            const firstOptionValue = this.$refs.solar_date.options[0].value;
-            // const firstOption = this.$refs.solar_date.value[0];
-            if (firstOptionValue) {
-                // this.selectedSolarDate = firstOption;
-                this.selectedSolarDate = firstOptionValue;
-            }
-            this.highlightButton();
-            this.$refs.solar_date.addEventListener('click', this.handleSelectClick);
+            // const firstOptionValue = this.$refs.solar_date.options[0].value;
+            // // const firstOption = this.$refs.solar_date.value[0];
+            // if (firstOptionValue) {
+            //     // this.selectedSolarDate = firstOption;
+            //     this.selectedSolarDate = firstOptionValue;
+            // }
+            // this.highlightButton();
+            // this.$refs.solar_date.addEventListener('click', this.handleSelectClick);
 
-            const selectedOption = localStorage.getItem('selectedSolarDate');
-            if (selectedOption) {
-                this.selectedSolarDate = selectedOption;
-                this.isSelectBoxHighlighted = !this.isSelectBoxHighlighted;
-                this.resetButton();
-            }
+            // const selectedOption = localStorage.getItem('selectedSolarDate');
+            // if (selectedOption) {
+            //     this.selectedSolarDate = selectedOption;
+            //     this.isSelectBoxHighlighted = !this.isSelectBoxHighlighted;
+            //     this.resetButton();
+            // }
+            const prefectures = document.getElementById('birthday_prefectures');
+            prefectures.addEventListener('input', this.handleInputChange);
+
         }
     }).mount('#popup-horoscope');
 </script>
