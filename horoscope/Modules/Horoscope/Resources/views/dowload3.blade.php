@@ -302,7 +302,7 @@
                             </p>
                             <p class="page__text">
                                 <span style="text-indent: 0;">
-                                    {{ $zodaicsPattern->where('zodiac_id', $house->get('zodiac_num'))->where('planet_id', 14)->pluck('content')->first() }}</span>
+                                    {!! nl2br($zodaicsPattern->where('zodiac_id', $house->get('zodiac_num'))->where('planet_id', 14)->pluck('content')->first()) !!}</span>
                             </p>
                         @endif
                     @endforeach
@@ -336,7 +336,7 @@
                                     class="handfont1">{{ $zodaics->where('id', $house->get('zodiac_num'))->pluck('name_en')->first() }}</span>
                             </p>
                             <p class="page__text">
-                                <span style="text-indent: 0;">{{ $zodaicsPattern->where('zodiac_id', $house->get('zodiac_num'))->where('planet_id', 15)->pluck('content')->first() }}</span>
+                                <span style="text-indent: 0;">{!! nl2br($zodaicsPattern->where('zodiac_id', $house->get('zodiac_num'))->where('planet_id', 15)->pluck('content')->first()) !!}</span>
                             </p>
                         </div>
                     @endif

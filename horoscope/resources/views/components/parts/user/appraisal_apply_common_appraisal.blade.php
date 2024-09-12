@@ -185,14 +185,14 @@
                             <dl class="C-appraisal-content--acmc-block">
                                 {{-- <dt class="C-appraisal-content--acmc-block__title">AC（アセンダント）とは</dt> --}}
                                 <dd class="C-appraisal-content--acmc-block__body">
-                                    {{ $zodaicsPattern->where('zodiac_id', $house->get('zodiac_num'))->where('planet_id', 14)->pluck('content')->first() }}
+                                    {!! nl2br($zodaicsPattern->where('zodiac_id', $house->get('zodiac_num'))->where('planet_id', 14)->pluck('content')->first()) !!}
                                 </dd>
                             </dl>
                         @else
                             <dl class="C-appraisal-content--acmc-block">
                                 {{-- <dt class="C-appraisal-content--acmc-block__title">MCとは</dt> --}}
                                 <dd class="C-appraisal-content--acmc-block__body">
-                                    {{ $zodaicsPattern->where('zodiac_id', $house->get('zodiac_num'))->where('planet_id', 15)->pluck('content')->first() }}
+                                    {!! nl2br($zodaicsPattern->where('zodiac_id', $house->get('zodiac_num'))->where('planet_id', 15)->pluck('content')->first()) !!}
                                 </dd>
                             </dl>
                         @endif

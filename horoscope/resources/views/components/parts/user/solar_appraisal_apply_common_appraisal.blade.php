@@ -97,7 +97,7 @@
                             <dl class="C-appraisal-content--acmc-block">
                                 {{-- <dt class="C-appraisal-content--acmc-block__title">AC（アセンダント）とは</dt> --}}
                                 <dd class="C-appraisal-content--acmc-block__body">
-                                    {{ $zodaicsPattern->where('zodiac_id', $house->get('zodiac_num'))->where('planet_id', 14)->pluck('content_solar')->first() }}
+                                    {!! nl2br($zodaicsPattern->where('zodiac_id', $house->get('zodiac_num'))->where('planet_id', 14)->pluck('content_solar')->first()) !!}
                                 </dd>
                             </dl>
                         @endif
