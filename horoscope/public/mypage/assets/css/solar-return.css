@@ -224,6 +224,10 @@
     color: #F17424 !important;
     border-radius: 1.6rem !important;
 }
+.non_Solar{
+    border: 1px solid rgba(204,206,213,.35);
+    border-radius: 1.6rem !important;
+}
 .active_MyHoro{
     border: 1px solid #39385d;
     color: #39385d;
