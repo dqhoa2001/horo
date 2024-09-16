@@ -102,7 +102,7 @@ class TemplateSeeder5 extends Seeder
 
                     ご不明な点がございましたら、お気軽にお問い合わせください。
 
-                    株式会社星の舞
+                    株式会社　星の舞
                 ',
             ],
         ]);

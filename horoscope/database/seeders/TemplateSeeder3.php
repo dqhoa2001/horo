@@ -106,7 +106,7 @@ class TemplateSeeder3 extends Seeder
                     本サービスが{{$name}}様の人生がより良くなる一助となりますと幸いです。
 
 
-                    株式会社星の舞
+                    株式会社　星の舞
                 ',
             ],
             [
@@ -125,7 +125,7 @@ class TemplateSeeder3 extends Seeder
 
                     本サービスが{{$name}}様の人生がより良くなる一助となりますと幸いです。
 
-                    株式会社星の舞
+                    株式会社　星の舞
                 ',
             ],
         ]);
