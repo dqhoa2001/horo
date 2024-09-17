@@ -54,7 +54,7 @@
 							@include('components.parts.user.family.solar_appraisal_apply_baner')
 
 							{{-- 製本バナー --}}
-							@include('components.parts.user.family.solar_appraisal_apply_common_baner')
+							<!-- @include('components.parts.user.family.solar_appraisal_apply_common_baner') -->
 						</div>
 					</section>
 					<!-- ***** セクション名 ***** -->

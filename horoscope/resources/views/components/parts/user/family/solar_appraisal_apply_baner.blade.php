@@ -15,7 +15,7 @@
     </div>
     <p class="C-solar-appraisal-banner__book-price">
         [ 製本オプション + {{ $bookbinding->price_formatted
-    }}円<span class="book-price">(税込)</span>]<span class="book-price">　<br class="sp">※製本オプションは2024年2月リリース</span>
+    }}円<span class="book-price">(税込)</span>]<span class="book-price">　<br class="sp">※製本オプションは2024年10月リリース予定</span>
     </p>
     <div class="C-solar-appraisal-banner__box">
         <p class="C-solar-form__message C-appraisal-banner__book-text">

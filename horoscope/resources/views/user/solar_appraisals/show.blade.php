@@ -58,7 +58,7 @@
                             </div>
 
                             {{-- 製本バナー --}}
-                            @include('components.parts.user.solar_return_apply_common_baner')
+                            <!-- @include('components.parts.user.solar_return_apply_common_baner') -->
 
                             <div class="Button Button--orange2 Button--blue-review">
                                 <a href="https://hoshinomai.jp/review" target="_blank" rel="noopener noreferrer" class="btn-review">レビューを投稿する</a>
