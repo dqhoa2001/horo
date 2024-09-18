@@ -99,7 +99,7 @@ class TemplateSeeder3 extends Seeder
                     このたびは、太陽回帰自動鑑定システム「Solar Return」をご購入頂き誠にありがとうございます。
 
                     鑑定結果は、星の舞マイページよりさっそくご覧いただけます。
-                    https://mypage.hoshinomai.jp/user/login ※マイページトップではなく、鑑定結果ページに直接とべますか？
+                    <a href="{{ $appraisal_url }}" target="_blank">{{ $appraisal_url }}</a> 
 
                     お申し込み時に設定いただきましたメールアドレスとパスワードにてログインくださいますようお願いいたします。
 
@@ -119,7 +119,7 @@ class TemplateSeeder3 extends Seeder
                     このたびは、太陽回帰自動鑑定システム「Solar Return」の家族鑑定をご購入頂き誠にありがとうございます。
 
                     鑑定結果は、星の舞マイページより早速ご覧いただけます。
-                    https://mypage.hoshinomai.jp/user/login ※マイページトップではなく、鑑定結果ページに直接とべますか？
+                    <a href="{{ $appraisal_url }}" target="_blank">{{ $appraisal_url }}</a>
 
                     お申し込み時に設定いただきましたメールアドレスとパスワードにてログインくださいますようお願いいたします。
 

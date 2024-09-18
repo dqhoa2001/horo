@@ -41,6 +41,7 @@ class CompleteForFamilySolarAppraisal extends Mailable implements ShouldQueue
             'homepage_url'       => config('app.home_url'),
             'contact_url'        => route('user.contacts.create'),
             'admin_email'        => config('app.email'),
+            'appraisal_url'      => route('user.solar_appraisals.show', $this->appraisalApply->id), 
         ];
     }
 
