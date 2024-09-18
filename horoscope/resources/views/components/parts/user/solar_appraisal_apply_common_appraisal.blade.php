@@ -358,7 +358,7 @@
                                 <dt class="C-appraisal-content-header-message__title">アスペクト<br
                                         class="sp">（他の天体との関わりからわかること）</dt>
                                 <dd class="C-appraisal-content-header-message__text">
-                                    太陽が他の天体とどうかかわっているかがこの一年を読み解く重要なギになります。一つひとつ丁
+                                    太陽が他の天体とどうかかわっているかがこの一年を読み解く重要なカギになります。一つひとつ丁
                                     寧に読み解いて、自分がやりたいことと比較し、進むヒントにしてください。
                                 </dd>
                             </dl>
