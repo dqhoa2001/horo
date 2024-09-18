@@ -313,9 +313,7 @@
                             <dl class="C-appraisal-content-header-message">
                                 <dt class="C-appraisal-content-header-message__title">冥王星のサビアンシンボル</dt>
                                 <dd class="C-appraisal-content-header-message__text">
-                                    　冥王星は一年かけて3度ほどしか進まないため、太陽回帰のサビアンシンボルを多くの人が共有
-                                    します。そのため、より集合意識的な意味が強まります。とはいえ、あなたが深いレベルで変えようと
-                                    していることや手に入れようとしている力をあらわしていると考えて読んでみましょう。
+                                　冥王星は一年をかけてホロスコープ上をわずかしか進まないため、ソーラーリターンでは、多くの人が同じ冥王星のサビアンシンボルを共有します。
                                 </dd>
                             </dl>
                         @endif
