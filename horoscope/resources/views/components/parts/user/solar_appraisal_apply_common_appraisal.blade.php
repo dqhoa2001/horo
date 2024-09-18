@@ -157,11 +157,12 @@
                         <div class="C-appraisal-content-header-data__mark"></div>
                         <div class="C-appraisal-content-header-data__jp">{{ $planetExplain->get('planet')->name }}</div>
                         <div class="C-appraisal-content-header-data__en font">{{ $planetExplain->get('planet')->name_en }}</div>
-                        @if($planet == 'SUN')
+                        <div class="C-appraisal-content-header-data__year"></div>
+                        <!-- @if($planet == 'SUN')
                             <div class="C-appraisal-content-header-data__year"></div>
                         @else
                             <div class="C-appraisal-content-header-data__year">{{ $planetExplain->get('planet')->year_range }}</div>
-                        @endif
+                        @endif -->
                     </div>
 
                     <div class="C-appraisal-content-header__first-message">
