@@ -18,11 +18,10 @@
     }}円<span class="book-price">(税込)</span>]<span class="book-price">　<br class="sp">※製本オプションは2024年10月リリース予定</span>
     </p>
     <div class="C-solar-appraisal-banner__box">
-        <p class="C-solar-form__message C-appraisal-banner__book-text">
-            海部舞がすべて書き下ろした鑑定文で、あなただけの唯一無二の内容</p>
-        <p class="C-solar-form__message C-appraisal-banner__book-text">A4サイズで約25ページのボリューム</p>
-        <p class="C-solar-form__message C-appraisal-banner__book-text">ひとつの天体だけで3ページ以上のボリューム</p>
-        <p class="C-solar-form__message C-appraisal-banner__book-text">星々の特性が更に具体的になる！<br>
+        <p class="C-solar-form__message C-appraisal-banner__book-text">海部 舞が鑑定文をすべて書き下ろし</p>
+        <p class="C-solar-form__message C-appraisal-banner__book-text">A4サイズで40ページ前後のボリューム</p>
+        <p class="C-solar-form__message C-appraisal-banner__book-text">全ての天体の項目において、12サイン、ハウス、サビアンシンボル、アスペクト、すべてが詳細に記されています!</p>
+        <p class="C-solar-form__message C-appraisal-banner__book-text">世界初、最高水準のソーラーリターン鑑定システム!<br>
             「サビアンシンボル」と「アスペクト」も掲載！</p>
     </div>
     <div class="C-solar-appraisal-banner__sub-box">
