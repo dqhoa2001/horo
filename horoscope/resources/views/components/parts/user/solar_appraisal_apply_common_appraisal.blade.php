@@ -248,7 +248,7 @@
                             <dl class="C-appraisal-content-header-message">
                                 <dt class="C-appraisal-content-header-message__title">月のサビアンシンボル</dt>
                                 <dd class="C-appraisal-content-header-message__text">
-                                    本質的に持っている能力や特性をあらわすことが多く、このサビアンシンボルのテーマはあまり自覚できなかったり表には出にくい傾向があります。<br>しかし、確実に持ち合わせているものであり、この能力を生かせるようになると大きく変わります。<br>また、このサビアンシンボルがあらわすことが幼児期の体験や心象にかかわることも多くあります。
+                                    今年、暮らしや心の中であなたが抱くテーマを具体的にあらわします。サビアンシンボルが示すような体験や気づきがあるでしょう。
                                 </dd>
                             </dl>
                         @endif
@@ -256,7 +256,7 @@
                             <dl class="C-appraisal-content-header-message">
                                 <dt class="C-appraisal-content-header-message__title">水星のサビアンシンボル</dt>
                                 <dd class="C-appraisal-content-header-message__text">
-                                    水星のサビアンシンボルからは、あなたのもって生まれた知性の特徴がわかります。シンボルの解説文を読むときには、あなたが、学習や人とのコミュニケーションといった知的な活動をどのようにしようとしているか、といったことについて言及されているのだという意識で見てみましょう。
+                                    今年の知的な関心ごとやテーマが具体的にわかります。サビアンシンボルには、知識や認知的な領域で変わったり獲得していくテーマが示されています。
                                 </dd>
                             </dl>
                         @endif
@@ -272,14 +272,14 @@
                             <dl class="C-appraisal-content-header-message">
                                 <dt class="C-appraisal-content-header-message__title">火星のサビアンシンボル</dt>
                                 <dd class="C-appraisal-content-header-message__text">
-                                    火星のサビアンシンボルからは、あなたの火星の年齢域の頃の特徴やそのころに獲得する能力、社会で実現させようと情熱を傾けるテーマなどが詳しくわかります。</dd>
+                                    この時期、社会的にどのようなことに集中して励むのか、どんなパッションをもって行動するのか、といったことが具体的に示されています。</dd>
                             </dl>
                         @endif
                         @if ($planet == 'JUPITER')
                             <dl class="C-appraisal-content-header-message">
                                 <dt class="C-appraisal-content-header-message__title">木星のサビアンシンボル</dt>
                                 <dd class="C-appraisal-content-header-message__text">
-                                    木星は一つのサインにおよそ１年間滞在するため、あなたの木星の性質は、サビアンシンボルが最もよくあらわしています。木星のシンボル解説に書かれた能力などが、あなたの社会的な成功につながるのだとはっきりと認識できるといいでしょう。
+                                    あなたの今年の幸運にかかわるテーマがサビアンシンボルに具体的にあらわれています。そのような能力を身につけ、社会的に活かせるかもしれませんし、やるとうまくいきやすいことをあらわしていることもあります。そんな意識で見てみましょう。
                                 </dd>
                             </dl>
                         @endif
@@ -287,7 +287,7 @@
                             <dl class="C-appraisal-content-header-message">
                                 <dt class="C-appraisal-content-header-message__title">土星のサビアンシンボル</dt>
                                 <dd class="C-appraisal-content-header-message__text">
-                                    土星のサビアンシンボルには、あなたが時間をかけ、努力して手に入れる能力が表れています。こういう人です、こういう能力があります、などと書かれた解説文でも、それを手に入れるのは晩年期であり、最終的な目標なのだと認識しておきましょう。また、土星の年齢域の頃にどのように生きるかをサビアンシンボルが示唆していることも多いでしょう。
+                                    この一年、あなたが努力して手に入れようとすること、時間をかけて行っていこうとすることが具体的に示されています。社会的にはとても重要なテーマとなり、これを達成することで、社会基盤がさらに強固になるでしょう。
                                 </dd>
                             </dl>
                         @endif
