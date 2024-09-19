@@ -239,6 +239,7 @@ class CheckPaymentSolarController extends Controller
         ]);
 
     }
+
     public function complete(Request $request): View
     {
         $solarApply = AppraisalApply::find($request->solarApply);
@@ -247,6 +248,7 @@ class CheckPaymentSolarController extends Controller
             'target_type' => $request->target_type,
         ]);
     }
+
     // 完了画面
     public function thanks(Request $request): View
     {

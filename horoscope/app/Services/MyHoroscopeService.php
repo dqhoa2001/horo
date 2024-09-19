@@ -36,7 +36,8 @@ class MyHoroscopeService
         $user->timezome = $request->timezone;
         $user->save();
     }
-    public static function updateSorlarDate(Request $request): void{
+
+    public static function updateSorlarDate(Request $request): void {
         $user = auth()->guard('user')->user();
         $user->solar_date = $request->solar_date;
         $user->save();

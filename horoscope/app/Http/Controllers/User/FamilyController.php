@@ -117,10 +117,11 @@ class FamilyController extends Controller
             'solarAppraisals' => AppraisalApply::whereHas('appraisalClaim', static function ($query) {
                 $query->where('is_paid', true);
             })->where('reference_type', Family::class)
-            ->where('reference_id', $family->id)
-            ->where('solar_return', '!=', 0)->get(),
+                ->where('reference_id', $family->id)
+                ->where('solar_return', '!=', 0)->get(),
         ]);
     }
+
     public function show(Family $family,AppraisalApply $solar_apply): View
     {
         // ホロスコープ生成なデータを作成
@@ -163,7 +164,7 @@ class FamilyController extends Controller
             $age--;
             $solar_return--;
         }
-        $formattedAge = '太陽回帰年月日　' . $solar_return.'年' . $birthdayDate->month . '月' . $birthdayDate->day . '日　' .  $birthHour . '時' . $birthMinute . '分';
+        $formattedAge = '太陽回帰年月日　' . $solar_return . '年' . $birthdayDate->month . '月' . $birthdayDate->day . '日　' . $birthHour . '時' . $birthMinute . '分';
         return view('user.families.edit', [
             'family'     => $family,
             'solarApply' => $solar_apply,
@@ -179,11 +180,12 @@ class FamilyController extends Controller
             'solarAppraisals' => AppraisalApply::whereHas('appraisalClaim', static function ($query) {
                 $query->where('is_paid', true);
             })->where('reference_type', $solar_apply->reference_type)
-            ->where('reference_id', $solar_apply->reference_id)
-            ->where('solar_return', '!=', 0)->get(),
+                ->where('reference_id', $solar_apply->reference_id)
+                ->where('solar_return', '!=', 0)->get(),
             'formattedAge' => $formattedAge,
         ]);
     }
+
     // 家族のホロスコープ更新
     public function update(UpdateRequest $request, Family $family): RedirectResponse
     {

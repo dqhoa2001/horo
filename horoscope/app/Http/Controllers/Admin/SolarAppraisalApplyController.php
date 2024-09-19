@@ -37,6 +37,7 @@ class SolarAppraisalApplyController extends Controller
         protected ZodiacPatternRepository $zodiacPatternRepository,
         protected AppraisalApplyService $appraisalApplyService,
     ) {}
+
     // 鑑定編集
     public function edit(SolarApply $solarApply): View
     {

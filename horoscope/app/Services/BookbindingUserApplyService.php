@@ -70,7 +70,6 @@ class BookbindingUserApplyService
         return $bookbindingUserApply;
     }
 
-
     public static function createForSolarBookbinding(Request $request, AppraisalApply $appraisalApply, ?string $bulkBindingKey = null, ?int $bulkBindingCount = null): BookbindingUserApply
     {
         $bookbindingUserApply = BookbindingUserApply::create([

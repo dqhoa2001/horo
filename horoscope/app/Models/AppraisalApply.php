@@ -39,6 +39,7 @@ class AppraisalApply extends Model
     const PDF_KLEOS = 20; //クレオス
 
     const PDF_DYNAMIS = 30; //デュナミス
+
     const PDF_SOLAR_RETURN = 40; //デュナミス
 
     // PDFの種類
@@ -47,6 +48,7 @@ class AppraisalApply extends Model
         self::PDF_KLEOS => 'KLEOS',
         self::PDF_DYNAMIS => 'DYNAMIS',
     ];
+
     const PDF_TYPE_SOLAR = [
         self::PDF_SOLAR_RETURN => 'SOLAR',
     ];
@@ -62,6 +64,7 @@ class AppraisalApply extends Model
         self::USER => '個人',
         self::FAMILY => '家族',
     ];
+
     const COMPLETE_TARGET_TYPE_SOLAR = [
         self::USER => 'SolarReturn（個人鑑定）',
         self::FAMILY => 'SolarReturn（家族鑑定）',
@@ -139,6 +142,7 @@ class AppraisalApply extends Model
             self::BOOK_DISABLED => '希望しない',
         ];
     }
+
     public static function getSolarBookbindingType(): array
     {
         $price = Bookbinding::where('is_enabled', Bookbinding::BOOKBINDING)->where('solar_return',true)->first()->price;

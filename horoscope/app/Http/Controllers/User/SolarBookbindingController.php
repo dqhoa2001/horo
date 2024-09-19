@@ -41,7 +41,7 @@ class SolarBookbindingController extends Controller
         $personalSolarAppraisals = $user->appraisalApplies()->where('solar_return','!=',0)->whereHas('appraisalClaim', static function ($query) {
             $query->where('is_paid', true);
         })->orderBy('id', 'desc')->get();
-        $familySolarAppraisals = $user->families->mapWithKeys(function ($family) {
+        $familySolarAppraisals = $user->families->mapWithKeys(static function ($family) {
             $solarAppraisals = $family->appraisalApplies()->where('solar_return', '!=', 0)->orderBy('id', 'asc')->get();
             return [$family->id => $solarAppraisals];
         });

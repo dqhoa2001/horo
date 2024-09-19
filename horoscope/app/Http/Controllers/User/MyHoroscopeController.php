@@ -151,7 +151,7 @@ class MyHoroscopeController extends Controller
             $age--;
             $solar_return--;
         }
-        $formattedAge = '太陽回帰年月日　' . $solar_return.'年' . $birthdayDate->month . '月' . $birthdayDate->day . '日　' .  $birthHour . '時' . $birthMinute . '分';
+        $formattedAge = '太陽回帰年月日　' . $solar_return . '年' . $birthdayDate->month . '月' . $birthdayDate->day . '日　' . $birthHour . '時' . $birthMinute . '分';
 
         return view('user.my_horoscopes.edit', [
             'solarApply' => $solar_apply,
@@ -167,6 +167,7 @@ class MyHoroscopeController extends Controller
             'formattedAge' => $formattedAge,
         ]);
     }
+
     public function update(UpdateRequest $request): RedirectResponse
     {
         try {

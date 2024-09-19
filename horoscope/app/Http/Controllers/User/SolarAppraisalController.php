@@ -63,7 +63,7 @@ class SolarAppraisalController extends Controller
         })->whereHas('appraisalClaim', static function ($query) {
             $query->where('is_paid', true);
         })->where('reference_type', User::class)
-        ->where('solar_return','!=',0)->latest()->first();
+            ->where('solar_return','!=',0)->latest()->first();
         return view('user.solar_appraisals.index', [
             'latestSolarAppraisalApply' => $latestSolarAppraisalApply,
             'solarAppraisals' => $solarAppraisals,
@@ -294,6 +294,7 @@ class SolarAppraisalController extends Controller
         ]);
 
     }
+
     public function complete(Request $request): View|RedirectResponse
     {
         $solarApply = AppraisalApply::find($request->solarApply);

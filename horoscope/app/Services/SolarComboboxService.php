@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Builder;
 
 class SolarComboboxService
 {
-    public static function SolarCombobox(Int $reference_id, string $reference_type)
+    public static function SolarCombobox(int $reference_id, string $reference_type)
     {
-        $solarAppraisals = AppraisalApply::whereIn('id', function ($query) use ($reference_id, $reference_type) {
+        $solarAppraisals = AppraisalApply::whereIn('id', static function ($query) use ($reference_id, $reference_type) {
             $query->selectRaw('MAX(id)')
                 ->from('appraisal_applies')
-                ->whereExists(function ($subquery) {
+                ->whereExists(static function ($subquery) {
                     $subquery->selectRaw(1)
                         ->from('appraisal_claims')
                         ->whereColumn('appraisal_applies.id', 'appraisal_claims.appraisal_apply_id')
@@ -23,8 +23,8 @@ class SolarComboboxService
                 ->where('solar_return', '!=', 0)
                 ->groupBy('solar_return');
         })
-        ->orderBy('solar_return')
-        ->get();
+            ->orderBy('solar_return')
+            ->get();
 
         return $solarAppraisals;
     }

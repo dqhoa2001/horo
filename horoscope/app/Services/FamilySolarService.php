@@ -120,7 +120,6 @@ class FamilySolarService
         return $family;
     }
 
-
     // 家族鑑定申し込み済みかどうか判定
     public static function isSolarClaimed(Family $family): bool
     {

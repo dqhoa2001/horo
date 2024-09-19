@@ -99,7 +99,7 @@ class TemplateSeeder3 extends Seeder
                     このたびは、太陽回帰自動鑑定システム「Solar Return」をご購入頂き誠にありがとうございます。
 
                     鑑定結果は、星の舞マイページよりさっそくご覧いただけます。
-                    <a href="{{ $appraisal_url }}" target="_blank">{{ $appraisal_url }}</a> 
+                    <a href="{{ $appraisal_url }}" target="_blank">{{ $appraisal_url }}</a>
 
                     お申し込み時に設定いただきましたメールアドレスとパスワードにてログインくださいますようお願いいたします。
 

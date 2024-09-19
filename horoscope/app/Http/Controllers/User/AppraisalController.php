@@ -74,7 +74,7 @@ class AppraisalController extends Controller
         })->whereHas('appraisalClaim', static function ($query) {
             $query->where('is_paid', true);
         })->where('reference_type', User::class)
-        ->where('solar_return',0)->latest()->first();
+            ->where('solar_return',0)->latest()->first();
         // 鑑定結果がある場合showへリダイレクト
         if ($latestAppraisalApply) {
             return to_route('user.appraisals.show', $latestAppraisalApply);

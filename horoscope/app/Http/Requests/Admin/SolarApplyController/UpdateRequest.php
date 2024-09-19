@@ -25,7 +25,7 @@ class UpdateRequest extends FormRequest
             // 'latitude' => ['required', 'numeric'],
             // 'longitude' => ['required', 'numeric'],
             // 'timezome' => ['required', 'integer'],
-            'solar_date' => ['required','integer','min:1900']
+            'solar_date' => ['required', 'integer', 'min:1900']
         ];
     }
 

@@ -186,8 +186,8 @@ class User extends Authenticatable implements MustVerifyEmail
     public function hasPaidForMyHoroscope(): bool
     {
         return $this->appraisalClaims()
-                    ->where('is_paid', true)
-                    ->exists();
+            ->where('is_paid', true)
+            ->exists();
     }
 
     // 製本の申し込みをしているかどうか
@@ -198,6 +198,7 @@ class User extends Authenticatable implements MustVerifyEmail
         }
         return false;
     }
+
     // 管理者クーポンの使用回数を集計する
     public function countUsedAdminCoupon(string $couponCode): int
     {
@@ -247,6 +248,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
         return true;
     }
+
     public function familiesWithAppraisalApplies()
     {
         return $this->families()->whereHas('appraisalApplies', static function ($query) {

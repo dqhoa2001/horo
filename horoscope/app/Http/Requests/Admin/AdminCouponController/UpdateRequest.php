@@ -40,6 +40,7 @@ class UpdateRequest extends FormRequest
             'is_family_solar_return_appr_enabled' => ['required', 'boolean'],
         ];
     }
+
     /**
      * @return array
      */
