@@ -26,8 +26,8 @@
     <div class="C-solar-appraisal-banner__box">
         <p class="C-solar-form__message C-appraisal-banner__book-text">海部 舞が鑑定文をすべて書き下ろし</p>
         <p class="C-solar-form__message C-appraisal-banner__book-text">A4サイズで40ページ前後のボリューム</p>
-        <p class="C-solar-form__message C-appraisal-banner__book-text">全ての天体の項目において、12サイン、ハウス、サビアンシンボル、アスペクト、
-すべてが詳細に記されています!</p>
+        <p class="C-solar-form__message C-appraisal-banner__book-text">全ての天体の項目において、12サイン、ハウス、サビアンシンボル、アスペクト、<br>
+            すべてが詳細に記されています!</p>
         <p class="C-solar-form__message C-appraisal-banner__book-text ">世界初、最高水準のソーラーリターン鑑定システム!</p>
     </div>
     <div class="C-solar-appraisal-banner__sub-box">

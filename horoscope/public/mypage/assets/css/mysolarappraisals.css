@@ -421,7 +421,7 @@
     width: .9rem;
     height: 1.2rem;
     left: 0;
-    top: calc(50% - .6rem);
+    top: 0.85rem;
     position: absolute;
     background-image: url(../images/common/icon_sun.svg);
     background-position: center center;
