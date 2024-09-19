@@ -19,16 +19,4 @@ class GetMail
         }
         return $email;
     }
-
-    public static function getMailForSolarApply(SolarApply $solarApply): string
-    {
-        $email = '';
-
-        if ($solarApply->reference_type === User::class) {
-            $email = $solarApply->reference->email;
-        } else {
-            $email = $solarApply->reference->user->email;
-        }
-        return $email;
-    }
 }

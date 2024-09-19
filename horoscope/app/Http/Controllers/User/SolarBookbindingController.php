@@ -55,7 +55,7 @@ class SolarBookbindingController extends Controller
         ]);
     }
 
-    public function confirm(ConfirmRequest $request)
+    public function confirm(ConfirmRequest $request): View|RedirectResponse
     {
         $user = auth()->guard('user')->user();
         $data = $request->substitutable();

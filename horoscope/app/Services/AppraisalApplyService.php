@@ -73,7 +73,7 @@ class AppraisalApplyService
                     'solar_return' => $request->solar_return ?? 0,
                     'birthday' => $user->birthday,
                     'birthday_prefectures' => $request->birthday_prefectures,
-                    'birthday_city' => $formData['map_city'] ?? $request->birthday_city,
+                    'birthday_city' => $formData['map-city'] ?? $request->birthday_city,
                     'birthday_time' => $formData['hour'] . ':' . $formData['minute'],
                     'longitude' => $formData['longitude'],
                     'latitude' => $formData['latitude'],

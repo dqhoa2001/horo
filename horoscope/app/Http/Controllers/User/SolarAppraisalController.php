@@ -93,18 +93,6 @@ class SolarAppraisalController extends Controller
         ]);
     }
 
-    public function update(UpdateRequest $request): RedirectResponse
-    {
-        try {
-            MyHoroscopeService::updateSorlarDate($request);
-        } catch (\Throwable $th) {
-            \Log::warning("ホロスコープの生成に失敗しました。原因：{$th->getMessage()}");
-            return back()->with('flash_alert', 'ホロスコープの生成に失敗しました。時間をあけて再度お試しください。')->withInput();
-        }
-
-        return back()->with('status', '更新しました');
-    }
-
     // 会員登録せずに個人鑑定ページの表示
     public function create(Request $request): View|RedirectResponse
     {

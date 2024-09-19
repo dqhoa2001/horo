@@ -4,10 +4,11 @@ namespace App\Services;
 
 use App\Models\AppraisalApply;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 
 class SolarComboboxService
 {
-    public static function SolarCombobox(int $reference_id, string $reference_type)
+    public static function SolarCombobox(int $reference_id, string $reference_type): Collection
     {
         $solarAppraisals = AppraisalApply::whereIn('id', static function ($query) use ($reference_id, $reference_type) {
             $query->selectRaw('MAX(id)')
