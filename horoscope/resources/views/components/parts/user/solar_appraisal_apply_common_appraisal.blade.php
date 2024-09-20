@@ -248,7 +248,7 @@
                             <dl class="C-appraisal-content-header-message">
                                 <dt class="C-appraisal-content-header-message__title">月のサビアンシンボル</dt>
                                 <dd class="C-appraisal-content-header-message__text">
-                                    今年、暮らしや心の中であなたが抱くテーマを具体的にあらわします。サビアンシンボルが示すような体験や気づきがあるでしょう。
+                                    この一年、暮らしや心の中であなたが抱くテーマを具体的にあらわします。サビアンシンボルが示すような体験や気づきがあるでしょう。
                                 </dd>
                             </dl>
                         @endif
@@ -256,7 +256,7 @@
                             <dl class="C-appraisal-content-header-message">
                                 <dt class="C-appraisal-content-header-message__title">水星のサビアンシンボル</dt>
                                 <dd class="C-appraisal-content-header-message__text">
-                                    今年の知的な関心ごとやテーマが具体的にわかります。サビアンシンボルには、知識や認知的な領域で変わったり獲得していくテーマが示されています。
+                                    この一年の知的な関心ごとやテーマが具体的にわかります。サビアンシンボルには、知識や認知的な領域で変わったり獲得していくテーマが示されています。
                                 </dd>
                             </dl>
                         @endif
@@ -264,7 +264,7 @@
                             <dl class="C-appraisal-content-header-message">
                                 <dt class="C-appraisal-content-header-message__title">金星のサビアンシンボル</dt>
                                 <dd class="C-appraisal-content-header-message__text">
-                                    金星のサビアンシンボルからは、あなたのもって生まれた好みや感性の特徴が具体的にわかります。以下のシンボル解説の内容は、「好きなことに関係するテーマ」で発揮されるのだということを頭に入れて読んでいきましょう。また、先の金星のハウスのテーマを通して発揮できる面もあります。
+                                    この一年、どんなことが楽しいのか、どんな能力を得ることで魅力を高めるのか、といったことが具体的に示されています。
                                 </dd>
                             </dl>
                         @endif
@@ -279,7 +279,7 @@
                             <dl class="C-appraisal-content-header-message">
                                 <dt class="C-appraisal-content-header-message__title">木星のサビアンシンボル</dt>
                                 <dd class="C-appraisal-content-header-message__text">
-                                    あなたの今年の幸運にかかわるテーマがサビアンシンボルに具体的にあらわれています。そのような能力を身につけ、社会的に活かせるかもしれませんし、やるとうまくいきやすいことをあらわしていることもあります。そんな意識で見てみましょう。
+                                    あなたのこの一年の幸運にかかわるテーマがサビアンシンボルに具体的にあらわれています。そのような能力を身につけ、社会的に活かせるかもしれませんし、やるとうまくいきやすいことをあらわしていることもあります。そんな意識で見てみましょう。
                                 </dd>
                             </dl>
                         @endif
