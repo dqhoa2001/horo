@@ -146,7 +146,9 @@
                                         <dl class="C-form-block__notes">
                                             <dd class="C-form-block__notes__body">
                                             お客様の出生情報入力ミスによるものは修正・返品ができません。<br>
-                                            別途製本費用をお支払いいただき作り直しになりますので、出生情報はよくご確認ください。
+                                            @if((int)$data['is_bookbinding'] === \App\Models\AppraisalApply::BOOK_ENABLED)
+                                                別途製本費用をお支払いいただき作り直しになりますので、出生情報はよくご確認ください。
+                                            @endif
                                             </dd>
                                         </dl>
                                         <dl class="C-form-block-child C-form-block--birth">
