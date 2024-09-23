@@ -70,7 +70,9 @@ class GenerateSolarHoroscopeChartAction
         $image = $this->generateImageAction->execute($scale);
         $wheels = $this->getListWheelAction->execute($scale, $useBg);
         # get data from request
-        $swephData = $this->findDayOfBirthSolar($date, $localtion,$solarYear);
+        $findDayOfBirthSolar = $this->findDayOfBirthSolar($date, $localtion,$solarYear);
+        $swephData = $findDayOfBirthSolar['sweph_Data'];
+        $solarDate = $findDayOfBirthSolar['solar_Date'];
         if (empty($swephData)) {
             return collect([
                 'status' => false
@@ -95,6 +97,7 @@ class GenerateSolarHoroscopeChartAction
             'image' => $image,
             'degreeData' => $degreeData,
             'explain' => $explainData,
+            'solar_Date' => $solarDate,
         ]);
     }
 
@@ -155,12 +158,19 @@ class GenerateSolarHoroscopeChartAction
             }
         } while ($dayOfBirthSolarDegrees['second'] !== $dayOfBirthDegrees['second']);
 
-        return $this->predictDayOfBirthAction->execute(
+        $swephData =$this->predictDayOfBirthAction->execute(
             $solarDate->format('d.m.Y'),
             $solarDate->format('H:i:s'),
             $location->get('longitude'),
             $location->get('latitude')
         );
+
+        $solarDate = $solarDate->format('Y-m-d H:i:s');
+        
+        return  [
+            'sweph_Data' => $swephData,
+            'solar_Date' => $solarDate,
+        ];
     }
 
 
