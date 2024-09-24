@@ -53,7 +53,7 @@
 }
 /* Specific styles for each button */
 .button.solar-return::before {
-    content: url('../images/familylist/icon_button_solar.svg'); /* Path to Solar Return icon */
+    background-image: url(../images/common/icon_button_solar_return.svg); /* Path to Solar Return icon */
 }
 .button.stellar-blueprint::before {
     content: url('../images/familylist/icon_button_stellar.svg') /* Path to Stellar Blueprint icon */
