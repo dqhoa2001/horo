@@ -154,7 +154,7 @@ class MyHoroscopeController extends Controller
         $birthMinute = $carbonDate->format('i');
         $birthSecond = $carbonDate->format('s');
         
-        $formattedAge = '太陽回帰年月日　' . $birthYear . '年' . $birthMonth . '月' . $birthDay . '日　' . $birthHour . '時' . $birthMinute . '分' . $birthSecond . '秒';
+        $formattedAge = '太陽回帰年月日　' . $birthYear . '年' . $birthMonth . '月' . $birthDay . '日　' . $birthHour . '時' . $birthMinute . '分';
         
         return view('user.my_horoscopes.edit', [
             'solarApply' => $solar_apply,
