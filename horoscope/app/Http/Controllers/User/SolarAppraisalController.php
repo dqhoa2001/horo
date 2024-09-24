@@ -197,7 +197,7 @@ class SolarAppraisalController extends Controller
                 ]);
 
                 //家族の場合
-                if ($target_type == TargetType::FAMILY->value) {
+                if ($target_type === TargetType::FAMILY->value) {
                     $contentType = AppraisalClaim::SOLAR_RETURN_FAMILY;
                     // $user = UserService::create($request);
                     $user = auth()->guard('user')->user();
