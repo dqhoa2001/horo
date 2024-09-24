@@ -20,6 +20,7 @@ use Modules\Horoscope\Http\Actions\GenerateHoroscopeChartAction;
 use Modules\Horoscope\Http\Actions\Predict\ModifyLocation;
 use App\Repositories\SabianPatternRepository;
 use App\Repositories\ZodiacPatternRepository;
+use Carbon\Carbon;
 use Modules\Horoscope\Http\Actions\GenerateSolarHoroscopeChartAction;
 
 class FamilyController extends Controller
@@ -152,19 +153,20 @@ class FamilyController extends Controller
         $defaultAddress = $defaultBirthdayPrefectures;
         $defaultBirthDay = $family->birthday;
         $isAppraisalClaimed = $family->appraisalApplies()->whereHas('appraisalClaim')->exists();
-        $solar_return = $solar_apply->solar_return + 1;
-        $birthday = $solar_apply->birthday;
-        $birthdayDate = \Carbon\Carbon::parse($birthday);
-        $birthdayTime = $solar_apply->birthday_time;
-        $birthdayTime = new \DateTime($birthdayTime);
-        $birthHour = $birthdayTime->format('H');
-        $birthMinute = $birthdayTime->format('i');
-        $age = $solar_return - $birthdayDate->year;
-        if (\Carbon\Carbon::now()->isBefore($birthdayDate->copy()->year($solar_return)->endOfYear())) {
-            $age--;
-            $solar_return--;
-        }
-        $formattedAge = '太陽回帰年月日　' . $solar_return . '年' . $birthdayDate->month . '月' . $birthdayDate->day . '日　' . $birthHour . '時' . $birthMinute . '分';
+        $solarDate = $chart->get(key: 'solar_Date');
+
+        $carbonDate = Carbon::parse($solarDate);
+        
+        $carbonDate->addHours($solar_apply->timezome);
+        
+        $birthYear = $carbonDate->year;
+        $birthMonth = $carbonDate->month;
+        $birthDay = $carbonDate->day;
+        $birthHour = $carbonDate->format('H');
+        $birthMinute = $carbonDate->format('i');
+        $birthSecond = $carbonDate->format('s');
+        
+        $formattedAge = '太陽回帰年月日　' . $birthYear . '年' . $birthMonth . '月' . $birthDay . '日　' . $birthHour . '時' . $birthMinute . '分' . $birthSecond . '秒';
         return view('user.families.edit', [
             'family'     => $family,
             'solarApply' => $solar_apply,
