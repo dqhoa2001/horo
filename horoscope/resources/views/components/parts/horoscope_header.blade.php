@@ -63,6 +63,11 @@
               alt="インターネット個人鑑定ステラブループリント" class="pc">
             <img src="{{ asset('images/common/appraisal_apply_banner.svg') }}"
               alt="インターネット個人鑑定ステラブループリント" class="sp"></a></li>
+        <li class="menu_margin-top" data-num="8"><a href="https://hoshinomai.jp/solar-return/">
+            <img src="{{ asset('horoscope/images/horoscope/menu_btn_img02.png') }}"
+              alt="太陽回帰鑑定 SOLAR RETURN" class="pc">
+            <img src="{{ asset('images/common/appraisal_apply_banner_sr.svg') }}"
+              alt="太陽回帰鑑定 SOLAR RETURN" class="sp"></a></li>
         <li class="menu_margin-top" data-num="8">
           <a href="https://hoshinomai.jp/book-service/">
             {{-- <img src="https://hoshinomai.jp/wp2/wp-content/themes/hoshi/img/common/menu_btn_img03.png" alt="STELLAR BLUEPRINT BOOK 製本化サービス Coming Soon" class="pc">
