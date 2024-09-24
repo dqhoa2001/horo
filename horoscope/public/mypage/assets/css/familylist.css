@@ -68,46 +68,6 @@
 .C-horoscope-create__text::before{
     background-image: url(../images/familyhoroscope/icon_moon.svg);
 }
-.btn-stellar{
-    background-image: linear-gradient(to right, #C900C9, #5D00A6, #0087D6);
-}
-.btn-stellar:hover {
-    background-image: linear-gradient(to right, #D900D9, #6600B8, #0090E0);
-}
-.btn-stellar::after {
-    position: absolute;
-    content: "";
-    bottom: 50%;
-    transform: translateX(-50%);
-    left: 50%;
-    width: 150px;
-    height: 30px;
-    background-image: url(../images/familylist/stellar-logo.svg);
-    z-index: 100;
-    background-position: right bottom;
-    background-repeat: no-repeat;
-    background-size: 100%;
-}
-.btn-solar{
-    background-image: radial-gradient(circle at 30% 30%, #E0A820, #E07A1F, #E0571F);
-}
-.btn-solar:hover {
-    background-image: radial-gradient(circle at 30% 30%, #F0B830, #F08A2F, #F0672F);
-}
-.btn-solar::after {
-    position: absolute;
-    content: "";
-    bottom: 50%;
-    transform: translateX(-50%);
-    left: 50%;
-    width: 95px;
-    height: 20px;
-    background-image: url(../images/familylist/solar-logo.svg);
-    z-index: 100;
-    background-position: right bottom;
-    background-repeat: no-repeat;
-    background-size: 100%;
-}
 .m-20{
     margin: 30px 0;
 }

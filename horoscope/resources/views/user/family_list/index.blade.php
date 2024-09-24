@@ -69,7 +69,14 @@
                                     <p class="C-horoscope-create__text">ご家族の生まれた瞬間のホロスコープを出すためには<br>生まれた時間を「分」まで、<br>場所を「市」まで正しく入力してください。</p>
                                 </div>
                                 <div class="C-horoscope-create flexSB m-20">
-                                    <div class="Button btn-stellar"><a href="{{ route('user.appraisals.create', ['target_type' => str_contains(Request::url(), 'family_list') ? '2' : '']) }}" class="text-end">家族の個人鑑定をする</a></div>
+                                    <div class="btn-offer-solar">
+                                        <a href="{{ route('user.appraisals.create', ['target_type' => str_contains(Request::url(), 'family_list') ? '2' : '']) }}">
+                                            <picture>
+                                                <source srcset="{{ asset('mypage/assets/images/familylist/sp.png') }}"media="(max-width: 500px)">
+                                                <img src="{{ asset('mypage/assets/images/familylist/pc.png') }}" alt="">
+                                            </picture>
+                                        </a>
+                                    </div>
                                     <p class="C-horoscope-create__text">魂の青写真であるStellar Blueprintは、<br>より深い自分への理解を得ることができます。</p>
                                 </div>
                                 <div class="C-horoscope-create flexSB m-20">
