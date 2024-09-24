@@ -278,12 +278,6 @@
                                                     <dd class="C-price-block__text">- {{ number_format($data['discount_price']) }}円</dd>
                                                 </dl>
                                             @endif
-                                            @if(isset($data['coupon_code']))
-                                            <dl class="C-price-block C-price-block--minus">
-                                                <dt class="C-price-block__title">ご紹介クーポン ：</dt>
-                                                <dd class="C-price-block__text">- {{ number_format($data['discount_price']) }}円</dd>
-                                            </dl>
-                                            @endif
                                         </div>
                                         <dl class="C-price-last">
                                             <dt class="C-price-last__title">合計</dt>
