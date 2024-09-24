@@ -37,7 +37,7 @@ class ThanksForFamilySolarAppraisal extends Mailable implements ShouldQueue
 
         // テンプレートからメール本文を生成
         $this->data = [
-            'name'       => $this->appraisalApply->reference->full_name,
+            'name'       => $this->appraisalApply->reference->user->full_name,
             'homepage_url'       => config('app.home_url'),
             'contact_url'        => route('user.contacts.create'),
             'family_solar_appraisals_show_url' => route('user.solar_appraisals.show', $this->appraisalApply->id),
