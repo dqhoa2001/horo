@@ -272,6 +272,12 @@
                                                 <dd class="C-price-block__text">{{ number_format(\App\Models\AppraisalClaim::SHIPPING_FEE) }}円</dd>
                                             </dl> --}}
                                             @endif
+                                            @if($data['discount_price'])
+                                                <dl class="C-price-block C-price-block--minus">
+                                                    <dt class="C-price-block__title">クーポン ：</dt>
+                                                    <dd class="C-price-block__text">- {{ number_format($data['discount_price']) }}円</dd>
+                                                </dl>
+                                            @endif
                                             @if(isset($data['coupon_code']))
                                             <dl class="C-price-block C-price-block--minus">
                                                 <dt class="C-price-block__title">ご紹介クーポン ：</dt>

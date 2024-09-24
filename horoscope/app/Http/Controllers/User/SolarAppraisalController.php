@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AppraisalApply;
 use App\Models\User;
 use App\Services\AppraisalApplyService;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -150,6 +151,15 @@ class SolarAppraisalController extends Controller
         \DB::beginTransaction();
         Stripe::setApiKey(config('services.stripe.secret'));
 
+        if ($request->coupon_code) {
+            CouponService::updateBackPoint($request->coupon_code);
+        }
+
+        // ポイントが入力されている場合、point_sumから差し引く
+        if (!$request->coupon_code && $request->discount_price) {
+            UserService::subtractionDiscountPrice($request->discount_price);
+        }
+
         $bookbindingUserApply = null;
         $bookbindingUserApplyId = null;
         $user = null;
@@ -270,10 +280,6 @@ class SolarAppraisalController extends Controller
             \Mail::to(GetMail::getMailForApply($solarApply))->bcc($bccMails)->send(new SolarAppraisalReceivedForBank(BankInfo::first(), $AppraisalClaim));
         }
 
-        // クーポンの使用
-        if ($request->coupon_code) {
-            CouponService::updateBackPoint($request->coupon_code);
-        }
 
         // $bccMails = GetBccMail::getBccMail();
         // \Mail::to(GetMail::getMailForApply($solarApply))->bcc($bccMails)->send(new AppraisalReceivedForBank(BankInfo::first(), $AppraisalClaim));
