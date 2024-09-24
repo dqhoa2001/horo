@@ -191,6 +191,7 @@ Route::middleware(['auth:user', 'verified'])->group(static function () {
         //鑑定作成画面
         Route::get('create', 'create')->name('create');
         //鑑定確認画面
+        Route::get('download_solar_sample_pdf', 'downloadSolarSamplePdf')->name('download_solar_sample_pdf');
         Route::post('confirm', 'confirm')->name('confirm');
         //鑑定登録処理
         Route::post('apply', 'apply')->name('apply');

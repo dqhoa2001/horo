@@ -292,4 +292,8 @@ class SolarAppraisalController extends Controller
             'target_type' => $request->target_type,
         ]);
     }
+    public function downloadSolarSamplePdf(): \Symfony\Component\HttpFoundation\BinaryFileResponse
+    {
+        return response()->download(public_path('pdfs/solar-return_sample.pdf'));
+    }
 }

@@ -58,7 +58,6 @@
                                                     <dl class="C-form-block C-form-block--birthdata">
                                                         <dd class="C-form-block__body">
                                                             <dl class="C-form-block-child C-form-block--birth">
-                                                                <div>
                                                                     <div class="div_right">
                                                                         <a href="{{route('user.my_horoscopes.edit')}}">
                                                                             <dd @if (str_contains(Request::url(), 'my_horoscopes/edit')) class="C-form-block__button active_MyHoro" @else class="C-form-block__button" @endif>
@@ -66,7 +65,7 @@
                                                                             </dd>
                                                                         </a>
                                                                     </div>
-                                                                </div>
+                                                                    @include('components.parts.user.solar_return_combobox')
                                                             </dl>
                                                         </dd>
                                                     </dl>
@@ -75,8 +74,7 @@
                                             </dl>
                                         </dl>
                                     </dd>
-                                </dl>
-                                @include('components.parts.user.solar_return_combobox')
+                                </dl>                              
                             {{-- </div> --}}
                             {{--Date information--}}
                             @if (!str_contains(Request::url(), 'my_horoscopes/edit'))

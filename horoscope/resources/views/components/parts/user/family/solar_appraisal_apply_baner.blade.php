@@ -34,7 +34,7 @@
             </div>
             <div class="C-appraisal-banner__sub-sample-image">
                 <div class="solar-sample-btn-block">
-                    <a href="{{ route('user.appraisals.download_sample_pdf') }}">
+                    <a href="{{ route('user.solar_appraisals.download_solar_sample_pdf') }}">
                         <!-- @if(str_contains(Request::url(), 'family_appraisals'))
                             <img src="{{ asset('images/common/sample-btn-family.svg') }}" alt="">
                         @else
