@@ -74,12 +74,12 @@
 
                             <div class="C-form-block__wrap">
 
-                                <dl class="C-form-block C-form-block--hope">
+                                <!-- <dl class="C-form-block C-form-block--hope">
                                     <dt class="C-form-block__title C-form-block__title--req">製本の希望</dt>
                                     <dd class="C-form-block__body">
                                         {{ \App\Models\AppraisalApply::getSolarBookbindingType()[$data['is_bookbinding']] }}
                                     </dd>
-                                </dl>
+                                </dl> -->
                                 @if((int)$data['is_bookbinding'] === \App\Models\AppraisalApply::BOOK_ENABLED)
                                 <dl class="C-form-block C-form-block--cash">
                                     <dt class="C-form-block__title C-form-block__title--req">表紙のデザイン</dt>
