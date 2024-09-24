@@ -49,7 +49,7 @@
                                             <div>
                                                 @if ($family->appraisalApplies()->where('solar_return','!=',0)->whereHas('appraisalClaim', function ($query) {$query->where('is_paid', 1);})->exists())
                                                 <a href="{{ route('user.solar_appraisals.show', $family->appraisalApplies()->where('solar_return','!=',0)->latest()->first()) }}" class="button solar-return">
-                                                    <img src="{{ asset('mypage/assets/images/familylist/title_button_solar.png') }}" alt="">
+                                                    <img src="{{ asset('mypage/assets/images/familylist/title_button_solar_fix.png') }}" alt="">
                                                 </a>
                                                 @endif
                                                 @if ($family->appraisalApplies()->where('solar_return',0)->whereHas('appraisalClaim', function ($query) {$query->where('is_paid', 1);})->exists())
