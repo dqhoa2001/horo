@@ -31,10 +31,10 @@ class TemplateSeeder9 extends Seeder
                     {{$full_name}}様がこの一年をよりクリエイティブに楽しく送るためのお手伝いができましたら幸いです。
 
                     Solar Returnについて、詳しくはこちらをご覧ください。
-                    ※Solar ReturnのLPページリンク
+                    <a href="https://hoshinomai.jp/solar-return" target=""_blank"">https://hoshinomai.jp/solar-return</a>
 
                     お申し込みはこちらよりお願いいたします。
-                    <a href=""{{$homepage_url}}"" target=""_blank"">{{$homepage_url}}</a>
+                    <a href="https://mypage.hoshinomai.jp/user/solar_appraisals" target=""_blank"">https://mypage.hoshinomai.jp/user/solar_appraisals</a>
 
                     株式会社　星の舞
                 ',
