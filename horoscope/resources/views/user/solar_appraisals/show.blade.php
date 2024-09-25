@@ -35,9 +35,9 @@
                         <h2 class="Pageframe-main__title result logo-banner">
                             <!-- <img src="{{ asset('mypage/assets/images/solar-return/solar-return-appraisal.svg') }}" alt="PERSONAL APPRAISAL"> -->
                             <picture>
-                                <source srcset="{{ asset('mypage/assets/images/solar-return/small-solar-return-appraisal.png') }}"
+                                <source srcset="{{ asset('mypage/assets/images/solar-return/solar-return-appraisal.svg') }}"
                                     media="(max-width: 600px)">
-                                <img class="banner" src="{{ asset('mypage/assets/images/solar-return/solar-return-appraisal.png') }}" alt="SOLAR RETURN">
+                                <img class="banner" src="{{ asset('mypage/assets/images/solar-return/solar-return-appraisal.svg') }}" alt="SOLAR RETURN" style="margin: 0px 0px 0px 10px;">
                             </picture>
                         </h2>
 						{{-- <h2 class="Pageframe-main__title appraisal"></h2> --}}
