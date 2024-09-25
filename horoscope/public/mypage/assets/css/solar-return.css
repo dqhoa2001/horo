@@ -613,6 +613,7 @@
         color: rgba(57,56,93,.7);
         cursor: pointer;
         margin: 4px 0 4px 0;
+        letter-spacing: -0.14rem;
     }
 
     /*----- セレクト */
