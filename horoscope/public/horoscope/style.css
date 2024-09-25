@@ -589,7 +589,8 @@ a[href^="tel:"] {
 	/* .menuBox .menuRight li {
 		width: 50%;
 	} */
-	.menuBox .menuRight li:first-child {
+	.menuBox .menuRight li:first-child,
+	.menuBox .menuRight li:nth-child(2) {
 		width: 100%;
 	}
 	.menuBox .menuRight li {

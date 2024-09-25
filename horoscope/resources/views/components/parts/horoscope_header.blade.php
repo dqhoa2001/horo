@@ -63,12 +63,12 @@
               alt="インターネット個人鑑定ステラブループリント" class="pc">
             <img src="{{ asset('images/common/appraisal_apply_banner.svg') }}"
               alt="インターネット個人鑑定ステラブループリント" class="sp"></a></li>
-        <li class="menu_margin-top" data-num="8"><a href="https://hoshinomai.jp/solar-return/">
+        <li class="menu_margin-top menu_margin-top-mt" data-num="8"><a href="https://hoshinomai.jp/solar-return/">
             <img src="{{ asset('horoscope/images/horoscope/menu_btn_img02.png') }}"
               alt="太陽回帰鑑定 SOLAR RETURN" class="pc">
             <img src="{{ asset('images/common/appraisal_apply_banner_sr.svg') }}"
               alt="太陽回帰鑑定 SOLAR RETURN" class="sp"></a></li>
-        <li class="menu_margin-top" data-num="8">
+        <li class="menu_margin-top menu_margin-top-mt" data-num="8">
           <a href="https://hoshinomai.jp/book-service/">
             {{-- <img src="https://hoshinomai.jp/wp2/wp-content/themes/hoshi/img/common/menu_btn_img03.png" alt="STELLAR BLUEPRINT BOOK 製本化サービス Coming Soon" class="pc">
             <img src="https://hoshinomai.jp/wp2/wp-content/themes/hoshi/img/common/menu_btn_img03_sp.png" alt="STELLAR BLUEPRINT BOOK 製本化サービス Coming Soon" class="sp"> --}}
@@ -77,7 +77,7 @@
           </a>
         </li>
         {{-- <li class="link" data-num="8"><a href="#">個人鑑定 BOOKサービス</a></li> --}}
-        <li class="menu_margin-top" data-num="9"><a href="https://hoshinomai.jp/study-map/">
+        <li class="menu_margin-top menu_margin-top-mt" data-num="9"><a href="https://hoshinomai.jp/study-map/">
             <img src="https://hoshinomai.jp/wp2/wp-content/themes/hoshi/img/common/menu_btn_img02.png"
               alt="どの順番で学べばいいの？星の舞式 占星術学習マップ" class="pc">
             <img src="https://hoshinomai.jp/wp2/wp-content/themes/hoshi/img/common/menu_btn_img02_sp.png"
