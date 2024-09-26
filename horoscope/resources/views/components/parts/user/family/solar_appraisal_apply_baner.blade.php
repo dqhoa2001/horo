@@ -4,7 +4,7 @@
         <picture>
             <source srcset="{{ asset('images/mypage/small-solar-return-title.svg') }}"
             media="(max-width: 600px)">
-            <img src="{{ asset('images/mypage/solar-return-title.svg') }}" alt="PERSONAL SOLAR APPRAISAL" style="height: 270px !important; margin: -50px 10px -40px 70px;">
+            <img src="{{ asset('images/mypage/solar-return-title.svg') }}" alt="PERSONAL SOLAR APPRAISAL" style="height: 160px; margin-bottom: -1rem;">
         </picture>
     </div>
     <div class="C-solar-appraisal-banner__price-appraisal">
