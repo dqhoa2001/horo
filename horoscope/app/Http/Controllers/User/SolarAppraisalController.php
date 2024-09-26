@@ -147,7 +147,6 @@ class SolarAppraisalController extends Controller
     // 申し込み処理
     public function apply(Request $request): RedirectResponse
     {
-        $target_type = $request->target_type;
         \DB::beginTransaction();
         Stripe::setApiKey(config('services.stripe.secret'));
 
@@ -197,7 +196,7 @@ class SolarAppraisalController extends Controller
                 ]);
 
                 //家族の場合
-                if ($target_type === TargetType::FAMILY->value) {
+                if ((int) $request->target_type === TargetType::FAMILY->value) {
                     $contentType = AppraisalClaim::SOLAR_RETURN_FAMILY;
                     // $user = UserService::create($request);
                     $user = auth()->guard('user')->user();
