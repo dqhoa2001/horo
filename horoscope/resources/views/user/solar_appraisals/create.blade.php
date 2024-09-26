@@ -283,7 +283,7 @@
                                         </dd>
                                     </dl>
                                     <!-- 製本パーツ -->
-                                    {{-- @include('components.parts.user.appraisal_apply_common_bookbinding') --}}
+                                    @include('components.parts.user.appraisal_apply_common_bookbinding')
 
                                     <input type="hidden" name="is_bookbinding" value="0" v-model="bookbindingClick">
                                     <dl class="C-form-block C-form-block--cash">
