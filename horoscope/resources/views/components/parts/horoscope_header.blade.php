@@ -64,7 +64,7 @@
             <img src="{{ asset('images/common/appraisal_apply_banner.svg') }}"
               alt="インターネット個人鑑定ステラブループリント" class="sp"></a></li>
         <li class="menu_margin-top menu_margin-top-mt" data-num="8"><a href="https://hoshinomai.jp/solar-return/">
-            <img src="{{ asset('horoscope/images/horoscope/menu_btn_img02.png') }}"
+            <img src="{{ asset('horoscope/images/horoscope/menu_btn_img02.svg') }}"
               alt="太陽回帰鑑定 SOLAR RETURN" class="pc">
             <img src="{{ asset('images/common/appraisal_apply_banner_sr.svg') }}"
               alt="太陽回帰鑑定 SOLAR RETURN" class="sp"></a></li>
