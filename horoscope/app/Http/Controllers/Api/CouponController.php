@@ -54,7 +54,7 @@ class CouponController extends Controller
                 if ($request['params']['request_type'] === 'offer') {
                     if(!$adminCoupon->is_personal_appr_enabled){
                         return response()->json([
-                            'message' => '無効な割引コード。',
+                            'message' => '個人鑑定にクーポンを使用できません。',
                         ]);
                     }
                 }
