@@ -499,6 +499,8 @@ Vue.createApp({
 			marker: null,
 			map: null,
 			geocoder: new google.maps.Geocoder(),
+            familySolarAppraisals: @json($familySolarAppraisals->values()->all()),
+            personalSolarAppraisals: @json($personalSolarAppraisals->values()->all()),
         }
     },
     methods: {
@@ -579,10 +581,24 @@ Vue.createApp({
         },
         //家族を選択したらその家族の情報をセットする
         setAge(birthday){
+            const yearBuyedFamilyAppraisals = [];
+            this.familySolarAppraisals.forEach(solar => {
+                if (solar && solar.solar_return) {
+                    yearBuyedFamilyAppraisals.push(solar.solar_return);
+                }
+            });
+
+            const yearBuyedPersonalAppraisals = [];
+            this.personalSolarAppraisals.forEach(solar => {
+                if (solar && solar.solar_return) {
+                    yearBuyedPersonalAppraisals.push(solar.solar_return);
+                }
+            });
             let currentDate = new Date();
 
             let age = currentDate.getFullYear() - birthday.getFullYear();
             let currentYear = currentDate.getFullYear();
+            let nextYear = currentYear + 1;
             if (currentDate.getMonth() < birthday.getMonth() || (currentDate.getMonth() === birthday.getMonth() && currentDate.getDate() < birthday.getDate())) {
                 age--;
                 currentYear--;
@@ -596,8 +612,21 @@ Vue.createApp({
             const nextAge = document.querySelector('span.C-form-block__radio__text[for="solar_return2"]');
             const solarReturn1 = document.getElementById('solar_return1');
             const solarReturn2 = document.getElementById('solar_return2');
-            currentAge.textContent = `${age}歳(${formattedCurrentDate}-${formattedNextDate})`;
-            nextAge.textContent = `${age+1}歳(${formattedCurrentDate1}-${formattedNextDate1})`;
+            if(this.personalClick === 1){
+                currentAge.textContent = (yearBuyedPersonalAppraisals.includes(currentYear) )  ?  `※購入済み※  ${age}歳(${formattedCurrentDate}-${formattedNextDate})`  : `${age}歳(${formattedCurrentDate}-${formattedNextDate})`;
+                nextAge.textContent = (yearBuyedPersonalAppraisals.includes(nextYear) )  ?  `※購入済み※  ${age+1}歳(${formattedCurrentDate1}-${formattedNextDate1})`  : `${age+1}歳(${formattedCurrentDate1}-${formattedNextDate1})`;
+                solarReturn1.checked = !yearBuyedPersonalAppraisals.includes(currentYear);
+                solarReturn2.checked = !yearBuyedPersonalAppraisals.includes(nextYear);
+                solarReturn1.disabled  = yearBuyedPersonalAppraisals.includes(currentYear);
+                solarReturn2.disabled  = yearBuyedPersonalAppraisals.includes(nextYear);
+            }else{
+                currentAge.textContent = (yearBuyedFamilyAppraisals.includes(currentYear) )  ?  `※購入済み※  ${age}歳(${formattedCurrentDate}-${formattedNextDate})`  : `${age}歳(${formattedCurrentDate}-${formattedNextDate})`;
+                nextAge.textContent = (yearBuyedFamilyAppraisals.includes(nextYear) )  ?  `※購入済み※  ${age+1}歳(${formattedCurrentDate1}-${formattedNextDate1})`  : `${age+1}歳(${formattedCurrentDate1}-${formattedNextDate1})`;
+                solarReturn1.checked = !yearBuyedFamilyAppraisals.includes(currentYear);
+                solarReturn2.checked = !yearBuyedFamilyAppraisals.includes(nextYear);
+                solarReturn1.disabled  = yearBuyedFamilyAppraisals.includes(currentYear);
+                solarReturn2.disabled  = yearBuyedFamilyAppraisals.includes(nextYear);
+            }
             solarReturn1.value = currentYear;
             solarReturn2.value = currentYear+1;
         },
