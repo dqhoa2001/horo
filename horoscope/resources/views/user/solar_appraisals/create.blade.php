@@ -1,7 +1,7 @@
 @extends('layouts.user.mypage.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('mypage/assets/css/personal-appraisal-form.css') }}">
+<link rel="stylesheet" href="{{ asset('mypage/assets/css/solar-appraisal-form.css') }}">
 @endsection
 
 @section('content')
