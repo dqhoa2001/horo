@@ -1,7 +1,12 @@
 @extends('layouts.user.mypage.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('mypage/assets/css/personal-appraisal-form.css') }}">
+@if((int)Request::get('target_type') === \App\Models\AppraisalApply::FAMILY)
+    <link rel="stylesheet" href="{{ asset('mypage/assets/css/familyappraisal.css') }}">
+@else
+    <link rel="stylesheet" href="{{ asset('mypage/assets/css/personal-appraisal-form.css') }}">
+@endif
+
 <link rel="stylesheet" href="{{ asset('mypage/assets/plugins/mCustomScrollbar/jquery.mCustomScrollbar.min.css') }}">
 
 @endsection
@@ -15,7 +20,12 @@
 
                 <header class="Pageframe-main-header">
                     <div class="Pageframe-main-header__first"><a href="{{ route('user.popup') }}">マイページ</a></div>
-                    <h2 class="Pageframe-main-header__pagename">個人鑑定 申込フォーム</h2>
+                    @if((int)Request::get('target_type') === \App\Models\AppraisalApply::FAMILY)
+                        <h2 class="Pageframe-main-header__pagename">家族鑑定 申込フォーム</h2>
+                    @else
+                        <h2 class="Pageframe-main-header__pagename">個人鑑定 申込フォーム</h2>
+                    @endif
+                    
                 </header>
 
                 <div class="Pageframe-main__inner">

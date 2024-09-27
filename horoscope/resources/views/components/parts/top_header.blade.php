@@ -22,7 +22,11 @@
       ホロスコープチャート
       @break
       @case(str_contains(Request::url(), 'user/appraisals'))
-      個人鑑定
+          @if((int)Request::get('target_type') === \App\Models\AppraisalApply::FAMILY)
+              家族鑑定
+          @else
+              個人鑑定
+          @endif
       @break
       @case(str_contains(Request::url(), 'user/families'))
       家族のホロスコープ
