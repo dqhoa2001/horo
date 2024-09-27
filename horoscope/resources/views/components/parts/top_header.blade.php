@@ -28,7 +28,7 @@
       家族のホロスコープ
       @break
       @case(str_contains(Request::url(), 'family_appraisals'))
-      家族の太陽回帰鑑定
+      家族鑑定
       @break
       @case(str_contains(Request::url(), 'family_list'))
       家族一覧
