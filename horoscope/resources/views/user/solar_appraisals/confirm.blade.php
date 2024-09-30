@@ -133,6 +133,14 @@
                                     </dd>
                                 </dl>
                                 @endif
+                                @if ((int)$data['target_type'] === \App\Models\AppraisalApply::USER)
+                                    <dl class="C-form-block C-form-block--name">
+                                        <dt class="C-form-block__title C-form-block__title--req">お名前</dt>
+                                        <dd class="C-form-block__body C-form-block__body--two">
+                                            {{ auth()->guard('user')->user()->name1 }} {{ auth()->guard('user')->user()->name2 }}
+                                        </dd>
+                                    </dl>
+                                @endif
                                 <dl class="C-form-block">
                                     <dt class="C-form-block__title C-form-block__title--req">個人鑑定の対象者</dt>
                                     <dd class="C-form-block__body C-form-block-child">
@@ -213,24 +221,6 @@
                                         </dl>
                                     </dd>
                                 </dl>
-                                
-                                {{-- カードブランドとカードの最後の4桁表示 --}}
-                                @if((int)$data['payment_type'] === \App\Models\AppraisalClaim::CREDIT)
-                                <dl class="C-form-block C-form-block--card">
-                                    <dt class="C-form-block__title C-form-block__title--req">カード情報</dt>
-                                    <dd class="C-form-block__body">
-                                        <dl class="C-form-block-child C-form-block--cardnumber">
-                                            <dt class="C-form-block__title">カード番号</dt>
-                                            <dd class="C-form-block__body">
-                                                {{ $data['cardBrand'] }}
-                                            </dd>
-                                            <dd class="C-form-block__body">
-                                                ************{{ $data['last4'] }}
-                                            </dd>
-                                        </dl>
-                                    </dd>
-                                </dl>
-                                @endif
 
                                 <dl class="C-form-block C-form-block--birthdata">
                                     <dt class="C-form-block__title C-form-block__title--req">SOLAR RETURN情報</dt>
@@ -255,6 +245,24 @@
                                         {{\App\Models\AppraisalClaim::PAYMENT_TYPE[(int)$data['payment_type']]}}
                                     </dd>
                                 </dl>
+
+                                {{-- カードブランドとカードの最後の4桁表示 --}}
+                                @if((int)$data['payment_type'] === \App\Models\AppraisalClaim::CREDIT)
+                                <dl class="C-form-block C-form-block--card">
+                                    <dt class="C-form-block__title C-form-block__title--req">カード情報</dt>
+                                    <dd class="C-form-block__body">
+                                        <dl class="C-form-block-child C-form-block--cardnumber">
+                                            <dt class="C-form-block__title">カード番号</dt>
+                                            <dd class="C-form-block__body">
+                                                {{ $data['cardBrand'] }}
+                                            </dd>
+                                            <dd class="C-form-block__body">
+                                                ************{{ $data['last4'] }}
+                                            </dd>
+                                        </dl>
+                                    </dd>
+                                </dl>
+                                @endif
 
                                 @if(isset($data['coupon_code']))
                                     <dl class="C-form-block C-form-block--coupon-wrap">
