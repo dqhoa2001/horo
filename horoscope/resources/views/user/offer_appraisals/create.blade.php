@@ -639,6 +639,7 @@
                 }
                 else{
                     alert(response.data.message)
+					this.togglePersonal(); 
                 }
             })
             .catch((error) => {
