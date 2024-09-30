@@ -499,6 +499,8 @@ Vue.createApp({
 			marker: null,
 			map: null,
 			geocoder: new google.maps.Geocoder(),
+            allFamilySolarAppraisals: @json($allFamilySolarAppraisals->values()->all()),
+            personalSolarAppraisals: @json($personalSolarAppraisals->values()->all()),
         }
     },
     methods: {
@@ -575,17 +577,46 @@ Vue.createApp({
                 let day = parseInt(selectDay.value);
                 let birthday = new Date(year, month, day);
                 this.setAge(birthday);
+                this.triggerSolarReturnChange();
             }
         },
         //家族を選択したらその家族の情報をセットする
-        setAge(birthday){
-            let currentDate = new Date();
+        setAge(birthday,id = null){
+            let yearBuyedPersonalAppraisals = [];
+            let yearBuyedFamilyAppraisals = [];
 
+            try {
+                if (this.personalClick == '2') {
+                    // Family appraisal
+                    if(id !== null){
+                        const family = this.families.find(family => family.id == id);
+                        const familyAppraisalById = this.allFamilySolarAppraisals.filter(solar => solar.reference_id == family.id);
+                        familyAppraisalById.forEach(solar => {
+                            if (solar && solar.solar_return) {
+                                yearBuyedFamilyAppraisals.push(solar.solar_return);
+                            }
+                        });
+                    }
+                }else{
+                    // Personal appraisal
+                    this.personalSolarAppraisals.forEach(solar => {
+                        if (solar && solar.solar_return) {
+                            yearBuyedPersonalAppraisals.push(solar.solar_return);
+                        }
+                    });
+                }
+            } catch (error) {
+                console.error("Error processing familySolarAppraisals: ", error);
+            }
+
+            let currentDate = new Date();
             let age = currentDate.getFullYear() - birthday.getFullYear();
             let currentYear = currentDate.getFullYear();
+            let nextYear = currentYear + 1;
             if (currentDate.getMonth() < birthday.getMonth() || (currentDate.getMonth() === birthday.getMonth() && currentDate.getDate() < birthday.getDate())) {
                 age--;
                 currentYear--;
+                nextYear--;
             }
             let formattedNextDate = new Date(currentYear + 1, birthday.getMonth(), birthday.getDate() - 1);
             let formattedNextDate1 = new Date(currentYear + 2, birthday.getMonth(), birthday.getDate() - 1);
@@ -596,8 +627,22 @@ Vue.createApp({
             const nextAge = document.querySelector('span.C-form-block__radio__text[for="solar_return2"]');
             const solarReturn1 = document.getElementById('solar_return1');
             const solarReturn2 = document.getElementById('solar_return2');
-            currentAge.textContent = `${age}歳(${formattedCurrentDate}-${formattedNextDate})`;
-            nextAge.textContent = `${age+1}歳(${formattedCurrentDate1}-${formattedNextDate1})`;
+
+            if(this.personalClick == 1){
+                currentAge.textContent = (yearBuyedPersonalAppraisals.includes(currentYear) )  ?  `※購入済み※  ${age}歳(${formattedCurrentDate}-${formattedNextDate})`  : `${age}歳(${formattedCurrentDate}-${formattedNextDate})`;
+                nextAge.textContent = (yearBuyedPersonalAppraisals.includes(nextYear) )  ?  `※購入済み※  ${age+1}歳(${formattedCurrentDate1}-${formattedNextDate1})`  : `${age+1}歳(${formattedCurrentDate1}-${formattedNextDate1})`;
+                solarReturn1.checked = !yearBuyedPersonalAppraisals.includes(currentYear);
+                solarReturn2.checked = !yearBuyedPersonalAppraisals.includes(nextYear);
+                solarReturn1.disabled  = yearBuyedPersonalAppraisals.includes(currentYear);
+                solarReturn2.disabled  = yearBuyedPersonalAppraisals.includes(nextYear);
+            }else{
+                currentAge.textContent = (yearBuyedFamilyAppraisals.includes(currentYear) )  ?  `※購入済み※  ${age}歳(${formattedCurrentDate}-${formattedNextDate})`  : `${age}歳(${formattedCurrentDate}-${formattedNextDate})`;
+                nextAge.textContent = (yearBuyedFamilyAppraisals.includes(nextYear) )  ?  `※購入済み※  ${age+1}歳(${formattedCurrentDate1}-${formattedNextDate1})`  : `${age+1}歳(${formattedCurrentDate1}-${formattedNextDate1})`;
+                solarReturn1.checked = !yearBuyedFamilyAppraisals.includes(currentYear);
+                solarReturn2.checked = !yearBuyedFamilyAppraisals.includes(nextYear);
+                solarReturn1.disabled  = yearBuyedFamilyAppraisals.includes(currentYear);
+                solarReturn2.disabled  = yearBuyedFamilyAppraisals.includes(nextYear);
+            }
             solarReturn1.value = currentYear;
             solarReturn2.value = currentYear+1;
         },
@@ -630,7 +675,7 @@ Vue.createApp({
                     const timezoneOffset = 9 * 60; // JSTはUTCより9時間進んでいます
                     let birthday = new Date(family.birthday);
                     birthday.setMinutes(birthday.getMinutes() + timezoneOffset);
-                    this.setAge(birthday);
+                    this.setAge(birthday,family.id);
                     // 年月日を設定
                     let oldYear = birthday.getFullYear();
                     let oldMonth = birthday.getMonth() + 1; // getMonth()メソッドが月を0から11の範囲で返してくるため、1を足す
@@ -818,26 +863,42 @@ Vue.createApp({
 		},
     },
     mounted() {
-		// 初期住所をサーバーサイドで設定
-		let initialAddress = @json(old('birthday_prefectures', $request->birthday_prefectures ?? $defaultAddress));
-		this.updateMapAndMarker(initialAddress);
+        // 初期住所をサーバーサイドで設定
+        let initialAddress = @json(old('birthday_prefectures', $request->birthday_prefectures ?? $defaultAddress));
+        this.updateMapAndMarker(initialAddress);
 
         // 年月日を設定
-		let oldYear = @json(old('birth_year', $request->birth_year ?? ($defaultBirthday ? $defaultBirthday->format('Y') : '')));
-		let oldMonth = @json(old('birth_month', $request->birth_monty ?? ($defaultBirthday ? $defaultBirthday->format('m') : '')));
-		let oldDay = @json(old('birth_day', $request->birth_day ?? ($defaultBirthday ? $defaultBirthday->format('d') : '')));
-        let birthday = @json(old('birthday',$request->birthday ?? $defaultBirthday));
-		this.setYear(oldYear);
-		this.setMonth(oldMonth);
-		this.setDay(oldDay);
-        if (!(birthday instanceof Date)) {
-            birthday = new Date(birthday);
+        let oldYear = @json(old('birth_year', $request->birth_year ?? ($defaultBirthday ? $defaultBirthday->format('Y') : '')));
+        let oldMonth = @json(old('birth_month', $request->birth_monty ?? ($defaultBirthday ? $defaultBirthday->format('m') : '')));
+        let oldDay = @json(old('birth_day', $request->birth_day ?? ($defaultBirthday ? $defaultBirthday->format('d') : '')));
+
+        let familyId = @json(old('family_id'));
+
+        this.setYear(oldYear);
+        this.setMonth(oldMonth);
+        this.setDay(oldDay);
+
+        if (!oldYear || !oldMonth || !oldDay) {
+            let currentDate = new Date();
+            oldYear = currentDate.getFullYear();
+            oldMonth = currentDate.getMonth() + 1; 
+            oldDay = currentDate.getDate();
         }
+
+        let birthday = new Date(oldYear, oldMonth - 1, oldDay); 
+
         // 日付をUTCからJSTに変換
         let timezoneOffset = 9 * 60; // JSTはUTCより9時間進んでいます
         birthday.setMinutes(birthday.getMinutes() + timezoneOffset);
-        this.setAge(birthday);
+
+        if(familyId){
+            this.setAge(birthday,familyId);
+        }else{
+            this.setAge(birthday);
+        }
+
     }
+
 }).mount('#Personal-appraisal');
 </script>
 <script>
