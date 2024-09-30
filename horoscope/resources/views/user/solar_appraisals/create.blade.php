@@ -499,7 +499,7 @@ Vue.createApp({
 			marker: null,
 			map: null,
 			geocoder: new google.maps.Geocoder(),
-            familySolarAppraisals: @json($familySolarAppraisals->values()->all()),
+            allFamilySolarAppraisals: @json($allFamilySolarAppraisals->values()->all()),
             personalSolarAppraisals: @json($personalSolarAppraisals->values()->all()),
         }
     },
@@ -581,28 +581,45 @@ Vue.createApp({
         },
         //家族を選択したらその家族の情報をセットする
         setAge(birthday){
-            const yearBuyedFamilyAppraisals = [];
-            this.familySolarAppraisals.forEach(solar => {
-                if (solar && solar.solar_return) {
-                    yearBuyedFamilyAppraisals.push(solar.solar_return);
-                }
-            });
+            //target type: 1|personal, 2|family
+            console.log('target type:',this.personalClick);
+            
+            let yearBuyedPersonalAppraisals = [];
+            let yearBuyedFamilyAppraisals = [];
 
-            const yearBuyedPersonalAppraisals = [];
+            //personal appraisal
             this.personalSolarAppraisals.forEach(solar => {
                 if (solar && solar.solar_return) {
                     yearBuyedPersonalAppraisals.push(solar.solar_return);
                 }
             });
-            let currentDate = new Date();
+            console.log(yearBuyedPersonalAppraisals);
+            
+            //family appraisal
+            if(this.personalClick != 1){
+                const family = this.families.find(family => family.id == event.target.value);
+                const familyAppraisalById = this.allFamilySolarAppraisals.filter(solar => solar.reference_id == family.id);
+                console.log(familyAppraisalById);
+                
+                familyAppraisalById.forEach(solar => {
+                    if (solar && solar.solar_return) {
+                        yearBuyedFamilyAppraisals.push(solar.solar_return);
+                    }
+                });
+                console.log('Family appraisal solar year by family id', yearBuyedFamilyAppraisals);
+            }
 
+            let currentDate = new Date();
             let age = currentDate.getFullYear() - birthday.getFullYear();
             let currentYear = currentDate.getFullYear();
             let nextYear = currentYear + 1;
             if (currentDate.getMonth() < birthday.getMonth() || (currentDate.getMonth() === birthday.getMonth() && currentDate.getDate() < birthday.getDate())) {
                 age--;
                 currentYear--;
+                nextYear--;
             }
+            console.log('current year', currentYear);
+            console.log('next year', nextYear);
             let formattedNextDate = new Date(currentYear + 1, birthday.getMonth(), birthday.getDate() - 1);
             let formattedNextDate1 = new Date(currentYear + 2, birthday.getMonth(), birthday.getDate() - 1);
             let formattedCurrentDate = `${currentYear}年${(birthday.getMonth()+1).toString().padStart(2, '0')}月${(birthday.getDate()).toString().padStart(2, '0')}日`;
@@ -612,7 +629,9 @@ Vue.createApp({
             const nextAge = document.querySelector('span.C-form-block__radio__text[for="solar_return2"]');
             const solarReturn1 = document.getElementById('solar_return1');
             const solarReturn2 = document.getElementById('solar_return2');
-            if(this.personalClick === 1){
+
+            if(this.personalClick == 1){
+                console.log('Personal radio');
                 currentAge.textContent = (yearBuyedPersonalAppraisals.includes(currentYear) )  ?  `※購入済み※  ${age}歳(${formattedCurrentDate}-${formattedNextDate})`  : `${age}歳(${formattedCurrentDate}-${formattedNextDate})`;
                 nextAge.textContent = (yearBuyedPersonalAppraisals.includes(nextYear) )  ?  `※購入済み※  ${age+1}歳(${formattedCurrentDate1}-${formattedNextDate1})`  : `${age+1}歳(${formattedCurrentDate1}-${formattedNextDate1})`;
                 solarReturn1.checked = !yearBuyedPersonalAppraisals.includes(currentYear);
@@ -620,6 +639,7 @@ Vue.createApp({
                 solarReturn1.disabled  = yearBuyedPersonalAppraisals.includes(currentYear);
                 solarReturn2.disabled  = yearBuyedPersonalAppraisals.includes(nextYear);
             }else{
+                console.log('Family radio');
                 currentAge.textContent = (yearBuyedFamilyAppraisals.includes(currentYear) )  ?  `※購入済み※  ${age}歳(${formattedCurrentDate}-${formattedNextDate})`  : `${age}歳(${formattedCurrentDate}-${formattedNextDate})`;
                 nextAge.textContent = (yearBuyedFamilyAppraisals.includes(nextYear) )  ?  `※購入済み※  ${age+1}歳(${formattedCurrentDate1}-${formattedNextDate1})`  : `${age+1}歳(${formattedCurrentDate1}-${formattedNextDate1})`;
                 solarReturn1.checked = !yearBuyedFamilyAppraisals.includes(currentYear);

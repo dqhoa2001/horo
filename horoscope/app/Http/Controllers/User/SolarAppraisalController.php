@@ -106,8 +106,8 @@ class SolarAppraisalController extends Controller
         $defaultBirthdayPrefectures = $user->birthday_prefectures;
         $defaultAddress = $user->birthday_prefectures;
 
-        $personalSolarAppraisals = $user->appraisalApplies;
-        $familySolarAppraisals = AppraisalApply::whereHas('family', static function ($query) {
+        $personalSolarAppraisals = $user->appraisalApplies->where('solar_return','!=',0);
+        $allFamilySolarAppraisals = AppraisalApply::whereHas('family', static function ($query) {
                 $query->where('user_id', auth()->guard('user')->user()->id);
             })->whereHas('appraisalClaim', static function ($query) {
                 $query->where('is_paid', true);
@@ -130,7 +130,7 @@ class SolarAppraisalController extends Controller
             'defaultBirthdayTime' => $defaultBirthdayTime,
             'defaultBirthdayPrefectures' => $defaultBirthdayPrefectures,
             'defaultAddress' => $defaultAddress,
-            'familySolarAppraisals' => $familySolarAppraisals,
+            'allFamilySolarAppraisals' => $allFamilySolarAppraisals,
             'personalSolarAppraisals' => $personalSolarAppraisals,
         ]);
     }
