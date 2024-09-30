@@ -138,22 +138,18 @@ class TemplateSeeder extends Seeder
                 // お支払い確認メール
                 'template_name' => 'お支払い確認メール',
                 'class_name' => 'PayStatusSolarChange',
-                'title' => '【星の舞】製本のお申し込みありがとうございました',
+                'title' => '【星の舞】お支払いを確認いたしました',
                 'content' => '
                     {{ $name }}様
 
                     このたびは、太陽回帰自動鑑定システム「Solar Return」をお求めくださりありがとうございます。
-                    銀行振込のご入金を確認いたしました。
+                    銀行振込のお支払いを確認いたしました。
 
-                    以下の、郵送先に製本をお送りいたします。
+                    以下に、ご購入頂いた鑑定結果のご案内をお送りいたします。
 
-                    ＜郵送先について＞
-                    ▪️配送先氏名：{{ $purchase_name }}
-                    ▪️郵便番号：{{ $post_number }}
-                    ▪️住所：{{ $address }}{{ $building }}
-                    ▪️電話番号：{{ $tel }}
-
-                    配送予定日：{{ $scheduled_shipping_date }}
+                    <a href="{{ $appraisal_url }}" target="_blank">{{ $appraisal_url }}</a>
+                    こちらからログインいただきますと、鑑定結果をご覧いただくことができます。
+                    {{ $name }}様の人生がより良くなる一助となりますと幸いです。
 
                     ご不明な点がございましたら、お気軽にお問い合わせください。
 
