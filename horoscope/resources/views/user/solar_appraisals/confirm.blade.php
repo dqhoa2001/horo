@@ -249,6 +249,13 @@
                                     </dd>
                                 </dl>
 
+                                <dl class="C-form-block C-form-block--cash">
+                                    <dt class="C-form-block__title C-form-block__title--req">お支払い方法</dt>
+                                    <dd class="C-form-block__body">
+                                        {{\App\Models\AppraisalClaim::PAYMENT_TYPE[(int)$data['payment_type']]}}
+                                    </dd>
+                                </dl>
+
                                 @if(isset($data['coupon_code']))
                                     <dl class="C-form-block C-form-block--coupon-wrap">
                                         <div class="C-form-block__body">
@@ -261,13 +268,6 @@
                                         </div>
                                     </dl>
                                 @endif
-
-                                <dl class="C-form-block C-form-block--cash">
-                                    <dt class="C-form-block__title C-form-block__title--req">お支払い方法</dt>
-                                    <dd class="C-form-block__body">
-                                        {{\App\Models\AppraisalClaim::PAYMENT_TYPE[(int)$data['payment_type']]}}
-                                    </dd>
-                                </dl>
 
                                 <dl class="C-price">
                                     <dt class="C-price__title">注文内容</dt>
