@@ -11,7 +11,7 @@
 	width: 2.5rem;
 	height: 2.5rem;
 	top: calc(50% - 1.25rem);
-	background-image: url(../images/myappraisal/icon_mark-pagename.svg);
+	background-image: url(../images/common/icon_nav_solar_return.png);
 }
 
 .Pageframe-main__title{
@@ -319,4 +319,8 @@
 
 .underline {
 	text-decoration: underline;
+}
+
+.Button a, .Button span {
+	font-size: 1.1rem;
 }

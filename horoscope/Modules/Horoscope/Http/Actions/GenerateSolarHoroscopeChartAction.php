@@ -113,7 +113,7 @@ class GenerateSolarHoroscopeChartAction
         $dayOfBirthDegrees = $this->calculateSolarDegrees($swephData);
 
         // day of birth solar
-        $solarDate = Carbon::create($solar_year, $date->month, $date->day, $date->hour, $date->minute)->subDays(1);
+        $solarDate = Carbon::create($solar_year, $date->month, $date->day, $date->hour, $date->minute)->subDays(3);
 
 
         do {
@@ -127,21 +127,29 @@ class GenerateSolarHoroscopeChartAction
 
             if ($dayOfBirthSolarDegrees['degrees'] !== $dayOfBirthDegrees['degrees']) {
                 $solarDate->addHour();
-            }
+            }        
+            
         } while ($dayOfBirthSolarDegrees['degrees'] !== $dayOfBirthDegrees['degrees']);
 
         do {
+            
             $swephSolarData = $this->predictDayOfBirthAction->execute(
                 $solarDate->format('d.m.Y'),
                 $solarDate->format('H:i:s'),
                 $location->get('longitude'),
                 $location->get('latitude')
             );
+
             $dayOfBirthSolarDegrees = $this->calculateSolarDegrees($swephSolarData);
 
-            if ($dayOfBirthSolarDegrees['minnute'] !== $dayOfBirthDegrees['minnute']) {
-                $solarDate->addMinute();
+            if($dayOfBirthSolarDegrees['minnute'] > $dayOfBirthDegrees['minnute']){
+                $solarDate->subMinute();
+            }else{
+                if ($dayOfBirthSolarDegrees['minnute'] !== $dayOfBirthDegrees['minnute']) {
+                    $solarDate->addMinute();
+                }
             }
+
         } while ($dayOfBirthSolarDegrees['minnute'] !== $dayOfBirthDegrees['minnute']);
 
         do {
@@ -153,9 +161,14 @@ class GenerateSolarHoroscopeChartAction
             );
             $dayOfBirthSolarDegrees = $this->calculateSolarDegrees($swephSolarData);
 
-            if ($dayOfBirthSolarDegrees['second'] !== $dayOfBirthDegrees['second']) {
-                $solarDate->addSecond();
+            if($dayOfBirthSolarDegrees['second'] > $dayOfBirthDegrees['second']){
+                $solarDate->subSecond();
+            }else{
+                if ($dayOfBirthSolarDegrees['second'] !== $dayOfBirthDegrees['second']) {
+                    $solarDate->addSecond();
+                }
             }
+
         } while ($dayOfBirthSolarDegrees['second'] !== $dayOfBirthDegrees['second']);
 
         $swephData =$this->predictDayOfBirthAction->execute(

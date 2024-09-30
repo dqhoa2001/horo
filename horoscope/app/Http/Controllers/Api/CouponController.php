@@ -51,6 +51,14 @@ class CouponController extends Controller
                     }
                 }
 
+                if ($request['params']['request_type'] === 'offer') {
+                    if(!$adminCoupon->is_personal_appr_enabled){
+                        return response()->json([
+                            'message' => '個人鑑定にクーポンを使用できません。',
+                        ]);
+                    }
+                }
+
                 if ($request['params']['request_type'] === 'personalSR') {
                     if (!$adminCoupon->is_personal_solar_return_appr_enabled) {
                         return response()->json([
@@ -67,11 +75,11 @@ class CouponController extends Controller
                     }
                 }
 
-                // if ($request['params']['request_type'] === 'SRbookbinding' || $request['params']['request_type'] === 'bookbinding') {
-                //     return response()->json([
-                //         'message' => '割引コードは書籍の注文には適用されません',
-                //     ]);
-                // }
+                if ($request['params']['request_type'] === 'SRbookbinding' || $request['params']['request_type'] === 'bookbinding') {
+                    return response()->json([
+                        'message' => '割引コードは書籍の注文には適用されません',
+                    ]);
+                }
             }
 
             // 例）time_limit_dayが2021-01-01の場合、2021-01-01まで使える

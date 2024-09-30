@@ -133,11 +133,35 @@
                                     </dd>
                                 </dl>
                                 @endif
-                                <dl class="C-form-block C-form-block--cash">
-                                    <dt class="C-form-block__title C-form-block__title--req">お支払い方法</dt>
-                                    <dd class="C-form-block__body">
-                                        {{\App\Models\AppraisalClaim::PAYMENT_TYPE[(int)$data['payment_type']]}}
+                                @if ((int)$data['target_type'] === \App\Models\AppraisalApply::USER)
+                                    <dl class="C-form-block C-form-block--name">
+                                        <dt class="C-form-block__title C-form-block__title--req">お名前</dt>
+                                        <dd class="C-form-block__body C-form-block__body--two">
+                                            {{ auth()->guard('user')->user()->name1 }} {{ auth()->guard('user')->user()->name2 }}
+                                        </dd>
+                                    </dl>
+                                @endif
+                                <dl class="C-form-block">
+                                    <dt class="C-form-block__title C-form-block__title--req">個人鑑定の対象者</dt>
+                                    <dd class="C-form-block__body C-form-block-child">
+                                        {{(int)$data['target_type'] === \App\Models\AppraisalApply::USER ? '自分' : '家族'}}
                                     </dd>
+                                    @if((int)$data['target_type'] === \App\Enums\TargetType::FAMILY->value)
+                                    <dd class="C-form-block__body">
+                                        <dl class="C-form-block-child C-form-block--birth">
+                                            <dt class="C-form-block__title">対象者との続柄</dt>
+                                            <dd class="C-form-block__body C-form-block__body--half">
+                                                {{ $data['relationship'] }}
+                                            </dd>
+                                        </dl>
+                                        <dl class="C-form-block-child C-form-block--time">
+                                            <dt class="C-form-block__title">対象者のお名前</dt>
+                                            <dd class="C-form-block__body C-form-block__body--half">
+                                                {{ $data['name1'] }}{{ $data['name2'] }}
+                                            </dd>
+                                        </dl>
+                                    </dd>
+                                    @endif
                                 </dl>
 
                                 <dl class="C-form-block C-form-block--birthdata">
@@ -198,6 +222,30 @@
                                     </dd>
                                 </dl>
 
+                                <dl class="C-form-block C-form-block--birthdata">
+                                    <dt class="C-form-block__title C-form-block__title--req">SOLAR RETURN情報</dt>
+                                    <dd class="C-form-block__body">
+                                        <dl class="C-form-block__notes">
+                                            <dd class="C-form-block__notes__body">
+                                            お客様がSOLAR RETURNを購入された年に関する情報
+                                            </dd>
+                                        </dl>
+                                        <dl class="C-form-block-child C-form-block--birth">
+                                            <dt class="C-form-block__title">鑑定年</dt>
+                                            <dd class="C-form-block__body C-form-block__body--half">
+                                                {{$data['solar_return-text']}}
+                                            </dd>
+                                        </dl>
+                                    </dd>
+                                </dl>
+
+                                <dl class="C-form-block C-form-block--cash">
+                                    <dt class="C-form-block__title C-form-block__title--req">お支払い方法</dt>
+                                    <dd class="C-form-block__body">
+                                        {{\App\Models\AppraisalClaim::PAYMENT_TYPE[(int)$data['payment_type']]}}
+                                    </dd>
+                                </dl>
+
                                 {{-- カードブランドとカードの最後の4桁表示 --}}
                                 @if((int)$data['payment_type'] === \App\Models\AppraisalClaim::CREDIT)
                                 <dl class="C-form-block C-form-block--card">
@@ -216,23 +264,6 @@
                                 </dl>
                                 @endif
 
-                                <dl class="C-form-block C-form-block--birthdata">
-                                    <dt class="C-form-block__title C-form-block__title--req">SOLAR RETURN情報</dt>
-                                    <dd class="C-form-block__body">
-                                        <dl class="C-form-block__notes">
-                                            <dd class="C-form-block__notes__body">
-                                            お客様がSOLAR RETURNを購入された年に関する情報
-                                            </dd>
-                                        </dl>
-                                        <dl class="C-form-block-child C-form-block--birth">
-                                            <dt class="C-form-block__title">鑑定年</dt>
-                                            <dd class="C-form-block__body C-form-block__body--half">
-                                                {{$data['solar_return-text']}}
-                                            </dd>
-                                        </dl>
-                                    </dd>
-                                </dl>
-
                                 @if(isset($data['coupon_code']))
                                     <dl class="C-form-block C-form-block--coupon-wrap">
                                         <div class="C-form-block__body">
@@ -245,7 +276,6 @@
                                         </div>
                                     </dl>
                                 @endif
-
 
                                 <dl class="C-price">
                                     <dt class="C-price__title">注文内容</dt>

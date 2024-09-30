@@ -48,7 +48,7 @@ class PayStatusChange extends Mailable implements ShouldQueue
         $this->bccMails = array_merge($this->allAdminMailAddresses, $this->minnaBccArray);
 
         $this->bcc($this->bccMails);
-        $className = $appraisalClaim->appraisalApply->solar_return !== 0 ? 'PayStatusSolarChange' : class_basename($this) ;
+        $className = $appraisalClaim->appraisalApply->solar_return !== 0 ? 'BookbindingUserApplySolarMailForBankComplete' : class_basename($this) ;
         $this->template = Template::where('class_name', $className)->first();
         $this->footerTemplate = Template::where('class_name', 'footer')->first();
 

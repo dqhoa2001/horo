@@ -2,9 +2,9 @@
     <div class="C-solar-appraisal-banner__image">
         <!-- <img src="{{ asset('images/mypage/banner-top-logo.svg') }}" alt=""> -->
         <picture>
-            <source srcset="{{ asset('images/mypage/small-solar-return-title.png') }}"
-                media="(max-width: 600px)">
-            <img src="{{ asset('images/mypage/solar-return-title.png') }}" alt="PERSONAL SOLAR APPRAISAL">
+            <source srcset="{{ asset('images/mypage/small-solar-return-title.svg') }}"
+            media="(max-width: 600px)">
+            <img src="{{ asset('images/mypage/solar-return-title.svg') }}" alt="PERSONAL SOLAR APPRAISAL" style="height: 160px; margin-bottom: -1rem;">
         </picture>
     </div>
     <div class="C-solar-appraisal-banner__price-appraisal">
