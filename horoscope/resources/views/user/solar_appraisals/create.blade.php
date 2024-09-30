@@ -577,6 +577,7 @@ Vue.createApp({
                 let day = parseInt(selectDay.value);
                 let birthday = new Date(year, month, day);
                 this.setAge(birthday);
+                this.triggerSolarReturnChange();
             }
         },
         //家族を選択したらその家族の情報をセットする
