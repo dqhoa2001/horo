@@ -635,6 +635,12 @@
                     // solarReturn2.checked = !yearBuyedPersonalAppraisals.includes(nextYear);
                     solarReturn1.disabled  = yearBuyedPersonalAppraisals.includes(currentYear);
                     solarReturn2.disabled  = yearBuyedPersonalAppraisals.includes(nextYear);
+                    if (yearBuyedPersonalAppraisals.includes(currentYear) && yearBuyedPersonalAppraisals.includes(nextYear)) {
+                        let messageElement = document.createElement('p');
+                        messageElement.textContent = "鑑定年が選択されていないため、申込できません。";
+                        messageElement.style.color = "red";
+                        solarReturn2.parentNode.insertAdjacentElement('afterend', messageElement);
+                    }
                 }else{
                     currentAge.textContent = (yearBuyedFamilyAppraisals.includes(currentYear) )  ?  `※購入済み※  ${age}歳(${formattedCurrentDate}-${formattedNextDate})`  : `${age}歳(${formattedCurrentDate}-${formattedNextDate})`;
                     nextAge.textContent = (yearBuyedFamilyAppraisals.includes(nextYear) )  ?  `※購入済み※  ${age+1}歳(${formattedCurrentDate1}-${formattedNextDate1})`  : `${age+1}歳(${formattedCurrentDate1}-${formattedNextDate1})`;
@@ -642,6 +648,12 @@
                     // solarReturn2.checked = !yearBuyedFamilyAppraisals.includes(nextYear);
                     solarReturn1.disabled  = yearBuyedFamilyAppraisals.includes(currentYear);
                     solarReturn2.disabled  = yearBuyedFamilyAppraisals.includes(nextYear);
+                    if (yearBuyedFamilyAppraisals.includes(currentYear) && yearBuyedFamilyAppraisals.includes(nextYear)) {
+                        let messageElement = document.createElement('p');
+                        messageElement.textContent = "鑑定年が選択されていないため、申込できません。";
+                        messageElement.style.color = "red";
+                        solarReturn2.parentNode.insertAdjacentElement('afterend', messageElement);
+                    }
                 }
                 solarReturn1.value = currentYear;
                 solarReturn2.value = currentYear+1;
