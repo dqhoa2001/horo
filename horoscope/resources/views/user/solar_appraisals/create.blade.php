@@ -275,6 +275,7 @@
                                                         @include('components.form.original_solar_radio', [
                                                             'name'    => 'solar_return',
                                                             'data'    => [0 , 1],
+                                                            'onChange' => 'updateHiddenInput'
                                                         ])
                                                     </div>
                                                 </dd>
@@ -478,549 +479,553 @@
 <script src="{{ asset('mypage/assets/js/personal-appraisal-form.js') }}"></script>
 <script src="{{ asset('mypage/assets/plugins/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js') }}"></script>
 <script>
-Vue.createApp({
-    data() {
-        return {
-            bookbindingClick:  @json(old('is_bookbinding', $request->is_bookbinding ?? '0')),
-            personalClick: @json(old('target_type', $request->target_type ?? 1)),
-            paymentType: @json(old('payment_type', $request->payment_type ?? App\Models\AppraisalClaim::CREDIT)),
-            isCalculating: false,
-            appraisalPrice: @json($appraisalPrice),
-            bookbindingPrice: @json($bookbinding->price),
-            // shippingFee: @json(\App\Models\AppraisalClaim::SHIPPING_FEE),
-            // totalAmount : @json(intval(old('total_amount', $request->total_amount ?? $appraisalPrice))),
-            // totalAmount : @json(intval(old('total_amount', $request->total_amount ?? $appraisalPrice + $bookbinding->price + \App\Models\AppraisalClaim::SHIPPING_FEE))),
-            totalAmount : @json(intval(old('total_amount', $request->total_amount ?? $appraisalPrice))),
-            discountPrice: @json(intval(old('discount_price', $request->discount_price ?? 0))),
-            point: @json(auth()->guard('user')->user()->point_sum),
-            families: @json(auth()->guard('user')->user()->families()->get()),
-            couponType: @json(old('coupon_type', $request->coupon_type ?? App\Enums\CouponType::BACK_COUPON->value)),
-            couponCode: @json(old('coupon_code', $request->coupon_code ?? '')),
-			marker: null,
-			map: null,
-			geocoder: new google.maps.Geocoder(),
-            allFamilySolarAppraisals: @json($allFamilySolarAppraisals->values()->all()),
-            personalSolarAppraisals: @json($personalSolarAppraisals->values()->all()),
-        }
-    },
-    methods: {
-        setYear (oldYear) {
-			let selectYear = document.getElementById('select_year');
-			const year = new Date().getFullYear();
-			for (let i = year; i >= 1900; i--) {
-				const option = document.createElement('option');
-				option.value = i;
-				option.text = i + '年';
-				if (i == oldYear) {
-					option.selected = true;
-				}
-				selectYear.appendChild(option);
-			}
-		},
-		setMonth (oldMonth) {
-			let selectMonth = document.getElementById('select_month');
-			for (let i = 1; i <= 12; i++) {
-				const option = document.createElement('option');
-				option.value = i;
-				option.text = i + '月';
-				if (i == oldMonth) {
-					option.selected = true;
-				}
-				selectMonth.appendChild(option);
-			}
-		},
-		setDay (oldDay) {
-			let selectYear = document.getElementById('select_year');
-			let selectMonth = document.getElementById('select_month');
-			let selectDay = document.getElementById('select_day');
-			//日の選択肢を空にする
-			let children = selectDay.children
-			while(children.length){
-				children[0].remove()
-			}
-			// 最初にplaceholderを追加
-			let op = document.createElement('option');
-			op.value = '';
-			op.text = '日';
-			selectDay.appendChild(op);
-			// 日を生成(動的に変える)
-			if(selectYear.value !== '' &&  selectMonth.value !== ''){
-				const lastDay = new Date(selectYear.value,selectMonth.value,0).getDate()
-				for (i = 1; i <= lastDay; i++) {
-					let op = document.createElement('option');
-					op.value = i;
-					op.text = i + '日';
-					if (i == oldDay) {
-						op.selected = true;
-					}
-					selectDay.appendChild(op);
-				}
-			}
-		},
-        //入力されたクーポンから値引きを行う
-        //「製本する」をクリックした時に製本の金額を加算する、もしくは減算する
-        toggleCaluculateBookking(){
-            if(this.bookbindingClick === '1'){
-                this.totalAmount = this.totalAmount + this.bookbindingPrice;
-            }
-            else{
-                this.totalAmount = this.totalAmount - this.bookbindingPrice;
+    Vue.createApp({
+        data() {
+            return {
+                bookbindingClick:  @json(old('is_bookbinding', $request->is_bookbinding ?? '0')),
+                personalClick: @json(old('target_type', $request->target_type ?? 1)),
+                paymentType: @json(old('payment_type', $request->payment_type ?? App\Models\AppraisalClaim::CREDIT)),
+                isCalculating: false,
+                appraisalPrice: @json($appraisalPrice),
+                bookbindingPrice: @json($bookbinding->price),
+                // shippingFee: @json(\App\Models\AppraisalClaim::SHIPPING_FEE),
+                // totalAmount : @json(intval(old('total_amount', $request->total_amount ?? $appraisalPrice))),
+                // totalAmount : @json(intval(old('total_amount', $request->total_amount ?? $appraisalPrice + $bookbinding->price + \App\Models\AppraisalClaim::SHIPPING_FEE))),
+                totalAmount : @json(intval(old('total_amount', $request->total_amount ?? $appraisalPrice))),
+                discountPrice: @json(intval(old('discount_price', $request->discount_price ?? 0))),
+                point: @json(auth()->guard('user')->user()->point_sum),
+                families: @json(auth()->guard('user')->user()->families()->get()),
+                couponType: @json(old('coupon_type', $request->coupon_type ?? App\Enums\CouponType::BACK_COUPON->value)),
+                couponCode: @json(old('coupon_code', $request->coupon_code ?? '')),
+                marker: null,
+                map: null,
+                geocoder: new google.maps.Geocoder(),
+                allFamilySolarAppraisals: @json($allFamilySolarAppraisals->values()->all()),
+                personalSolarAppraisals: @json($personalSolarAppraisals->values()->all()),
             }
         },
-        changeDate(){
-            let selectYear = document.getElementById('select_year');
-			let selectMonth = document.getElementById('select_month');
-			let selectDay = document.getElementById('select_day');
-            if(selectYear.value !== '' &&  selectMonth.value !== '' &&  selectDay.value !== ''){
-                let year = parseInt(selectYear.value);
-                let month = parseInt(selectMonth.value) - 1;
-                let day = parseInt(selectDay.value);
-                let birthday = new Date(year, month, day);
-                this.setAge(birthday);
-                this.triggerSolarReturnChange();
-            }
-        },
-        //家族を選択したらその家族の情報をセットする
-        setAge(birthday,id = null){
-            let yearBuyedPersonalAppraisals = [];
-            let yearBuyedFamilyAppraisals = [];
+        methods: {
+            setYear (oldYear) {
+                let selectYear = document.getElementById('select_year');
+                const year = new Date().getFullYear();
+                for (let i = year; i >= 1900; i--) {
+                    const option = document.createElement('option');
+                    option.value = i;
+                    option.text = i + '年';
+                    if (i == oldYear) {
+                        option.selected = true;
+                    }
+                    selectYear.appendChild(option);
+                }
+            },
+            setMonth (oldMonth) {
+                let selectMonth = document.getElementById('select_month');
+                for (let i = 1; i <= 12; i++) {
+                    const option = document.createElement('option');
+                    option.value = i;
+                    option.text = i + '月';
+                    if (i == oldMonth) {
+                        option.selected = true;
+                    }
+                    selectMonth.appendChild(option);
+                }
+            },
+            setDay (oldDay) {
+                let selectYear = document.getElementById('select_year');
+                let selectMonth = document.getElementById('select_month');
+                let selectDay = document.getElementById('select_day');
+                //日の選択肢を空にする
+                let children = selectDay.children
+                while(children.length){
+                    children[0].remove()
+                }
+                // 最初にplaceholderを追加
+                let op = document.createElement('option');
+                op.value = '';
+                op.text = '日';
+                selectDay.appendChild(op);
+                // 日を生成(動的に変える)
+                if(selectYear.value !== '' &&  selectMonth.value !== ''){
+                    const lastDay = new Date(selectYear.value,selectMonth.value,0).getDate()
+                    for (i = 1; i <= lastDay; i++) {
+                        let op = document.createElement('option');
+                        op.value = i;
+                        op.text = i + '日';
+                        if (i == oldDay) {
+                            op.selected = true;
+                        }
+                        selectDay.appendChild(op);
+                    }
+                }
+            },
+            //入力されたクーポンから値引きを行う
+            //「製本する」をクリックした時に製本の金額を加算する、もしくは減算する
+            toggleCaluculateBookking(){
+                if(this.bookbindingClick === '1'){
+                    this.totalAmount = this.totalAmount + this.bookbindingPrice;
+                }
+                else{
+                    this.totalAmount = this.totalAmount - this.bookbindingPrice;
+                }
+            },
+            changeDate(){
+                let selectYear = document.getElementById('select_year');
+                let selectMonth = document.getElementById('select_month');
+                let selectDay = document.getElementById('select_day');
+                if(selectYear.value !== '' &&  selectMonth.value !== '' &&  selectDay.value !== ''){
+                    let year = parseInt(selectYear.value);
+                    let month = parseInt(selectMonth.value) - 1;
+                    let day = parseInt(selectDay.value);
+                    let birthday = new Date(year, month, day);
+                    this.setAge(birthday);
+                    this.triggerSolarReturnChange();
+                }
+            },
+            //家族を選択したらその家族の情報をセットする
+            setAge(birthday,id = null){
+                let yearBuyedPersonalAppraisals = [];
+                let yearBuyedFamilyAppraisals = [];
 
-            try {
-                if (this.personalClick == '2') {
-                    // Family appraisal
-                    if(id !== null){
-                        const family = this.families.find(family => family.id == id);
-                        const familyAppraisalById = this.allFamilySolarAppraisals.filter(solar => solar.reference_id == family.id);
-                        familyAppraisalById.forEach(solar => {
+                try {
+                    if (this.personalClick == '2') {
+                        // Family appraisal
+                        if(id !== null){
+                            const family = this.families.find(family => family.id == id);
+                            const familyAppraisalById = this.allFamilySolarAppraisals.filter(solar => solar.reference_id == family.id);
+                            familyAppraisalById.forEach(solar => {
+                                if (solar && solar.solar_return) {
+                                    yearBuyedFamilyAppraisals.push(solar.solar_return);
+                                }
+                            });
+                        }
+                    }else{
+                        // Personal appraisal
+                        this.personalSolarAppraisals.forEach(solar => {
                             if (solar && solar.solar_return) {
-                                yearBuyedFamilyAppraisals.push(solar.solar_return);
+                                yearBuyedPersonalAppraisals.push(solar.solar_return);
                             }
                         });
                     }
+                } catch (error) {
+                    console.error("Error processing familySolarAppraisals: ", error);
+                }
+
+                let currentDate = new Date();
+                let age = currentDate.getFullYear() - birthday.getFullYear();
+                let currentYear = currentDate.getFullYear();
+                let nextYear = currentYear + 1;
+                if (currentDate.getMonth() < birthday.getMonth() || (currentDate.getMonth() === birthday.getMonth() && currentDate.getDate() < birthday.getDate())) {
+                    age--;
+                    currentYear--;
+                    nextYear--;
+                }
+                let formattedNextDate = new Date(currentYear + 1, birthday.getMonth(), birthday.getDate() - 1);
+                let formattedNextDate1 = new Date(currentYear + 2, birthday.getMonth(), birthday.getDate() - 1);
+                let formattedCurrentDate = `${currentYear}年${(birthday.getMonth()+1).toString().padStart(2, '0')}月${(birthday.getDate()).toString().padStart(2, '0')}日`;
+                formattedNextDate = `${formattedNextDate.getFullYear()}年${(formattedNextDate.getMonth() + 1).toString().padStart(2, '0')}月${formattedNextDate.getDate().toString().padStart(2, '0')}日`;            let formattedCurrentDate1 = `${currentYear+1}年${(birthday.getMonth()+1).toString().padStart(2, '0')}月${(birthday.getDate()).toString().padStart(2, '0')}日`;
+                formattedNextDate1 = `${formattedNextDate1.getFullYear()}年${(formattedNextDate1.getMonth() + 1).toString().padStart(2, '0')}月${formattedNextDate1.getDate().toString().padStart(2, '0')}日`;
+                const currentAge = document.querySelector('span.C-form-block__radio__text[for="solar_return1"]');
+                const nextAge = document.querySelector('span.C-form-block__radio__text[for="solar_return2"]');
+                const solarReturn1 = document.getElementById('solar_return1');
+                const solarReturn2 = document.getElementById('solar_return2');
+
+                if(this.personalClick == 1){
+                    currentAge.textContent = (yearBuyedPersonalAppraisals.includes(currentYear) )  ?  `※購入済み※  ${age}歳(${formattedCurrentDate}-${formattedNextDate})`  : `${age}歳(${formattedCurrentDate}-${formattedNextDate})`;
+                    nextAge.textContent = (yearBuyedPersonalAppraisals.includes(nextYear) )  ?  `※購入済み※  ${age+1}歳(${formattedCurrentDate1}-${formattedNextDate1})`  : `${age+1}歳(${formattedCurrentDate1}-${formattedNextDate1})`;
+                    // solarReturn1.checked = !yearBuyedPersonalAppraisals.includes(currentYear);
+                    // solarReturn2.checked = !yearBuyedPersonalAppraisals.includes(nextYear);
+                    solarReturn1.disabled  = yearBuyedPersonalAppraisals.includes(currentYear);
+                    solarReturn2.disabled  = yearBuyedPersonalAppraisals.includes(nextYear);
                 }else{
-                    // Personal appraisal
-                    this.personalSolarAppraisals.forEach(solar => {
-                        if (solar && solar.solar_return) {
-                            yearBuyedPersonalAppraisals.push(solar.solar_return);
+                    currentAge.textContent = (yearBuyedFamilyAppraisals.includes(currentYear) )  ?  `※購入済み※  ${age}歳(${formattedCurrentDate}-${formattedNextDate})`  : `${age}歳(${formattedCurrentDate}-${formattedNextDate})`;
+                    nextAge.textContent = (yearBuyedFamilyAppraisals.includes(nextYear) )  ?  `※購入済み※  ${age+1}歳(${formattedCurrentDate1}-${formattedNextDate1})`  : `${age+1}歳(${formattedCurrentDate1}-${formattedNextDate1})`;
+                    // solarReturn1.checked = !yearBuyedFamilyAppraisals.includes(currentYear);
+                    // solarReturn2.checked = !yearBuyedFamilyAppraisals.includes(nextYear);
+                    solarReturn1.disabled  = yearBuyedFamilyAppraisals.includes(currentYear);
+                    solarReturn2.disabled  = yearBuyedFamilyAppraisals.includes(nextYear);
+                }
+                solarReturn1.value = currentYear;
+                solarReturn2.value = currentYear+1;
+                this.triggerSolarReturnChange();
+            },
+            setFamilyInfo(){
+                const family = this.families.find(family => family.id == event.target.value);
+                if(family){
+                    this.$nextTick(() => {
+                        this.$refs.relationship.value = family.relationship;
+                        this.$refs.name1.value = family.name1;
+                        this.$refs.name2.value = family.name2;
+                        this.$refs.birthday_prefectures.value = family.birthday_prefectures;
+
+                        let timezoneSelect = this.$refs.timezone;
+                        // 一度選択されているものをリセット
+                        for (let i = 0; i < timezoneSelect.options.length; i++) {
+                            if (timezoneSelect.options[i].selected) {
+                                timezoneSelect.options[i].selected = false;
+                            }
                         }
+                        // DBのカラムのスペルがtimezomeになっているので注意！！（timezoneじゃなくてtimezome）
+                        let familyTimezone = family.timezome;
+                        // タイムゾーンを選択
+                        for (let i = 0; i < timezoneSelect.options.length; i++) {
+                            if (timezoneSelect.options[i].value == familyTimezone) {
+                                timezoneSelect.options[i].selected = true;
+                            }
+                        }
+
+                        // 日付をUTCからJSTに変換
+                        const timezoneOffset = 9 * 60; // JSTはUTCより9時間進んでいます
+                        let birthday = new Date(family.birthday);
+                        birthday.setMinutes(birthday.getMinutes() + timezoneOffset);
+                        this.setAge(birthday,family.id);
+                        // 年月日を設定
+                        let oldYear = birthday.getFullYear();
+                        let oldMonth = birthday.getMonth() + 1; // getMonth()メソッドが月を0から11の範囲で返してくるため、1を足す
+                        let oldDay = birthday.getDate();
+
+                        // 一度セレクトボックスをリセット
+                        document.getElementById('select_year').innerHTML = '';
+                        document.getElementById('select_month').innerHTML = '';
+                        document.getElementById('select_day').innerHTML = '';
+
+                        this.setYear(oldYear);
+                        this.setMonth(oldMonth);
+                        this.setDay(oldDay);
+
+                        // 時間をUTCからJSTに変換
+                        let birthdayTime = new Date(family.birthday_time);
+                        birthdayTime = new Date(birthdayTime.getTime() + (9 * 60 * 60 * 1000)); // UTCからJSTへの変換
+
+                        // 時間をHH:mmフォーマットに変換（秒を削除）
+                        this.$refs.birthday_time.value = birthdayTime.toISOString().split('T')[1].split(':')[0] + ':' + birthdayTime.toISOString().split('T')[1].split(':')[1];
+
+                        // googlemapの再描画
+                        let address = `${family.birthday_prefectures}`;
+                        // console.log(family.birthday_prefectures);
+                        this.updateMapAndMarker(family.birthday_prefectures);
+                        this.triggerSolarReturnChange();
+                    });
+                } else {
+                    this.$nextTick(() => {
+                        this.$refs.relationship.value = '';
+                        this.$refs.name1.value = '';
+                        this.$refs.name2.value = '';
+                        this.$refs.birthday_prefectures.value = '';
+                        // this.$refs.birthday_city.value = '';
+                        this.$refs.birthday.value = '';
+                        this.$refs.birthday_time.value = '';
+                        this.birthday = '';
                     });
                 }
-            } catch (error) {
-                console.error("Error processing familySolarAppraisals: ", error);
+            },
+            triggerSolarReturnChange() {
+                const firstRadio = document.querySelector('input[name="solar_return"]:first-of-type');
+                if (firstRadio) {
+                    firstRadio.dispatchEvent(new Event('change'));
+                }
+            },
+            updateHiddenInput() {
+                const solarReturn1 = document.getElementById('solar_return1');
+                const solarReturn2 = document.getElementById('solar_return2');
+                const isChecked1 = solarReturn1.checked;
+                const isChecked2 = solarReturn2.checked;
+                const isDisable1 = solarReturn1.disabled;
+                const isDisable2 = solarReturn2.disabled;
+
+                let checked = isChecked1 ? 1 : isChecked2 ? 2 : null;
+                const hiddenInput = document.getElementById('text-solar_return');
+
+                if(checked){
+                    const spanText = document.querySelector('span[for="solar_return' + checked + '"]').textContent;
+                    hiddenInput.value = spanText;
+                }else{
+                    hiddenInput.value = null;
+                }
+
+                if(isDisable1 && isDisable2){
+                    solarReturn2.checked = false;
+                    solarReturn1.checked = false;
+                }else{
+                    if(isDisable1){
+                        solarReturn2.checked = true;
+                    }else{
+                        solarReturn1.checked = true;
+                    }
+                }
+
+            },
+            //自分を選択したら自分の情報をセットする
+            setSelfInfo(){
+                if(event.target.value == '1'){
+                    this.$nextTick(() => {
+                        this.$refs.birthday_prefectures.value = '{{ auth()->guard('user')->user()->birthday_prefectures }}';
+                        this.$refs.birthday.value ='{{ auth()->guard('user')->user()->birthday?->format('Y-m-d') }}';
+                        this.$refs.birthday_time.value = '{{ auth()->guard('user')->user()->birthday_time?->format('H:i') }}';
+                    });
+                }
+            },
+            dicountTotalPlace(){
+                this.discountPrice = 0;
+                if(this.couponCode === ''){
+                    alert('クーポンコードを入力してください。');
+                    return;
+                }
+                this.isCalculating = true;
+
+                //すでに値引きがあれば、2重値引きしないように値引きを戻す
+                if (this.couponCode !== '' && this.discountPrice !== '') {
+                    this.totalAmount = this.totalAmount + this.discountPrice;
+                }
+
+                //クーポンコードから、値引額を取得する
+                axios.post('/api/coupon/get_discount_price', {
+                    params: {
+                        coupon_code: this.couponCode,
+                        request_type: this.personalClick == '1' ? 'personalSR' : 'familySR',
+                        user_id: '{{ auth()->guard('user')->user()->id }}',
+                    }
+                })
+                .then((response) => {
+                    if(response.data.discount_price){
+                        this.discountPrice = response.data.discount_price;
+                    }
+                    else{
+                        alert(response.data.message)
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+
+                setTimeout(() => {
+                    this.isCalculating = false;
+                }, 1000);
+            },
+            //クーポンの種類が変更されたら、値引き額やクーポンコードをリセットする
+            couponTypeChange(){
+                this.discountPrice = 0;
+                this.couponCode = '';
+            },
+            handleInputChange() {
+                let birthplace1 = document.getElementById('birthday_prefectures').value;
+                let address = birthplace1;
+                this.updateMapAndMarker(address);
+            },
+            updateMapAndMarker(address) {
+                this.geocoder.geocode({ 'address': address }, (results, status) => {
+                    if (status === 'OK') {
+                        if (!this.map) {
+                            this.map = new google.maps.Map(document.getElementById('map'), {
+                                center: results[0].geometry.location,
+                                zoom: 9,
+                                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                                scrollwheel: false,
+                                disableDoubleClickZoom: true,
+                                draggable: false,
+                            });
+                        } else {
+                            this.map.setCenter(results[0].geometry.location);
+                        }
+
+                        if (!this.marker) {
+                            this.marker = new google.maps.Marker({
+                                position: results[0].geometry.location,
+                                map: this.map,
+                                title: 'here',
+                            });
+                        } else {
+                            this.marker.setPosition(results[0].geometry.location);
+                        }
+
+                        const changeLng = results[0].geometry.location.lng();
+                        const changeLat = results[0].geometry.location.lat();
+                        document.getElementById('map-longitude').value = changeLng;
+                        document.getElementById('map-latitude').value = changeLat;
+                        document.getElementById('lng').value = changeLng;
+                        document.getElementById('lat').value = changeLat;
+                    } else {
+                        console.error('Geocode was not successful for the following reason: ' + status);
+                        console.log("Status:",status)
+                    }
+                });
+            },
+        },
+        // 合計金額計算監視
+        watch: {
+            //discountPriceの監視新しい値が入力されたら古い値との差分を計算する
+            discountPrice: function (newVal, oldVal) {
+                // newValを数値に変換し、失敗した場合はNaNが返される
+                const numericNewVal = Number(newVal);
+
+                // newValが数値ではない、0以下、またはpointより大きい場合はバリデーションに引っかかる
+                if (isNaN(numericNewVal) || numericNewVal < 0 || numericNewVal > this.point && this.couponType == '1') {
+                    if (isNaN(numericNewVal)) {
+                        alert('数値を入力してください');
+                    } else if (numericNewVal < 0) {
+                        alert('0以上の数値を入力してください');
+                    } else if (numericNewVal > this.point) {
+                        alert('使用可能なクーポン額を超えています');
+                    }
+
+                    // バリデーションに引っかかった場合は、totalAmountを元に戻す
+                    this.totalAmount += oldVal - this.discountPrice;
+                    // discountPriceをリセットする
+                    this.$nextTick(() => {
+                        this.discountPrice = 0;
+                    });
+                    return;
+                }
+                // ここで計算を実施
+                this.totalAmount = this.totalAmount - numericNewVal + Number(oldVal);
+
+                // 文字が入力された場合の対応
+                if (isNaN(this.totalAmount) ) {
+                    if(this.bookbindingClick == '1'){
+                        this.totalAmount = this.appraisalPrice + this.bookbindingPrice + this.shippingFee;
+                    }
+                    else{
+                        this.totalAmount = this.appraisalPrice;
+                    }
+                }
+            },
+            couponCode: function (val) {
+                if (val === '') {
+                    this.discountPrice = '';
+                }
+            },
+        },
+        mounted() {
+            // 初期住所をサーバーサイドで設定
+            let initialAddress = @json(old('birthday_prefectures', $request->birthday_prefectures ?? $defaultAddress));
+            this.updateMapAndMarker(initialAddress);
+
+            // 年月日を設定
+            let oldYear = @json(old('birth_year', $request->birth_year ?? ($defaultBirthday ? $defaultBirthday->format('Y') : '')));
+            let oldMonth = @json(old('birth_month', $request->birth_monty ?? ($defaultBirthday ? $defaultBirthday->format('m') : '')));
+            let oldDay = @json(old('birth_day', $request->birth_day ?? ($defaultBirthday ? $defaultBirthday->format('d') : '')));
+
+            let familyId = @json(old('family_id'));
+
+            this.setYear(oldYear);
+            this.setMonth(oldMonth);
+            this.setDay(oldDay);
+
+            if (!oldYear || !oldMonth || !oldDay) {
+                let currentDate = new Date();
+                oldYear = currentDate.getFullYear();
+                oldMonth = currentDate.getMonth() + 1; 
+                oldDay = currentDate.getDate();
             }
 
-            let currentDate = new Date();
-            let age = currentDate.getFullYear() - birthday.getFullYear();
-            let currentYear = currentDate.getFullYear();
-            let nextYear = currentYear + 1;
-            if (currentDate.getMonth() < birthday.getMonth() || (currentDate.getMonth() === birthday.getMonth() && currentDate.getDate() < birthday.getDate())) {
-                age--;
-                currentYear--;
-                nextYear--;
-            }
-            let formattedNextDate = new Date(currentYear + 1, birthday.getMonth(), birthday.getDate() - 1);
-            let formattedNextDate1 = new Date(currentYear + 2, birthday.getMonth(), birthday.getDate() - 1);
-            let formattedCurrentDate = `${currentYear}年${(birthday.getMonth()+1).toString().padStart(2, '0')}月${(birthday.getDate()).toString().padStart(2, '0')}日`;
-            formattedNextDate = `${formattedNextDate.getFullYear()}年${(formattedNextDate.getMonth() + 1).toString().padStart(2, '0')}月${formattedNextDate.getDate().toString().padStart(2, '0')}日`;            let formattedCurrentDate1 = `${currentYear+1}年${(birthday.getMonth()+1).toString().padStart(2, '0')}月${(birthday.getDate()).toString().padStart(2, '0')}日`;
-            formattedNextDate1 = `${formattedNextDate1.getFullYear()}年${(formattedNextDate1.getMonth() + 1).toString().padStart(2, '0')}月${formattedNextDate1.getDate().toString().padStart(2, '0')}日`;
-            const currentAge = document.querySelector('span.C-form-block__radio__text[for="solar_return1"]');
-            const nextAge = document.querySelector('span.C-form-block__radio__text[for="solar_return2"]');
-            const solarReturn1 = document.getElementById('solar_return1');
-            const solarReturn2 = document.getElementById('solar_return2');
+            let birthday = new Date(oldYear, oldMonth - 1, oldDay); 
 
-            if(this.personalClick == 1){
-                currentAge.textContent = (yearBuyedPersonalAppraisals.includes(currentYear) )  ?  `※購入済み※  ${age}歳(${formattedCurrentDate}-${formattedNextDate})`  : `${age}歳(${formattedCurrentDate}-${formattedNextDate})`;
-                nextAge.textContent = (yearBuyedPersonalAppraisals.includes(nextYear) )  ?  `※購入済み※  ${age+1}歳(${formattedCurrentDate1}-${formattedNextDate1})`  : `${age+1}歳(${formattedCurrentDate1}-${formattedNextDate1})`;
-                solarReturn1.checked = !yearBuyedPersonalAppraisals.includes(currentYear);
-                solarReturn2.checked = !yearBuyedPersonalAppraisals.includes(nextYear);
-                solarReturn1.disabled  = yearBuyedPersonalAppraisals.includes(currentYear);
-                solarReturn2.disabled  = yearBuyedPersonalAppraisals.includes(nextYear);
+            // 日付をUTCからJSTに変換
+            let timezoneOffset = 9 * 60; // JSTはUTCより9時間進んでいます
+            birthday.setMinutes(birthday.getMinutes() + timezoneOffset);
+
+            if(familyId){
+                this.setAge(birthday,familyId);
             }else{
-                currentAge.textContent = (yearBuyedFamilyAppraisals.includes(currentYear) )  ?  `※購入済み※  ${age}歳(${formattedCurrentDate}-${formattedNextDate})`  : `${age}歳(${formattedCurrentDate}-${formattedNextDate})`;
-                nextAge.textContent = (yearBuyedFamilyAppraisals.includes(nextYear) )  ?  `※購入済み※  ${age+1}歳(${formattedCurrentDate1}-${formattedNextDate1})`  : `${age+1}歳(${formattedCurrentDate1}-${formattedNextDate1})`;
-                solarReturn1.checked = !yearBuyedFamilyAppraisals.includes(currentYear);
-                solarReturn2.checked = !yearBuyedFamilyAppraisals.includes(nextYear);
-                solarReturn1.disabled  = yearBuyedFamilyAppraisals.includes(currentYear);
-                solarReturn2.disabled  = yearBuyedFamilyAppraisals.includes(nextYear);
+                this.setAge(birthday);
             }
-            solarReturn1.value = currentYear;
-            solarReturn2.value = currentYear+1;
-        },
-        setFamilyInfo(){
-            const family = this.families.find(family => family.id == event.target.value);
-            if(family){
-                this.$nextTick(() => {
-                    this.$refs.relationship.value = family.relationship;
-                    this.$refs.name1.value = family.name1;
-                    this.$refs.name2.value = family.name2;
-                    this.$refs.birthday_prefectures.value = family.birthday_prefectures;
-
-                    let timezoneSelect = this.$refs.timezone;
-                    // 一度選択されているものをリセット
-                    for (let i = 0; i < timezoneSelect.options.length; i++) {
-                        if (timezoneSelect.options[i].selected) {
-                            timezoneSelect.options[i].selected = false;
-                        }
-                    }
-                    // DBのカラムのスペルがtimezomeになっているので注意！！（timezoneじゃなくてtimezome）
-                    let familyTimezone = family.timezome;
-                    // タイムゾーンを選択
-                    for (let i = 0; i < timezoneSelect.options.length; i++) {
-                        if (timezoneSelect.options[i].value == familyTimezone) {
-                            timezoneSelect.options[i].selected = true;
-                        }
-                    }
-
-                    // 日付をUTCからJSTに変換
-                    const timezoneOffset = 9 * 60; // JSTはUTCより9時間進んでいます
-                    let birthday = new Date(family.birthday);
-                    birthday.setMinutes(birthday.getMinutes() + timezoneOffset);
-                    this.setAge(birthday,family.id);
-                    // 年月日を設定
-                    let oldYear = birthday.getFullYear();
-                    let oldMonth = birthday.getMonth() + 1; // getMonth()メソッドが月を0から11の範囲で返してくるため、1を足す
-                    let oldDay = birthday.getDate();
-
-                    // 一度セレクトボックスをリセット
-                    document.getElementById('select_year').innerHTML = '';
-                    document.getElementById('select_month').innerHTML = '';
-                    document.getElementById('select_day').innerHTML = '';
-
-                    this.setYear(oldYear);
-                    this.setMonth(oldMonth);
-                    this.setDay(oldDay);
-
-                    // 時間をUTCからJSTに変換
-                    let birthdayTime = new Date(family.birthday_time);
-                    birthdayTime = new Date(birthdayTime.getTime() + (9 * 60 * 60 * 1000)); // UTCからJSTへの変換
-
-                    // 時間をHH:mmフォーマットに変換（秒を削除）
-                    this.$refs.birthday_time.value = birthdayTime.toISOString().split('T')[1].split(':')[0] + ':' + birthdayTime.toISOString().split('T')[1].split(':')[1];
-
-                    // googlemapの再描画
-                    let address = `${family.birthday_prefectures}`;
-                    // console.log(family.birthday_prefectures);
-                    this.updateMapAndMarker(family.birthday_prefectures);
-                    this.triggerSolarReturnChange();
-                });
-            } else {
-                this.$nextTick(() => {
-                    this.$refs.relationship.value = '';
-                    this.$refs.name1.value = '';
-                    this.$refs.name2.value = '';
-                    this.$refs.birthday_prefectures.value = '';
-                    // this.$refs.birthday_city.value = '';
-                    this.$refs.birthday.value = '';
-                    this.$refs.birthday_time.value = '';
-                    this.birthday = '';
-                });
-            }
-        },
-        triggerSolarReturnChange() {
-            const firstRadio = document.querySelector('input[name="solar_return"]:first-of-type');
-            if (firstRadio) {
-                firstRadio.dispatchEvent(new Event('change'));
-            }
-        },
-        //自分を選択したら自分の情報をセットする
-        setSelfInfo(){
-            if(event.target.value == '1'){
-                this.$nextTick(() => {
-                    this.$refs.birthday_prefectures.value = '{{ auth()->guard('user')->user()->birthday_prefectures }}';
-                    this.$refs.birthday.value ='{{ auth()->guard('user')->user()->birthday?->format('Y-m-d') }}';
-                    this.$refs.birthday_time.value = '{{ auth()->guard('user')->user()->birthday_time?->format('H:i') }}';
-                });
-            }
-        },
-        dicountTotalPlace(){
-            this.discountPrice = 0;
-            if(this.couponCode === ''){
-                alert('クーポンコードを入力してください。');
-                return;
-            }
-            this.isCalculating = true;
-
-            //すでに値引きがあれば、2重値引きしないように値引きを戻す
-            if (this.couponCode !== '' && this.discountPrice !== '') {
-                this.totalAmount = this.totalAmount + this.discountPrice;
-            }
-
-            //クーポンコードから、値引額を取得する
-            axios.post('/api/coupon/get_discount_price', {
-                params: {
-                    coupon_code: this.couponCode,
-                    request_type: this.personalClick == '1' ? 'personalSR' : 'familySR',
-                    user_id: '{{ auth()->guard('user')->user()->id }}',
-                }
-            })
-            .then((response) => {
-                if(response.data.discount_price){
-                    this.discountPrice = response.data.discount_price;
-                }
-                else{
-                    alert(response.data.message)
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-
-            setTimeout(() => {
-                this.isCalculating = false;
-            }, 1000);
-        },
-        //クーポンの種類が変更されたら、値引き額やクーポンコードをリセットする
-        couponTypeChange(){
-            this.discountPrice = 0;
-            this.couponCode = '';
-        },
-		handleInputChange() {
-			let birthplace1 = document.getElementById('birthday_prefectures').value;
-			let address = birthplace1;
-			this.updateMapAndMarker(address);
-		},
-        updateMapAndMarker(address) {
-			this.geocoder.geocode({ 'address': address }, (results, status) => {
-				if (status === 'OK') {
-					if (!this.map) {
-						this.map = new google.maps.Map(document.getElementById('map'), {
-							center: results[0].geometry.location,
-							zoom: 9,
-							mapTypeId: google.maps.MapTypeId.ROADMAP,
-							scrollwheel: false,
-							disableDoubleClickZoom: true,
-							draggable: false,
-						});
-					} else {
-						this.map.setCenter(results[0].geometry.location);
-					}
-
-					if (!this.marker) {
-						this.marker = new google.maps.Marker({
-							position: results[0].geometry.location,
-							map: this.map,
-							title: 'here',
-						});
-					} else {
-						this.marker.setPosition(results[0].geometry.location);
-					}
-
-					const changeLng = results[0].geometry.location.lng();
-					const changeLat = results[0].geometry.location.lat();
-					document.getElementById('map-longitude').value = changeLng;
-					document.getElementById('map-latitude').value = changeLat;
-					document.getElementById('lng').value = changeLng;
-					document.getElementById('lat').value = changeLat;
-				} else {
-					console.error('Geocode was not successful for the following reason: ' + status);
-                    console.log("Status:",status)
-				}
-			});
-		},
-    },
-    // 合計金額計算監視
-    watch: {
-        //discountPriceの監視新しい値が入力されたら古い値との差分を計算する
-        discountPrice: function (newVal, oldVal) {
-            // newValを数値に変換し、失敗した場合はNaNが返される
-            const numericNewVal = Number(newVal);
-
-            // newValが数値ではない、0以下、またはpointより大きい場合はバリデーションに引っかかる
-            if (isNaN(numericNewVal) || numericNewVal < 0 || numericNewVal > this.point && this.couponType == '1') {
-                if (isNaN(numericNewVal)) {
-                    alert('数値を入力してください');
-                } else if (numericNewVal < 0) {
-                    alert('0以上の数値を入力してください');
-                } else if (numericNewVal > this.point) {
-                    alert('使用可能なクーポン額を超えています');
-                }
-
-                // バリデーションに引っかかった場合は、totalAmountを元に戻す
-                this.totalAmount += oldVal - this.discountPrice;
-                // discountPriceをリセットする
-                this.$nextTick(() => {
-                    this.discountPrice = 0;
-                });
-                return;
-            }
-            // ここで計算を実施
-            this.totalAmount = this.totalAmount - numericNewVal + Number(oldVal);
-
-            // 文字が入力された場合の対応
-            if (isNaN(this.totalAmount) ) {
-                if(this.bookbindingClick == '1'){
-                    this.totalAmount = this.appraisalPrice + this.bookbindingPrice + this.shippingFee;
-                }
-                else{
-                    this.totalAmount = this.appraisalPrice;
-                }
-            }
-        },
-        couponCode: function (val) {
-			if (val === '') {
-				this.discountPrice = '';
-			}
-		},
-    },
-    mounted() {
-        // 初期住所をサーバーサイドで設定
-        let initialAddress = @json(old('birthday_prefectures', $request->birthday_prefectures ?? $defaultAddress));
-        this.updateMapAndMarker(initialAddress);
-
-        // 年月日を設定
-        let oldYear = @json(old('birth_year', $request->birth_year ?? ($defaultBirthday ? $defaultBirthday->format('Y') : '')));
-        let oldMonth = @json(old('birth_month', $request->birth_monty ?? ($defaultBirthday ? $defaultBirthday->format('m') : '')));
-        let oldDay = @json(old('birth_day', $request->birth_day ?? ($defaultBirthday ? $defaultBirthday->format('d') : '')));
-
-        let familyId = @json(old('family_id'));
-
-        this.setYear(oldYear);
-        this.setMonth(oldMonth);
-        this.setDay(oldDay);
-
-        if (!oldYear || !oldMonth || !oldDay) {
-            let currentDate = new Date();
-            oldYear = currentDate.getFullYear();
-            oldMonth = currentDate.getMonth() + 1; 
-            oldDay = currentDate.getDate();
         }
+    
+    }).mount('#Personal-appraisal');
+    </script>
+    <script>
+        const stripe = Stripe('{{ config('services.stripe.public') }}');
 
-        let birthday = new Date(oldYear, oldMonth - 1, oldDay); 
+        const elements = stripe.elements();
 
-        // 日付をUTCからJSTに変換
-        let timezoneOffset = 9 * 60; // JSTはUTCより9時間進んでいます
-        birthday.setMinutes(birthday.getMinutes() + timezoneOffset);
+        var elementStyles = {
+            base: {
+                color: 'black',
+                fontWeight: 600,
+                fontFamily: 'Quicksand, Open Sans, Segoe UI, sans-serif',
+                fontSize: '16px',
+                fontSmoothing: 'antialiased',
 
-        if(familyId){
-            this.setAge(birthday,familyId);
-        }else{
-            this.setAge(birthday);
-        }
+                ':focus': {
+                    color: '#424770',
+                },
 
-    }
+                '::placeholder': {
+                    color: '#9BACC8',
+                },
 
-}).mount('#Personal-appraisal');
-</script>
-<script>
-    const stripe = Stripe('{{ config('services.stripe.public') }}');
-
-    const elements = stripe.elements();
-
-    var elementStyles = {
-        base: {
-            color: 'black',
-            fontWeight: 600,
-            fontFamily: 'Quicksand, Open Sans, Segoe UI, sans-serif',
-            fontSize: '16px',
-            fontSmoothing: 'antialiased',
-
-            ':focus': {
-                color: '#424770',
+                ':focus::placeholder': {
+                    color: '#CFD7DF',
+                },
             },
-
-            '::placeholder': {
-                color: '#9BACC8',
-            },
-
-            ':focus::placeholder': {
-                color: '#CFD7DF',
-            },
-        },
-        invalid: {
-            color: '#FA755A',
-            ':focus': {
+            invalid: {
                 color: '#FA755A',
+                ':focus': {
+                    color: '#FA755A',
+                },
+                '::placeholder': {
+                    color: '#FFCCA5',
+                },
             },
-            '::placeholder': {
-                color: '#FFCCA5',
-            },
-        },
-    };
+        };
 
-    var elementClasses = {
-        focus: 'focus',
-        empty: 'empty',
-        invalid: 'invalid',
-    };
+        var elementClasses = {
+            focus: 'focus',
+            empty: 'empty',
+            invalid: 'invalid',
+        };
 
-    var cardNumber = elements.create('cardNumber', {
-        style: elementStyles,
-        classes: elementClasses,
-    });
-    cardNumber.mount('#card-number');
+        var cardNumber = elements.create('cardNumber', {
+            style: elementStyles,
+            classes: elementClasses,
+        });
+        cardNumber.mount('#card-number');
 
-    var cardExpiry = elements.create('cardExpiry', {
-        style: elementStyles,
-        classes: elementClasses,
-    });
-    cardExpiry.mount('#card-expiry');
+        var cardExpiry = elements.create('cardExpiry', {
+            style: elementStyles,
+            classes: elementClasses,
+        });
+        cardExpiry.mount('#card-expiry');
 
-    var cardCvc = elements.create('cardCvc', {
-        style: elementStyles,
-        classes: elementClasses,
-    });
-    cardCvc.mount('#card-cvc');
+        var cardCvc = elements.create('cardCvc', {
+            style: elementStyles,
+            classes: elementClasses,
+        });
+        cardCvc.mount('#card-cvc');
 
-    document.getElementById('payment-form').addEventListener('submit', function(event) {
+        document.getElementById('payment-form').addEventListener('submit', function(event) {
 
-        //クレジットカード決済の場合のみ実施
-        if(document.querySelector('input[name="payment_type"]:checked').value == 1){
-            event.preventDefault();
-            console.log('クレジットカード決済');
-            stripe.createToken(cardNumber).then(function(result) {
-                if (result.error) {
-                    // エラーハンドリング
-                    alert(result.error.message);
-                } else {
-                    // トークンを隠しフィールドとしてフォームに追加
-                    var form = document.getElementById('payment-form');
+            //クレジットカード決済の場合のみ実施
+            if(document.querySelector('input[name="payment_type"]:checked').value == 1){
+                event.preventDefault();
+                console.log('クレジットカード決済');
+                stripe.createToken(cardNumber).then(function(result) {
+                    if (result.error) {
+                        // エラーハンドリング
+                        alert(result.error.message);
+                    } else {
+                        // トークンを隠しフィールドとしてフォームに追加
+                        var form = document.getElementById('payment-form');
 
-                    // トークンを隠しフィールドとしてフォームに追加
-                    appendHiddenInput(form, 'stripeToken', result.token.id);
+                        // トークンを隠しフィールドとしてフォームに追加
+                        appendHiddenInput(form, 'stripeToken', result.token.id);
 
-                    // カードブランドと下4桁も隠しフィールドとして追加
-                    appendHiddenInput(form, 'cardBrand', result.token.card.brand);
-                    appendHiddenInput(form, 'last4', result.token.card.last4);
+                        // カードブランドと下4桁も隠しフィールドとして追加
+                        appendHiddenInput(form, 'cardBrand', result.token.card.brand);
+                        appendHiddenInput(form, 'last4', result.token.card.last4);
 
-                    // 申し込み内容確認画面へリダイレクト
-                    form.submit();
-                }
-            });
+                        // 申し込み内容確認画面へリダイレクト
+                        form.submit();
+                    }
+                });
+            }
+        });
+
+        function appendHiddenInput(form, name, value) {
+            var hiddenInput = document.createElement('input');
+            hiddenInput.setAttribute('type', 'hidden');
+            hiddenInput.setAttribute('name', name);
+            hiddenInput.setAttribute('value', value);
+            form.appendChild(hiddenInput);
         }
-    });
-
-    function appendHiddenInput(form, name, value) {
-        var hiddenInput = document.createElement('input');
-        hiddenInput.setAttribute('type', 'hidden');
-        hiddenInput.setAttribute('name', name);
-        hiddenInput.setAttribute('value', value);
-        form.appendChild(hiddenInput);
-    }
-</script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        let oldSolarReturn = "{{ old('solar_return') }}";
-        if (oldSolarReturn !== "") {
-            let solarReturnInputs = document.querySelectorAll('input[name="solar_return"]');
-            solarReturnInputs.forEach(function(input) {
-                if (input.value == oldSolarReturn) {
-                    input.checked = true;
-                }
-            });
-        }
-    });
-    document.addEventListener('DOMContentLoaded', function() {
-        const firstRadio = document.querySelector('input[name="solar_return"]:first-of-type');
-        if (firstRadio) {
-            firstRadio.dispatchEvent(new Event('change'));
-        }
-    });
-    function updateHiddenInput(name, iteration) {
-        const selectedRadio = document.getElementById(name + iteration);
-        const hiddenInput = document.getElementById('text-solar_return');
-        const spanText = document.querySelector('span[for="' + name + iteration + '"]').textContent;
-        hiddenInput.value = spanText;
-        console.log(spanText);
-    }
 </script>
 @endsection
