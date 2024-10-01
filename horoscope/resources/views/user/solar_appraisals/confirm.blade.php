@@ -80,59 +80,6 @@
                                         {{ \App\Models\AppraisalApply::getSolarBookbindingType()[$data['is_bookbinding']] }}
                                     </dd>
                                 </dl> -->
-                                @if((int)$data['is_bookbinding'] === \App\Models\AppraisalApply::BOOK_ENABLED)
-                                <dl class="C-form-block C-form-block--cash">
-                                    <dt class="C-form-block__title C-form-block__title--req">表紙のデザイン</dt>
-                                    <dd class="C-form-block__body">
-                                        {{ \App\Models\AppraisalApply::PDF_TYPE_SOLAR[$data['is_design']] }}
-                                    </dd>
-                                </dl>
-                                <dl class="C-form-block C-form-block--cash">
-                                    <dt class="C-form-block__title C-form-block__title--req">製本に表示するお名前</dt>
-                                    <dd class="C-form-block__body">
-                                        {{$data['bookbinding_name1']}} {{$data['bookbinding_name2']}}
-                                        <p class="Personal-appraisal__notice-text">
-                                        @php
-                                            $design = $data["is_design"];
-                                            $name1 = $data["bookbinding_name1"];
-                                            $name2 = $data["bookbinding_name2"];
-                                        @endphp
-                                            <a href="{{ route('user.download_images.download_cover_pdf', ['design' => $design, 'name1' => $name1, 'name2' => $name2]) }}" style="font-size: 1.2rem;">
-                                                表紙イメージはこちら
-                                            </a>
-                                        </p>
-                                    </dd>
-                                </dl>
-                                <dl class="C-form-block C-form-block--sending">
-                                    <dt class="C-form-block__title C-form-block__title--req">送付先情報</dt>
-                                    <dd class="C-form-block__body">
-                                        <dl class="C-form-block-child C-form-block--hasbutton C-form-block--zip">
-                                            <dt class="C-form-block__title">郵便番号</dt>
-                                            <dd class="C-form-block__body">
-                                                {{ $data['zip'] }}
-                                            </dd>
-                                        </dl>
-                                        <dl class="C-form-block-child C-form-block--address">
-                                            <dt class="C-form-block__title">住所</dt>
-                                            <dd class="C-form-block__body">
-                                                {{ $data['address'] }}{{ $data['building'] }}
-                                            </dd>
-                                        </dl>
-                                        <dl class="C-form-block-child C-form-block--name">
-                                            <dt class="C-form-block__title">お名前</dt>
-                                            <dd class="C-form-block__body">
-                                                {{ $data['building_name'] }}
-                                            </dd>
-                                        </dl>
-                                        <dl class="C-form-block-child C-form-block--tel">
-                                            <dt class="C-form-block__title">電話番号</dt>
-                                            <dd class="C-form-block__body">
-                                                {{ $data['tel'] }}
-                                            </dd>
-                                        </dl>
-                                    </dd>
-                                </dl>
-                                @endif
                                 @if ((int)$data['target_type'] === \App\Models\AppraisalApply::USER)
                                     <dl class="C-form-block C-form-block--name">
                                         <dt class="C-form-block__title C-form-block__title--req">お名前</dt>
@@ -238,7 +185,65 @@
                                         </dl>
                                     </dd>
                                 </dl>
-
+                                <dl class="C-form-block C-form-block--hope">
+                                    <dt class="C-form-block__title C-form-block__title--req">製本の希望</dt>
+                                    <dd class="C-form-block__body">
+                                        {{ \App\Models\AppraisalApply::getBookbindingType()[$data['is_bookbinding']] }}
+                                    </dd>
+                                </dl>
+                                @if((int)$data['is_bookbinding'] === \App\Models\AppraisalApply::BOOK_ENABLED)
+                                <dl class="C-form-block C-form-block--cash">
+                                    <dt class="C-form-block__title C-form-block__title--req">表紙のデザイン</dt>
+                                    <dd class="C-form-block__body">
+                                        {{ \App\Models\AppraisalApply::PDF_TYPE_SOLAR[$data['is_design']] }}
+                                    </dd>
+                                </dl>
+                                <dl class="C-form-block C-form-block--cash">
+                                    <dt class="C-form-block__title C-form-block__title--req">製本に表示するお名前</dt>
+                                    <dd class="C-form-block__body">
+                                        {{$data['bookbinding_name1']}} {{$data['bookbinding_name2']}}
+                                        <p class="Personal-appraisal__notice-text">
+                                        @php
+                                            $design = $data["is_design"];
+                                            $name1 = $data["bookbinding_name1"];
+                                            $name2 = $data["bookbinding_name2"];
+                                        @endphp
+                                            <a href="{{ route('user.download_images.download_cover_pdf', ['design' => $design, 'name1' => $name1, 'name2' => $name2]) }}" style="font-size: 1.2rem;">
+                                                表紙イメージはこちら
+                                            </a>
+                                        </p>
+                                    </dd>
+                                </dl>
+                                <dl class="C-form-block C-form-block--sending">
+                                    <dt class="C-form-block__title C-form-block__title--req">送付先情報</dt>
+                                    <dd class="C-form-block__body">
+                                        <dl class="C-form-block-child C-form-block--hasbutton C-form-block--zip">
+                                            <dt class="C-form-block__title">郵便番号</dt>
+                                            <dd class="C-form-block__body">
+                                                {{ $data['zip'] }}
+                                            </dd>
+                                        </dl>
+                                        <dl class="C-form-block-child C-form-block--address">
+                                            <dt class="C-form-block__title">住所</dt>
+                                            <dd class="C-form-block__body">
+                                                {{ $data['address'] }}{{ $data['building'] }}
+                                            </dd>
+                                        </dl>
+                                        <dl class="C-form-block-child C-form-block--name">
+                                            <dt class="C-form-block__title">お名前</dt>
+                                            <dd class="C-form-block__body">
+                                                {{ $data['building_name'] }}
+                                            </dd>
+                                        </dl>
+                                        <dl class="C-form-block-child C-form-block--tel">
+                                            <dt class="C-form-block__title">電話番号</dt>
+                                            <dd class="C-form-block__body">
+                                                {{ $data['tel'] }}
+                                            </dd>
+                                        </dl>
+                                    </dd>
+                                </dl>
+                                @endif
                                 <dl class="C-form-block C-form-block--cash">
                                     <dt class="C-form-block__title C-form-block__title--req">お支払い方法</dt>
                                     <dd class="C-form-block__body">
