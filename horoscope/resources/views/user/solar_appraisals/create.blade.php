@@ -275,7 +275,6 @@
                                                         @include('components.form.original_solar_radio', [
                                                             'name'    => 'solar_return',
                                                             'data'    => [0 , 1],
-                                                            'onChange' => 'updateHiddenInput'
                                                         ])
                                                     </div>
                                                 </dd>
@@ -647,6 +646,7 @@
                 solarReturn1.value = currentYear;
                 solarReturn2.value = currentYear+1;
                 this.triggerSolarReturnChange();
+
             },
             setFamilyInfo(){
                 const family = this.families.find(family => family.id == event.target.value);
@@ -724,35 +724,56 @@
                     firstRadio.dispatchEvent(new Event('change'));
                 }
             },
-            updateHiddenInput() {
+            updateHiddenInput(name,value) {
+
                 const solarReturn1 = document.getElementById('solar_return1');
                 const solarReturn2 = document.getElementById('solar_return2');
-                const isChecked1 = solarReturn1.checked;
-                const isChecked2 = solarReturn2.checked;
+                let isChecked1 = solarReturn1.checked;
+                let isChecked2 = solarReturn2.checked;
+
+                if(value == 1){
+                    solarReturn1.checked = true;
+                    isChecked1 = true;
+                }else{
+                    solarReturn2.checked  = true;
+                    isChecked2 = true;
+                }
+
                 const isDisable1 = solarReturn1.disabled;
                 const isDisable2 = solarReturn2.disabled;
 
+                if(isDisable1 && isDisable2){
+                    solarReturn2.checked = false;
+                    solarReturn1.checked = false;
+                    isChecked1 = false;
+                    isChecked2 = false;
+                }else{
+                    if(isDisable1){
+                        solarReturn2.checked = true;
+                        solarReturn1.checked = false;
+
+                        isChecked2 = true;
+                        isChecked1 = false;
+                    }else{
+                        if(isDisable2){
+                            solarReturn1.checked = true;
+                            isChecked1 = true;
+
+                            solarReturn2.checked = false;
+                            isChecked2 = false;
+                        }
+                    }
+                }
+
                 let checked = isChecked1 ? 1 : isChecked2 ? 2 : null;
                 const hiddenInput = document.getElementById('text-solar_return');
-
                 if(checked){
                     const spanText = document.querySelector('span[for="solar_return' + checked + '"]').textContent;
                     hiddenInput.value = spanText;
                 }else{
                     hiddenInput.value = null;
+                    
                 }
-
-                if(isDisable1 && isDisable2){
-                    solarReturn2.checked = false;
-                    solarReturn1.checked = false;
-                }else{
-                    if(isDisable1){
-                        solarReturn2.checked = true;
-                    }else{
-                        solarReturn1.checked = true;
-                    }
-                }
-
             },
             //自分を選択したら自分の情報をセットする
             setSelfInfo(){

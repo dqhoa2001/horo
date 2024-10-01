@@ -13,6 +13,7 @@
             name="{{ $name }}"
             id="{{ $name . $loop->iteration }}"
             value="{{ $v }}"
+            @change="updateHiddenInput('{{ $name }}', '{{ $loop->iteration }}')"
             {{--@isset($checked)
                 @if(old($name, $checked) == $k) checked @elseif($loop->iteration == 1 && empty($noChecked)) checked @endif
             @else
