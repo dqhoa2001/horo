@@ -73,6 +73,7 @@ class ConfirmRequest extends FormRequest
             'stripeToken' => ['required_if:payment_type,' . AppraisalClaim::CREDIT, 'string'],
             'cardBrand' => ['required_if:payment_type,' . AppraisalClaim::CREDIT, 'string'],
             'last4' => ['required_if:payment_type,' . AppraisalClaim::CREDIT, 'string'],
+            'solar_return-text' => ['required'],
         ];
     }
 
@@ -117,6 +118,7 @@ class ConfirmRequest extends FormRequest
             'stripeToken',
             'cardBrand',
             'last4',
+            'solar_return-text'
         ]);
     }
 }

@@ -12,7 +12,7 @@ return [
     | 持っているものもあります。メッセージはご自由に調整してください。
     |
     */
-
+    
     'accepted'             => ':attributeを承認してください。',
     'accepted_if' => ':otherが:valueの場合、:attributeを承認してください。',
     'active_url'           => ':attributeが有効なURLではありません。',
@@ -159,7 +159,10 @@ return [
 
         'person_ids' => [
             'required' => '製本したい方を最低1人は選択してください',
-        ]
+        ],
+        'solar_return-text' => [
+            'required' => '鑑定年が選択されていないため、申込できません。',
+        ],
     ],
 
     /*
@@ -207,7 +210,6 @@ return [
         'bookbinding_name1' => '表紙に表示したいお名前（姓）',
         'bookbinding_name2' => '表紙に表示したいお名前（名）',
         'family_id' => 'Errors Combobox',
-
     ],
 
 ];
