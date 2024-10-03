@@ -454,7 +454,7 @@
                                         <p class="C-appraisal-content-footer-block__last planet">
                                             {{ $item->fromPlanet->symbol }}
                                             @if ($item->aspect->symbol === 'q')
-                                                <img src="{{ asset('images/Sextile_symbol.svg') }}" alt="" width="20" height="20" alt="セクスタイルの記号" style="margin: 10px">
+                                                <img src="{{ asset('images/Sextile_symbol.svg') }}" alt="" width="20" height="20" alt="セクスタイルの記号" style="margin: 0px 0px 13px 0px">
                                             @else
                                                 {{ $item->aspect->symbol }}
                                             @endif
