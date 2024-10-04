@@ -152,7 +152,10 @@ class SolarAppraisalController extends Controller
     {
         return redirect()->route('user.solar_appraisals.create')->withInput();
     }
-
+    public function familyBack(int $target_type): RedirectResponse
+    {
+        return redirect()->route('user.solar_appraisals.create', ['target_type' => $target_type])->withInput();
+    }
     // 申し込み処理
     public function apply(Request $request): RedirectResponse
     {

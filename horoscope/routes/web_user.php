@@ -196,6 +196,8 @@ Route::middleware(['auth:user', 'verified'])->group(static function () {
         //鑑定登録処理
         Route::post('apply', 'apply')->name('apply');
         Route::post('back', 'back')->name('back');
+        Route::post('family_back/{target_type}', 'familyBack')->name('family_back');
+
         Route::get('complete/{solarApply}', 'complete')->name('complete');
         // 個人鑑定
         Route::get('', 'index')->name('index');

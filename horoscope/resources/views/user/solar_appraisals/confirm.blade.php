@@ -322,9 +322,14 @@
                                 </dl>
                             </div>
                             <button type="button" @click="submitForm" :disabled="isLoading" class="Button Button--lightblue"><span>申し込み</span></button>
-                            <button type="button" class="previous-btn previous-btn-left" onclick="window.history.back();">
+                            {{-- <button type="button" class="previous-btn previous-btn-left" onclick="window.history.back();">
                                 <span>入力内容を修正する</span>
-                            </button>
+                            </button> --}} 
+                            @if((int)$data['target_type'] === \App\Enums\TargetType::FAMILY->value)
+                                <button type="submit" formaction="{{ route('user.solar_appraisals.family_back', ['target_type' => $data['target_type']]) }}"  formmethod="POST" class="previous-btn"><span>入力内容を修正する</span></button>
+                            @else
+                                <button type="submit" formaction="{{ route('user.solar_appraisals.back') }}" formmethod="POST"class="previous-btn"><span>入力内容を修正する</span></button>
+                            @endif
                         </form>
                     </section>
                 </div>
