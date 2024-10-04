@@ -1,6 +1,6 @@
 <div class="C-appraisal-banner-block">
     <div class="C-solar-appraisal-banner__image">
-        <!-- <img src="{{ asset('images/mypage/solar-banner-top-logo.svg') }}" alt=""> -->
+        <img src="{{ asset('images/mypage/solar-banner-top-logo.svg') }}" alt="">
         <picture>
             <source srcset="{{ asset('images/mypage/small-solar-return-title.svg') }}"
             media="(max-width: 600px)">
