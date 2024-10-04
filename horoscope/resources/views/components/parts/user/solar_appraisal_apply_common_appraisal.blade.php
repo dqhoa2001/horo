@@ -15,7 +15,7 @@
         </ul>
     </div>
 
-    <div class="C-appraisal__inner">
+    <div class="C-appraisal__inner"> 
 
         {{-- TOPタブ --}}
         <div class="C-appraisal-content C-appraisal-content--top C-appraisal-content--current">
@@ -28,7 +28,7 @@
                     <p class="C-appraisal-content--top__first-message__text">西洋占星術では、あなたが生まれた時の場所に太陽が戻ってくることを<br>Solar Return（太陽回帰）といい、<br>そのタイミングのホロスコープがあなたの1 年をあらわすとされます。</p>
                     {{-- <p class="C-appraisal-content--top__first-message__text">しかし、太陽の位置は毎年同じでも、<br>同じ春はないように、<br>他の天体との組み合わせなどは毎年異なります。</p> --}}
                     <p class="C-appraisal-content--top__first-message__text">しかし、ソーラーリターンの太陽の位置は毎年同じですが、同じ春はないように、<br>その年ごとに他の天体との組み合わせや太陽の位置するハウスなどは全く異なります。</p>
-                    <p class="C-appraisal-content--top__first-message__text">毎年あなたの魂は太陽が戻るたびにリセットしています。</p>
+                    <p class="C-appraisal-content--top__first-message__text">あなたの意識は、太陽が戻るたびにリセットしています。</p>
                     {{-- <p class="C-appraisal-content--top__first-message__text">あなたの意識は、太陽が戻るたびにリセットされます。</p> --}}
                     <p class="C-appraisal-content--top__first-message__text">毎年毎年、自分の誕生日を祝うように、<br>毎年毎年、ソーラーリターンのホロスコープから、一年を予測する。</p>
                     <p class="C-appraisal-content--top__first-message__text">そして、その一年を楽しみに生き、いろいろな体験をして、<br>ソーラーリターンのホロスコープを再び確認して、<br>目標を決めたり、修正したり、気持ちを新たに日々を楽しく生きる。</p>
