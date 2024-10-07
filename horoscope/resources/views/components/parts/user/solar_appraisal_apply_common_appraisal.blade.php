@@ -293,9 +293,9 @@
                         @endif
                         @if ($planet == 'URANUS')
                             <dl class="C-appraisal-content-header-message">
-                                <dt class="C-appraisal-content-header-message__title">その具体的な方向性が</dt>
+                                <dt class="C-appraisal-content-header-message__title">天王星のサビアンシンボル</dt>
                                 <dd class="C-appraisal-content-header-message__text">
-                                    あなたが変革したい、生き方を変えたい、新たに取り入れたいことなどについて、の具体的な方向性が天王星のサビアンシンボルにあらわれます。
+                                    あなたが変革したい、生き方を変えたい、新たに取り入れたいことなどについて、その具体的な方向性が天王星のサビアンシンボルにあらわれます。
 
                                 </dd>
                             </dl>
