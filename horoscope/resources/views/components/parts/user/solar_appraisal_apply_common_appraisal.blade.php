@@ -20,20 +20,20 @@
         {{-- TOPタブ --}}
         <div class="C-appraisal-content C-appraisal-content--top C-appraisal-content--current">
             <dl class="C-appraisal-content--top__first-message">
-                <dt class="C-appraisal-content--top__first-message__title mincho">太陽が戻り、新たな一年が巡りゆく</dt>
-                <dd class="C-appraisal-content--top__first-message__body">
-                    <p class="C-appraisal-content--top__first-message__text">わたしたちの住まう太陽系の軸である太陽の周りを、<br>地球は３６５日かけて回っています。</p>
-                    <p class="C-appraisal-content--top__first-message__text">わたしたちは太陽と地球の関わりのサイクルから暦を作っているため、<br>あなたの誕生日は、あなたが生まれた時の場所に太陽が戻る日でもあります。<br>（太陽の周期と暦のズレで1 日ほど前後することがあります）</p>
+                <!-- <dt class="C-appraisal-content--top__first-message__title mincho">太陽が戻り、新たな一年が巡りゆく</dt> -->
+                <dd class="C-appraisal-content--top__first-message__body" style="padding-top: 4rem;">
+                    <p class="C-appraisal-content--top__first-message__text">わたしたちの住まう太陽系の軸である太陽の周りを、<br>地球は365日かけて回っています。</p>
+                    <p class="C-appraisal-content--top__first-message__text">わたしたちは太陽と地球の関わりのサイクルから暦を作っているため、<br>あなたの誕生日は、あなたが生まれた時の場所に太陽が戻る日でもあります。<br>(太陽の周期と暦のズレで1日ほど前後することがあります)</p>
                     <p class="C-appraisal-content--top__first-message__text">誕生日には、あなたがこの星にやってきたことを祝います。</p>
-                    <p class="C-appraisal-content--top__first-message__text">西洋占星術では、あなたが生まれた時の場所に太陽が戻ってくることを<br>Solar Return（太陽回帰）といい、<br>そのタイミングのホロスコープがあなたの1 年をあらわすとされます。</p>
+                    <p class="C-appraisal-content--top__first-message__text">西洋占星術では、あなたが生まれた時の場所に太陽が戻ってくることを<br>Solar Return (太陽回帰) といい、<br>そのタイミングのホロスコープがあなたの年をあらわすとされます。</p>
                     {{-- <p class="C-appraisal-content--top__first-message__text">しかし、太陽の位置は毎年同じでも、<br>同じ春はないように、<br>他の天体との組み合わせなどは毎年異なります。</p> --}}
                     <p class="C-appraisal-content--top__first-message__text">しかし、ソーラーリターンの太陽の位置は毎年同じですが、同じ春はないように、<br>その年ごとに他の天体との組み合わせや太陽の位置するハウスなどは全く異なります。</p>
                     <p class="C-appraisal-content--top__first-message__text">あなたの意識は、太陽が戻るたびにリセットしています。</p>
                     {{-- <p class="C-appraisal-content--top__first-message__text">あなたの意識は、太陽が戻るたびにリセットされます。</p> --}}
                     <p class="C-appraisal-content--top__first-message__text">毎年毎年、自分の誕生日を祝うように、<br>毎年毎年、ソーラーリターンのホロスコープから、一年を予測する。</p>
-                    <p class="C-appraisal-content--top__first-message__text">そして、その一年を楽しみに生き、いろいろな体験をして、<br>ソーラーリターンのホロスコープを再び確認して、<br>目標を決めたり、修正したり、気持ちを新たに日々を楽しく生きる。</p>
+                    <p class="C-appraisal-content--top__first-message__text">そして、その一年を楽しみに生きて、いろいろな体験をして、<br>ソーラーリターンのホロスコープを再び確認し、<br>目標を決めたり、修正したり、気持ちを新たに日々を楽しく生きる。</p>
                     <p class="C-appraisal-content--top__first-message__text">そんな風に使っていただきたくて、本サービスを開発しました。</p>
-                    <p class="C-appraisal-content--top__first-message__text">この星で唯一無二のあなたの一年が、唯一無二の輝きを放つように。<br>人生をよりクリエイティブに楽しく送ることが出来るように。</p>
+                    <p class="C-appraisal-content--top__first-message__text">この星で唯一無二のあなたの年が、唯一無二の輝きを放つように。<br>人生をよりクリエイティブに楽しく送ることが出来るように。</p>
                     <p class="C-appraisal-content--top__first-message__text">お役に立てますと幸いです。</p>
                     {{-- <p class="C-appraisal-content--top__first-message__text">毎年、自分の誕生日を祝うように、<br>毎年、ソーラーリターンのホロスコープから、一年を予測する。<br>そして、その一年を楽しみに生きて、いろいろな体験をして、<br>ソーラーリターンのホロスコープを再び確認し、<br>目標を決めたり、修正したり、気持ちを新たに日々を楽しく生きる。</p>
                     <p class="C-appraisal-content--top__first-message__text">そんな風に使っていただきたくて、本サービスを開発しました。</p>
