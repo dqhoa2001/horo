@@ -14,6 +14,7 @@ use Modules\Horoscope\Enums\WheelColorEnum;
 use Modules\Horoscope\Enums\WheelRadiusEnum;
 use App\Repositories\SabianPatternRepository;
 use App\Repositories\ZodiacPatternRepository;
+use Carbon\Carbon;
 use Modules\Horoscope\Http\Actions\Predict\ModifyLocation;
 use Modules\Horoscope\Http\Actions\GenerateHoroscopeChartAction;
 use Modules\Horoscope\Http\Actions\GenerateSolarHoroscopeChartAction;
@@ -170,8 +171,14 @@ class AppraisalApplyService
 
         $birthdayTime = $appraisalApply->birthday_time;
         $birthdayTime = new \DateTime($birthdayTime);
-        $birthHour = $birthdayTime->format('H');
-        $birthMinute = $birthdayTime->format('i');
+
+        $chart = $this->generateSolarHoroscopeChartAction->execute($formData, WheelRadiusEnum::WheelScale);
+        $solarDate = $chart->get(key: 'solar_Date');
+        $carbonDate = Carbon::parse($solarDate);
+        $carbonDate->addHours($appraisalApply->timezome);
+        
+        $birthHour = $carbonDate->format('H');
+        $birthMinute = $carbonDate->format('i');
 
         $age = $solar_return - $birthdayDate->year;
         if (\Carbon\Carbon::now()->isBefore($birthdayDate->copy()->year($solar_return)->endOfYear())) {
