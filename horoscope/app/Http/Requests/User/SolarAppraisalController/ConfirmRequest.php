@@ -63,6 +63,7 @@ class ConfirmRequest extends FormRequest
             'building' => ['nullable', 'string', 'max:255', 'exclude_special_chars'],
             'building_name' => ['string', 'max:255', 'exclude_special_chars', Rule::requiredIf($this->input('is_bookbinding') === AppraisalApply::BOOK_ENABLED)],
             'tel' => ['custom_phone', Rule::requiredIf($this->input('is_bookbinding') === AppraisalApply::BOOK_ENABLED)], // 日本の電話番号形式を想定
+            'coupon_type' => ['required'],
             'payment_type' => ['required'],
             'coupon_code' => ['nullable', 'string', 'max:255'],
             'total_amount' => ['required', 'integer'],
@@ -118,7 +119,8 @@ class ConfirmRequest extends FormRequest
             'stripeToken',
             'cardBrand',
             'last4',
-            'solar_return-text'
+            'solar_return-text',
+            'coupon_type'
         ]);
     }
 }

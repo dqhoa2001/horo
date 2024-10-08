@@ -65,6 +65,7 @@
                             @if(isset($data['coupon_code']))
                             <input type="hidden" name="coupon_code" value="{{ $data['coupon_code'] }}">
                             @endif
+                            <input type="hidden" name="coupon_type" value="{{ $data['coupon_type'] }}">
                             @if((int)$data['payment_type'] === \App\Models\AppraisalClaim::CREDIT)
                             <input type="hidden" name="stripeToken" value="{{ $data['stripeToken'] }}">
                             @endif

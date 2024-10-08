@@ -330,6 +330,7 @@
                                                             'data'     => ['1' => 'ご紹介ポイントを使用', '2' => 'クーポンコードを使用', '3' => 'クーポンを使用しない'],
                                                             'vModel'   => 'couponType',
                                                             'onChange' => 'couponTypeChange',
+                                                            'checked' => old('coupon_type', 1)
                                                         ])
                                                     </div>
                                                 </dd>
@@ -826,9 +827,11 @@
                 }, 1000);
             },
             //クーポンの種類が変更されたら、値引き額やクーポンコードをリセットする
-            couponTypeChange(){
+            couponTypeChange(event){
                 this.discountPrice = 0;
                 this.couponCode = '';
+                this.couponType = event.target.value;
+                // console.log('type', this.couponType);
             },
             handleInputChange() {
                 let birthplace1 = document.getElementById('birthday_prefectures').value;
@@ -951,6 +954,18 @@
                 this.setAge(birthday,familyId);
             }else{
                 this.setAge(birthday);
+            }
+
+            let checkedSolarReturn = @json(old('solar_return')); //solar return radio value after redirect back
+            const solarReturn1 = document.getElementById('solar_return1');
+            const solarReturn2 = document.getElementById('solar_return2');
+
+            if(checkedSolarReturn !== null){
+                if(checkedSolarReturn == solarReturn1.value){
+                    solarReturn1.checked = true;
+                }else{
+                    solarReturn2.checked = true;
+                }
             }
         }
     
