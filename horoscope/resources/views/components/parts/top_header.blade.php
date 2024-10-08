@@ -38,7 +38,7 @@
       家族一覧
       @break
       @case(str_contains(Request::url(), 'solar_bookbindings'))
-      製本 申込フォーム
+      Solar Return製本の申し込み
       @break
       @case(str_contains(Request::url(), 'bookbinding'))
       製本の申し込み

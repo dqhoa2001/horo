@@ -162,7 +162,7 @@
                                                                         v-model="selectedSolarAppraisal"
                                                                     >
                                                                     <span>{{ $age }} 歳 {{ $solar_return }} -- {{ $solar_return + 1 }}
-                                                                        @if($personalSolarAppraisal->bookbindingUserApplies()->exists()) ( Buyed )
+                                                                        @if($personalSolarAppraisal->bookbindingUserApplies()->exists()) (製本注文済み)
                                                                         @endif
                                                                     </span>
                                                                 </label>
@@ -272,7 +272,7 @@
                                                                                 value="{{ $familySolarAppraisal->id }}"
                                                                             >
                                                                             <span>{{ $age }} 歳 {{ $solar_return }} -- {{ $solar_return + 1 }}
-                                                                                @if($familySolarAppraisal->bookbindingUserApplies()->exists()) ( Buyed )
+                                                                                @if($familySolarAppraisal->bookbindingUserApplies()->exists()) (製本注文済み)
                                                                                 @endif
                                                                             </span>
                                                                         </label>

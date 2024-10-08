@@ -55,7 +55,7 @@ class ConfirmRequest extends FormRequest
     {
         $data = $this->all();
         //vaidate checkbox choose person
-        $data['select_person'] = AppraisalApply::whereIn('reference_id', $data['person_ids'])->get();
+        // $data['select_person'] = AppraisalApply::whereIn('reference_id', $data['person_ids'])->get();
         if (empty($data['person_ids'])) {
             $validator->errors()->add('person_ids', 'レビューブックを印刷したい人を選択してください');
             return;
@@ -110,7 +110,7 @@ class ConfirmRequest extends FormRequest
                 $validator->errors()->add('solar_bookbinding_names', '表紙に表示したい名前を入力してください');
             }
             if ($chooseAppraisalResult === false){
-                $validator->errors()->add('choose_solar_appraisal_apply_ids', '鑑定を選択してください');
+                $validator->errors()->add('choose_solar_appraisal_apply_ids', '鑑定年を選択してください');
             }
         });
     }
