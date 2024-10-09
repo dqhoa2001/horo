@@ -413,8 +413,7 @@
                                 <dt class="C-appraisal-content-header-message__title">アスペクト<br
                                         class="sp">（他の天体との関わりからわかること）</dt>
                                 <dd class="C-appraisal-content-header-message__text">
-                                    土星のアスペクトについては、月から木星とのかかわりがある場合には記載済みです。土星とドラゴ
-                                    ンヘッドのアスペクトは時代に関わり、個人には影響しないため、記載を省略します。
+                                    土星のアスペクトについては、月から木星とのかかわりがある場合には記載済みです。この項目に該当するアスペクトはありません。
                                 </dd>
                             </dl>
                         @endif
