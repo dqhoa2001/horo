@@ -170,7 +170,7 @@
 								</dl>
 								@endif
 
-								@if((int)$data['coupon_type'] === \App\Enums\CouponType::INTRODUCTION_COUPON->value)
+								<!-- @if((int)$data['coupon_type'] === \App\Enums\CouponType::INTRODUCTION_COUPON->value)
 									<dl class="C-form-block C-form-block--coupon-wrap">
 										<dd class="C-form-block__body">
 											<dl class="C-form-block-child C-form-block--hasbutton C-form-block--couponcode on">
@@ -192,7 +192,45 @@
 											</dl>
 										</dd>
 									</dl>
-								@endif
+								@endif -->
+
+								@switch((int)$data['coupon_type'])
+                                    @case(\App\Enums\CouponType::INTRODUCTION_COUPON->value) 
+                                        <dl class="C-form-block C-form-block--coupon-wrap">
+                                            <dd class="C-form-block__body">
+                                                <dl class="C-form-block-child C-form-block--hasbutton C-form-block--couponcode on">
+                                                    <dt class="C-form-block__title">使用するクーポンコード</dt>
+                                                    <dd class="C-form-block__body">
+                                                        {{ $data['coupon_code'] }}
+                                                    </dd>
+                                                </dl>
+                                            </dd>
+                                        </dl>
+                                        @break
+                                    @case(\App\Enums\CouponType::NONE->value)
+                                        <dl class="C-form-block C-form-block--coupon-wrap">
+                                            <dd class="C-form-block__body">
+                                                <dl class="C-form-block-child C-form-block--hasbutton C-form-block--couponcode on">
+                                                    <dt class="C-form-block__title">使用するクーポン</dt>
+                                                    <dd class="C-form-block__body">
+                                                        使用しない
+                                                    </dd>
+                                                </dl>
+                                            </dd>
+                                        </dl>
+                                        @break
+                                    @default
+                                        <dl class="C-form-block C-form-block--coupon-wrap">
+                                            <dd class="C-form-block__body">
+                                                <dl class="C-form-block-child C-form-block--hasbutton C-form-block--couponcode on">
+                                                    <dt class="C-form-block__title">使用するクーポン</dt>
+                                                    <dd class="C-form-block__body">
+                                                        {{ number_format($data['discount_price']) }}円
+                                                    </dd>
+                                                </dl>
+                                            </dd>
+                                        </dl>
+                                @endswitch
 
 								<dl class="C-price">
 									<dt class="C-price__title">注文内容</dt>
