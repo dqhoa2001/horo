@@ -967,6 +967,15 @@
                     solarReturn2.checked = true;
                 }
             }
+            //update hidden input solar return text
+            const hiddenInput = document.getElementById('text-solar_return');
+            if (solarReturn1.checked) {
+                hiddenInput.value = document.querySelector('span[for="solar_return1"]').textContent;
+            } else if (solarReturn2.checked) {
+                hiddenInput.value = document.querySelector('span[for="solar_return2"]').textContent;
+            } else {
+                hiddenInput.value = null;
+            }
         }
     
     }).mount('#Personal-appraisal');
