@@ -9,7 +9,7 @@
 	<!-- End Google Tag Manager -->
 @endsection
 @section('css')
-<link rel="stylesheet" href="{{ asset('mypage/assets/css/personal-appraisal-form.css') }}">
+<link rel="stylesheet" href="{{ asset('mypage/assets/css/personal-solar-appraisal-form.css') }}">
 @endsection
 
 @section('content')
