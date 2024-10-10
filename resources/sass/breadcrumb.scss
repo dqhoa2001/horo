@@ -1,0 +1,11 @@
+@import './variables';
+.breadcrumb {
+  &.breadcrumb-right {
+    justify-content: flex-end;
+    margin-top: $breadcrumb-margin-top;
+  }
+  &.breadcrumb-center {
+    justify-content: center;
+    margin-top: $breadcrumb-margin-top;
+  }
+}

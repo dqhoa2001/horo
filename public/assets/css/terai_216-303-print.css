@@ -1,0 +1,53 @@
+/* A4縦用のベース設定 */
+/* @page {
+    size: A4 portrait;
+    margin: 0mm;
+} */
+
+/* 216mm * 303mm設定 */
+@page {
+    size: 216mm 303mm;
+    /* size: 8.50394in 11.9291in; */
+    margin: 0mm;
+}
+
+
+/* 各要素の余白リセット */
+*{
+    margin: 0mm;
+    padding: 0mm;
+}
+
+
+
+html{
+    width: 216mm;
+    margin: 0mm !important;
+    padding: 0mm !important;
+    font-size: 9.5pt;
+}
+
+/* 印刷時の調子を整える */
+body {
+    width: 216mm;
+    margin: 0mm !important;
+    padding: 0mm !important;
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+}
+.basewidth{
+    width: 216mm;
+}
+
+/* 印刷1ページ用のコンテンツはここで定義 */
+.page {
+    width: 216mm;
+    height: 303mm;
+    min-height: 303mm;
+    page-break-after: always;
+    box-sizing: border-box;
+}
+.page--content .page__inner{
+    /* min-height: calc(303mm - 2rem); */
+    min-height: 289.7mm;
+}

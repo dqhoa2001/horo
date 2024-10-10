@@ -1,0 +1,60 @@
+@font-face {
+  font-family: 'zodiac';
+  src: url('../fonts/AstroDotBasic.ttf') format('truetype');
+}
+
+$color_1: darkcyan;
+$font-family_1: 'zodiac';
+$font-family_2: 'Noto Sans JP', sans-serif;
+
+p {
+  font-family: $font-family_2;
+  font-size: 14px;
+  word-wrap: break-word;
+
+  .planet {
+    font-family: $font-family_1;
+    font-size: 25px;
+  }
+}
+.bold {
+  font-family: $font-family_2;
+  font-weight: 600;
+  font-size: 15px;
+}
+.cover-image {
+  margin: 3% 0;
+  .header {
+    display: block;
+    text-align: center;
+  }
+  .footer {
+    display: block;
+    text-align: center;
+  }
+  .center {
+    text-align: center;
+    color: $color_1;
+    img {
+      display: block;
+    }
+  }
+}
+.message-text {
+  padding-left: 10%;
+  padding-top: 15%;
+}
+.commentary {
+  padding: 12% 8%;
+}
+.page-break {
+  page-break-after: always;
+  .border-card {
+    width: 100%;
+    height: auto;
+    border: 1px solid black;
+    .title-card {
+      text-align: center;
+    }
+  }
+}

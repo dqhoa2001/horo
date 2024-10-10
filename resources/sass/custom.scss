@@ -1,0 +1,30 @@
+// Fonts
+@import url('https://fonts.bunny.net/css?family=Nunito');
+
+$blue: #000 !default;
+$indigo: #000 !default;
+$purple: #000 !default;
+$pink: #000 !default;
+$red: #000 !default;
+$orange: #000 !default;
+$yellow: #000 !default;
+$green: #000 !default;
+$teal: #000 !default;
+$cyan: #000 !default;
+
+// Variables
+@import './variables';
+@import './sidebar.scss';
+@import './navbar.scss';
+@import './avatar.scss';
+@import './buttons.scss';
+@import './dropdowns.scss';
+@import './forms.scss';
+@import './main.scss';
+@import './pagination.scss';
+@import './table.scss';
+@import './navs.scss';
+// @import './icons.scss';
+// Bootstrap
+@import 'bootstrap/scss/bootstrap';
+@import 'bootstrap-icons/font/bootstrap-icons.css';

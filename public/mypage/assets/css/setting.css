@@ -1,0 +1,267 @@
+@charset "utf-8";
+
+/*-------------------------------
+	common.css
+-------------------------------*/
+.Pageframe-main__inner {
+    padding-right: 0rem;
+}
+.Pageframe-main input,
+.Pageframe-main button,
+.Pageframe-main select:not(.Pageframe-main-header-language__inner),
+.Pageframe-main textarea{
+    color: #39385D;
+}
+.Pageframe-main input::placeholder{
+    color: rgba(57,57,92,.25);
+}
+.Pageframe-main-header__pagename::before{
+	width: 2.4rem;
+	height: 2.4rem;
+	top: calc(50% - 1.2rem);
+	background-image: url(../images/setting/icon_mark-pagename.svg);
+}
+
+.Pageframe-main__inner *,
+.C-popup--horoscope *,
+.C-popup--horoscope-delete *{
+    color: #345E97;
+}
+.Pageframe-main__title{
+    max-width: 40rem;
+    margin-bottom: 9.5rem;
+}
+.Pageframe-main__title::after{
+    width: 14.8rem;
+    height: 13rem;
+    top: -3.5rem;
+    right: -16.8rem;
+    background-image: url(../images/setting/icon_title.svg);
+}
+
+@media screen and (width >= 1600px) , print{
+
+}
+@media screen and (max-width:1188px) , print{
+
+}
+@media screen and (max-width:1128px) , print{
+
+}
+@media screen and (min-width:501px) and (max-width:750px) , print{
+
+}
+@media screen and (max-width:500px) , print{
+
+    .Pageframe-main-header__pagename::before{
+        width: 2.7rem;
+        height: 2.7rem;
+        top: calc(50% - 1.35rem);
+    }
+    .Pageframe-main__title{
+        max-width: 24.5rem;
+        margin-bottom: 4rem;
+    }
+    .Pageframe-main__title::after{
+        width: 8.5rem;
+        height: 8.3rem;
+        top: -1.5rem;
+        right: -7.2rem;
+    }
+    .Setting-form-block--mail .Setting-form-block__body .Setting-form-field {
+        width: 100%; /* スマートフォンでは幅100% */
+        margin-bottom: 3.5rem;
+    }
+
+}
+
+
+
+/*-------------------------------
+	ユーザー設定
+-------------------------------*/
+
+/* カスタムスクロールバー応急処置 */
+#mCSB_1_container{
+    height: 100%;
+}
+
+
+
+.Setting-form__title{
+    font-size: 1.7rem;
+    margin-bottom: 3rem;
+    letter-spacing: .01em;
+    line-height: 1;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.Setting-form__title::before{
+    width: 2rem;
+    height: 2.3rem;
+    margin-right: .8rem;
+    background-image: url(../images/setting/icon_setting-form_title.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: block;
+    content: "";
+}
+.Setting-form__inner{
+    margin-bottom: 4rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.Setting-form-block--half{
+    width: calc((100% - 4.5rem) / 2);
+    margin-bottom: 3.5rem;
+}
+.Setting-form-block--half:last-child{
+    margin-bottom: 0;
+}
+.Setting-form-block__title{
+    font-size: 1.2rem;
+    margin-bottom: 1.2rem;
+    line-height: 1;
+    color: rgba(57,56,93,.4);
+}
+.Setting-form-block__body{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.Setting-form-field{
+    width: calc((100% - .6rem) / 2);
+    font-size: 1.4rem;
+    border-bottom: 1px solid #39385D;
+}
+.Setting-form-field input{
+    width: 100%;
+}
+
+/*----- メールアドレス */
+.Setting-form-block--mail{
+    width: 100%;
+}
+/* .Setting-form-block--mail .Setting-form-block__body{
+    position: relative;
+}
+.Setting-form-block--mail .Setting-form-block__body::before{
+    font-size: 1.7rem;
+    font-weight: 700;
+    left: calc(50% - 0.5em);
+    top: 0;
+    position: absolute;
+    color: #39375E;
+    content: "@";
+} */
+.Setting-form-block--mail .Setting-form-block__body .Setting-form-field{
+    /* width: calc((100% - 5rem) / 2); */
+    width: 100%;
+    margin-bottom: 3.5rem;
+}
+
+.Setting-create .Button:disabled{
+    position: relative;
+    background: none !important;
+    cursor: not-allowed;
+    transition: .3s all ease-in-out;
+}
+.Setting-create .Button:disabled::before{
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    right: 0;
+    background: #C9C9C9 !important;
+    opacity: 1;
+    position: absolute;
+    display: block;
+    content: "";
+}
+.Setting-create .Button span::after{
+    display: none;
+}
+
+.Setting-create{
+    width: 100%;
+}
+.Setting-create__text{
+    font-size: 1.3rem;
+}
+.Setting-create__text a{
+    text-decoration: underline;
+}
+
+@media screen and (width >= 1600px) , print{
+
+}
+@media screen and (max-width:1188px) , print{
+
+}
+@media screen and (max-width:1128px) , print{
+
+}
+@media screen and (min-width:501px) and (max-width:750px) , print{
+
+    .Pageframe-main__title{
+		width: 28rem;
+	}
+	.Pageframe-main__title .pc{
+		display: none !important;
+	}
+	.Pageframe-main__title .sp{
+		display: block !important;
+	}
+
+}
+@media screen and (max-width:500px) , print{
+
+    #mCSB_1_container{
+        height: auto;
+    }
+
+
+
+    .Setting-form__title{
+        margin-bottom: 2.5rem;
+    }
+
+    .Setting-form-block--half{
+        width: 100%;
+        margin-bottom: 3rem;
+    }
+    .Setting-form-block__title{
+        font-size: 1.4rem;
+    }
+    .Setting-form-field{
+        width: calc((100% - 2rem) / 2);
+        font-size: 1.6rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        padding-bottom: .8rem;
+    }
+
+    .Setting-create .Button{
+        margin-bottom: 3rem;
+    }
+    .Setting-create__text{
+        width: 100%;
+        text-align: center;
+    }
+
+}
+
+/* PC用のスタイル (例: 幅が800px以上) */
+@media screen and (min-width: 800px) {
+    .Setting-form-block--mail .Setting-form-block__body .Setting-form-field {
+        width: calc((100% - 5rem) / 2); /* PCでは幅を半分に */
+        margin-bottom: 3.5rem;
+    }
+}

@@ -1,0 +1,70 @@
+@charset "utf-8";
+
+/*-------------------------------
+	common.css
+-------------------------------*/
+
+.Pageframe-main__title{
+    max-width: 28.2rem;
+    margin-bottom: 4.5rem;
+}
+.Pageframe-main-header__pagename::before{
+	width: 2.1rem;
+	height: 2.5rem;
+	top: calc(50% - 1.25rem);
+	background-image: url(../images/common/icon_nav-contact.svg);
+}
+
+.Solar-Pageframe-main__title{
+    max-width: 45rem;
+    margin-bottom: -2.5rem;
+}
+/* .Pageframe-main-content{
+    margin-top: -10rem;
+} */
+
+@media screen and (width >= 1600px) , print{
+
+}
+@media screen and (max-width:1188px) , print{
+
+}
+@media screen and (max-width:1128px) , print{
+
+}
+@media screen and (max-width:500px) , print{
+
+    .Pageframe-main__title{
+        max-width: 22rem;
+    }
+
+}
+
+
+
+/*-------------------------------
+	form.css
+-------------------------------*/
+
+.C-form-block--type:not(:last-child){
+    margin-bottom: 5rem;
+}
+
+@media screen and (width >= 1600px) , print{
+
+}
+@media screen and (max-width:1188px) , print{
+
+}
+@media screen and (max-width:1128px) , print{
+
+}
+@media screen and (max-width:500px) , print{
+    /* .Pageframe-main-content{
+        margin-top: -5rem;
+    } */
+    .C-form-block--type:not(:last-child){
+        margin-bottom: 3rem;
+    }
+
+}

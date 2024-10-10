@@ -1,0 +1,706 @@
+@charset "utf-8";
+
+@import url(https://use.fontawesome.com/releases/v5.0.12/css/all.css);
+
+.block{
+	display: block;
+}
+.inline{
+	display: inline;
+}
+.inlineblock{
+	display: inline-block;
+}
+
+/*----- flex設定 */
+.flex{
+	display: flex;
+	flex-wrap: wrap;
+}
+.flexCC{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+.flexCB{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+.flexCA{
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+.flexCS{
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+}
+.flexCE{
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	flex-wrap: wrap;
+}
+.flexSC{
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+.flexSB{
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+.flexSA{
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+.flexSE{
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-end;
+	flex-wrap: wrap;
+}
+.flexEC{
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+.flexEB{
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+.flexEA{
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+.flexEE{
+	display: flex;
+	align-items: flex-end;
+	justify-content: flex-end;
+	flex-wrap: wrap;
+}
+.flexwrap{
+	flex-wrap: wrap;
+}
+.clearfix:after{
+	content: "";
+	display: block;
+	clear: both;
+}
+
+
+
+/*-------------------------------
+	横幅設定
+-------------------------------*/
+
+.fullwidth{
+	width: 100%;
+}
+.w50{
+	width: 50%;
+}
+.w25{
+	width: 25%;
+}
+
+
+
+/*-------------------------------
+	テキスト設定
+-------------------------------*/
+
+/*----- 文字の太さ設定 -----*/
+.weightNormal{
+	font-weight: normal;
+}
+.weightBold{
+	font-weight: bold;
+}
+
+/*----- 文字位置 -----*/
+.alignCenter{
+	text-align: center;
+}
+.alignLeft{
+	text-align: left;
+}
+.alignRight{
+	text-align: right;
+}
+
+/*文字装飾*/
+.underline{
+	text-decoration: underline;
+}
+.linethrough{
+	text-decoration: line-through;
+}
+
+
+
+/*-------------------------------
+	3点リーダー
+-------------------------------*/
+
+.trimming{
+	width: 100%;
+	overflow: hidden;
+	display: block;
+}
+.trimming__inner{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+
+
+
+/*-------------------------------
+	アイコンフォント設定
+-------------------------------*/
+
+.icon:before,
+.icon:after{
+	font-family: 'Font Awesome 5 free';
+}
+.icon_arrow:after{
+	content: "\f138";
+	font-weight: bold;
+}
+.icon_arrow2:after{
+	content: "\f137";
+	font-weight: bold;
+}
+.icon_tel:after{
+	content: "\f098";
+	font-weight: bold;
+	display: inline-block;
+	transform: rotate(90deg);
+}
+
+
+
+/*-------------------------------
+	背景設定
+-------------------------------*/
+
+/*----- 背景画像 -----*/
+.bgOptionCC{
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+}
+.bgOption100C{
+	background-repeat: no-repeat;
+	background-size: 100%;
+	background-position: center;
+}
+
+
+
+/*-------------------------------
+	リスト設定
+-------------------------------*/
+.list-dot li,
+.list-circle li,
+.list-circle2 li,
+.list-square li,
+.list-no li,
+.list-ast{
+	text-indent: -1em;
+	padding-left: 1em;
+}
+.list-dot li:before{
+	content: "・";
+}
+.list-ast li:before{
+	content: "※";
+}
+.list-circle li:before{
+	content: "●";
+}
+.list-circle2 li:before{
+	content: "○";
+}
+.list-square li:before{
+	content: "■";
+}
+.list-no > li:nth-of-type(1):before{
+	content: "\002460";
+}
+.list-no > li:nth-of-type(2):before{
+	content: "\002461";
+}
+.list-no > li:nth-of-type(3):before{
+	content: "\002462";
+}
+.list-no > li:nth-of-type(4):before{
+	content: "\002463";
+}
+.list-no > li:nth-of-type(5):before{
+	content: "\002464";
+}
+.list-no > li:nth-of-type(6):before{
+	content: "\002465";
+}
+.list-no > li:nth-of-type(7):before{
+	content: "\002466";
+}
+.list-no > li:nth-of-type(8):before{
+	content: "\002467";
+}
+.list-no > li:nth-of-type(9):before{
+	content: "\002468";
+}
+.list-no > li:nth-of-type(10):before{
+	content: "\002469";
+}
+.list-no > li:nth-of-type(11):before{
+	content: "\00246a";
+}
+.list-no > li:nth-of-type(12):before{
+	content: "\00246b";
+}
+.list-no > li:nth-of-type(13):before{
+	content: "\00246c";
+}
+.list-no > li:nth-of-type(14):before{
+	content: "\00246d";
+}
+.list-no > li:nth-of-type(15):before{
+	content: "\00246e";
+}
+.list-no > li:nth-of-type(16):before{
+	content: "\00246f";
+}
+.list-no > li:nth-of-type(17):before{
+	content: "\002470";
+}
+.list-no > li:nth-of-type(18):before{
+	content: "\002471";
+}
+.list-no > li:nth-of-type(19):before{
+	content: "\002472";
+}
+.list-no > li:nth-of-type(20):before{
+	content: "\002473";
+}
+
+/*最後の要素のみmargin無し*/
+.interval05rem > *:not(:last-child){
+	margin-bottom: 0.5rem;
+}
+.interval1rem > *:not(:last-child){
+	margin-bottom: 1rem;
+}
+.interval15rem > *:not(:last-child){
+	margin-bottom: 1.5rem;
+}
+.interval2rem > *:not(:last-child){
+	margin-bottom: 2rem;
+}
+.interval25rem > *:not(:last-child){
+	margin-bottom: 2.5rem;
+}
+.interval3rem > *:not(:last-child){
+	margin-bottom: 3rem;
+}
+.interval35rem > *:not(:last-child){
+	margin-bottom: 3.5rem;
+}
+.interval4rem > *:not(:last-child){
+	margin-bottom: 4rem;
+}
+.interval45rem > *:not(:last-child){
+	margin-bottom: 4.5rem;
+}
+.interval5rem > *:not(:last-child){
+	margin-bottom: 5rem;
+}
+
+
+
+/*-------------------------------
+	ポジション設定
+-------------------------------*/
+
+.rela{
+	position: relative;
+}
+.abso{
+	position: absolute;
+}
+.fix{
+	position: fixed;
+}
+
+/*重なり順*/
+.z9999{
+	z-index: 9999;
+}
+.z9{
+	z-index: 9000;
+}
+.z8{
+	z-index: 8000;
+}
+.z7{
+	z-index: 7000;
+}
+.z6{
+	z-index: 6000;
+}
+.z5{
+	z-index: 5000;
+}
+.z4{
+	z-index: 4000;
+}
+.z3{
+	z-index: 3000;
+}
+.z2{
+	z-index: 2000;
+}
+.z1{
+	z-index: 1000;
+}
+.z05{
+	z-index: 500;
+}
+.z-1{
+	z-index: -1;
+}
+
+
+
+
+
+/*-------------------------------
+	PC専用
+-------------------------------*/
+@media screen and (min-width:501px) , print{
+
+	.sp,
+	.spi,
+	.spf,
+	.spt,
+	.spib{
+		display: none !important;
+	}
+	.pc{
+		display: block !important;
+	}
+	.pci{
+		display: inline !important;
+	}
+	.pcf{
+		display: flex !important;
+	}
+	.pct{
+		display: table !important;
+	}
+	.pcib{
+		display: inline-block !important;
+	}
+
+
+
+	/*-------------------------------
+		横幅設定
+	-------------------------------*/
+
+	.pcw10{
+		width: 10rem;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.pcw20{
+		width: 20rem;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.pcw30{
+		width: 30rem;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.pcw40{
+		width: 40rem;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.pcw50{
+		width: 50rem;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.pcw60{
+		width: 60rem;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.pcw70{
+		width: 70rem;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.pcw80{
+		width: 80rem;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.pcw90{
+		width: 90rem;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.pcw100{
+		width: 100rem;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	/*----- flex設定 */
+	.pcflexCC{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+	.pcflexCB{
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		flex-wrap: wrap;
+	}
+	.pcflexCA{
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+		flex-wrap: wrap;
+	}
+	.pcflexCS{
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		flex-wrap: wrap;
+	}
+	.pcflexCE{
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		flex-wrap: wrap;
+	}
+	.pcflexSC{
+		display: flex;
+		align-items: flex-start;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+	.pcflexSB{
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		flex-wrap: wrap;
+	}
+	.pcflexSA{
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-around;
+		flex-wrap: wrap;
+	}
+	.pcflexSE{
+		display: flex;
+		align-items: flex-start;
+		justify-content: flex-end;
+		flex-wrap: wrap;
+	}
+	.pcflexEC{
+		display: flex;
+		align-items: flex-end;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+	.pcflexEB{
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
+		flex-wrap: wrap;
+	}
+	.pcflexEA{
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-around;
+		flex-wrap: wrap;
+	}
+	.pcflexEE{
+		display: flex;
+		align-items: flex-end;
+		justify-content: flex-end;
+		flex-wrap: wrap;
+	}
+
+
+
+	/*-------------------------------
+		3点リーダー
+	-------------------------------*/
+	
+	.trimming__inner--pc1{
+		-webkit-line-clamp: 1;	
+	}
+	.trimming__inner--pc2{
+		-webkit-line-clamp: 2;	
+	}
+	.trimming__inner--pc3{
+		-webkit-line-clamp: 3;	
+	}
+
+}
+
+
+
+
+
+/*-------------------------------
+	SP専用
+-------------------------------*/
+@media screen and (max-width:500px) , print{
+
+	.pc,
+	.pci,
+	.pcf,
+	.pct,
+	.pcib{
+		display: none !important;
+	}
+	.sp{
+		display: block !important;
+	}
+	.spi{
+		display: inline !important;
+	}
+	.spf{
+		display: flex !important;
+	}
+	.spt{
+		display: table !important;
+	}
+	.spib{
+		display: inline-block !important;
+	}
+
+	/*----- flex設定 */
+	.spflexCC{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+	.spflexCB{
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		flex-wrap: wrap;
+	}
+	.spflexCA{
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+		flex-wrap: wrap;
+	}
+	.spflexCS{
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		flex-wrap: wrap;
+	}
+	.spflexCE{
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		flex-wrap: wrap;
+	}
+	.spflexSC{
+		display: flex;
+		align-items: flex-start;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+	.spflexSB{
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		flex-wrap: wrap;
+	}
+	.spflexSA{
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-around;
+		flex-wrap: wrap;
+	}
+	.spflexSE{
+		display: flex;
+		align-items: flex-start;
+		justify-content: flex-end;
+		flex-wrap: wrap;
+	}
+	.spflexEC{
+		display: flex;
+		align-items: flex-end;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+	.spflexEB{
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
+		flex-wrap: wrap;
+	}
+	.spflexEA{
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-around;
+		flex-wrap: wrap;
+	}
+	.spflexEE{
+		display: flex;
+		align-items: flex-end;
+		justify-content: flex-end;
+		flex-wrap: wrap;
+	}
+
+
+
+	/*-------------------------------
+		3点リーダー
+	-------------------------------*/
+
+	.trimming__inner--sp1{
+		-webkit-line-clamp: 1;	
+	}
+	.trimming__inner--sp2{
+		-webkit-line-clamp: 2;	
+	}
+	.trimming__inner--sp3{
+		-webkit-line-clamp: 3;	
+	}
+
+}

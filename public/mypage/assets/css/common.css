@@ -1,0 +1,4814 @@
+/*-------------------------------
+	基本設定
+-------------------------------*/
+
+/*----- フォント設定 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baskervville&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600&display=swap');
+
+
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	line-height: 1.846153;
+	word-wrap: break-word;
+}
+
+html {
+	font-size: 62.5%;
+	width: 100%;
+	height: 100%;
+}
+
+body {
+	opacity: 0;
+	width: 100%;
+	height: 100%;
+	padding: 2rem;
+	font-size: 1.3rem;
+	letter-spacing: 0;
+	font-weight: 500;
+	-webkit-text-size-adjust: 100%;
+	color: #39385d;
+	background: #EFEFF0;
+	z-index: 5000;
+	position: relative;
+	/* font-family: '游ゴシック Medium', '游ゴシック体', 'Yu Gothic Medium', YuGothic, 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif; */
+	font-family: 'Noto Sans JP', 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+}
+
+body::before,
+body::after {
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	z-index: -1;
+	background-repeat: no-repeat;
+	position: absolute;
+	display: block;
+	content: "";
+}
+
+/* body::before {
+	background-position: right bottom;
+	background-size: cover;
+	background-image: url(../images/common/bg2.png);
+	background-image: image-set(url(../images/common/bg2.png) 1x, url(../images/common/bg2@2x.png) 2x);
+	background-image: -webkit-image-set(url(../images/common/bg2.png) 1x, url(../images/common/bg2@2x.png) 2x);
+} */
+body::before {
+	background-position: right bottom;
+	background-size: cover;
+	background-image: url(../images/common/bg3.png);
+	background-image: image-set(url(../images/common/bg3.png) 1x, url(../images/common/bg3.png) 2x);
+	background-image: -webkit-image-set(url(../images/common/bg3.png) 1x, url(../images/common/bg3.png) 2x);
+}
+
+
+body::after {
+	background-position: left top;
+	background-image: url(../images/common/bg1.png);
+	background-image: image-set(url(../images/common/bg1.png) 1x, url(../images/common/bg1@2x.png) 2x);
+	background-image: -webkit-image-set(url(../images/common/bg1.png) 1x, url(../images/common/bg1@2x.png) 2x);
+}
+
+/*----- フォント */
+.font {
+	font-family: 'Baskervville', serif;
+}
+
+.mincho {
+	font-family: 'Noto Serif JP', serif;
+}
+
+/*----- 画像関連 */
+img {
+	height: auto;
+	vertical-align: bottom;
+}
+
+/* SVG表示されないとき */
+.svg {
+	line-height: 1;
+	display: block;
+}
+
+.svg img {
+	display: block;
+	width: 100%;
+	height: auto;
+	line-height: 1;
+}
+
+/* object-fit */
+.obj-img img {
+	object-fit: cover;
+	font-family: 'object-fit: cover;';
+}
+
+/*----- ホバー系 */
+a {
+	transition: .3s all ease;
+	color: #39385d;
+}
+
+*:not(.not-a)>a:hover {
+	opacity: 0.6;
+}
+
+/* 画像拡大 */
+.hover_zoom img {
+	transition: .3s all ease;
+}
+
+.hover_zoom:hover img {
+	transform: scale(1.2);
+}
+
+/*----- コンテンツ */
+.fullwidth {
+	padding-left: 2.5rem;
+	padding-right: 2.5rem;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.basewidth {
+	max-width: 110rem;
+	padding-left: 2.5rem;
+	padding-right: 2.5rem;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.maxwidth {
+	width: 100%;
+	max-width: 125rem;
+	padding-left: 2.5rem;
+	padding-right: 2.5rem;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.sec {
+	/* padding-top: 9rem;
+    padding-bottom: 9rem; */
+}
+
+.Pageframe-main {
+	/* padding-bottom: 8.4rem; */
+	display: block;
+	overflow: hidden;
+}
+
+/*----- フォームリセット */
+.Pageframe-main input {
+	padding: 0;
+}
+
+.Pageframe-main .fcolor2 {
+	color: #345e97;
+}
+
+.Pageframe-main .fcolor1 {
+	color: #02749c;
+}
+
+.Pageframe-main input:not(input[type="date"], input[type="time"]),
+.Pageframe-main button,
+.Pageframe-main select:not(.Pageframe-main-header-language__inner),
+.Pageframe-main textarea {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background: transparent;
+	border: none;
+	border-radius: 0;
+	font: inherit;
+	outline: none;
+	color: #39395C;
+}
+
+.Pageframe-main input[type="date"] {
+	width: 100%;
+	border: none;
+	border-radius: 0;
+	font: inherit;
+	outline: none;
+	color: #39395C;
+}
+
+.Pageframe-main input[type="time"] {
+	width: 100%;
+	border: none;
+	border-radius: 0;
+	font: inherit;
+	outline: none;
+	color: #39395C;
+}
+/*----- アニメーション */
+.view {
+	opacity: 0;
+	transform: translate(0, 0.7rem);
+	transition: all 750ms;
+}
+
+.view.scrollin {
+	opacity: 1;
+	transform: translate(0, 0);
+}
+
+.view2 {
+	overflow: hidden;
+	position: relative;
+}
+
+.view2:after {
+	content: "";
+	display: block;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	position: absolute;
+	background: #fff;
+	transition: all ease-in-out 750ms;
+}
+
+.view2.scrollin2:after {
+	left: 100%;
+}
+
+@media screen and (min-width:501px),
+print {
+
+	a[href^="tel:"] {
+		pointer-events: none;
+	}
+
+}
+
+@media screen and (min-width:901px) and (max-width:1100px),
+print {
+
+	html {
+		font-size: 55%;
+	}
+
+}
+
+@media screen and (max-width:900px),
+print {
+
+	html {
+		position: fixed;
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+	}
+
+	body {
+		/* padding: 0 0 1rem 0; */
+		padding: 0;
+	}
+
+	body::before {
+		z-index: -1;
+		background-position: center center;
+		background-size: cover;
+		background-image: url(../images/common/sp_bg1.png);
+		background-image: image-set(url(../images/common/sp_bg1.png) 1x, url(../images/common/sp_bg1@2x.png) 2x);
+		background-image: -webkit-image-set(url(../images/common/sp_bg1.png) 1x, url(../images/common/sp_bg1@2x.png) 2x);
+	}
+
+	.Pageframe-main input,
+	.Pageframe-main button,
+	.Pageframe-main select:not(.Pageframe-main-header-language__inner),
+	.Pageframe-main textarea {
+		font-size: medium !important;
+	}
+
+}
+
+@media screen and (max-width:500px),
+print {
+
+	html {
+		font-size: 2.666666vw;
+	}
+
+	body {
+		font-size: 1.4rem;
+	}
+
+}
+
+
+
+/*-------------------------------
+	フレーム
+-------------------------------*/
+
+/*----- 全体 */
+.Pageframe {
+	width: 100%;
+	height: 100%;
+	border: 1px solid #39385d;
+	border-left: none;
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
+	z-index: 6000;
+	position: relative;
+}
+
+.Pageframe::before,
+.Pageframe::after {
+	width: 1px;
+	height: calc((100% - 32rem) / 2);
+	left: 0;
+	position: absolute;
+	background: #39385d;
+	display: block;
+	content: "";
+}
+
+.Pageframe::before {
+	top: 0;
+}
+
+.Pageframe::after {
+	bottom: 0;
+}
+
+.Pageframe-main {
+	width: calc(100% - 22rem);
+	height: 100%;
+}
+
+/*----- ヘッダー */
+.Pageframe-main-header {
+	width: 100%;
+	height: 4rem;
+	border-bottom: 1px solid #39385d;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	position: relative;
+}
+
+.Pageframe-main-header__first {
+	width: 9rem;
+	height: 4rem;
+	font-size: 1.2rem;
+	border-right: 1px solid #39385d;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.Pageframe-main-header__first a {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	opacity: 1 !important;
+}
+
+.Pageframe-main-header__first a:hover {
+	color: #BFC8D1;
+}
+
+.Pageframe-main-header__pagename {
+	width: calc(100% - (9rem + 18.5rem));
+	height: 4rem;
+	padding-left: 5rem;
+	font-size: 1.2rem;
+	letter-spacing: .1em;
+	line-height: 1;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	position: relative;
+}
+
+.Pageframe-main-header__pagename::before {
+	left: 1rem;
+	position: absolute;
+	background-position: center center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	display: block;
+	content: "";
+	width: 2.5rem;
+	height: 2.5rem;
+	top: calc(50% - 1.25rem);
+	/* background-image: url(../mypage/assets/images/myappraisal/icon_mark-pagename.svg); */
+	background-image: url(../../../mypage/assets/images/myappraisal/icon_mark-pagename.svg);
+}
+
+.Pageframe-main-header__pagename.appraisal::before {
+	background-image: url('../images/myappraisal/icon_mark-pagename.svg');
+}
+
+.Pageframe-main-header__pagename.familyappraisal::before {
+	background-image: url('../images/familyappraisal/icon_mark-pagename.svg');
+}
+
+.Pageframe-main-header-right {
+	height: 4rem;
+	padding-right: 1.8rem;
+	top: 0;
+	right: 0;
+	position: absolute;
+	overflow: hidden;
+}
+
+.Pageframe-main-header-language {
+	margin-right: 1.8rem;
+	padding-left: 1.6rem;
+	padding-right: 1.5rem;
+	height: 4rem;
+	float: left;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	position: relative;
+}
+
+.Pageframe-main-header-language::before {
+	width: 1.1rem;
+	height: 1.1rem;
+	left: 0;
+	top: calc(50% - .55rem);
+	position: absolute;
+	background-image: url(../images/common/icon_language.svg);
+	background-position: center center;
+	background-size: auto;
+	background-repeat: no-repeat;
+	display: block;
+	content: "";
+}
+
+.Pageframe-main-header-language::after {
+	right: 0;
+	top: calc(50% - .2rem);
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: .4rem .3rem 0 .3rem;
+	border-color: #39385d transparent transparent transparent;
+	display: block;
+	content: "";
+}
+
+.Pageframe-main-header-language__inner {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background: transparent;
+	border: none;
+	border-radius: 0;
+	outline: none;
+	font-size: 1.2rem;
+	font-weight: 500;
+	padding: 0;
+	color: #39385d;
+	cursor: pointer;
+	font-family: 'Noto Sans JP', 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+}
+
+.Pageframe-main-header-language__text {
+	font-size: 1.2rem;
+}
+
+.Pageframe-main-header__user {
+	height: 4rem;
+	font-size: 1.2rem;
+	padding-left: 1.6rem;
+	float: left;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	cursor: pointer;
+}
+
+.Pageframe-main-header__user::before {
+	width: 1.1rem;
+	height: 1.1rem;
+	left: 0;
+	top: calc(50% - .55rem);
+	position: absolute;
+	background-image: url(../images/common/icon_user.svg);
+	background-position: center center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	display: block;
+	content: "";
+}
+/* 設定 */
+.Pageframe-main-header__user-child{
+	width: 15rem;
+	border-radius: 1rem;
+	top: 5rem;
+	right: 2rem;
+	padding: .5rem 1rem;
+	z-index: 9000;
+	position: absolute;
+	background: rgba(255,255,255,.3);
+	opacity: 0;
+	visibility: hidden;
+	transition: .3s all ease-in-out;
+	box-shadow: 0 .2rem .4rem rgba(0,0,0,.05);
+	}
+	.Pageframe-main-header__user-child::before{
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	border-radius: 1rem;
+	background: rgba(255,255,255,.5);
+	position: absolute;
+	display: block;
+	content: "";
+	}
+	.Pageframe-main-header__user-child.on{
+	opacity: 1;
+	visibility: visible;
+	}
+	.Pageframe-main-header__user-child__item:not(:last-child){
+	border-bottom: 1px solid rgba(57,57,92,.2);
+	}
+	.Pageframe-main-header__user-child__item a{
+	width: 100%;
+	font-size: 1.2rem;
+	height: 4rem;
+	padding-left: 2.5rem;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	position: relative;
+	}
+	.Pageframe-main-header__user-child__item a::before{
+	width: 1.5rem;
+	height: 1.5rem;
+	left: .5rem;
+	top: calc(50% - .75rem);
+	position: absolute;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+	display: block;
+	content: "";
+	}
+	.Pageframe-main-header__user-child__item--user a::before{
+	background-image: url(../images/common/icon_user-child-user.svg);
+	}
+	.Pageframe-main-header__user-child__item--logout a::before{
+	background-image: url(../images/common/icon_user-child-logout.svg);
+	}
+
+.Pageframe-main__scroll {
+	width: 100%;
+	height: calc(100% - 4rem);
+	padding-top: .6rem;
+	padding-bottom: .6rem;
+	/* position: relative; */
+}
+
+html.useragent-tab .Pageframe-main__scroll {
+	overflow-y: scroll;
+}
+
+html.useragent-tab .Pageframe-main__scroll::-webkit-scrollbar {
+	display: none;
+}
+
+.Pageframe-main__scroll .Pageframe-main-header {
+	display: none;
+}
+
+.Pageframe-main__inner {
+	width: 100%;
+	height: 100%;
+	padding-left: 14rem;
+	padding-right: 14rem;
+}
+
+.Pageframe-main__scroll .mCSB_inside>.mCSB_container {
+	margin-right: 0;
+}
+
+.Pageframe-main__scroll > .mCustomScrollBox > .mCSB_scrollTools{
+	/* opacity: 0 !important; */
+}
+
+.Pageframe-main-content {
+	width: 64.5rem;
+	padding-top: 7.5rem;
+	padding-bottom: 8.4rem;
+}
+
+.Pageframe-main__title {
+	margin-bottom: 3.5rem;
+	position: relative;
+}
+
+.Pageframe-main__title.appraisal {
+	max-width: 32.3rem;
+	background-image: url(../images/myappraisal/img_title.svg);
+	background-repeat: no-repeat;
+}
+
+.Pageframe-main__title.familyappraisal {
+	max-width: 54.3rem;
+	background-image: url(../images/familyappraisal/img_title.svg);
+	background-repeat: no-repeat;
+}
+
+.Pageframe-main__title img {
+	width: 100%;
+}
+
+.Pageframe-main__title::after {
+	top: 0;
+	position: absolute;
+	background-position: center center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	display: block;
+	content: "";
+}
+
+.Pageframe-main__title.appraisal::after {
+	background-image: url(../images/myappraisal/icon_title.svg);
+	background-repeat: no-repeat;
+}
+
+.Pageframe-main__title.familyappraisal::after {
+	background-image: url(../images/familyappraisal/icon_title.svg);
+	background-repeat: no-repeat;
+}
+
+.Pageframe-main__firstmessage {
+	font-size: 1.4rem;
+	margin-bottom: 4rem;
+	line-height: 1.714285;
+}
+
+.Pageframe-main__firstmessage::after {
+	width: 7.7rem;
+	height: .9rem;
+	margin-top: 3rem;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+	display: block;
+	content: "";
+}
+
+.Pageframe-main__body {
+	position: relative;
+}
+
+@media screen and (width >=1600px),
+print {
+
+	.Pageframe-main__inner {
+		padding-left: 21rem;
+	}
+
+	.Pageframe-main-content {
+		width: 75.5rem;
+	}
+
+}
+
+@media screen and (max-width:1188px),
+print {
+
+	.Pageframe-main__inner {
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	.Pageframe-main-content {
+		width: 100%;
+		max-width: 64.5rem;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+
+@media screen and (max-width:1128px),
+print {
+
+	.Pageframe-main__inner {
+		padding-left: 5rem;
+		padding-right: 5rem;
+	}
+
+}
+
+@media screen and (min-width:901px) and (max-width:1100px),
+print {
+
+	.Pageframe-main-content {
+		margin-left: 0;
+	}
+
+}
+
+@media screen and (min-width:501px) and (max-width:900px),
+print {
+
+	.Pageframe {
+		padding-bottom: 1rem;
+		flex-direction: column;
+		border: none;
+		position: relative;
+	}
+
+	.Pageframe::before {
+		width: calc(100% - 2rem);
+		height: calc(100% - 2rem);
+		border: 1px solid #39385d;
+		border-bottom: none;
+		background: none;
+		left: 1rem;
+		top: 1rem;
+		right: 1rem;
+		bottom: 1rem;
+		z-index: -1;
+		position: fixed;
+	}
+
+	.Pageframe::after {
+		width: calc(100% - 2rem);
+		height: 1px;
+		left: 1rem;
+		right: 1rem;
+		bottom: 1rem;
+		z-index: 6000;
+		background: #39385d;
+	}
+
+	.Pageframe-main {
+		width: 100%;
+		margin-top: 5rem;
+		padding-bottom: 0;
+		height: 100%;
+		overflow-y: scroll;
+		min-height: calc(100% - 5rem);
+	}
+
+	.Pageframe-main::-webkit-scrollbar {
+		display: none;
+	}
+
+	/* .Pageframe-main__scroll{
+		height: auto;
+	}  ★ */
+	.Pageframe-main__scroll {
+		height: 100%;
+		padding-top: 0;
+		padding-bottom: 0;
+		position: relative;
+	}
+
+	.Pageframe-main__scroll::before {
+		width: calc(100% - 2rem - 2px);
+		height: .6rem;
+		left: calc(1rem + 1px);
+		top: 0;
+		right: calc(1rem + 1px);
+		z-index: 6000;
+		position: absolute;
+		margin-left: auto;
+		margin-right: auto;
+		display: block;
+		content: "";
+		background: rgb(239, 237, 238);
+		background: linear-gradient(90deg, rgba(239, 237, 238, 1) 0%, rgba(227, 231, 235, 1) 20%, rgba(225, 231, 236, 1) 40%, rgba(229, 233, 235, 1) 60%, rgba(233, 235, 236, 1) 100%);
+	}
+
+	.Pageframe-main__inner {
+		height: auto;
+		padding-left: 5rem;
+		padding-right: 5rem;
+		z-index: 5999;
+		position: relative;
+		min-height: calc(100% - 14rem);
+	}
+
+	/* .Pageframe-main__inner::before {
+		width: calc(100% - 2rem);
+		height: 100%;
+		left: 1rem;
+		right: 1rem;
+		bottom: 0;
+		top: 0;
+		z-index: -1;
+		position: absolute;
+		display: block;
+		content: "";
+		background-position: right bottom;
+		background-repeat: no-repeat;
+		background-size: 100%;
+		background-image: url(../images/common/tb_bg2.png);
+		background-image: image-set(url(../images/common/tb_bg2.png) 1x, url(../images/common/tb_bg2@2x.png) 2x);
+		background-image: -webkit-image-set(url(../images/common/tb_bg2.png) 1x, url(../images/common/tb_bg2@2x.png) 2x);
+	} */
+	.Pageframe-main__inner::before {
+		width: calc(100% - 2rem);
+		height: 100%;
+		left: 1rem;
+		right: 1rem;
+		bottom: 0;
+		top: 0;
+		z-index: -1;
+		position: absolute;
+		display: block;
+		content: "";
+		background-position: right bottom;
+		background-repeat: no-repeat;
+		background-size: 100%;
+		background-image: url(../images/common/tb_bg3.png);
+		background-image: image-set(url(../images/common/tb_bg3.png) 1x, url(../images/common/tb_bg3.png) 2x);
+		background-image: -webkit-image-set(url(../images/common/tb_bg3.png) 1x, url(../images/common/tb_bg3.png) 2x);
+	}
+
+	.Pageframe-main .mCS_no_scrollbar_y {
+		height: 100%;
+	}
+
+	.Pageframe-main-content {
+		padding-bottom: 14rem;
+	}
+
+	/*----- ヘッダー */
+	.Pageframe-main-header {
+		width: calc(100% - 2rem);
+		z-index: 6000;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.Pageframe-main-header__first {
+		width: 12.5rem;
+	}
+
+	.Pageframe-main-header__pagename {
+		width: calc(100% - 12.5rem);
+	}
+
+	.Pageframe-main-header-right {
+		height: 4rem;
+		top: 1rem;
+		right: 1rem;
+		position: fixed;
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+	}
+
+	.Pageframe-main>.Pageframe-main-header {
+		display: none;
+	}
+
+	.Pageframe-main__scroll .Pageframe-main-header {
+		display: flex;
+	}
+
+}
+
+@media screen and (max-width:500px),
+print {
+
+	/*----- 全体 */
+	.Pageframe {
+		/* border-left: 1px solid #39385d; */
+		flex-direction: column;
+		border: none;
+		position: relative;
+
+		position: fixed;
+		padding-bottom: 1rem;
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+	}
+
+	.Pageframe::before {
+		width: calc(100% - 2rem);
+		height: calc(100% - 2rem);
+		border: 1px solid #39385d;
+		border-bottom: none;
+		background: none;
+		left: 1rem;
+		top: 1rem;
+		right: 1rem;
+		bottom: 1rem;
+		z-index: -1;
+		position: fixed;
+	}
+
+	.Pageframe::after {
+		width: calc(100% - 2rem);
+		height: 1px;
+		left: 1rem;
+		right: 1rem;
+		bottom: 1rem;
+		z-index: 6000;
+		background: #39385d;
+	}
+
+	.Pageframe-main {
+		width: 100%;
+		margin-top: 5rem;
+		padding-bottom: 0;
+		height: 100%;
+		overflow-y: scroll;
+	}
+
+	.Pageframe-main::-webkit-scrollbar {
+		display: none;
+	}
+
+	.Pageframe-main__inner-wrap {
+		position: relative;
+	}
+
+	/*----- ヘッダー */
+	.Pageframe-main-header {
+		width: calc(100% - 2rem);
+		margin-left: auto;
+		margin-right: auto;
+		height: auto;
+		border-bottom: 1px solid #39385d;
+		position: static;
+		flex-direction: column;
+	}
+
+	.Pageframe-main-header__first {
+		width: 100%;
+		height: 3.5rem;
+		border-bottom: 1px solid #39385d;
+		border-right: 0;
+	}
+
+	.Pageframe-main-header__pagename {
+		width: 100%;
+		height: 5rem;
+		padding-left: 0;
+		font-size: 1.2rem;
+		justify-content: center;
+	}
+
+	.Pageframe-main-header__pagename::before {
+		width: 2.9rem;
+		height: 2.9rem;
+		margin-right: 1rem;
+		position: static;
+	}
+
+	.Pageframe-main-header-right {
+		height: 4rem;
+		top: 1rem;
+		right: 1rem;
+		position: fixed;
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+	}
+
+	.Pageframe-main-header-language {
+		display: none;
+	}
+
+	.Pageframe-main-header__user {
+		height: 1.2rem;
+		font-size: 1.2rem;
+		padding-left: 0;
+		float: left;
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+	}
+
+	.Pageframe-main-header__user::before {
+		width: 1.2rem;
+		height: 1.2rem;
+		margin-right: .3rem;
+		position: static;
+	}
+
+	.Pageframe-main__scroll {
+		height: 100%;
+		/* height: auto; */
+		padding-top: 0;
+		padding-bottom: 0;
+		position: relative;
+	}
+
+	.Pageframe-main__scroll::before {
+		width: calc(100% - 2rem - 2px);
+		height: .6rem;
+		left: calc(1rem + 1px);
+		top: 0;
+		right: calc(1rem + 1px);
+		z-index: 6000;
+		position: absolute;
+		margin-left: auto;
+		margin-right: auto;
+		display: block;
+		content: "";
+	}
+
+	.Pageframe-main__scroll::before {
+		background: rgb(237, 236, 237);
+		background: linear-gradient(86deg, rgba(237, 236, 237, 1) 0%, rgba(229, 231, 234, 1) 25%, rgba(222, 226, 231, 1) 50%, rgba(221, 226, 231, 1) 75%, rgba(223, 227, 232, 1) 100%);
+	}
+
+	.Pageframe-main__inner {
+		height: auto;
+		padding: 0;
+		z-index: 5999;
+		position: relative;
+	}
+
+	/* .Pageframe-main__inner::before {
+		width: calc(100% - 2rem);
+		height: 100%;
+		left: 1rem;
+		right: 1rem;
+		bottom: 0;
+		top: 0;
+		z-index: -1;
+		position: absolute;
+		display: block;
+		content: "";
+		background-position: right bottom;
+		background-repeat: no-repeat;
+		background-size: 100%;
+		background-image: url(../images/common/sp_bg2.png);
+		background-image: image-set(url(../images/common/sp_bg2.png) 1x, url(../images/common/sp_bg2@2x.png) 2x);
+		background-image: -webkit-image-set(url(../images/common/sp_bg2.png) 1x, url(../images/common/sp_bg2@2x.png) 2x);
+	} */
+	.Pageframe-main__inner::before {
+		width: calc(100% - 2rem);
+		height: 100%;
+		left: 1rem;
+		right: 1rem;
+		bottom: 0;
+		top: 0;
+		z-index: -1;
+		position: absolute;
+		display: block;
+		content: "";
+		background-position: right bottom;
+		background-repeat: no-repeat;
+		background-size: 100%;
+		background-image: url(../images/common/sp_bg3.png);
+		background-image: image-set(url(../images/common/sp_bg3.png) 1x, url(../images/common/sp_bg3.png) 2x);
+		background-image: -webkit-image-set(url(../images/common/sp_bg3.png) 1x, url(../images/common/sp_bg3.png) 2x);
+	}
+
+	.Pageframe-main-content {
+		width: calc(100% - 2rem);
+		max-width: 100%;
+		padding: 2.5rem 2.5rem 12.5rem;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.Pageframe-main__firstmessage {
+		font-size: 1.5rem;
+		letter-spacing: .06em;
+		line-height: 1.666666;
+	}
+
+	.Pageframe-main>.Pageframe-main-header {
+		display: none;
+	}
+
+	.Pageframe-main__scroll .Pageframe-main-header {
+		display: flex;
+	}
+
+    .Pageframe-main__title img {
+        width: 80%;
+    }
+
+}
+
+
+
+/*-------------------------------
+	ヘッダー
+-------------------------------*/
+
+.header {
+	width: 22rem;
+	padding: 1rem;
+	height: 100%;
+	border-right: 1px solid #39385d;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: space-between;
+	position: relative;
+}
+
+.header-top {
+	width: 100%;
+}
+
+.header-top .Pageframe-main-header-right {
+	display: none;
+}
+
+.header-name {
+	width: 100%;
+	max-width: 20.8rem;
+	margin-bottom: 2.5rem;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.header-name a {
+	width: 100%;
+	height: 3rem;
+	line-height: 1;
+	display: block;
+	background-image: url("../images/common/sitename.svg");
+	background-repeat: no-repeat;
+}
+
+.header-name img {
+	width: 100%;
+	display: block;
+}
+
+.header-logo {
+	width: 14.6rem;
+	margin-bottom: 4rem;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.header-logo img {
+	width: 100%;
+}
+
+.header-nav {
+	width: 100%;
+	height: 32.8rem;
+	padding-left: 3.5rem;
+	top: calc(50% - 16.3rem);
+	left: 0;
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.header-nav::before {
+	width: 2.5rem;
+	height: 32.8rem;
+	left: 0;
+	top: calc(50% - 16.3rem);
+	position: absolute;
+	background-image: url(../images/common/bg_frame.svg);
+	background-position: left center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	display: block;
+	content: "";
+}
+
+.header-nav__current-marker {
+	position: absolute;
+	width: .7rem;
+	height: .9rem;
+	top: 0;
+	left: .5rem;
+	width: .7rem;
+	height: .9rem;
+	position: absolute;
+	background-image: url(../images/common/icon_header-nav_current.svg);
+	background-position: center center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	pointer-events: none;
+	transition: top .3s ease;
+}
+
+.header-nav__item {
+	line-height: 1;
+	position: relative;
+}
+
+.header-nav__item:not(:last-child) {
+	margin-bottom: 2.2rem;
+}
+
+.header-nav__item a {
+	padding-left: 2.2rem;
+	position: relative;
+}
+
+.header-nav__item a::before,
+.header-nav__item a::after {
+	left: 0;
+	top: 50%;
+	transform: translate(0, -50%);
+	transition: .3s all ease-in-out;
+	position: absolute;
+	background-size: contain;
+	background-position: center center;
+	background-repeat: no-repeat;
+	display: block;
+	content: "";
+}
+
+.header-nav__item a::after {
+	opacity: 0;
+}
+
+.header-nav__item--myhoroscope a::before {
+	width: 1.6rem;
+	height: 1.6rem;
+	background-image: url(../images/common/icon_nav-myhoroscope.svg);
+}
+
+.header-nav__item--myhoroscope a::after {
+	width: 1.6rem;
+	height: 1.6rem;
+	background-image: url(../images/common/icon_nav-myhoroscope_hover.svg);
+}
+
+.header-nav__item--appraisal a::before {
+	width: 1.7rem;
+	height: 1.8rem;
+	background-image: url(../images/common/icon_nav-appraisal.svg);
+}
+
+.header-nav__item--appraisal a::after {
+	width: 1.7rem;
+	height: 1.8rem;
+	background-image: url(../images/common/icon_nav-appraisal_hover.svg);
+}
+.header-nav__item--solar a::before {
+	width: 1.7rem;
+	height: 1.8rem;
+	background-image: url(../images/common/icon_nav_solar_return.png);
+}
+
+.header-nav__item--solar a::after {
+	width: 1.7rem;
+	height: 1.8rem;
+	background-image: url(../images/common/icon_nav_solar_return_hover.svg);
+}
+.header-nav__item--familylist a::before {
+	width: 1.7rem;
+	height: 1.8rem;
+	background-image: url(../images/common/icon_nav-family_list.svg);
+}
+
+.header-nav__item--familylist a::after {
+	width: 1.7rem;
+	height: 1.8rem;
+	background-image: url(../images/common/icon_nav-family_list_hover.svg);
+}
+.header-nav__item--familyhoroscope a::before {
+	width: 1.6rem;
+	height: 1.6rem;
+	background-image: url(../images/common/icon_nav-familyhoroscope.svg);
+}
+
+.header-nav__item--familyhoroscope a::after {
+	width: 1.6rem;
+	height: 1.6rem;
+	background-image: url(../images/common/icon_nav-familyhoroscope_hover.svg);
+}
+
+.header-nav__item--familyappraisal a::before {
+	width: 1.7rem;
+	height: 1.8rem;
+	background-image: url(../images/common/icon_nav-familyappraisal.svg);
+}
+
+.header-nav__item--familyappraisal a::after {
+	width: 1.7rem;
+	height: 1.8rem;
+	background-image: url(../images/common/icon_nav-familyappraisal_hover.svg);
+}
+
+.header-nav__item--coupon a::before {
+	width: 1.6rem;
+	height: 1.2rem;
+	background-image: url(../images/common/icon_nav-coupon.svg);
+}
+
+.header-nav__item--coupon a::after {
+	width: 1.6rem;
+	height: 1.2rem;
+	background-image: url(../images/common/icon_nav-coupon_hover.svg);
+}
+
+.header-nav__item--setting a::before {
+	width: 1.5rem;
+	height: 1.5rem;
+	background-image: url(../images/common/icon_nav-setting.svg);
+}
+.header-nav__item--contact a::before{
+	width: 1.4rem;
+	height: 1.2rem;
+	background-image: url(../images/common/icon_nav-contact.svg);
+}
+.header-nav__item--contact a::after{
+	width: 1.4rem;
+	height: 1.2rem;
+	background-image: url(../images/common/icon_nav-contact_hover.svg);
+}
+
+.header-nav__item--setting a::after {
+	width: 1.5rem;
+	height: 1.5rem;
+	background-image: url(../images/common/icon_nav-setting_hover.svg);
+}
+
+.header-nav__item a {
+	font-size: 1.2rem;
+	line-height: 1.666666;
+	opacity: 1 !important;
+}
+
+.header-nav__item a:hover {
+	color: #BFC8D1;
+}
+
+.header-nav__item a:hover::before {
+	opacity: 0;
+}
+
+.header-nav__item a:hover::after {
+	opacity: 1;
+}
+
+/* .header-nav__item:hover::before,
+.header-nav__item--current::before{
+	width: .7rem;
+	height: .9rem;
+	left: -3rem;
+	top: calc(50% - .45rem);
+	position: absolute;
+	background-image: url(../images/common/icon_header-nav_current.svg);
+	background-position: center center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	display: block;
+	content: "";
+} */
+
+.header-mark {
+	width: 14.8rem;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.header-mark img {
+	width: 100%;
+}
+
+@media screen and (max-height: 700px) and (min-width:1129px) {
+
+	.header-logo {
+		width: 10rem;
+	}
+
+	.header-nav__item:not(:last-child) {
+		margin-bottom: 1rem;
+	}
+
+	.header-mark {
+		width: 12rem;
+	}
+
+}
+
+@media screen and (max-height: 550px) and (min-width:1129px) {
+
+	.header-logo {
+		width: 8rem;
+	}
+
+	.header-nav__item:not(:last-child) {
+		margin-bottom: .5rem;
+	}
+
+	.header-mark {
+		width: 10rem;
+	}
+
+}
+@media screen and (width >=1600px),
+print {}
+
+@media screen and (max-width:1188px),
+print {}
+
+@media screen and (max-width:1128px),
+print {}
+
+@media screen and (min-width:501px) and (max-width:900px),
+print {
+
+	.header {
+		width: calc(100% - 2rem);
+		height: 4rem;
+		padding: 1rem 1.5rem;
+		border: none;
+		border-bottom: 1px solid #39385d;
+		left: 1rem;
+		top: 1rem;
+		right: 1rem;
+		z-index: 9000;
+		position: fixed;
+	}
+
+	.header-name {
+		width: 17.4rem;
+		margin-bottom: 0;
+		margin-left: 0;
+	}
+
+	.header-logo {
+		display: none !important;
+	}
+
+	.header-mark {
+		display: none !important;
+	}
+
+}
+
+@media screen and (max-width:900px),
+print {
+
+	.header-top {
+		width: 50%;
+	}
+
+	.header-top .Pageframe-main-header-right {
+		display: flex;
+	}
+
+	.header-nav {
+		width: 100%;
+		padding: 1.5rem;
+		height: 12rem;
+		top: unset;
+		bottom: -12rem;
+		right: 0;
+		left: 0;
+		position: fixed;
+		background: rgba(251, 251, 252, .95);
+		box-shadow: 0 0 1.2rem rgba(34, 59, 76, .12);
+		border-top-left-radius: 1.5rem;
+		border-top-right-radius: 1.5rem;
+		transition: .3s all ease-in-out;
+	}
+
+	.header-nav__current-marker {
+		display: none !important;
+	}
+
+	.header-nav::before {
+		display: none;
+	}
+
+	.header-nav__inner {
+		width: 100%;
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		flex-wrap: wrap;
+	}
+
+	.header-nav__item {
+		width: calc((100% - (.8rem * 2)) / 6);
+		height: 9rem;
+		position: relative;
+	}
+
+	.header-nav__item:not(:last-child) {
+		margin-bottom: 0;
+	}
+
+	.header-nav__item a {
+		width: 100%;
+		height: 100%;
+		padding-top: 1rem;
+		padding-left: 0;
+		line-height: 1.333333;
+		text-align: center;
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		flex-direction: column;
+	}
+
+	/* .header-nav__item:hover::before,
+	.header-nav__item--current::before{
+		display: none;
+	} */
+	.header-nav__item a {
+		color: #39385d !important;
+	}
+
+	.header-nav__item a::before {
+		transform: translate(0, 0);
+		margin-bottom: .6rem;
+		margin-left: auto;
+		margin-right: auto;
+		position: static;
+		height: 32px;
+        width: 35px;
+	}
+
+	.header-nav__item a::after {
+		display: none;
+	}
+
+	.header-nav__item--myhoroscope a::before {
+		width: 2.9rem;
+		height: 3.1rem;
+	}
+
+	.header-nav__item--appraisal a::before {
+		width: 2.9rem;
+		height: 3.1rem;
+	}
+
+	.header-nav__item--familyhoroscope a::before {
+		width: 2.9rem;
+		height: 3.1rem;
+	}
+
+	.header-nav__item--familyappraisal a::before {
+		width: 2.9rem;
+		height: 3.1rem;
+	}
+
+	.header-nav__item--coupon a::before {
+		width: 2.9rem;
+		height: 3.1rem;
+	}
+	.header-nav__item--contact a::before{
+		width: 2.7rem;
+		height: 3.1rem;
+	}
+
+	.header-nav__item--setting a::before {
+		width: 2.7rem;
+		height: 3.1rem;
+	}
+
+	.header-nav__item span {
+		height: calc((1em * 1.333333) * 2);
+		line-height: 1.333333;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.header-nav__item br {
+		display: block !important;
+	}
+
+	.header-nav__item a:hover::before {
+		opacity: 1;
+	}
+
+	.header-nav-button {
+		width: 46.5rem;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		z-index: 9000;
+		position: fixed;
+		margin-left: auto;
+		margin-right: auto;
+		transition: .3s all ease-in-out;
+		display: block !important;
+	}
+
+	/* .header-nav-button::before{
+		width: 100%;
+		height: 100%;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		z-index: -1;
+		position: absolute;
+		background-image: url(../images/common/img_menu-button_open.png);
+		background-image: image-set(url(../images/common/img_menu-button_open.png) 1x, url(../images/common/img_menu-button_open@2x.png) 2x);
+		background-image: -webkit-image-set(url(../images/common/img_menu-button_open.png) 1x, url(../images/common/img_menu-button_open@2x.png) 2x);
+		background-size: contain;
+		background-position: center center;
+		background-repeat: no-repeat;
+		display: block;
+		content: "";
+	} */
+	.header-nav-button img {
+		width: 100%;
+	}
+
+	.header-nav-button__close {
+		display: none;
+	}
+
+	/*----- ナビオープン時 */
+	.header-nav.on {
+		bottom: 0 !important;
+	}
+
+	.header-nav-button.on .header-nav-button__open {
+		display: none;
+	}
+
+	.header-nav-button.on .header-nav-button__close {
+		display: block;
+	}
+
+	.header-nav-button.on::before {
+		background-image: url(../images/common/img_menu-button_close.png);
+		background-image: image-set(url(../images/common/img_menu-button_close.png) 1x, url(../images/common/img_menu-button_close@2x.png) 2x);
+		background-image: -webkit-image-set(url(../images/common/img_menu-button_close.png) 1x, url(../images/common/img_menu-button_close@2x.png) 2x);
+	}
+
+}
+
+@media screen and (max-width:500px),
+print {
+
+	.header {
+		width: calc(100% - 2rem);
+		height: 4rem;
+		padding: 1rem 1.5rem;
+		border: none;
+		border-bottom: 1px solid #39385d;
+		left: 1rem;
+		top: 1rem;
+		right: 1rem;
+		z-index: 9000;
+		position: fixed;
+	}
+
+	.header-top {
+		height: 100%;
+	}
+
+	.header-name {
+		max-width: 15rem;
+		margin-bottom: 0;
+		margin-left: 0;
+	}
+
+	.header-nav {
+		padding-top: 2.2rem;
+		height: auto;
+		height: 22rem;
+		bottom: -22rem;
+	}
+
+	.header-nav__item {
+		width: calc((100% - (.8rem * 2)) / 3);
+	}
+
+	.header-nav__item:not(:nth-of-type(3n))::after {
+		width: 1px;
+		height: calc(100% - .5rem);
+		right: -.4rem;
+		top: 0;
+		position: absolute;
+		background: #cdcfd6;
+		display: block;
+		content: "";
+	}
+
+	.header-nav__item:not(:nth-last-of-type(-n+3)) {
+		margin-bottom: .5rem;
+		border-bottom: 1px solid #cdcfd6;
+	}
+
+	.header-nav-button {
+		width: 31rem;
+	}
+
+}
+
+
+
+/*-------------------------------
+	フッター
+-------------------------------*/
+
+@media screen and (width >=1600px),
+print {}
+
+@media screen and (max-width:1188px),
+print {}
+
+@media screen and (max-width:1128px),
+print {}
+
+@media screen and (min-width:501px) and (max-width:900px),
+print {
+
+	.footer {
+		width: calc(100% - 2rem);
+		height: 10rem;
+		padding: 1rem 3rem 1rem 2rem;
+		border-top: 1px solid #39385d;
+		margin-left: auto;
+		margin-right: auto;
+		display: flex !important;
+		align-items: center;
+		justify-content: flex-start;
+	}
+
+	.footer-name {
+		width: 24.6rem;
+		order: 2;
+	}
+
+	.footer-logo {
+		width: 7.6rem;
+		margin-right: 1.5rem;
+		order: 1;
+	}
+
+	.footer-copyright {
+		width: calc(100% - (24.6rem + 7.6rem + 1.5rem));
+		order: 3;
+		text-align: right;
+		font-family: 'Noto Serif JP', serif;
+	}
+}
+
+@media screen and (min-width:501px) and (max-width:600px),
+print {
+
+	.footer {
+		height: 15rem;
+		flex-wrap: wrap;
+	}
+
+	.footer-copyright {
+		width: 100%;
+	}
+
+}
+
+@media screen and (max-width:500px),
+print {
+
+	.footer {
+		width: calc(100% - 2rem);
+		padding: 1.4rem 1.8rem 1.2rem;
+		border-top: 1px solid #39385d;
+		margin-left: auto;
+		margin-right: auto;
+		display: flex !important;
+		align-items: center;
+		justify-content: flex-start;
+		flex-wrap: wrap;
+	}
+
+	.footer-name {
+		width: 23.1rem;
+		order: 2;
+	}
+
+	.footer-name a {
+		display: block;
+	}
+
+	.footer-name img {
+		width: 100%;
+	}
+
+	.footer-logo {
+		width: 6.7rem;
+		margin-right: 1.5rem;
+	}
+
+	.footer-logo img {
+		width: 100%;
+	}
+
+	.footer-copyright {
+		width: 100%;
+		font-size: 1rem;
+		margin-top: 1.5rem;
+		line-height: 1;
+		order: 3;
+		text-align: center;
+		font-family: 'Noto Serif JP', serif;
+	}
+
+}
+
+
+
+/*-------------------------------
+	パーツ
+-------------------------------*/
+
+/*----- 見出し */
+/* 大見出し */
+.sec-title {}
+
+/* 中見出し */
+.sec-subtitle {}
+
+/*----- ボタン */
+.Button {
+	width: 100%;
+	max-width: 29.4rem;
+	height: 4.6rem;
+	border-radius: 2.3rem !important;
+	padding: 0;
+	overflow: hidden;
+	position: relative;
+}
+
+.Button a,
+.Button span {
+	width: 100%;
+	height: 100%;
+	font-size: 1.4rem;
+	letter-spacing: .08em;
+	font-weight: 700;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	opacity: 1 !important;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+	cursor: pointer;
+}
+
+.Button::before {
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	position: absolute;
+	transition: .3s all ease-in-out;
+	display: block;
+	content: "";
+}
+
+.Button a::after,
+.Button--blue span::after,
+.Button--lightblue span::after {
+	width: 1.5rem;
+	height: .8rem;
+	right: 1.5rem;
+	top: calc(50% - .4rem);
+	position: absolute;
+	background-image: url(../images/common/icon_arrow-white.svg);
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+	display: block;
+	content: "";
+}
+
+.Button:hover::before {
+	opacity: 1;
+}
+
+/* ブルー */
+.Button--blue {
+	/* background-image: url(../images/common/bg_button-blue.png);
+    background-image: image-set(url(../images/common/bg_button-blue.png) 1x, url(../images/common/bg_button-blue@2x.png) 2x);
+    background-image: -webkit-image-set(url(../images/common/bg_button-blue.png) 1x, url(../images/common/bg_button-blue@2x.png) 2x); */
+	background-image: radial-gradient(circle at 100% 0%, rgba(64, 87, 125, 1) 17%, rgba(40, 107, 170, 1) 50%, rgba(28, 76, 122, 1)) !important;
+}
+
+.Button--blue::before {
+	background-image: radial-gradient(circle at 100% 0%, rgba(72, 109, 147, 1) 17%, rgba(48, 131, 189, 1) 50%, rgba(16, 89, 140, 1)) !important;
+}
+
+.Button--blue2 {
+	/* background-image: url(../images/common/bg_button-blue2.png);
+    background-image: image-set(url(../images/common/bg_button-blue2.png) 1x, url(../images/common/bg_button-blue2@2x.png) 2x);
+    background-image: -webkit-image-set(url(../images/common/bg_button-blue2.png) 1x, url(../images/common/bg_button-blue2@2x.png) 2x); */
+	background-image: linear-gradient(160deg, rgba(121, 135, 189, 1) 10%, rgba(37, 119, 196, 1) 50%, rgba(31, 180, 209, 1)) !important;
+}
+
+.Button--blue2::before {
+	background-image: linear-gradient(160deg, rgba(91, 105, 164, 1) 10%, rgba(40, 95, 175, 1) 50%, rgba(26, 168, 209, 1)) !important;
+}
+
+/* ライトブルー */
+.Button--lightblue {
+	/* background-image: url(../images/common/bg_button-lightblue.png);
+    background-image: image-set(url(../images/common/bg_button-lightblue.png) 1x, url(../images/common/bg_button-lightblue@2x.png) 2x);
+    background-image: -webkit-image-set(url(../images/common/bg_button-lightblue.png) 1x, url(../images/common/bg_button-lightblue@2x.png) 2x); */
+	background-image: radial-gradient(circle at 100% 0%, rgba(63, 118, 152, 1) 17%, rgba(56, 125, 167, 1) 50%, rgba(28, 97, 142, 1)) !important;
+}
+
+.Button--lightblue::before {
+	background-image: radial-gradient(circle at 100% 0%, rgba(72, 142, 180, 1) 17%, rgba(55, 151, 209, 1) 50%, rgba(12, 97, 153, 1)) !important;
+}
+
+.Button--lightblue2 {
+	/* background-image: url(../images/common/bg_button-lightblue2.png);
+    background-image: image-set(url(../images/common/bg_button-lightblue2.png) 1x, url(../images/common/bg_button-lightblue2@2x.png) 2x);
+    background-image: -webkit-image-set(url(../images/common/bg_button-lightblue2.png) 1x, url(../images/common/bg_button-lightblue2@2x.png) 2x); */
+	background-image: linear-gradient(160deg, rgba(64, 151, 204, 1) 15%, rgba(71, 204, 217, 1) 50%, rgba(164, 219, 230, 1)) !important;
+}
+
+.Button--lightblue2::before {
+	background-image: linear-gradient(160deg, rgba(40, 120, 183, 1) 15%, rgba(44, 182, 201, 1) 50%, rgba(136, 201, 218, 1)) !important;
+}
+
+/* グリーン */
+.Button--green {
+	/* background-image: url(../images/common/bg_button-green.png);
+    background-image: image-set(url(../images/common/bg_button-green.png) 1x, url(../images/common/bg_button-green@2x.png) 2x);
+    background-image: -webkit-image-set(url(../images/common/bg_button-green.png) 1x, url(../images/common/bg_button-green@2x.png) 2x); */
+	background-image: linear-gradient(160deg, rgba(40, 210, 199, 1) 15%, rgba(77, 193, 215, 1) 50%, rgba(89, 171, 216, 1)) !important;
+}
+
+.Button--green::before {
+	background-image: linear-gradient(160deg, rgba(32, 196, 180, 1) 15%, rgba(67, 175, 202, 1) 50%, rgba(69, 148, 200, 1)) !important;
+}
+
+/* ブルー */
+.Button--orange {
+	/* background-image: url(../images/common/bg_button-blue.png);
+    background-image: image-set(url(../images/common/bg_button-blue.png) 1x, url(../images/common/bg_button-blue@2x.png) 2x);
+    background-image: -webkit-image-set(url(../images/common/bg_button-blue.png) 1x, url(../images/common/bg_button-blue@2x.png) 2x); */
+	/* background-image: radial-gradient(circle at 100% 0%, rgba(64, 87, 125, 1) 17%, rgba(40, 107, 170, 1) 50%, rgba(28, 76, 122, 1)) !important; */
+    background-image: linear-gradient(160deg, #F17424, #F78C1F, #F2A65A) !important;
+}
+
+.Button--orange::before {
+	/* background-image: radial-gradient(circle at 100% 0%, rgba(72, 109, 147, 1) 17%, rgba(48, 131, 189, 1) 50%, rgba(16, 89, 140, 1)) !important; */
+    background-image: linear-gradient(160deg, #F17424, #F78C1F, #F2A65A) !important;
+}
+
+.Button--orange2 {
+	/* background-image: url(../images/common/bg_button-blue2.png);
+    background-image: image-set(url(../images/common/bg_button-blue2.png) 1x, url(../images/common/bg_button-blue2@2x.png) 2x);
+    background-image: -webkit-image-set(url(../images/common/bg_button-blue2.png) 1x, url(../images/common/bg_button-blue2@2x.png) 2x); */
+	/* background-image: linear-gradient(160deg, rgba(121, 135, 189, 1) 10%, rgba(37, 119, 196, 1) 50%, rgba(31, 180, 209, 1)) !important; */
+    background-image: linear-gradient(160deg, #F17424, #F78C1F, #F2A65A) !important;
+}
+
+.Button--orange2::before {
+	/* background-image: linear-gradient(160deg, rgba(91, 105, 164, 1) 10%, rgba(40, 95, 175, 1) 50%, rgba(26, 168, 209, 1)) !important; */
+    background-image: linear-gradient(160deg, #F17424, #F78C1F, #F2A65A) !important;
+}
+
+/*----- 戻るボタン */
+.C-back {
+	transform: translate(1.75rem, 0);
+	text-align: center;
+}
+
+.C-back a {
+	line-height: 1;
+	display: inline-block;
+	position: relative;
+}
+
+.C-back a::before {
+	width: 3.5rem;
+	height: 3.5rem;
+	transform: rotate(-180deg);
+	left: -3.5rem;
+	top: calc(((3.5rem - 1em) / 2) * -1);
+	position: absolute;
+	background-image: url(../images/common/icon_circle-arrow-gray.svg);
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: 99%;
+	display: block;
+	content: "";
+}
+
+.C-back span {
+	padding-left: 1rem;
+	line-height: 1;
+	display: inline-block;
+	color: #a2a2a2;
+}
+
+/*----- キービジュアル */
+.keyvisual {}
+
+@media screen and (width >=1600px),
+print {}
+
+@media screen and (max-width:1188px),
+print {}
+
+@media screen and (max-width:1128px),
+print {}
+
+@media screen and (max-width:500px),
+print {
+
+	/*----- 見出し */
+	/* 大見出し */
+	.sec-title {}
+
+	/* 中見出し */
+	.sec-subtitle {}
+
+	/*----- ボタン */
+	.Button {
+		max-width: 100%;
+		height: 5.2rem;
+		border-radius: 2.6rem !important;
+	}
+
+	/*----- 戻るボタン */
+	.C-back a {
+		font-size: 1.2rem;
+	}
+
+	.C-back a::before {
+		width: 3.2rem;
+		height: 3.2rem;
+		left: -3.2rem;
+		top: calc(((3.2rem - 1em) / 2) * -1);
+	}
+
+}
+
+
+
+/*-------------------------------
+	フォーム関連
+-------------------------------*/
+
+/*----- 名前 */
+.C-form-block--name__text {
+	width: 100%;
+	font-size: 1.4rem;
+	padding-left: 1.4rem;
+	line-height: 1.5;
+	display: flex;
+	align-items: baseline;
+	justify-content: flex-start;
+}
+
+.C-form-block--name__text span {
+	font-size: 1.8rem;
+	margin-right: .25rem;
+	line-height: 1.2;
+	display: block;
+}
+
+/*----- クーポンのご利用 */
+.C-form-block--couponno {
+	display: none;
+}
+
+.C-form-block--couponno.on {
+	display: block;
+}
+
+.C-form-block--couponcode {
+	display: none;
+}
+
+.C-form-block--couponcode.on {
+	display: block;
+}
+
+.C-form-block--couponcode-list {
+	margin-top: 1rem;
+	font-size: 1.2rem;
+	line-height: 1.5;
+	color: rgba(57, 57, 92, .75);
+}
+
+.C-form-block--couponcode-list__item {
+	line-height: 1.5;
+}
+
+.C-form-block--couponcode-list__item::before {
+	line-height: 1.5;
+}
+
+/*------ 注文内容 */
+.C-price {
+	padding: 3.5rem 4rem;
+	border: 1px solid rgba(204, 206, 213, .35);
+	background: rgba(255, 255, 255, .2);
+}
+
+.C-price__title {
+	font-size: 2rem;
+	margin-bottom: 1.5rem;
+	line-height: 1;
+	font-weight: 700;
+}
+
+.C-price-block__wrap {
+	padding-bottom: 1rem;
+	margin-bottom: 1rem;
+	border-bottom: 1px solid rgba(57, 57, 92, .6);
+}
+
+.C-price-block {
+	width: 100%;
+	font-size: 1.4rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.C-price-block--minus * {
+	color: #c72442;
+}
+
+.C-price-last {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.C-price-last__title,
+.C-price-last__text span {
+	font-size: 2rem;
+	font-weight: 700;
+	line-height: 1;
+}
+
+.C-price-last__text {
+	font-weight: 700;
+	font-size: 1.4rem;
+}
+
+.C-price-last__text span {
+	margin-right: .25rem;
+}
+
+@media screen and (width >=1600px),
+print {}
+
+@media screen and (max-width:1188px),
+print {}
+
+@media screen and (max-width:1128px),
+print {}
+
+@media screen and (max-width:500px),
+print {
+
+	/*----- 名前 */
+	.C-form-block--name__text span {
+		font-size: 1.6rem;
+	}
+
+	/*------ 注文内容 */
+	.C-price {
+		padding: 2.5rem 3rem 2rem;
+	}
+
+	.C-price__title {
+		font-size: 1.8rem;
+		margin-bottom: 2rem;
+	}
+
+	.C-price-block__wrap {
+		padding-bottom: .8rem;
+		margin-bottom: 1rem;
+	}
+
+	.C-price-last__title {
+		font-size: 1.8rem;
+	}
+
+	.C-price-last__text {
+		font-weight: 700;
+		font-size: 1.4rem;
+	}
+
+	.C-price-last__text span {
+		font-size: 2.2rem;
+		margin-right: .25rem;
+	}
+
+}
+
+
+
+/*-------------------------------
+	ホロスコープ
+-------------------------------*/
+
+/*----- ホロスコープフォーム */
+.C-horoscope-form__inner {
+	width: 100%;
+	margin-bottom: 5.5rem;
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+.C-horoscope-form__inner>* {
+	width: calc((100% - 3.2rem) / 2);
+}
+
+.C-horoscope-form-block-wrap {
+	width: calc((100% - 3.2rem) / 2);
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
+}
+
+.C-horoscope-form-block-wrap .C-horoscope-form-block {
+	width: 50%;
+}
+
+.C-horoscope-form-block-wrap .C-horoscope-form-block:nth-of-type(2) {
+	padding-left: 1.5rem;
+}
+
+.C-horoscope-form-block--name {
+	margin-bottom: 3.5rem;
+	order: 1;
+}
+
+.C-horoscope-form-block--zokugara {
+	margin-bottom: 3.5rem;
+	order: 2;
+}
+
+.C-horoscope-form-block-wrap--birth {
+	order: 3;
+}
+
+.C-horoscope-form-block--pref {
+	order: 4;
+}
+
+.C-horoscope-form-block__title {
+	font-size: 1.2rem;
+	margin-bottom: 1.2rem;
+	padding-left: 1.2rem;
+	line-height: 1;
+	position: relative;
+}
+
+.C-horoscope-form-block__title::before {
+	width: .6rem;
+	height: .6rem;
+	border-radius: 50%;
+	left: 0;
+	top: calc(50% - .3rem);
+	position: absolute;
+	display: block;
+	content: "";
+}
+
+.C-horoscope-form-field {
+	font-size: 1.4rem;
+}
+
+.C-horoscope-form-field input,
+.C-horoscope-form-field select {
+	width: 100%;
+	line-height: 1;
+	/* color: #bbb; */
+}
+
+.C-horoscope-form-field input::placeholder,
+.C-horoscope-form-field select::placeholder {
+	color: rgba(57, 57, 92, .25);
+}
+
+.C-horoscope-form-block--half .C-horoscope-form-block__body {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.C-horoscope-form-block--half .C-horoscope-form-field {
+	width: calc((100% - 1rem) / 2);
+}
+
+/*----- ホロスコープを作成する */
+.C-horoscope-create {
+	width: 100%;
+}
+
+.C-horoscope-create__text {
+	width: calc(100% - (29.4rem + 2rem));
+	padding-left: 1.8rem;
+	position: relative;
+}
+
+.C-horoscope-create__text::before {
+	width: 1.2rem;
+	height: 1rem;
+	left: 0;
+	top: .6rem;
+	position: absolute;
+	background-size: contain;
+	background-position: center center;
+	background-repeat: no-repeat;
+	display: block;
+	content: "";
+}
+
+/*----- ホロスコープ一覧 */
+.C-user-list {
+	margin-bottom: 4.5rem;
+}
+
+.C-user-list-block:not(:last-child) {
+	margin-bottom: 1rem;
+}
+
+.C-user-list-block__inner {
+	width: 100%;
+	padding: 2.5rem 4rem;
+	border-radius: 2rem;
+	border: 1px solid rgba(204, 206, 213, .35);
+	background: rgba(255, 255, 255, .2);
+	display: block;
+	position: relative;
+}
+
+.C-user-list-block a::after {
+	width: 1.8rem;
+	height: .7rem;
+	right: 4rem;
+	top: calc(50% - .35rem);
+	position: absolute;
+	background-size: contain;
+	background-position: center center;
+	background-repeat: no-repeat;
+	display: block;
+	content: "";
+}
+
+.C-user-list-block__title {
+	font-size: 1.8rem;
+	margin-bottom: 1.2rem;
+	line-height: 1.5;
+}
+
+.C-user-list-block__title::before {
+	font-size: 1rem;
+	line-height: 1;
+	display: block;
+	content: attr(data-tag);
+	font-family: 'Baskervville', serif;
+}
+
+.C-user-list-block__content {
+	width: 100%;
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
+}
+
+.C-user-list-block__item {
+	font-size: 1.4rem;
+	padding-top: .4rem;
+	padding-bottom: .4rem;
+	line-height: 1;
+}
+
+.C-user-list-block__item:not(:first-child) {
+	padding-left: 1.2rem;
+}
+
+.C-user-list-block__item:not(:last-child) {
+	padding-right: 1.2rem;
+}
+
+.C-user-list-block__item::before {
+	font-size: 1rem;
+	margin-bottom: .6rem;
+	line-height: 1;
+	display: block;
+	content: attr(data-tag);
+	font-family: 'Baskervville', serif;
+}
+
+/*----- ホロスコープ詳細 */
+.C-user-list__change {
+	line-height: 1;
+	transition: .3s all ease-in-out;
+	text-align: right;
+	cursor: pointer;
+}
+
+.C-user-list__change:hover {
+	opacity: .6;
+}
+
+.C-user-list__change span {
+	font-size: 1.1rem;
+	line-height: 1;
+	font-weight: 400;
+	display: inline-block;
+	text-decoration: underline;
+}
+
+.C-horoscope-detail {
+	margin-top: 2.8rem;
+	/* border-radius: 2rem;
+	border: 1px solid rgba(204,206,213,.35);
+	background: rgba(255,255,255,.2); */
+	display: block;
+	position: relative;
+}
+
+.C-horoscope-detail__title {
+	margin-bottom: 1.8rem;
+	line-height: 1;
+	font-style: italic;
+}
+
+.C-horoscope-detail-header {
+	margin-bottom: 5rem;
+	/* padding: 3rem 3.2rem 4rem; */
+	/* border-bottom: 1px solid rgba(204,206,213,.35); */
+}
+
+.C-horoscope-detail-horoscope {
+	width: 100%;
+	height: auto;
+	border-radius: 50%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.C-horoscope-detail-horoscope img {
+	width: 100%;
+}
+
+.C-horoscope-detail__inner {
+	width: 100%;
+	border-radius: 2rem;
+	border: 1px solid rgba(204, 206, 213, .35);
+	background: rgba(255, 255, 255, .2);
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	position: relative;
+}
+
+.C-horoscope-detail__inner::after {
+	width: 1px;
+	height: 100%;
+	left: 55.5%;
+	top: 0;
+	bottom: 0;
+	position: absolute;
+	display: block;
+	content: "";
+}
+
+.C-horoscope-detail__position {
+	width: 55.5%;
+	padding: 2.6rem 3rem 3.5rem;
+}
+
+.C-horoscope-detail__boundarie .C-horoscope-detail__body {
+	padding-left: 1.5rem;
+}
+
+.C-horoscope-detail__position__item {
+	width: 100%;
+	padding-left: 2.2rem;
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
+}
+
+.C-horoscope-detail__position__title {
+	width: 12.4rem;
+	font-weight: 400;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.C-horoscope-detail__position__title span {
+	width: calc(100% - 2rem);
+}
+
+.C-horoscope-detail__position__title::before {
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+	display: block;
+	content: "";
+}
+
+.C-horoscope-detail__position__title--taiyo::before {
+	width: 1.6rem;
+	height: 1.6rem;
+}
+
+.C-horoscope-detail__position__title--tsuki::before {
+	width: 1rem;
+	height: 1.5rem;
+}
+
+.C-horoscope-detail__position__title--suisei::before {
+	width: 1.3rem;
+	height: 1.8rem;
+}
+
+.C-horoscope-detail__position__title--kinsei::before {
+	width: 1rem;
+	height: 1.7rem;
+}
+
+.C-horoscope-detail__position__title--kasei::before {
+	width: 1.4rem;
+	height: 1.4rem;
+}
+
+.C-horoscope-detail__position__title--mokusei::before {
+	width: 1.2rem;
+	height: 1.6rem;
+}
+
+.C-horoscope-detail__position__title--dosei::before {
+	width: 1.2rem;
+	height: 1.8rem;
+}
+
+.C-horoscope-detail__position__title--tennousei::before {
+	width: 1.2rem;
+	height: 1.9rem;
+}
+
+.C-horoscope-detail__position__title--kaiousei::before {
+	width: 1.6rem;
+	height: 1.7rem;
+}
+
+.C-horoscope-detail__position__title--meiousei::before {
+	width: 1.4rem;
+	height: 1.7rem;
+}
+
+.C-horoscope-detail__position__title--dragonhead::before {
+	width: 1.4rem;
+	height: 1.3rem;
+}
+
+.C-horoscope-detail__position__title--kiron::before {
+	width: 1rem;
+	height: 1.8rem;
+}
+
+.C-horoscope-detail__position__title--ririsu::before {
+	width: 1rem;
+	height: 1.7rem;
+}
+
+.C-horoscope-detail__position__text {
+	width: calc(100% - 12.4rem);
+	font-weight: 400;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.C-horoscope-detail__position__text span {
+	width: calc(100% - 2rem);
+}
+
+.C-horoscope-detail__position__text::before {
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+	display: block;
+	content: "";
+}
+
+.C-horoscope-detail__position__text--otome::before {
+	width: 1.3rem;
+	height: 1.7rem;
+}
+
+.C-horoscope-detail__position__text--hutago::before {
+	width: 1.4rem;
+	height: 1.3rem;
+}
+
+.C-horoscope-detail__position__text--ite::before {
+	width: 1rem;
+	height: 1.5rem;
+}
+
+.C-horoscope-detail__position__text--mizugame::before {
+	width: 1.5rem;
+	height: .9rem;
+}
+
+.C-horoscope-detail__position__text--oushi::before {
+	width: 1.4rem;
+	height: 1.4rem;
+}
+
+.C-horoscope-detail__position__text--sasori::before {
+	width: 1.5rem;
+	height: 1.7rem;
+}
+
+.C-horoscope-detail__position__text--shishi::before {
+	width: 1.2rem;
+	height: 1.5rem;
+}
+
+.C-horoscope-detail__position__text--yagi::before {
+	width: 1.6rem;
+	height: 1.5rem;
+}
+
+.C-horoscope-detail__position__text--kani::before {
+	width: 1.6rem;
+	height: 1.4rem;
+}
+
+.C-horoscope-detail__position__text--uo::before {
+	width: 1.5rem;
+	height: 1.6rem;
+}
+
+.C-horoscope-detail__position__text--ohitsuji::before {
+	width: 1.6rem;
+	height: 1.5rem;
+}
+
+.C-horoscope-detail__position__text--tenbin::before {
+	width: 1.7rem;
+	height: 1.5rem;
+}
+
+.C-horoscope-detail__position__text--otome.on::before {
+	background-image: url(../images/common/icon_otome_color.svg);
+}
+
+.C-horoscope-detail__position__text--hutago.on::before {
+	background-image: url(../images/common/icon_hutago_color.svg);
+}
+
+.C-horoscope-detail__position__text--ite.on::before {
+	background-image: url(../images/common/icon_ite_color.svg);
+}
+
+.C-horoscope-detail__position__text--mizugame.on::before {
+	background-image: url(../images/common/icon_mizugame_color.svg);
+}
+
+.C-horoscope-detail__position__text--oushi.on::before {
+	background-image: url(../images/common/icon_oushi_color.svg);
+}
+
+.C-horoscope-detail__position__text--sasori.on::before {
+	background-image: url(../images/common/icon_sasori_color.svg);
+}
+
+.C-horoscope-detail__position__text--shishi.on::before {
+	background-image: url(../images/common/icon_shishi_color.svg);
+}
+
+.C-horoscope-detail__position__text--yagi.on::before {
+	background-image: url(../images/common/icon_yagi_color.svg);
+}
+
+.C-horoscope-detail__position__text--kani.on::before {
+	background-image: url(../images/common/icon_kani_color.svg);
+}
+
+.C-horoscope-detail__position__text--uo.on::before {
+	background-image: url(../images/common/icon_uo_color.svg);
+}
+
+.C-horoscope-detail__position__text--ohitsuji.on::before {
+	background-image: url(../images/common/icon_ohitsuji_color.svg);
+}
+
+.C-horoscope-detail__position__text--tenbin.on::before {
+	background-image: url(../images/common/icon_tenbin_color.svg);
+}
+
+.C-horoscope-detail__boundarie {
+	width: 44.5%;
+	padding: 2.6rem 3rem 3.8rem;
+}
+
+.C-horoscope-detail__boundarie__text {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	font-weight: 400;
+}
+
+.C-horoscope-detail__boundarie__text::before {
+	width: 6rem;
+	text-align: center;
+	content: attr(data-tag);
+}
+
+.C-horoscope-detail__boundarie__text span {
+	width: calc(100% - 6rem);
+	padding-left: 1.6rem;
+}
+
+.C-horoscope-detail+.C-back {
+	margin-top: 6rem;
+}
+
+/*----- ホロスコープ削除 */
+.C-user-list__delete {
+	line-height: 1;
+	transition: .3s all ease-in-out;
+	text-align: right;
+	cursor: pointer;
+}
+
+.C-user-list__delete:hover {
+	opacity: .6;
+}
+
+.C-user-list__delete span {
+	font-size: 1.1rem;
+	line-height: 1;
+	font-weight: 400;
+	display: inline-block;
+	text-decoration: underline;
+    color: rgba(56,98,128,.4);
+    margin-left: 1.0rem;
+}
+
+/*----- 個人鑑定 */
+.C-user-list-block__hasimage {
+	padding: 2rem 2.5rem 1.5rem;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.C-user-list-block__image {
+	width: 9rem;
+	height: 10rem;
+	background-image: url('../images/familyappraisal/img_thumbnail.svg');
+	background-repeat: no-repeat;
+}
+
+.C-user-list-block__hasimage__inner {
+	width: calc(100% - 9rem);
+	padding-left: 2.5rem;
+}
+
+.C-appraisal-tab {
+	width: 100%;
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+}
+
+.C-appraisal__inner {
+	margin-bottom: 3rem;
+	border-bottom-left-radius: 2rem;
+	border-bottom-right-radius: 2rem;
+	border: 1px solid #ccced5;
+	background: rgba(255, 255, 255, .2);
+}
+
+.C-appraisal-tab__item {
+	width: calc((100% / 9) - .1rem);
+	height: 3.8rem;
+	border-top-left-radius: 1rem;
+	border-top-right-radius: 1rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	background-position: center center;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.C-appraisal-tab__item--current {
+	width: calc((100% / 9) + (.1rem * 9));
+	height: 4.2rem;
+	color: #fff !important;
+	position: relative;
+}
+
+.C-appraisal-tab__item--current--familyappraisal {
+	width: calc((100% / 9) + (.1rem * 9));
+	height: 4.2rem;
+	color: #fff !important;
+	position: relative;
+}
+
+.C-appraisal-tab__item--current::before,
+.C-appraisal-tab__item--current::after {
+	width: .9rem;
+	height: 1rem;
+	top: calc(50% - .5rem);
+	position: absolute;
+	background-image: url(../images/common/icon_star.svg);
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: contain;
+	display: block;
+	content: "";
+}
+
+.C-appraisal-tab__item--current--familyappraisal::before,
+.C-appraisal-tab__item--current--familyappraisal::after {
+	width: .9rem;
+	height: 1rem;
+	top: calc(50% - .5rem);
+	position: absolute;
+	background-image: url(../images/common/icon_star.svg);
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: contain;
+	display: block;
+	content: "";
+}
+
+.C-appraisal-tab__item--current::before {
+	left: 1rem;
+}
+
+.C-appraisal-tab__item--current::after {
+	right: 1rem;
+}
+
+
+
+
+
+
+
+
+.C-appraisal-tab__item--current--familyappraisal::before {
+	left: 1rem;
+}
+
+.C-appraisal-tab__item--current--familyappraisal::after {
+	right: 1rem;
+}
+
+.C-appraisal-content {
+	display: none;
+}
+
+.C-appraisal-content--current {
+	display: block;
+}
+
+.C-appraisal-content-header {
+	padding: 3.5rem 4rem 7rem;
+}
+
+.C-appraisal-content-header__title {
+	font-size: 3.6rem;
+	margin-bottom: 2rem;
+	line-height: 1.388888;
+	font-weight: 600;
+}
+
+.C-appraisal-content-header-data {
+	width: 100%;
+	margin-bottom: 3.5rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.C-appraisal-content-header-data>* {
+	height: 5.6rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.C-appraisal-content-header-data__mark {
+	width: 12%;
+}
+
+.C-appraisal-content-header-data__mark::before {
+	width: 2.8rem;
+	height: 2.8rem;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+	display: block;
+	content: "";
+}
+
+.C-appraisal-content-header-data__jp {
+	width: 24%;
+	font-size: 1.4rem;
+}
+
+.C-appraisal-content-header-data__en {
+	width: 24%;
+	font-size: 1.5rem;
+}
+
+.C-appraisal-content-header-data__year {
+	width: 40%;
+	font-size: 1.6rem;
+}
+.C-appraisal-content-header__first-message{
+	padding: 0 2.5rem 3rem;
+	margin-bottom: 4rem;
+	text-align: justify;
+}
+
+.C-appraisal-content-header-block {
+	text-align: justify;
+}
+
+.C-appraisal-content-header-block:not(:last-child){
+	margin-bottom: 4.5rem;
+}
+.C-appraisal-content-header-block:not(:last-child) {
+	margin-bottom: 4.5rem;
+}
+
+.C-appraisal-content-header-block__title {
+	width: 100%;
+	font-size: 1.8rem;
+	letter-spacing: .12em;
+	margin-bottom: 1rem;
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+}
+
+.C-appraisal-content-header-block__title::before {
+	width: 1.8rem;
+	height: 2rem;
+	transform: translate(0, .5rem);
+	background-size: contain;
+	background-position: center center;
+	background-repeat: no-repeat;
+	display: block;
+	content: "";
+}
+
+.C-appraisal-content-header-block__title span {
+	width: calc(100% - 2.6rem);
+	line-height: 1.555555;
+	font-weight: 700;
+	display: block;
+}
+
+.C-appraisal-content-header-message{
+	border-radius: 2rem;
+	padding: 2.5rem 3.5rem;
+	margin-bottom: 5rem;
+	text-align: justify;
+}
+.C-appraisal-content-header-message__title{
+	font-size: 1.6rem;
+	margin-bottom: 1.5rem;
+	font-weight: 700;
+	line-height: 1.75;
+	text-align: center;
+}
+.C-appraisal-content-header-message__text{
+	font-size: 1.2rem;
+	line-height: 1.833333;
+	color: #808080;
+}
+
+.C-appraisal-content-footer{
+	border-top: 1px solid #ccced5;
+}
+
+
+
+
+
+
+
+
+
+
+
+.C-appraisal-content-footer__title{
+	font-size: 1.4rem;
+	padding-bottom: 2rem;
+	border-bottom: 1px solid #ccced5;
+	line-height: 1;
+	font-weight: 700;
+	text-align: center;
+}
+
+.C-appraisal-content-footer__inner {
+	width: 100%;
+	display: flex;
+	align-items: inherit;
+	justify-content: space-between;
+	position: relative;
+	flex-wrap: wrap;
+}
+
+.C-appraisal-content-footer__inner::after {
+	width: 1px;
+	height: 100%;
+	left: 50%;
+	top: 0;
+	bottom: 0;
+	position: absolute;
+	background: #ccced5;
+	display: block;
+	content: "";
+}
+
+.C-appraisal-content-footer-block {
+	width: 50%;
+	padding: 3.5rem 4.5rem 3rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	border-top: 1px solid #ccced5;
+}
+
+.C-appraisal-content-footer-block__inner {
+	margin-bottom: 2rem;
+}
+
+.C-appraisal-content-footer-block__title {
+	font-size: 1.6rem;
+	line-height: 1.5;
+	margin-bottom: 2rem;
+	font-weight: 700;
+	text-align: center;
+}
+
+.C-appraisal-content-footer-block__last {
+	text-align: center;
+}
+
+.C-appraisal-content-footer-block__last__mark {
+	width: 1.8rem;
+	height: 1.8rem;
+	margin-bottom: .8rem;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+}
+
+.C-appraisal-content-footer-block__last__mark::before,
+.C-appraisal-content-footer-block__last__mark::after {
+	width: 1.7rem;
+	height: 1.7rem;
+	top: 0;
+	position: absolute;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+	display: block;
+	content: "";
+}
+
+.C-appraisal-content-footer-block__last__mark::before {
+	left: -2.5rem;
+}
+
+.C-appraisal-content-footer-block__last__mark::after {
+	right: -2.5rem;
+}
+
+.C-appraisal-content-footer-block__last__text {
+	font-size: 1.5rem;
+	font-style: italic;
+}
+
+
+/* TOP */
+.C-appraisal-content--top__first-message{
+	padding: 3rem 7.5rem 11.5rem 3.5rem;
+	background-image: url(../images/common/bg_appraisal-top-first-message.jpg);
+    background-image: image-set(url(../images/common/bg_appraisal-top-first-message.jpg) 1x, url(../images/common/bg_appraisal-top-first-message@2x.jpg) 2x);
+    background-image: -webkit-image-set(url(../images/common/bg_appraisal-top-first-message.jpg) 1x, url(../images/common/bg_appraisal-top-first-message@2x.jpg) 2x);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+.C-appraisal-content--top .C-appraisal-content--top__first-message *{
+	color: #fff;
+}
+.C-appraisal-content--top__first-message__title{
+	font-size: 2.8rem;
+	margin-bottom: 1.5rem;
+	line-height: 1.785714;
+}
+.C-appraisal-content--top__first-message__text{
+	line-height: 1.846153;
+}
+.C-appraisal-content--top__first-message__text:not(:last-child){
+	margin-bottom: 2rem;
+}
+.C-appraisal-content--top__first-message__name{
+	font-size: 1.5rem;
+	font-weight: 500;
+	text-align: right;
+}
+.C-appraisal-content--top .C-appraisal-content-header{
+	padding-bottom: 6rem;
+}
+.C-appraisal-content--top .C-appraisal-content-header-block__title--square span{
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
+}
+.C-appraisal-content--top .C-appraisal-content-header-block__title--square::before{
+	display: none;
+}
+.C-appraisal-content--top .C-appraisal-content-header-block__title--square span::before{
+	line-height: 1.555555;
+	margin-right: .5rem;
+	content: "■";
+}
+.C-appraisal-content--top-last{
+	padding: 2.5rem 2.5rem 3rem;
+	border-top: 1px solid #E7E8EB;
+	text-align: center;
+}
+.C-appraisal-content--top-last__title{
+	font-size: 1.7rem;
+	margin-bottom: .5rem;
+	line-height: 1.882352;
+	font-weight: 600;
+	text-align: center;
+}
+.C-appraisal-content--top-last__text{
+	font-size: 1.1rem;
+}
+
+/* ACMC*/
+.C-appraisal-content--acmc .C-appraisal-content-header-data__mark{
+	width: 17.6rem;
+	font-size: 1.4rem;
+}
+.C-appraisal-content--acmc .C-appraisal-content-header-data__mark::before{
+	display: none;
+}
+.C-appraisal-content--acmc .C-appraisal-content-header-data__jp{
+	width: 17.6rem;
+}
+.C-appraisal-content--acmc .C-appraisal-content-header-data__jp::before{
+	/* width: 2.5rem; */
+	height: 2.5rem;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+	display: block;
+	content: "";
+}
+.C-appraisal-content--acmc .C-appraisal-content-header-data__en{
+	width: 32.4rem;
+	font-size: 1.4rem;
+}
+.C-appraisal-content--acmc .C-appraisal-content-header-data__year{
+	width: 32.4rem;
+	font-size: 1.5rem;
+}
+.C-appraisal-content--acmc .C-appraisal-content-header__first-message{
+	padding: 0;
+	margin-bottom: 7.5rem;
+	border-bottom: none;
+}
+.C-appraisal-content--acmc-block__title{
+	font-size: 1.4rem;
+	margin-bottom: 1.5rem;
+	line-height: 2;
+	font-weight: 700;
+	text-align: center;
+}
+.C-appraisal-content--acmc-block__body{
+	padding: 2.5rem 4rem;
+	/* border-top: 1px solid #E7E8EB; */
+	text-align: justify;
+}
+
+.C-appraisal-content--acmc-block__body__content{
+	padding-top: 2.5rem;
+	border-top: 1px solid #E7E8EB;
+	text-align: justify;
+}
+
+
+
+/* ボタン */
+.C-appraisal-reviewbutton{
+	margin-bottom: 6rem;
+	margin-left: auto;
+	margin-right: auto;
+}
+.C-appraisal-reviewbutton a::before{
+	width: 1.5rem;
+	height: 1.6rem;
+	margin-right: .8rem;
+	background-image: url(../images/common/icon_review.svg);
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+	display: block;
+	content: "";
+}
+
+/* バナー */
+.C-appraisal-banner{
+	width: 100%;
+	margin-bottom: 5rem;
+	filter: drop-shadow(0 1rem 1rem rgba(0,0,0,.1));
+}
+.C-appraisal-banner:last-child{
+	margin-bottom: 0;
+}
+.C-appraisal-banner a{
+	width: 100%;
+	display: block;
+}
+.C-appraisal-banner img{
+	width: 100%;
+}
+
+.C-appraisal-banner:last-child {
+	margin-bottom: 0;
+}
+
+.C-appraisal-banner a {
+	width: 100%;
+	display: block;
+}
+
+.C-appraisal-banner img {
+	width: 100%;
+}
+
+/* 個人鑑定履歴 */
+.C-appraisal-history__title {
+	width: 100%;
+	font-size: 1.8rem;
+	margin-bottom: 1.5rem;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.C-appraisal-history__title::before {
+	width: 1.6rem;
+	height: 2.1rem;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+	display: block;
+	content: "";
+}
+
+.C-appraisal-history__title span {
+	width: calc(100% - 1.6rem);
+	padding-left: .8rem;
+	line-height: 1;
+	display: block;
+}
+
+.C-appraisal-history-block:not(:last-child) {
+	margin-bottom: 1.5rem;
+}
+
+.C-appraisal-history-block a {
+	width: 100%;
+	padding: 1.6rem 3rem;
+	background: rgba(201, 201, 201, .15);
+	border-radius: 1rem;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	position: relative;
+}
+
+.C-appraisal-history-block a::after {
+	width: 1.8rem;
+	height: .7rem;
+	right: 3rem;
+	top: calc(50% - .35rem);
+	position: absolute;
+	background-size: contain;
+	background-position: center center;
+	background-repeat: no-repeat;
+	display: block;
+	content: "";
+}
+
+.C-appraisal-history-block__time {
+	width: 9rem;
+	font-size: 1.4rem;
+}
+
+.C-appraisal-history-block__title {
+	width: calc(100% - 9rem);
+	font-size: 1.4rem;
+}
+
+.C-appraisal-history+.C-back {
+	margin-top: 5.5rem;
+}
+
+/*----- 個人鑑定商品 */
+.C-appraisal-item {
+	width: 100%;
+	margin-bottom: 3rem;
+	border-radius: 2rem;
+	border: 1px solid #e7e8eb;
+	background: rgba(255, 255, 255, .2);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.C-user-list+.C-appraisal-item {
+	margin-top: 6rem;
+}
+
+.C-appraisal-item__body {
+	width: 100%;
+	padding: 4.5rem;
+	text-align: center;
+}
+
+.C-appraisal-item-entry {
+	width: 100%;
+	padding: 4.5rem;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: left bottom;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	justify-content: center;
+}
+
+.C-appraisal-item-entry__price {
+	width: 100%;
+	max-width: 29.4rem;
+	font-size: 1.8rem;
+	letter-spacing: 0.06em;
+	font-weight: 700;
+}
+
+.C-appraisal-item-entry__discount {
+	font-size: 1.2rem;
+	margin-top: 1.5rem;
+	line-height: 1;
+	color: #c72442 !important;
+	display: block;
+}
+
+.C-appraisal-item-entry__price__tax {
+	font-size: 1.4rem;
+	font-weight: 700;
+}
+
+.C-appraisal-item-entry__price::before {
+	font-size: 1.2rem;
+	margin-bottom: .2rem;
+	line-height: 1;
+	font-weight: 500;
+	display: block;
+	content: attr(data-en);
+	font-family: 'Baskervville', serif;
+}
+
+.C-appraisal-item-entry__text {
+	width: 100%;
+	max-width: 29.4rem;
+	font-size: 1.2rem;
+	line-height: 2;
+	margin-bottom: 1.5rem;
+}
+
+/*----- ポップアップ */
+.C-popup {
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 9990;
+	position: fixed;
+	background: rgba(0, 0, 0, .35);
+}
+
+.C-popup__inner {
+	width: 100%;
+	height: 100%;
+	padding: 6rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.C-popup-content {
+	width: 100%;
+	max-width: 69rem;
+	border-radius: 3.4rem;
+	padding: 5.5rem 4rem 4rem;
+	box-shadow: 0 .8rem 1.6rem rgba(0, 0, 0, .1);
+	background: #fff;
+	text-align: center;
+	position: relative;
+}
+
+.C-popup-content__inner {
+	z-index: 6000;
+	position: relative;
+}
+
+.C-popup-content__scroll-inner {
+	z-index: 6000;
+	position: relative;
+	height: 600px;
+}
+
+.C-popup-content__inner::before {
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	right: 0;
+	z-index: -1;
+	transform: translate(0, -3rem);
+	background-image: url(../images/common/bg_popup.png);
+	background-image: image-set(url(../images/common/bg_popup.png) 1x, url(../images/common/bg_popup@2x.png) 2x);
+	background-image: -webkit-image-set(url(../images/common/bg_popup.png) 1x, url(../images/common/bg_popup@2x.png) 2x);
+	background-size: contain;
+	background-position: top center;
+	background-repeat: no-repeat;
+	position: absolute;
+	display: block;
+	content: "";
+}
+
+.C-popup__title {
+	width: 100%;
+	max-width: 36.2rem;
+	margin-bottom: 3.5rem;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.C-popup__title img {
+	width: 100%;
+}
+
+.C-popup__image {
+	width: 100%;
+	max-width: 8.5rem;
+	margin-bottom: 2rem;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.C-popup__image img {
+	width: 100%;
+}
+
+.C-popup__text {
+	margin-bottom: 2.5rem;
+}
+
+.C-popup-linebutton {
+	width: 100%;
+	max-width: 34.2rem;
+	height: 4.6rem;
+	margin-bottom: 2rem;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.C-popup-linebutton a {
+	width: 100%;
+	height: 100%;
+	border-radius: 2.3rem;
+	font-size: 1.4rem;
+	opacity: 1 !important;
+	background: #06C555;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.C-popup-linebutton a:hover {
+	background: #00B35A;
+}
+
+.C-popup-lineadd {
+	margin-bottom: 4rem;
+	line-height: 1;
+	text-decoration: underline;
+	color: rgba(56, 98, 128, .5);
+	cursor: pointer;
+}
+
+.C-popup-lineadd:hover {
+	text-decoration: none;
+}
+
+.C-popup-bottom {
+	padding-top: .8rem;
+	border-top: 1px solid #39385d;
+}
+
+.C-popup-bottom__text {
+	width: 100%;
+	color: rgba(57, 56, 93, .6);
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
+	text-align: left;
+}
+
+.C-popup-bottom__text::before {
+	content: "※";
+}
+
+.C-popup-close {
+	width: 2.2rem;
+	height: 2.2rem;
+	right: -3rem;
+	top: .3rem;
+	position: absolute;
+	cursor: pointer;
+	transition: .3s all ease-in-out;
+}
+
+.C-popup-close::before,
+.C-popup-close::after {
+	width: 100%;
+	height: 1px;
+	left: 0;
+	top: 50%;
+	right: 0;
+	position: absolute;
+	background: #fff;
+	display: block;
+	content: "";
+}
+
+.C-popup-close::before {
+	transform: rotate(45deg);
+}
+
+.C-popup-close::after {
+	transform: rotate(-45deg);
+}
+
+.C-popup-close:hover {
+	opacity: .6;
+}
+
+/*---- ポップアップ（ホロスコープ） */
+.C-popup--horoscope {
+	display: none;
+}
+
+.C-popup--horoscope .C-popup-content {
+	max-width: 76.2rem;
+	padding: 6rem 6rem 6.5rem 7.5rem;
+}
+.C-popup--horoscope__title {
+	font-size: 1.9rem;
+	margin-bottom: 3.5rem;
+	line-height: 1.157894;
+	font-weight: 500;
+	text-align: left;
+}
+
+.C-popup--horoscope__title::after {
+	width: 7.7rem;
+	height: .9rem;
+	margin-top: 3rem;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+	display: block;
+	content: "";
+}
+
+.C-popup--horoscope .C-popup-content__inner::before {
+	display: none;
+}
+
+.C-popup--horoscope .C-horoscope-form-block__title {
+	text-align: left;
+}
+
+.C-popup--horoscope .C-horoscope-form-field {
+	text-align: left;
+}
+
+.C-popup--horoscope .C-horoscope-create {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.C-popup--horoscope .Button span::after {
+	display: none;
+}
+
+.C-popup--horoscope .Button--cancel {
+	max-width: 10rem;
+	margin-left: 1rem;
+	background: rgba(179, 179, 179, .6);
+}
+
+.C-popup--horoscope .Button--cancel::before {
+	background: rgba(255, 255, 255, .3);
+}
+
+.C-popup--horoscope .Button--cancel span {
+	font-size: 1.2rem;
+}
+
+/*---- ポップアップ（ホロスコープ削除） */
+.C-popup--horoscope-delete {
+	display: none;
+}
+
+.C-popup--horoscope-delete .C-popup-content {
+	max-width: 50rem;
+	padding: 6rem 6rem 6.5rem 7.5rem;
+}
+.C-popup--horoscope-delete__title {
+	font-size: 1.9rem;
+	margin-bottom: 3.5rem;
+	line-height: 1.157894;
+	font-weight: 500;
+	text-align: left;
+}
+
+.C-popup--horoscope-delete__title::after {
+	width: 7.7rem;
+	height: .9rem;
+	margin-top: 3rem;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+	display: block;
+	content: "";
+}
+
+.C-popup--horoscope-delete .C-popup-content__inner::before {
+	display: none;
+}
+
+.C-popup--horoscope-delete .C-horoscope-form-block__title {
+	text-align: left;
+}
+
+.C-popup--horoscope-delete .C-horoscope-form-field {
+	text-align: left;
+}
+
+.C-popup--horoscope-delete .C-horoscope-create {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.C-popup--horoscope-delete .Button span::after {
+	display: none;
+}
+
+.C-popup--horoscope-delete .Button--cancel {
+	max-width: 10rem;
+	margin-left: 1rem;
+	background: rgba(179, 179, 179, .6);
+}
+
+.C-popup--horoscope-delete .Button--cancel::before {
+	background: rgba(255, 255, 255, .3);
+}
+
+.C-popup--horoscope-delete .Button--cancel span {
+	font-size: 1.2rem;
+}
+
+@media screen and (width >=1600px),
+print {}
+
+@media screen and (max-width:1188px),
+print {}
+
+@media screen and (max-width:1128px),
+print {}
+
+@media screen and (min-width:501px) and (max-width:1000px),
+print {
+
+	/*----- 個人鑑定 */
+	.C-appraisal-content-header {
+		padding: 3.5rem 2.5rem 7rem;
+	}
+
+	.C-appraisal-content-footer-block {
+		padding: 3.5rem 2.5rem 3rem;
+	}
+
+}
+
+@media screen and (min-width:501px) and (max-width:900px),
+print {
+
+	.C-popup--horoscope .C-popup-content,
+	.C-popup--horoscope-delete .C-popup-content {
+		padding: 5rem;
+	}
+
+	.C-popup--horoscope .C-horoscope-create,
+	.C-popup--horoscope-delete .C-horoscope-create {
+		flex-direction: column;
+	}
+
+	.C-popup--horoscope .Button--cancel,
+	.C-popup--horoscope-delete .Button--cancel {
+		max-width: 100%;
+		margin-top: 2rem;
+		height: auto;
+		margin-left: 0;
+		background: none;
+	}
+
+	.C-popup--horoscope .Button--cancel span,
+	.C-popup--horoscope-delete .Button--cancel span {
+		font-size: 1.2rem;
+		color: rgba(57, 56, 93, .5);
+		text-decoration: underline;
+	}
+
+}
+
+@media screen and (min-width:501px) and (max-width:750px),
+print {
+
+	/*----- ホロスコープフォーム */
+	.C-horoscope-form__inner {
+		flex-direction: column;
+	}
+
+	.C-horoscope-form__inner>* {
+		width: 100%;
+	}
+
+	.C-horoscope-form-block-wrap--birth {
+		margin-bottom: 3.5rem;
+	}
+
+	/*----- ホロスコープ一覧 */
+	.C-user-list-block__content {
+		flex-wrap: wrap;
+	}
+
+	.C-user-list-block__item {
+		padding-bottom: 1rem;
+	}
+
+	.C-user-list-block__item:nth-of-type(3) {
+		border-right: none !important;
+	}
+
+	.C-user-list-block__item:nth-of-type(4),
+	.C-user-list-block__item:last-child {
+		width: 100%;
+		padding-top: 1rem;
+		padding-left: 0;
+		padding-bottom: 0;
+	}
+
+	.C-user-list-block a::after {
+		top: unset;
+		bottom: 2.5rem;
+	}
+
+	/*----- ホロスコープを作成する */
+	.C-horoscope-create {
+		flex-direction: column-reverse;
+	}
+
+	.C-horoscope-create__text {
+		width: 100%;
+		margin-bottom: 2.5rem;
+	}
+
+
+	/*----- ホロスコープ詳細 */
+	.C-horoscope-detail__inner {
+		flex-direction: column;
+	}
+
+	.C-horoscope-detail__inner::after {
+		display: none;
+	}
+
+	.C-horoscope-detail__position {
+		width: 100%;
+		border-bottom: 1px solid rgba(204, 206, 213, .35);
+	}
+
+	.C-horoscope-detail__boundarie {
+		width: 100%;
+	}
+
+	.C-horoscope-detail__boundarie .C-horoscope-detail__body {
+		text-align: left;
+	}
+
+	/*----- 個人鑑定商品 */
+	.C-appraisal-item-entry {
+		background-size: 30rem;
+		padding: 4.5rem 4.5rem 25rem;
+	}
+
+}
+
+@media screen and (min-width:501px) and (max-width:700px),
+print {
+
+	/*----- 個人鑑定 */
+	.C-appraisal-tab__item--current::before {
+		left: .2rem;
+	}
+
+	.C-appraisal-tab__item--current::after {
+		right: .2rem;
+	}
+
+	.C-appraisal-tab__item--current--familyappraisal::before {
+		left: .2rem;
+	}
+
+	.C-appraisal-tab__item--current--familyappraisal::after {
+		right: .2rem;
+	}
+
+	.C-appraisal-content-footer__inner {
+		flex-direction: column;
+	}
+
+	.C-appraisal-content-footer__inner::after {
+		display: none;
+	}
+
+	.C-appraisal-content-footer-block {
+		width: 100%;
+	}
+
+	.C-appraisal-content-footer-block:first-child {
+		border-bottom: 1px solid #ccced5;
+	}
+
+}
+
+@media screen and (min-width:501px) and (max-width:650px),
+print {
+
+	/*----- 個人鑑定 */
+	.C-appraisal-content-header {
+		padding-left: 2.5rem;
+		padding-right: 2.5rem;
+	}
+
+	.C-appraisal-content-footer-block {
+		padding-left: 2.5rem;
+		padding-right: 2.5rem;
+	}
+
+}
+
+@media screen and (max-width:500px),
+print {
+
+	/*----- ホロスコープフォーム */
+	.C-horoscope-form__inner {
+		margin-bottom: 4rem;
+		display: block;
+	}
+
+	.C-horoscope-form__inner>* {
+		width: 100%;
+	}
+
+	.C-horoscope-form-block-wrap {
+		width: 100%;
+	}
+
+	.C-horoscope-form-block-wrap .C-horoscope-form-block:nth-of-type(2) {
+		padding-left: 2rem;
+	}
+
+	.C-horoscope-form-block--name {
+		margin-bottom: 3.2rem;
+	}
+
+	.C-horoscope-form-block--zokugara {
+		margin-bottom: 3.2rem;
+	}
+
+	.C-horoscope-form-block-wrap--birth {
+		margin-bottom: 3.2rem;
+	}
+
+	.C-horoscope-form-block__title {
+		padding-left: 1rem;
+	}
+
+	.C-horoscope-form-field {
+		padding-bottom: .5rem;
+	}
+
+	/*----- ホロスコープを作成する */
+	.C-horoscope-create {
+		flex-direction: column-reverse;
+	}
+
+	.C-horoscope-create__text {
+		width: 100%;
+		margin-bottom: 2.5rem;
+		padding-left: 2.2rem;
+		font-size: 1.3rem;
+		line-height: 1.384615;
+	}
+
+	.C-horoscope-create__text::before {
+		width: 1.3rem;
+		height: 1.1rem;
+	}
+
+	/*----- ホロスコープ一覧 */
+	.C-user-list {
+		margin-bottom: 3rem;
+	}
+
+	.C-user-list-block:not(:last-child) {
+		margin-bottom: 1.5rem;
+	}
+
+	.C-user-list-block__inner {
+		padding: 2.5rem 3rem;
+		border-radius: 1.2rem;
+	}
+
+	.C-user-list-block a::after {
+		width: 1.7rem;
+		height: .8rem;
+		right: 1.8rem;
+		top: unset;
+		bottom: 2rem;
+	}
+
+	.C-user-list-block__title {
+		font-size: 1.4rem;
+	}
+
+	.C-user-list-block__title::before {
+		font-size: 1rem;
+	}
+
+	.C-user-list-block__title span {
+		font-size: 1.8rem;
+	}
+
+	.C-user-list-block__content {
+		flex-wrap: wrap;
+	}
+
+	.C-user-list-block__item {
+		padding-top: 0;
+		padding-bottom: 1rem;
+		font-size: 1.2rem;
+	}
+
+	.C-user-list-block__item:not(:first-child) {
+		padding-left: .6rem;
+	}
+
+	.C-user-list-block__item:not(:last-child) {
+		padding-right: .6rem;
+	}
+
+	.C-user-list-block__item:nth-of-type(1) {
+		width: 35%;
+	}
+
+	.C-user-list-block__item:nth-of-type(2) {
+		width: 38%;
+	}
+
+	.C-user-list-block__item:nth-of-type(3) {
+		width: 27%;
+	}
+
+	.C-user-list-block__item:nth-of-type(3):not(:last-child) {
+		border-right: none;
+		padding-right: 0;
+	}
+
+	.C-user-list-block__item:last-child {
+		padding-top: 1rem;
+		padding-left: 0;
+		padding-bottom: 0;
+		width: 100%;
+	}
+
+	/*----- ホロスコープ詳細 */
+	.C-user-list__change {
+		margin-top: -.8rem;
+	}
+
+	.C-user-list__change span {
+		font-size: 1.2rem;
+	}
+
+	/*----- ホロスコープ削除 */
+	.C-user-list__delete {
+		margin-top: -.8rem;
+	}
+
+	.C-user-list__delete span {
+		font-size: 1.2rem;
+	}
+
+	.C-horoscope-detail {
+		margin-top: 3rem;
+		border-radius: 1.2rem;
+	}
+
+	.C-horoscope-detail__title {
+		font-size: 1.2rem;
+		margin-bottom: 2.5rem;
+	}
+
+	.C-horoscope-detail-header {
+		/* padding: 2rem 2rem 3.5rem; */
+		margin-bottom: 2.5rem;
+	}
+
+	/* .C-horoscope-detail-horoscope{
+		width: 23rem;
+		height: 23rem;
+	} */
+	.C-horoscope-detail__inner {
+		display: block;
+	}
+
+	.C-horoscope-detail__inner::after {
+		display: none;
+	}
+
+	.C-horoscope-detail__position {
+		width: 100%;
+		padding: 2rem 2rem 4rem;
+		border-bottom: 1px solid rgba(204, 206, 213, .35);
+	}
+
+	.C-horoscope-detail__position__item {
+		padding-left: 1rem;
+	}
+
+	.C-horoscope-detail__position__title {
+		width: 12rem;
+		font-size: 1.2rem;
+	}
+
+	.C-horoscope-detail__position__title--taiyo::before {
+		width: 1.4rem;
+		height: 1.4rem;
+	}
+
+	.C-horoscope-detail__position__title--tsuki::before {
+		width: 1.4rem;
+		height: 1.3rem;
+	}
+
+	.C-horoscope-detail__position__title--suisei::before {
+		width: 1.4rem;
+		height: 1.5rem;
+	}
+
+	.C-horoscope-detail__position__title--kinsei::before {
+		width: 1.4rem;
+		height: 1.4rem;
+	}
+
+	.C-horoscope-detail__position__title--kasei::before {
+		width: 1.4rem;
+		height: 1.2rem;
+	}
+
+	.C-horoscope-detail__position__title--mokusei::before {
+		width: 1.4rem;
+		height: 1.4rem;
+	}
+
+	.C-horoscope-detail__position__title--dosei::before {
+		width: 1.4rem;
+		height: 1.5rem;
+	}
+
+	.C-horoscope-detail__position__title--tennousei::before {
+		width: 1.4rem;
+		height: 1.7rem;
+	}
+
+	.C-horoscope-detail__position__title--kaiousei::before {
+		width: 1.4rem;
+		height: 1.5rem;
+	}
+
+	.C-horoscope-detail__position__title--meiousei::before {
+		width: 1.4rem;
+		height: 1.5rem;
+	}
+
+	.C-horoscope-detail__position__title--dragonhead::before {
+		width: 1.4rem;
+		height: 1rem;
+	}
+
+	.C-horoscope-detail__position__title--kiron::before {
+		width: 1.4rem;
+		height: 1.5rem;
+	}
+
+	.C-horoscope-detail__position__title--ririsu::before {
+		width: 1.4rem;
+		height: 1.5rem;
+	}
+
+	.C-horoscope-detail__position__text {
+		width: calc(100% - 12rem);
+		font-size: 1.2rem;
+	}
+
+	.C-horoscope-detail__position__text--otome::before {
+		width: 1.5rem;
+		height: 1.5rem;
+	}
+
+	.C-horoscope-detail__position__text--hutago::before {
+		width: 1.5rem;
+		height: 1.1rem;
+	}
+
+	.C-horoscope-detail__position__text--ite::before {
+		width: 1.5rem;
+		height: 1.3rem;
+	}
+
+	.C-horoscope-detail__position__text--mizugame::before {
+		width: 1.5rem;
+		height: .7rem;
+	}
+
+	.C-horoscope-detail__position__text--oushi::before {
+		width: 1.5rem;
+		height: 1.2rem;
+	}
+
+	.C-horoscope-detail__position__text--sasori::before {
+		width: 1.5rem;
+		height: 1.5rem;
+	}
+
+	.C-horoscope-detail__position__text--shishi::before {
+		width: 1.5rem;
+		height: 1.3rem;
+	}
+
+	.C-horoscope-detail__position__text--yagi::before {
+		width: 1.5rem;
+		height: 1.3rem;
+	}
+
+	.C-horoscope-detail__position__text--kani::before {
+		width: 1.5rem;
+		height: 1.2rem;
+	}
+
+	.C-horoscope-detail__position__text--uo::before {
+		width: 1.5rem;
+		height: 1.4rem;
+	}
+
+	.C-horoscope-detail__position__text--ohitsuji::before {
+		width: 1.5rem;
+		height: 1.3rem;
+	}
+
+	.C-horoscope-detail__position__text--tenbin::before {
+		width: 1.5rem;
+		height: 1.3rem;
+	}
+
+	.C-horoscope-detail__boundarie {
+		width: 100%;
+		padding: 2rem 2rem 3.5rem;
+	}
+
+	.C-horoscope-detail__boundarie__text {
+		font-size: 1.2rem;
+	}
+
+	.C-horoscope-detail__boundarie__text::before {
+		width: 10rem;
+	}
+
+	.C-horoscope-detail__boundarie__text span {
+		width: calc(100% - 10rem);
+		padding-left: 0;
+	}
+
+	/*----- 個人鑑定 */
+	.C-user-list-block__hasimage {
+		padding: 2rem 3rem;
+		display: block;
+		position: relative;
+	}
+
+	.C-user-list-block__image {
+		width: 4.5rem;
+		left: 3rem;
+		top: 2rem;
+		position: absolute;
+	}
+
+	.C-user-list-block__hasimage__inner {
+		width: 100%;
+		padding-left: 0;
+	}
+
+	.C-user-list-block__hasimage .C-user-list-block__title {
+		width: 100%;
+		height: 5rem;
+		padding-left: 5.5rem;
+		transform: translate(0, .5rem);
+	}
+
+	.C-appraisal-tab {
+		width: 100%;
+		display: flex;
+		align-items: flex-end;
+		justify-content: center;
+	}
+
+	.C-appraisal__inner {
+		margin-bottom: 4.5rem;
+		border-bottom-left-radius: 2rem;
+		border-bottom-right-radius: 2rem;
+		border: none;
+		background: none;
+	}
+
+	.C-appraisal-tab__scroll {
+		width: calc(100% + 5rem);
+		transform: translate(-2.5rem, 0);
+		padding-left: 2.5rem;
+		padding-right: 2.5rem;
+		overflow-x: scroll;
+	}
+
+	.C-appraisal-tab__scroll::-webkit-scrollbar {
+		display: none;
+	}
+
+	.C-appraisal-tab {
+		width: calc(8.2rem * 8 + 8.9rem);
+	}
+
+	.C-appraisal-tab__item {
+		width: calc((100% / 9) - .1rem);
+		height: 3.8rem;
+		border-top-left-radius: 1rem;
+		border-top-right-radius: 1rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		background-position: center center;
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
+
+	.C-appraisal-tab__item--current {
+		width: calc((100% / 9) + (.1rem * 9));
+		height: 4.2rem;
+		color: #fff !important;
+		position: relative;
+	}
+
+	.C-appraisal-tab__item--current::before,
+	.C-appraisal-tab__item--current::after {
+		width: .9rem;
+		height: 1rem;
+		top: calc(50% - .5rem);
+		position: absolute;
+		background-image: url(../images/common/icon_star.svg);
+		background-repeat: no-repeat;
+		background-position: center center;
+		background-size: contain;
+		display: block;
+		content: "";
+	}
+
+	.C-appraisal-tab__item--current::before {
+		left: 1rem;
+	}
+
+	.C-appraisal-tab__item--current::after {
+		right: 1rem;
+	}
+
+
+
+	.C-appraisal-content{
+		display: none;
+	}
+	.C-appraisal-content--current{
+		display: block;
+	}
+	.C-appraisal-content-header{
+		padding: 2.5rem 0 0;
+	}
+	.C-appraisal-content-header__title{
+		font-size: 2.4rem;
+		margin-bottom: 2rem;
+		line-height: 1.416666;
+	}
+	.C-appraisal-content-header-data{
+		flex-wrap: wrap;
+	}
+	.C-appraisal-content-header-data > *{
+		height: 4.5rem;
+	}
+	.C-appraisal-content-header-data__mark{
+		width: 17%;
+	}
+	.C-appraisal-content-header-data__mark::before{
+		width: 2.4rem;
+		height: 2.4rem;
+	}
+	.C-appraisal-content-header-data__jp{
+		width: 41.5%;
+		font-size: 1.2rem;
+	}
+	.C-appraisal-content-header-data__en{
+		width: 41.5%;
+		font-size: 1.3rem;
+		border-right: none !important;
+	}
+	.C-appraisal-content-header-data__year{
+		width: 100%;
+		font-size: 1.4rem;
+	}
+
+	.C-appraisal-content-header__first-message{
+		padding: 0;
+		margin-bottom: 3.5rem;
+		text-align: justify;
+	}
+
+	.C-appraisal-content-header-block__title::before{
+		width: 1.6rem;
+		height: 1.8rem;
+	}
+	.C-appraisal-content-header-block__text{
+		font-size: 1.3rem;
+	}
+
+	.C-appraisal-content-header-message{
+		border-radius: 1.2rem;
+		padding: 2.5rem;
+		margin-bottom: 4rem;
+		text-align: justify;
+	}
+	.C-appraisal-content-header-message__title{
+		margin-bottom: .5rem;
+	}
+	.C-appraisal-content-header-message__text{
+		font-size: 1.3rem;
+		line-height: 1.846153;
+	}
+	.C-appraisal-content-footer{
+		border-top: none;
+	}
+
+	.C-appraisal-content-footer__title {
+		border-bottom: none;
+	}
+
+	.C-appraisal-content-footer__inner {
+		border-radius: 1.2rem;
+		border: 1px solid #e6e7ea;
+		display: block;
+		background: rgba(255, 255, 255, .2);
+		text-align: justify;
+	}
+
+	.C-appraisal-content-footer__inner::after {
+		display: none
+	}
+
+	.C-appraisal-content-footer-block {
+		width: 100%;
+		padding: 3.5rem 2.5rem 2.5rem;
+	}
+
+	.C-appraisal-content-footer-block:first-child {
+		border-bottom: 1px solid #e6e7ea;
+	}
+
+	.C-appraisal-content-footer-block__inner {
+		margin-bottom: 2rem;
+	}
+
+	.C-appraisal-content-footer-block__title {
+		font-size: 1.8rem;
+		margin-bottom: 2rem;
+		line-height: 1.333333;
+	}
+	.C-appraisal-content-footer-block__text{
+		font-size: 1.3rem;
+	}
+	.C-appraisal-content-footer-block__last__mark{
+		margin-bottom: .5rem;
+	}
+	.C-appraisal-content-header-block {
+		text-align: justify;
+	}
+
+
+	/* TOP */
+	/* .C-appraisal-content--top__first-message{ */
+		/* width: calc(100% + (2.5rem * 2)); */
+		/* margin-left: -2.5rem; */
+		/* padding: 3.5rem 2rem 1.5rem 2rem; */
+	/* } */
+	/* .C-appraisal-content--top__first-message__body{
+		height: 38rem;
+		overflow-y: scroll;
+	} */
+	.C-appraisal-content--top__first-message__body::-webkit-scrollbar{
+		display: none;
+	}
+	.C-appraisal-content--top__first-message__text{
+		font-size: 1.3rem;
+	}
+	.C-appraisal-content--top__first-message__name{
+		padding-bottom: 3.5rem;
+	}
+	.C-appraisal-content--top .C-appraisal-content-header{
+		padding-bottom: 6rem;
+	}
+	.C-appraisal-content--top-last{
+		padding: 2.5rem 2.5rem 0;
+	}
+	.C-appraisal-content--top-last__title{
+		font-size: 1.5rem;
+		margin-bottom: 1rem;
+		line-height: 1.866666;
+	}
+	.C-appraisal-content--top-last__text{
+		font-size: 1rem;
+		line-height: 1.2;
+	}
+
+	/* ACMC*/
+	.C-appraisal-content--acmc .C-appraisal-content-header-data__mark{
+		width: 41.5%;
+	}
+	.C-appraisal-content--acmc .C-appraisal-content-header-data__jp{
+		width: 17%;
+	}
+	.C-appraisal-content--acmc .C-appraisal-content-header-data__jp::before{
+		/* width: 2.4rem; */
+		height: 2.4rem;
+	}
+	.C-appraisal-content--acmc .C-appraisal-content-header-data__en{
+		width: 41.5%;
+	}
+	.C-appraisal-content--acmc .C-appraisal-content-header-data__year{
+		width: 100%;
+		font-size: 1.3rem;
+	}
+	.C-appraisal-content--acmc .C-appraisal-content-header__first-message{
+		margin-bottom: 3.5rem;
+	}
+	.C-appraisal-content--acmc-block__body{
+		padding: 0;
+		border-top: none;
+		text-align: justify;
+	}
+
+	/* ボタン */
+	.C-appraisal-reviewbutton{
+		margin-bottom: 6rem;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.C-appraisal-reviewbutton a::before{
+		width: 1.5rem;
+		height: 1.6rem;
+		margin-right: .8rem;
+		background-image: url(../images/common/icon_review.svg);
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position: center center;
+		display: block;
+		content: "";
+	}
+
+	.C-appraisal-content-footer-block__text {
+		font-size: 1.3rem;
+	}
+
+	.C-appraisal-content-footer-block__last__mark {
+		margin-bottom: .5rem;
+	}
+
+	/* バナー */
+	.C-appraisal-banner {
+		margin-bottom: 5rem;
+	}
+
+	/* 個人鑑定履歴 */
+	.C-appraisal-history__title::before {
+		width: 1.5rem;
+		height: 2rem;
+	}
+
+	.C-appraisal-history__title span {
+		width: calc(100% - 1.5rem);
+		padding-left: 1rem;
+	}
+
+	.C-appraisal-history-block a {
+		padding: 2rem 2.5rem;
+		display: block;
+	}
+
+	.C-appraisal-history-block a::after {
+		width: 1.7rem;
+		height: .8rem;
+		right: 1.2rem;
+		top: calc(50% - .4rem);
+	}
+
+	.C-appraisal-history-block__time {
+		width: 100%;
+		margin-bottom: .2rem;
+		line-height: 1;
+		display: block;
+	}
+
+	.C-appraisal-history-block__title {
+		width: 100%;
+	}
+
+	.C-appraisal-history+.C-back {
+		margin-top: 5.5rem;
+	}
+
+	/*----- 個人鑑定商品 */
+	.C-appraisal-item {
+		margin-bottom: 4.2rem;
+		border-radius: 1.2rem;
+	}
+
+	.C-user-list+.C-appraisal-item {
+		margin-top: 4.5rem;
+	}
+
+	.C-appraisal-item__body {
+		padding: 4.5rem;
+		text-align: center;
+	}
+
+	.C-appraisal-item-entry {
+		padding: 2.5rem 2.5rem 17.5rem;
+	}
+
+	.C-appraisal-item-entry__price {
+		max-width: 100%;
+	}
+
+	.C-appraisal-item-entry__discount {
+		margin-top: 1rem;
+	}
+
+	.C-appraisal-item-entry__price__tax {
+		font-size: 1.8rem;
+	}
+
+	.C-appraisal-item-entry__text {
+		max-width: 100%;
+		margin-bottom: 1.6rem;
+	}
+
+	/*----- ポップアップ */
+	.C-popup__inner {
+		padding: 3.5rem 3.25rem;
+	}
+
+	.C-popup-content {
+		max-width: 30rem;
+		border-radius: 2.6rem;
+		padding: 3rem 2.2rem 2.2rem;
+	}
+
+	.C-popup-content__inner::before {
+		height: calc(100% - 4rem);
+		transform: translate(0, 4rem);
+		background-image: url(../images/common/sp_bg_popup.png);
+		background-image: image-set(url(../images/common/sp_bg_popup.png) 1x, url(../images/common/sp_bg_popup@2x.png) 2x);
+		background-image: -webkit-image-set(url(../images/common/sp_bg_popup.png) 1x, url(../images/common/sp_bg_popup@2x.png) 2x);
+	}
+
+	.C-popup__title {
+		max-width: 24.8rem;
+		margin-bottom: 2.6rem;
+		line-height: 1;
+	}
+
+	.C-popup__image {
+		max-width: 7.2rem;
+		margin-bottom: 1rem;
+	}
+
+	.C-popup__text {
+		font-size: 1.2rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.C-popup-linebutton {
+		max-width: 100%;
+	}
+
+	.C-popup-linebutton a {
+		border-radius: 2.3rem;
+	}
+
+	.C-popup-lineadd {
+		font-size: 1.2rem;
+		margin-bottom: 2.5rem;
+	}
+
+	.C-popup-bottom {
+		padding-top: .5rem;
+	}
+
+	.C-popup-bottom__text {
+		font-size: 1.1rem;
+		line-height: 1.454545;
+	}
+
+	.C-popup-close {
+		width: 2.2rem;
+		height: 2.2rem;
+		right: 0;
+		top: -3rem;
+	}
+
+	/*---- ポップアップ（ホロスコープ） */
+	.C-popup--horoscope .C-popup__inner {
+		padding: 5rem 1rem 3rem;
+		align-items: flex-start;
+		overflow-y: scroll;
+	}
+
+	.C-popup--horoscope .C-popup__inner::-webkit-scrollbar {
+		display: none;
+	}
+
+	.C-popup--horoscope .C-popup-content {
+		max-width: 100%;
+		padding: 4.5rem 4.8rem 6.8rem;
+	}
+
+	.C-popup--horoscope__title {
+		font-size: 2rem;
+		margin-bottom: 3rem;
+		line-height: 1.2;
+	}
+
+	.C-popup--horoscope .C-horoscope-create {
+		flex-direction: column;
+	}
+
+	.C-popup--horoscope .Button--cancel {
+		max-width: 100%;
+		margin-top: 2rem;
+		height: auto;
+		margin-left: 0;
+		background: none;
+	}
+
+	.C-popup--horoscope .Button--cancel span {
+		font-size: 1.2rem;
+		color: rgba(57, 56, 93, .5);
+		text-decoration: underline;
+	}
+
+	/*---- ポップアップ（ホロスコープ削除） */
+	.C-popup--horoscope-delete .C-popup__inner {
+		padding: 5rem 1rem 3rem;
+		align-items: flex-start;
+	}
+
+	.C-popup--horoscope-delete .C-popup-content {
+		max-width: 100%;
+		padding: 4.5rem 4.8rem 6.8rem;
+	}
+
+	.C-popup--horoscope-delete__title {
+		font-size: 2rem;
+		margin-bottom: 3rem;
+		line-height: 1.2;
+	}
+
+	.C-popup--horoscope-delete .C-horoscope-create {
+		flex-direction: column;
+	}
+
+	.C-popup--horoscope-delete .Button--cancel {
+		max-width: 100%;
+		margin-top: 2rem;
+		height: auto;
+		margin-left: 0;
+		background: none;
+	}
+
+	.C-popup--horoscope-delete .Button--cancel span {
+		font-size: 1.2rem;
+		color: rgba(57, 56, 93, .5);
+		text-decoration: underline;
+	}
+
+}
