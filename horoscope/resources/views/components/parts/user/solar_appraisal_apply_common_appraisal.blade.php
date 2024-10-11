@@ -313,7 +313,7 @@
                             <dl class="C-appraisal-content-header-message">
                                 <dt class="C-appraisal-content-header-message__title">冥王星のサビアンシンボル</dt>
                                 <dd class="C-appraisal-content-header-message__text">
-                                　冥王星は一年をかけてホロスコープ上をわずかしか進まないため、ソーラーリターンでは、多くの人が同じ冥王星のサビアンシンボルを共有します。
+                                　冥王星は一年をかけてホロスコープ上をわずかしか進まないため、ソーラーリターンでは、多くの人が同じ冥王星のサビアンシンボルを共有します。そのため、より集合意識的な意味が強まります。とはいえ、あなたが深い部分で変えようとしていることや、手に入れようとしている力をあらわしていると考えて読んでみましょう。
                                 </dd>
                             </dl>
                         @endif
