@@ -111,7 +111,8 @@ class AppraisalClaimService
         ]);
 
         // apiリクエスト
-        $response = BookbindingUserApplyService::shippingBook($bookbindingUserApply, $dirName, $fileName);
+        $ftpDirName = config('services.seichoku.api_ftp_dir');
+        $response = BookbindingUserApplyService::shippingBook($bookbindingUserApply, $ftpDirName, $fileName);
         
         return $response;
     }
@@ -145,9 +146,10 @@ class AppraisalClaimService
             ]);
 
             // bulkShippingFileDataにデータを追加
+            $ftpDirName = config('services.seichoku.api_ftp_dir');
             $bulkShippingFileData[] = [
                 'fileName' => $fileName,
-                'dirName' => $dirName,
+                'dirName' => $ftpDirName,
             ];
 
             // 支払い状態を更新
