@@ -94,9 +94,10 @@ class BulkShippingBooks extends Command
                 ]);
         
                 // bulkShippingFileDataにデータを追加
+                $ftpDirName = config('services.seichoku.api_ftp_dir');
                 $bulkShippingFileData[] = [
                     'fileName' => $fileName,
-                    'dirName' => $dirName,
+                    'dirName' => $ftpDirName,
                 ];
             }
 

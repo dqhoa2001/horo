@@ -43,6 +43,7 @@ return [
         'access_key' => env('SEICHOKU_ACCESS_KEY'),
         'secret_key' => env('SEICHOKU_SECRET_KEY'),
         'ftp_dir' => env('SEICHOKU_FTP_DIR'),
+        'api_ftp_dir' => env('SEICHOKU_API_FTP_DIR'),
     ],
 
 ];
