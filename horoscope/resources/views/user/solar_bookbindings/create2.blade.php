@@ -44,7 +44,7 @@
                                 }
                             }
                         @endphp
-						@if ($personalSolarAppraisals->isNotEmpty() || !$empty)
+						@if ($personalSolarAppraisals->isNotEmpty() || $familySolarAppraisals->isNotEmpty())
 							<p class="C-form__message">下記フォームの<span class="C-form__message__req">必須項目</span>をご記入の上、ご購入ください。</p>
 							@if (Session::has('flash_alert'))
 								<p style="color: red; font-size: larger;">{{ Session::get('flash_alert') }}</p>
@@ -205,7 +205,7 @@
 																@include('components.form.text', [
 																'name' => "bookbinding_names1[$user->id]",
 																'placeholder' => 'Mai　/　山田',
-																// 'value' => $data['bookbinding_names1'] ?? ''
+																'value' => old("bookbinding_names1.$user->id") ?? ''
 																])
 															</div>
 															@include('components.form.error', ['name' => 'bookbinding_name1','class' => 'text-danger'])
@@ -216,7 +216,7 @@
 																@include('components.form.text', [
 																'name' => "bookbinding_names2[$user->id]",
 																'placeholder' => 'Kaibe　/　太郎',
-																// 'value' => $data['bookbinding_names2'] ?? ''
+																'value' => old("bookbinding_names2.$user->id") ?? ''
 																])
 															</div>
 															@include('components.form.error', ['name' => 'bookbinding_name2','class' => 'text-danger'])
@@ -315,7 +315,7 @@
 													    			@include('components.form.text', [
 													    			'name' => "bookbinding_names1[$familiesWithAppraisalApply->id]",
 													    			'placeholder' => 'Mai　/　山田',
-													    			// 'value' => $data['bookbinding_names1'] ?? ''
+													    			'value' => old("bookbinding_names1.$familiesWithAppraisalApply->id") ?? ''
 													    			])
 													    		</div>
 													    		@include('components.form.error', ['name' => 'bookbinding_name1','class' => 'text-danger'])
@@ -326,7 +326,7 @@
 													    			@include('components.form.text', [
 													    			'name' => "bookbinding_names2[$familiesWithAppraisalApply->id]",
 													    			'placeholder' => 'Kaibe　/　太郎',
-													    			// 'value' => $data['bookbinding_names2'] ?? ''
+													    			'value' => old("bookbinding_names2.$familiesWithAppraisalApply->id") ?? ''
 													    			])
 													    		</div>
 													    		@include('components.form.error', ['name' => 'bookbinding_name2','class' => 'text-danger'])
@@ -891,6 +891,30 @@ Vue.createApp({
 			bookbindingNameDom.style.display = 'block';
             solarAppraisalDom.style.display = 'block';
 		});
+
+		//get and check old value after redirect back
+		let checkedPerson = @json(old('person_ids', null));
+		let checkedSolarAppraisal = @json(old('select_appraisal_applies_id', null));
+		
+		if(checkedPerson != null){
+			// console.log('checkedPerson:', checkedPerson);
+			let checkboxes = checkedPerson.map(id => document.getElementById('checkbox' + id)); 
+			checkboxes.forEach(checkbox => {
+				if (checkbox) { 
+					checkbox.checked = true;
+
+					if(checkedSolarAppraisal != null){   //check old solar appraisal radio
+						// console.log('oldCheckSolarAppraisal', checkedSolarAppraisal);
+						let oldCheckRadio = checkedSolarAppraisal.map(id => document.getElementById('appraisal-' + id));
+						oldCheckRadio.forEach(oldCheckAppraisal => {
+							if(oldCheckAppraisal){
+								oldCheckAppraisal.checked = true;
+							}
+						});
+					}
+				}
+			});
+		}
 	}
 }).mount('#Bookbinding-appraisal');
 </script>

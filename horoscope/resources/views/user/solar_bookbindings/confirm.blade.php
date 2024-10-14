@@ -79,6 +79,9 @@
 							@endif
 							<input type="hidden" name="discount_price" value="{{ $data['discount_price'] ?? 0 }} ">
 							<input type="hidden" name="total_amount" value="{{ $data['total_amount'] }}">
+							@foreach($data['person_ids'] as $key => $personId)
+								<input type="hidden" name="person_ids[]" value="{{ $personId }}">
+							@endforeach
 
 							<div class="C-form-block__wrap">
 								<dl class="C-form-block C-form-block--name">
