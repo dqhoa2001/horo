@@ -371,6 +371,11 @@
                                     あなたの人生の目的を社会においてうまく発揮できるかどうか、社会でどのような困難にぶつかる可能性があるか、などといったことが太陽とのアスペクトから分かります。太陽の場合は、他の天体とのハードな配置を持っていても、乗り越えていく力や行動力が強いため、それを成長の糧にしていくことが可能です。
                                 </dd>
                             </dl>
+                            @if(($explain['SUN']['aspect_pattern'])->isEmpty())
+                                <div class="C-appraisal-message-aspect">
+                                    <span>この天体は他の天体との関わりがなく、天体の力をうまく発揮できないとされます。</span>
+                                </div>
+                            @endif
                         @endif
                         @if ($planet == 'MOON')
                             <dl class="C-appraisal-content-header-message">
@@ -380,6 +385,11 @@
                                     あなたが過酷な子ども時代を生きていたり、どうにも言えない生きにくさを抱えていたり、私生活に変化が多かったりする場合、他の天体からそのような影響を受けているからかもしれません。逆に、恵まれた子供時代であったり、暮らしの充足を感じられる場合もまた、他の天体からの影響かもしれません。<br>あなたの素質をよりよく生かすヒントや抱える困難の意味を知り、その克服に必要なことが月と他の天体とのアスペクトで理解できます。
                                 </dd>
                             </dl>
+                            @if(($explain['MOON']['aspect_pattern'])->isEmpty())
+                                <div class="C-appraisal-message-aspect">
+                                    <span>この天体は他の天体との関わりがなく、天体の力をうまく発揮できないとされます。</span>
+                                </div>
+                            @endif
                         @endif
                         @if ($planet == 'MERCURY')
                             <dl class="C-appraisal-content-header-message">
@@ -388,6 +398,11 @@
                                 <dd class="C-appraisal-content-header-message__text">
                                     あなたの知性がどう活かされるか、その発揮にどのような課題があるか、逆にどのような才能や個性を伴うか、といったことを、他の天体とのかかわりを理解することが出来ます。</dd>
                             </dl>
+                            @if(($explain['MERCURY']['aspect_pattern'])->isEmpty())
+                                <div class="C-appraisal-message-aspect">
+                                    <span>この天体は他の天体との関わりがなく、天体の力をうまく発揮できないとされます。</span>
+                                </div>
+                            @endif
                         @endif
                         @if ($planet == 'VENUS')
                             <dl class="C-appraisal-content-header-message">
@@ -397,6 +412,11 @@
                                     あなたの魅力や感性をうまく発揮できるか、もしくはそれが制限されやすいか、そしてあなたの魅力の独創性は…？といったことが他の天体とのアスペクトから理解できます。<br>恋愛運や金運もまた、金星が他の天体とうまく調和しているかどうかなどから判断することが出来ます。
                                 </dd>
                             </dl>
+                            @if(($explain['VENUS']['aspect_pattern'])->isEmpty())
+                                <div class="C-appraisal-message-aspect">
+                                    <span>この天体は他の天体との関わりがなく、天体の力をうまく発揮できないとされます。</span>
+                                </div>
+                            @endif
                         @endif
                         @if ($planet == 'MARS')
                             <dl class="C-appraisal-content-header-message">
@@ -405,6 +425,11 @@
                                 <dd class="C-appraisal-content-header-message__text">
                                     あなたが自分の野心をまっすぐに注ぎ達成することが出来るか、もしくは困難に多く突き当たるかといったことが他の天体とのかかわりからわかります。</dd>
                             </dl>
+                            @if(($explain['MARS']['aspect_pattern'])->isEmpty())
+                                <div class="C-appraisal-message-aspect">
+                                    <span>この天体は他の天体との関わりがなく、天体の力をうまく発揮できないとされます。</span>
+                                </div>
+                            @endif                            
                         @endif
                         @if ($planet == 'JUPITER')
                             <dl class="C-appraisal-content-header-message">
@@ -415,6 +440,11 @@
                                     　トランスサタニアンとのアスペクトは世代的な傾向でもあり、わりと漠然としたものとなりますが、参考にはなるでしょう。
                                 </dd>
                             </dl>
+                            @if(($explain['JUPITER']['aspect_pattern'])->isEmpty())
+                                <div class="C-appraisal-message-aspect">
+                                    <span>この天体は他の天体との関わりがなく、天体の力をうまく発揮できないとされます。</span>
+                                </div>
+                            @endif
                         @endif
                         @if ($planet == 'SATURN')
                             <dl class="C-appraisal-content-header-message">
@@ -424,6 +454,11 @@
                                     土星は他の天体とアスペクトすると、その天体の意味するテーマに制限をかけたり「苦手」にしてしまうことが多くなります。アスペクトがあればすでに出ている天体の箇所に記載済みです。天王星、海王星、冥王星とのアスペクトをお持ちの場合はここに記載されます。世代的な傾向ではありますが、社会生活の中で感じられる面も多いと思います。
                                 </dd>
                             </dl>
+                            @if(($explain['SATURN']['aspect_pattern'])->isEmpty())
+                                <div class="C-appraisal-message-aspect">
+                                    <span>この天体は他の天体との関わりがなく、天体の力をうまく発揮できないとされます。</span>
+                                </div>
+                            @endif
                         @endif
                         {{-- @if ($planet == 'CHIRON')
                             <dl class="C-appraisal-content-header-message">
@@ -433,11 +468,11 @@
                                     その他のアスペクトのテキストが入ります。その他のアスペクトのテキストが入ります。その他のアスペクトのテキストが入ります。その他のアスペクトのテキストが入ります。</dd>
                             </dl>
                         @endif --}}
-                        @if($planetExplain->get('aspect_pattern')->isEmpty())
+                        <!-- @if($planetExplain->get('aspect_pattern')->isEmpty())
                             <div class="C-appraisal-message-aspect">
                                 <span>この天体は他の天体との関わりがなく、天体の力をうまく発揮できないとされます。</span>
                             </div>
-                        @endif
+                        @endif -->
                     </div>
                 </div>
                 
