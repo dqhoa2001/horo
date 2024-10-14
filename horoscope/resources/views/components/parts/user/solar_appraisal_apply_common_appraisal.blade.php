@@ -146,7 +146,7 @@
                     @endswitch
 
 
-
+ 
 
                     {{-- @if ($planet == 'MOON')
                         <h3 class="C-appraisal-content-header__title fcolor2 mincho">幼児期から変わらない、<br class="pc">素のあなた。</h3>
@@ -361,6 +361,12 @@
                                     寧に読み解いて、自分がやりたいことと比較し、進むヒントにしてください。
                                 </dd>
                             </dl>
+                        
+                            @if(($explain['SUN']['aspect_pattern'])->isEmpty())
+                                <div class="C-appraisal-message-aspect">
+                                    <span>この天体は、他の天体とのかかわりがないため、この時期天体があらわすテーマをうまく発揮できない可能性があるとされます。他の天体との相乗効果がないだけで、上記の星座、サビアンシンボル、ハウスなどはいずれも該当いたします。</span>
+                                </div>
+                            @endif
                         @endif
                         @if ($planet == 'MOON')
                             <dl class="C-appraisal-content-header-message">
@@ -370,6 +376,11 @@
                                     暮らしそのものにストレスが多いか、楽しみや癒しが多いか、といったことは、月とのアスペクトにあらわれている場合が多くなります。
                                 </dd>
                             </dl>
+                            @if(($explain['MOON']['aspect_pattern'])->isEmpty())
+                                <div class="C-appraisal-message-aspect">
+                                    <span>この天体は、他の天体とのかかわりがないため、この時期天体があらわすテーマをうまく発揮できない可能性があるとされます。他の天体との相乗効果がないだけで、上記の星座、サビアンシンボル、ハウスなどはいずれも該当いたします。</span>
+                                </div>
+                            @endif
                         @endif
                         @if ($planet == 'MERCURY')
                             <dl class="C-appraisal-content-header-message">
@@ -380,6 +391,11 @@
 
                                 </dd>
                             </dl>
+                            @if(($explain['MERCURY']['aspect_pattern'])->isEmpty())
+                                <div class="C-appraisal-message-aspect">
+                                    <span>この天体は、他の天体とのかかわりがないため、この時期天体があらわすテーマをうまく発揮できない可能性があるとされます。他の天体との相乗効果がないだけで、上記の星座、サビアンシンボル、ハウスなどはいずれも該当いたします。</span>
+                                </div>
+                            @endif
                         @endif
                         @if ($planet == 'VENUS')
                             <dl class="C-appraisal-content-header-message">
@@ -389,6 +405,11 @@
                                     あなたの魅力や感性がうまく発揮されていきそうかが、他の天体とのかかわりから示されます。何らかの魅力や才能を獲得しやすいのか、逆に制限してしまうのか、感性が高まるのか、出会いが多いか、など、さまざまなことがここにあらわれます。
                                 </dd>
                             </dl>
+                            @if(($explain['VENUS']['aspect_pattern'])->isEmpty())
+                                <div class="C-appraisal-message-aspect">
+                                    <span>この天体は、他の天体とのかかわりがないため、この時期天体があらわすテーマをうまく発揮できない可能性があるとされます。他の天体との相乗効果がないだけで、上記の星座、サビアンシンボル、ハウスなどはいずれも該当いたします。</span>
+                                </div>
+                            @endif
                         @endif
                         @if ($planet == 'MARS')
                             <dl class="C-appraisal-content-header-message">
@@ -398,8 +419,15 @@
                                     他の天体とうまく連携して志を達成できるのか、それにどのような変化が起ここるのか、他の天体からの制限や制約があるのか、といったことがわかります。
                                 </dd>
                             </dl>
+                            @if(($explain['MARS']['aspect_pattern'])->isEmpty())
+                                <div class="C-appraisal-message-aspect">
+                                    <span>この天体は、他の天体とのかかわりがないため、この時期天体があらわすテーマをうまく発揮できない可能性があるとされます。他の天体との相乗効果がないだけで、上記の星座、サビアンシンボル、ハウスなどはいずれも該当いたします。</span>
+                                </div>
+                            @endif
                         @endif
+                        
                         @if ($planet == 'JUPITER')
+                          
                             <dl class="C-appraisal-content-header-message">
                                 <dt class="C-appraisal-content-header-message__title">アスペクト<br
                                         class="sp">（他の天体との関わりからわかること）</dt>
@@ -407,6 +435,11 @@
                                     木星と個人天体がかかわると、その天体の意味を拡大させ、幸運につながりますので、非常に重要です。記載済みのものも改めてご覧ください。また、ここに鑑定内容が記載される土星やトランスサタニアンとのアスペクトは時代的な意味が強まりますので、だれにとっても今がそういう時期なのだと理解しましょう。
                                 </dd>
                             </dl>
+                            @if(($explain['JUPITER']['aspect_pattern'])->isEmpty())
+                                <div class="C-appraisal-message-aspect">
+                                    <span>この天体は、他の天体とのかかわりがないため、この時期天体があらわすテーマをうまく発揮できない可能性があるとされます。他の天体との相乗効果がないだけで、上記の星座、サビアンシンボル、ハウスなどはいずれも該当いたします。</span>
+                                </div>
+                            @endif
                         @endif
                         @if ($planet == 'SATURN')
                             <dl class="C-appraisal-content-header-message">
@@ -416,6 +449,9 @@
                                     土星のアスペクトについては、月から木星とのかかわりがある場合には記載済みです。この項目に該当するアスペクトはありません。
                                 </dd>
                             </dl>
+                            <div class="C-appraisal-message-aspect">
+                                <span>この天体は、他の天体とのかかわりがないため、この時期天体があらわすテーマをうまく発揮できない可能性があるとされます。他の天体との相乗効果がないだけで、上記の星座、サビアンシンボル、ハウスなどはいずれも該当いたします。</span>
+                            </div>
                         @endif
                         {{-- @if ($planet == 'CHIRON')
                             <dl class="C-appraisal-content-header-message">
@@ -425,6 +461,11 @@
                                     その他のアスペクトのテキストが入ります。その他のアスペクトのテキストが入ります。その他のアスペクトのテキストが入ります。その他のアスペクトのテキストが入ります。</dd>
                             </dl>
                         @endif --}}
+                        <!-- @if($planetExplain->get('aspect_pattern')->isEmpty())
+                            <div class="C-appraisal-message-aspect">
+                                <span>この天体は、他の天体とのかかわりがないため、この時期天体があらわすテーマをうまく発揮できない可能性があるとされます。他の天体との相乗効果がないだけで、上記の星座、サビアンシンボル、ハウスなどはいずれも該当いたします。</span>
+                            </div>
+                        @endif -->
                     </div>
                 </div>
 
