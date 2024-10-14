@@ -3034,6 +3034,13 @@ print {
 	border-top: 1px solid #ccced5;
 }
 
+.C-appraisal-message-aspect {
+	position: relative;
+    display: flex;
+    justify-content: center;
+	bottom: 34px;
+}
+
 
 
 

@@ -433,9 +433,14 @@
                                     その他のアスペクトのテキストが入ります。その他のアスペクトのテキストが入ります。その他のアスペクトのテキストが入ります。その他のアスペクトのテキストが入ります。</dd>
                             </dl>
                         @endif --}}
+                        @if($planetExplain->get('aspect_pattern')->isEmpty())
+                            <div class="C-appraisal-message-aspect">
+                                <span>この天体は他の天体との関わりがなく、天体の力をうまく発揮できないとされます。</span>
+                            </div>
+                        @endif
                     </div>
                 </div>
-
+                
                 {{-- 他の天体との関わり --}}
                 <div class="C-appraisal-content-footer">
                     <div class="C-appraisal-content-footer__inner">
