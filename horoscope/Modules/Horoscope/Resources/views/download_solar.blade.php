@@ -289,7 +289,7 @@
                                 <p></p>
                             @endif
                         @else
-                            @if ($key < 2)
+                            @if ($key < 4)
                                 <div class="page-block--5__half">
                                     <p class="planet page-block--5__title icon-sign icon-sign" style="font-size: 16px !important">
                                          <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
@@ -368,9 +368,9 @@
     </div>
     {{-- @if ($explain->get('SUN')->get('aspect_pattern')->count() > 0 && $explain->get('SUN')->get('aspect_pattern')[2] !== null) --}}
     {{-- @if ($explain->get('SUN')->get('aspect_pattern')->count() > 0 && !empty($explain->get('SUN')->get('aspect_pattern')[2])) --}}
-    @if ($explain->get('SUN')->get('aspect_pattern')->forget([0,1])->values()->count() > 0)
+    @if ($explain->get('SUN')->get('aspect_pattern')->forget([0,1,2,3])->values()->count() > 0)
         @php
-            $items = $explain->get('SUN')->get('aspect_pattern')->forget([0,1])->values();
+            $items = $explain->get('SUN')->get('aspect_pattern')->forget([0,1,2,3])->values();
             $itemPairs = array_chunk($items->all(), 4);
         @endphp
         @foreach($itemPairs as $itemPair)
@@ -569,7 +569,7 @@
                                     <p></p>
                                 @endif
                             @else
-                                @if ($key <= 1)
+                                @if ($key < 4)
                                     <div class="page-block--5__half">
                                         <p class="planet page-block--5__title icon-sign icon-sign" style="font-size: 16px !important">
                                              <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
@@ -645,9 +645,9 @@
         <div class="page-break-before"></div>
         {{-- @if ($explain->get('MOON')->get('aspect_pattern')->count() > 0 && $explain->get('MOON')->get('aspect_pattern')[2] !== null) --}}
         {{-- @if ($explain->get('MOON')->get('aspect_pattern')->count() > 0 && !empty($explain->get('MOON')->get('aspect_pattern')[2])) --}}
-        @if ($explain->get('MOON')->get('aspect_pattern')->forget([0,1])->values()->count() > 0)
+        @if ($explain->get('MOON')->get('aspect_pattern')->forget([0,1,2,3])->values()->count() > 0)
             @php
-                $items = $explain->get('MOON')->get('aspect_pattern')->forget([0,1])->values();
+                $items = $explain->get('MOON')->get('aspect_pattern')->forget([0,1,2,3])->values();
                 $itemPairs = array_chunk($items->all(), 4);
             @endphp
             @foreach($itemPairs as $itemPair)
@@ -846,7 +846,7 @@
                                     <p></p>
                                 @endif
                             @else
-                                @if ($key <= 1)
+                                @if ($key < 4)
                                     <div class="page-block--5__half">
                                         <p class="planet page-block--5__title icon-sign icon-sign" style="font-size: 16px !important">
                                              <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
@@ -925,9 +925,9 @@
         </div>
         <div class="page-break-before"></div>
         {{-- @if ($explain->get('MERCURY')->get('aspect_pattern')->count() > 0 && $explain->get('MERCURY')->get('aspect_pattern')[2] !== null) --}}
-        @if ($explain->get('MERCURY')->get('aspect_pattern')->forget([0,1])->values()->count() > 0)
+        @if ($explain->get('MERCURY')->get('aspect_pattern')->forget([0,1,2,3])->values()->count() > 0)
             @php
-                $items = $explain->get('MERCURY')->get('aspect_pattern')->forget([0,1])->values();
+                $items = $explain->get('MERCURY')->get('aspect_pattern')->forget([0,1,2,3])->values();
                 $itemPairs = array_chunk($items->all(), 4);
             @endphp
             @foreach($itemPairs as $itemPair)
@@ -1125,7 +1125,7 @@
                                     <p></p>
                                 @endif
                             @else
-                                @if ($key < 2)
+                                @if ($key < 4)
                                     <div class="page-block--5__half">
                                         <p class="planet page-block--5__title icon-sign icon-sign" style="font-size: 16px !important">
                                              <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
@@ -1204,9 +1204,9 @@
         </div>
         {{-- @if ($explain->get('VENUS')->get('aspect_pattern')->count() > 0 && $explain->get('VENUS')->get('aspect_pattern')[2] !== null) --}}
         {{-- @if ($explain->get('VENUS')->get('aspect_pattern')->count() > 0 && !empty($explain->get('VENUS')->get('aspect_pattern')[2])) --}}
-        @if ($explain->get('VENUS')->get('aspect_pattern')->forget([0,1])->values()->count() > 0)
+        @if ($explain->get('VENUS')->get('aspect_pattern')->forget([0,1,2,3])->values()->count() > 0)
             @php
-                $items = $explain->get('VENUS')->get('aspect_pattern')->forget([0,1])->values();
+                $items = $explain->get('VENUS')->get('aspect_pattern')->forget([0,1,2,3])->values();
                 $itemPairs = array_chunk($items->all(), 4);
             @endphp
             @foreach($itemPairs as $itemPair)
@@ -1405,7 +1405,7 @@
                                     <p></p>
                                 @endif
                             @else
-                                @if ($key < 2)
+                                @if ($key < 4)
                                     <div class="page-block--5__half">
                                         <p class="planet page-block--5__title icon-sign icon-sign" style="font-size: 16px !important">
                                              <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
@@ -1483,9 +1483,9 @@
             </div>
         </div>
         {{-- @if ($explain->get('MARS')->get('aspect_pattern')->count() > 0 && $explain->get('MARS')->get('aspect_pattern')[2] !== null) --}}
-        @if ($explain->get('MARS')->get('aspect_pattern')->forget([0,1])->values()->count() > 0)
+        @if ($explain->get('MARS')->get('aspect_pattern')->forget([0,1,2,3])->values()->count() > 0)
             @php
-                $items = $explain->get('MARS')->get('aspect_pattern')->forget([0,1])->values();
+                $items = $explain->get('MARS')->get('aspect_pattern')->forget([0,1,2,3])->values();
                 $itemPairs = array_chunk($items->all(), 4);
             @endphp
             @foreach($itemPairs as $itemPair)
@@ -1688,7 +1688,7 @@
                                     <p></p>
                                 @endif
                             @else
-                                @if ($key < 2)
+                                @if ($key < 4)
                                     <div class="page-block--5__half">
                                         <p class="planet page-block--5__title icon-sign icon-sign" style="font-size: 16px !important">
                                              <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
@@ -1769,9 +1769,9 @@
         </div>
         {{-- @if ($explain->get('JUPITER')->get('aspect_pattern')->count() > 0 && $explain->get('JUPITER')->get('aspect_pattern')[2] !== null) --}}
         {{-- @if ($explain->get('JUPITER')->get('aspect_pattern')->count() > 0 && !empty($explain->get('JUPITER')->get('aspect_pattern')[2])) --}}
-        @if ($explain->get('JUPITER')->get('aspect_pattern')->forget([0,1])->values()->count() > 0)
+        @if ($explain->get('JUPITER')->get('aspect_pattern')->forget([0,1,2,3])->values()->count() > 0)
             @php
-                $items = $explain->get('JUPITER')->get('aspect_pattern')->forget([0,1])->values();
+                $items = $explain->get('JUPITER')->get('aspect_pattern')->forget([0,1,2,3])->values();
                 $itemPairs = array_chunk($items->all(), 4);
             @endphp
             @foreach($itemPairs as $itemPair)
