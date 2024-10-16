@@ -209,7 +209,7 @@
                         </div>
                     </div>
 
-                    <label for="content" class="form-label">@lang('form.content_solar_pattern')</label>
+                    <label for="content" class="form-label">@lang('form.content_solar_pattern')（最大：465文字）</label>
                     <div class="col-md-12 col-12">
                         <div class="form-floating mb-3">
                             @if (!empty(old()) && array_key_exists('content_solar', old()))
