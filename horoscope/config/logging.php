@@ -56,6 +56,7 @@ return [
             'driver' => 'stack',
             'channels' => ['daily', 'slack'],
             'ignore_exceptions' => false,
+            'tap' => [App\Logging\CustomizePermissions::class],
         ],
 
         'single' => [
