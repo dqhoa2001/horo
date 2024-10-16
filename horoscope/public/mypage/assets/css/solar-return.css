@@ -310,6 +310,12 @@
 .logo-banner {
     right: 30px;
 }
+.C-appraisal-message-aspect {
+	position: relative;
+    display: flex;
+    justify-content: center;
+	bottom: 30px;
+}
 
 /* 惑星マーク */
 .C-appraisal-content--MOON .C-appraisal-content-header-data__mark::before,
