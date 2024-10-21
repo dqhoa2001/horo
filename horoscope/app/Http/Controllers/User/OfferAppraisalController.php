@@ -142,6 +142,7 @@ class OfferAppraisalController extends Controller
                 }
                 // 請求データ作成
                 $appraisalClaim = AppraisalClaimService::createForCredit($user->id, $request, $appraisalApply, $bookbindingUserApplyId, $paymentIntent, $contentType);
+                \Mail::to($user->email)->send(new CompletePurchase($appraisalApply));
                 
                 \DB::commit();
             } catch (\Exception $e) {
@@ -195,7 +196,7 @@ class OfferAppraisalController extends Controller
         }
 
         \Mail::to($user->email)->send(new ThanksForAppraisal());
-        \Mail::to($user->email)->send(new CompletePurchase($appraisalApply));
+        // \Mail::to($user->email)->send(new CompletePurchase($appraisalApply));
         return to_route('user.offer_appraisals.thanks');
 
     }
