@@ -122,7 +122,7 @@ class UserController extends Controller
             }
             $appraisalClaim->save();
             
-            if ($appraisalClaim->is_paid && $appraisalClaim->content_type !== AppraisalClaim::BOOKING) {
+            if ($appraisalClaim->is_paid) {
                 \Mail::to($appraisalClaim->user->email)->send(new PayStatusChange($appraisalClaim));
             }
     

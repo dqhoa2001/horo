@@ -13,6 +13,7 @@ use App\Library\GetAppraisalRoute;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Models\AdminMail;
+use App\Models\AppraisalApply;
 use App\Models\BookbindingUserApply;
 
 class PayStatusChange extends Mailable implements ShouldQueue
@@ -40,6 +41,8 @@ class PayStatusChange extends Mailable implements ShouldQueue
 
     public array $bccMails;
 
+    public AppraisalApply $appraisalApply;
+
     /**
      * Create a new message instance.
      *
@@ -54,10 +57,11 @@ class PayStatusChange extends Mailable implements ShouldQueue
         $this->minnaBcc = ''; 
         $this->minnaBccArray = [];
         $this->bccMails = [];
+        $this->appraisalApply = $appraisalClaim->appraisalApply;
 
         if ($this->bookbindingUserApply) {
 
-            $this->template = Template::where('class_name', 'BookbindingUserApplySolarMailForBankComplete')->first();
+            $this->template = Template::where('class_name', ($this->appraisalApply->solar_return != 0) ? 'BookbindingUserApplySolarMailForBankComplete' : 'BookbindingUserApplyMailForBankComplete')->first();
             $this->footerTemplate = Template::where('class_name', 'footer')->first();
     
             $this->data = [
