@@ -206,10 +206,10 @@ class BookbindingController extends Controller
                     // 請求データ作成
                     AppraisalClaimService::createForCredit(auth()->guard('user')->user()->id, $request, $appraisalApply, $bookbindingUserApply->id, $paymentIntent, $contentType);
                     // 最後の申し込みの場合、メール送信
-                    dd($appraisalApply->id === $appraisalApplies->last()->id);
-                    if ($appraisalApply->id === $appraisalApplies->last()->id) {
-                        $sendmail = \Mail::to(auth()->guard('user')->user()->email)->send(new BookbindingUserApplyMailForCredit($bookbindingUserApply, auth()->guard('user')->user()));
-                    }
+                    // dd($appraisalApply->id === $appraisalApplies->last()->id);
+                    // if ($appraisalApply->id === $appraisalApplies->last()->id) {
+                    //     \Mail::to(auth()->guard('user')->user()->email)->send(new BookbindingUserApplyMailForCredit($bookbindingUserApply, auth()->guard('user')->user()));
+                    // }
                 }
 
                 \DB::commit();

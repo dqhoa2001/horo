@@ -40,9 +40,9 @@
                             ができます。よりよい一年とするためにぜひご活用ください。<br>
                             <br>
                             @if ($latestSolarAppraisalApply)
-                                ソーラーリターンについて詳しくは<a style="text-decoration: underline" href="{{route('user.solar_appraisals.show', $latestSolarAppraisalApply)}}">こちら</a>
+                                ソーラーリターンについて詳しくは<a style="text-decoration: underline" href="https://hoshinomai.jp/solar-return">こちら</a>
                             @else
-                                ソーラーリターンについて詳しくは<a style="text-decoration: underline" href="{{route('user.solar_appraisals.create')}}">こちら</a>
+                                ソーラーリターンについて詳しくは<a style="text-decoration: underline" href="https://hoshinomai.jp/solar-return">こちら</a>
                             @endif
                             <br>
                             <br>
