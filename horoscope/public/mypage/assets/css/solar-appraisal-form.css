@@ -263,7 +263,7 @@
 	}
 
     .C-form-block__radio-pdf-sr__text{
-        padding: 1.5rem 1.5rem 1rem 2.5rem;
+        padding: 1rem 0 1rem 0;
     }
     .C-form-block__radio-pdf-sr__text:nth-child(3n) {
         margin-top: 20px;
