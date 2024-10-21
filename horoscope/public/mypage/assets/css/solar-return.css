@@ -521,7 +521,7 @@
 
 	/*----- 個人鑑定詳細 */
     .C-appraisal-content-header-data__year{
-        border-top: 1px solid rgba(56,98,128,.5);
+        border-top: 1px solid rgb(241, 116, 36);
     }
 
     .C-appraisal-content-header__first-message{
