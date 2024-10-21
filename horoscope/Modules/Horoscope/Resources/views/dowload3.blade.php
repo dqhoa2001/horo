@@ -31,26 +31,58 @@
 </head>
 
 <body>
+    @php
+        $totalLength = [];
+        $sunAspectFirstPage = [];
+        $moonAspectFirstPage = [];
+        $mercuryAspectFirstPage = [];
+        $venusAspectFirstPage = [];
+        $marsAspectFirstPage = [];
+        $jupiterAspectFirstPage = [];
+        $saturnAspectFirstPage = [];
+        $planets = $explain->keys();
+        $sortAspect =[];
+
+        foreach ($planets as $planet) {
+            $aspectPattern = $explain->get($planet)->get('aspect_pattern')->sortByDesc(function ($item) {
+                return mb_strlen($item->content ?? '', 'UTF-8');
+            })->values();
+            $sortAspect[$planet] = $aspectPattern;
+            $explain->get($planet)->put('aspect_pattern', $aspectPattern);
+
+            $contentSolarLengths = []; 
+            foreach ($aspectPattern as $key => $item) {
+                $contentSolarLengths[$key] = mb_strlen($item->content ?? '', 'UTF-8');
+            }
+            $totalLength[$planet]['key01'] = array_sum(array_slice($contentSolarLengths, 0, 2));
+            $totalLength[$planet]['key23'] = array_sum(array_slice($contentSolarLengths, 2, 2));
+
+            $length[$planet] = array_slice($contentSolarLengths, 0, 4);
+        }
+    @endphp
     <div class="basewidth">
         @php
             $page = 1;
         @endphp
-        <div class="page page0" style="position: relative">
+        <div class="page page0">
 			<div class="page__inner">
 				<div class="page0-header">
+					<p class="page0-header__logo">
+                        <img src="{{ public_path('/assets/images/logo1.svg') }}" alt="HOSI NO MAI">
+                    </p>
+					<p class="page0-header__name">HOSHI NO MAI</p>
+					<p class="page0-header__name"></p>
 					<p class="page0-header__catchcopy handfont1">
-                        {{-- <img src="{{ public_path('/assets/images/cathcopy3.svg') }}" alt="Know the universe , Live your life"> --}}
+                        {{-- <img src="{{ public_path('/assets/images/cathcopy1.svg') }}" alt="Know the universe , Live your life"> --}}
+                        <img src="{{ public_path('/assets/images/Know〜.png') }}" alt="Know the universe , Live your life">
                     </p>
 				</div>
 				<div class="page0-pdftitle">
-                    {{-- <img src="{{ public_path('/assets/images/logo_text3.svg') }}" alt="STELLAR BLUEPRINT"> --}}
+                    <img src="{{ public_path('/assets/images/logo_text1.svg') }}" alt="STELLAR BLUEPRINT">
                 </div>
-				<p class="page0-header__logo">
-                    {{-- <img src="{{ public_path('/assets/images/logo3.svg') }}" alt="HOSI NO MAI"> --}}
-                </p>
 				<div class="page0-footer">
-					{{-- <p class="page0-footer__text">Blueprint of</p> --}}
-					<p class="page0-footer__text"></p>
+					<p class="page0-footer__text">Blueprint of</p>
+					{{-- <p class="page0-footer__text"></p> --}}
                     <p class="page0-footer__name">{{ $formData['bookbinding_name'] }}</p>
 				</div>
 			</div>
@@ -61,9 +93,7 @@
 				<div class="page01-header">
 					<p class="page01-header__logo"><img src="{{ public_path('/assets/images/logo1.svg') }}" alt="HOSI NO MAI"></p>
 					<p class="page01-header__name">HOSHI NO MAI</p>
-					<p class="page01-header__catchcopy handfont1">
-                        <img src="{{ public_path('/assets/images/Know〜.png') }}" alt="Know the universe , Live your life">
-                    </p>
+					<p class="page01-header__catchcopy handfont1"><img src="{{ public_path('/assets/images/Know〜.png') }}" alt="Know the universe , Live your life"></p>
 				</div>
 				<div class="page01-pdftitle"><img src="{{ public_path('/assets/images/logo_text1.svg') }}" alt="STELLAR BLUEPRINT"></div>
 				<div class="page01-footer">
@@ -72,6 +102,7 @@
 				</div>
 			</div>
 		</div>
+        <div class="page-break-before"></div>
         <div class="page page1 page--bg page--number page--number_right" data-pageno="">
             <div class="page__inner">
                 {{-- <p class="page1__title">As above, so below.</p> --}}
@@ -429,6 +460,14 @@
                     </p>
                 </div>
 
+                @php 
+                    $moonHouse = mb_strlen($explain->get('MOON')->get('house_pattern')->content ?? '', 'UTF-8');
+                    $key2 = mb_strlen($explain['MOON']['aspect_pattern'][2]->content ?? '', 'UTF-8');
+                    $key3 = mb_strlen($explain['MOON']['aspect_pattern'][3]->content ?? '', 'UTF-8');
+                    $moonKey01 = $totalLength['MOON']['key01'];
+                    $moonKey23 = $totalLength['MOON']['key23'];
+                @endphp
+
                 <div class="page-block page-block--5">
                     {{-- @if (!$explain->get('MOON')->get('aspect_pattern')->isNotEmpty())
                         <p class="page__text">
@@ -446,7 +485,27 @@
                                     <p></p>
                                 @endif
                             @else
-                                @if ($key <= 1)
+                                @php
+                                    switch (true) {
+                                        case $moonKey01 > 300 && $moonKey01 <350:
+                                            $show = ($moonHouse<160) ? ($moonKey23 < 280 ? 4 : 3) : ($moonKey23 < 50 ? 4 : 3);
+                                            break;
+
+                                        case $moonKey01 > 250 && $moonKey01 < 300 :
+                                            $show = ($moonHouse<160) ? ($moonKey23 < 180 ? 4 : 3) : ($moonKey23 < 150 ? 4 : 3);
+                                            break;
+
+                                        case $moonKey01 > 350 && $moonKey01 <650:
+                                            $show = ($moonHouse<160) ? ( $key2 < 120 ? 3 : 2) : ($key2 < 50 ? 3 : 2);
+                                            break;
+
+                                        case $moonKey01 < 50:
+                                            $show = ($moonHouse<160) ? ($moonKey23 < 371 && $key2 > 150 ? 4 : 3) : ($moonKey23 < 50 ? 4 : 3);
+                                            break;
+                                    }
+                                @endphp
+
+                                @if ($key < $show)
                                     <div class="page-block--5__half">
                                         <p class="planet page-block--5__title icon-sign icon-sign" style="font-size: 16px !important">
                                              <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
@@ -508,6 +567,7 @@
                                         </p>
                                         <p class="page__text">{!! nl2br($item->content) !!}</p>
                                     </div>
+                                    @php $moonAspectFirstPage[] = $key; @endphp
                                 @endif
                             @endif
                         @endforeach
@@ -522,10 +582,15 @@
         <div class="page-break-before"></div>
         {{-- @if ($explain->get('MOON')->get('aspect_pattern')->count() > 0 && $explain->get('MOON')->get('aspect_pattern')[2] !== null) --}}
         {{-- @if ($explain->get('MOON')->get('aspect_pattern')->count() > 0 && !empty($explain->get('MOON')->get('aspect_pattern')[2])) --}}
-        @if ($explain->get('MOON')->get('aspect_pattern')->forget([0,1])->values()->count() > 0)
+        @if ($explain->get('MOON')->get('aspect_pattern')->forget($moonAspectFirstPage)->values()->count() > 0)
             @php
-                $items = $explain->get('MOON')->get('aspect_pattern')->forget([0,1])->values();
-                $itemPairs = array_chunk($items->all(), 4);
+                $length = 0;         
+                $items = $explain->get('MOON')->get('aspect_pattern')->forget($moonAspectFirstPage)->values();
+                foreach($items as $item){
+                    $length+= mb_strlen($item->content ?? '','UTF-8'); 
+                }
+                $showPage2 = ($length <= 900) ? 5 : 4;
+                $itemPairs = array_chunk($items->all(), $showPage2);
             @endphp
             @foreach($itemPairs as $itemPair)
             @if ($itemPair[0] !== null)
@@ -706,6 +771,15 @@
                         <span>あなたの知性がどう活かされるか、その発揮にどのような課題があるか、逆にどのような才能や個性を伴うか、といったことを、他の天体とのかかわりから理解することが出来ます。</span>
                     </p>
                 </div>
+
+                @php 
+                    $mercuryHouse = mb_strlen($explain->get('MERCURY')->get('house_pattern')->content ?? '', 'UTF-8');
+                    $key2 = mb_strlen($explain['MERCURY']['aspect_pattern'][2]->content ?? '', 'UTF-8');
+                    $key3 = mb_strlen($explain['MERCURY']['aspect_pattern'][3]->content ?? '', 'UTF-8');
+                    $mercuryKey01 = $totalLength['MERCURY']['key01'];
+                    $mercuryKey23 = $totalLength['MERCURY']['key23'];
+                @endphp
+
                 <div class="page-block page-block--5">
                     {{-- @if (!$explain->get('MERCURY')->get('aspect_pattern')->isNotEmpty())
                         <p class="page__text">
@@ -723,7 +797,27 @@
                                     <p></p>
                                 @endif
                             @else
-                                @if ($key <= 1)
+                                @php
+                                    switch (true) {
+                                        case $mercuryKey01 > 300 && $mercuryKey01 <350:
+                                            $show = ($mercuryHouse<160) ? ($mercuryKey23 < 280 ? 4 : 3) : ($mercuryKey23 < 50 ? 4 : 3);
+                                            break;
+
+                                        case $mercuryKey01 > 250 && $mercuryKey01 < 300 :
+                                            $show = ($mercuryHouse<160) ? ($mercuryKey23 < 180 ? 4 : 3) : ($mercuryKey23 < 150 ? 4 : 3);
+                                            break;
+
+                                        case $mercuryKey01 > 50:
+                                            $show = ($mercuryHouse<160) ? ($mercuryKey23 < 371 && $key2 > 150 ? 4 : 3) : ($mercuryKey23 < 50 ? 4 : 3);
+                                            break;
+
+                                        case $mercuryKey01 < 50:
+                                            $show = ($mercuryHouse<160) ? ($mercuryKey23 < 371 && $key2 > 150 ? 4 : 3) : ($mercuryKey23 < 50 ? 4 : 3);
+                                            break;
+                                    }
+                                @endphp
+
+                                @if ($key < $show)
                                     <div class="page-block--5__half">
                                         <p class="planet page-block--5__title icon-sign icon-sign" style="font-size: 16px !important">
                                              <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
@@ -789,6 +883,7 @@
                                         </p>
                                         <p class="page__text">{!! nl2br($item->content) !!}</p>
                                     </div>
+                                    @php $mercuryAspectFirstPage[] = $key; @endphp
                                 @endif
                             @endif
                         @endforeach
@@ -801,11 +896,15 @@
             </div>
         </div>
         <div class="page-break-before"></div>
-        {{-- @if ($explain->get('MERCURY')->get('aspect_pattern')->count() > 0 && $explain->get('MERCURY')->get('aspect_pattern')[2] !== null) --}}
-        @if ($explain->get('MERCURY')->get('aspect_pattern')->forget([0,1])->values()->count() > 0)
+        {{-- @if ($explain->get('MERCURY')->get('aspect_pattern')->count() > 0 && $explain->get('MERCURY')->get('aspect_pattern')[2] !== null)) --}}
+        @if ($explain->get('MERCURY')->get('aspect_pattern')->forget($mercuryAspectFirstPage)->values()->count() > 0)
             @php
-                $items = $explain->get('MERCURY')->get('aspect_pattern')->forget([0,1])->values();
-                $itemPairs = array_chunk($items->all(), 4);
+                $items = $explain->get('MERCURY')->get('aspect_pattern')->forget($mercuryAspectFirstPage)->values();
+                foreach($items as $item){
+                    $length+= mb_strlen($item->content ?? '','UTF-8'); 
+                }
+                $showPage2 = ($length <= 900) ? 5 : 4;
+                $itemPairs = array_chunk($items->all(), $showPage2);
             @endphp
             @foreach($itemPairs as $itemPair)
             @if ($itemPair[0] !== null)
@@ -827,7 +926,7 @@
                                 @else
                                     {{-- @if ($key >= 2) --}}
                                         {{-- <div class="page-block--5__half"> --}}
-                                            <div class="page-block--5__half @if ($key >= 2) flex-margin-top @endif">
+                                            <div class="page-block--5__half">
                                             <p class="planet page-block--5__title icon-sign icon-sign" style="font-size: 16px !important">
                                                  <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
                                                     
@@ -986,6 +1085,15 @@
                         <span>恋愛運や金運もまた、金星が他の天体とうまく調和しているかどうかで判断することが出来ます。</span>
                     </p>
                 </div>
+
+                @php 
+                    $venusHouse = mb_strlen($explain->get('VENUS')->get('house_pattern')->content ?? '', 'UTF-8');
+                    $key2 = mb_strlen($explain['VENUS']['aspect_pattern'][2]->content ?? '', 'UTF-8');
+                    $key3 = mb_strlen($explain['VENUS']['aspect_pattern'][3]->content ?? '', 'UTF-8');
+                    $venusKey01 = $totalLength['VENUS']['key01'];
+                    $venusKey23 = $totalLength['VENUS']['key23'];
+                @endphp
+
                 <div class="page-block page-block--5">
                     {{-- @if (!$explain->get('VENUS')->get('aspect_pattern')->isNotEmpty())
                         <p class="page__text">
@@ -1003,7 +1111,28 @@
                                     <p></p>
                                 @endif
                             @else
-                                @if ($key < 2)
+
+                                @php
+                                    switch (true) {
+                                        case $venusKey01 > 300 && $venusKey01 < 350:
+                                            $show = ($venusHouse<160) ? ($venusKey23 < 280 ? 4 : 3) : ($venusKey23 < 50 ? 4 : 3);
+                                            break;
+
+                                        case $venusKey01 > 250 && $venusKey01 < 300:
+                                            $show = ($venusHouse<160) ? ($venusKey23 < 180 ? 4 : 3) : ($venusKey23 < 150 ? 4 : 3);
+                                            break;
+
+                                        case $venusKey01 > 50:
+                                            $show = ($venusHouse<160) ? ($venusKey23 < 371 && $key2 > 150 ? 4 : 3) : ($venusKey23 < 50 ? 4 : 3);
+                                            break;
+
+                                        case $venusKey01 < 50:
+                                            $show = ($venusHouse<160) ? ($venusKey23 < 371 && $key2 > 150 ? 4 : 3) : ($venusKey23 < 50 ? 4 : 3);
+                                            break;
+                                    }
+                                @endphp
+
+                                @if ($key < $show)
                                     <div class="page-block--5__half">
                                         <p class="planet page-block--5__title icon-sign icon-sign" style="font-size: 16px !important">
                                              <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
@@ -1069,6 +1198,7 @@
                                         </p>
                                         <p class="page__text">{!! nl2br($item->content) !!}</p>
                                     </div>
+                                    @php $venusAspectFirstPage[] = $key; @endphp
                                 @endif
                             @endif
                         @endforeach
@@ -1082,10 +1212,14 @@
         </div>
         {{-- @if ($explain->get('VENUS')->get('aspect_pattern')->count() > 0 && $explain->get('VENUS')->get('aspect_pattern')[2] !== null) --}}
         {{-- @if ($explain->get('VENUS')->get('aspect_pattern')->count() > 0 && !empty($explain->get('VENUS')->get('aspect_pattern')[2])) --}}
-        @if ($explain->get('VENUS')->get('aspect_pattern')->forget([0,1])->values()->count() > 0)
+        @if ($explain->get('VENUS')->get('aspect_pattern')->forget($venusAspectFirstPage)->values()->count() > 0)
             @php
-                $items = $explain->get('VENUS')->get('aspect_pattern')->forget([0,1])->values();
-                $itemPairs = array_chunk($items->all(), 4);
+                $items = $explain->get('VENUS')->get('aspect_pattern')->forget($venusAspectFirstPage)->values();
+                foreach($items as $item){
+                    $length+= mb_strlen($item->content ?? '','UTF-8'); 
+                }
+                $showPage2 = ($length <= 900) ? 5 : 4;
+                $itemPairs = array_chunk($items->all(), $showPage2);
             @endphp
             @foreach($itemPairs as $itemPair)
             @if ($itemPair[0] !== null)
@@ -1107,7 +1241,7 @@
                                 @else
                                     {{-- @if ($key >= 2) --}}
                                         {{-- <div class="page-block--5__half"> --}}
-                                            <div class="page-block--5__half @if ($key >= 2) flex-margin-top @endif">
+                                            <div class="page-block--5__half">
                                             <p class="planet page-block--5__title icon-sign icon-sign" style="font-size: 16px !important">
                                                  <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
                                                     
@@ -1265,6 +1399,15 @@
                         <span>あなたの人生の目的を社会においてうまく発揮できるかどうか、社会でどのような困難にぶつかる可能性があるか、などといったことが太陽とのアスペクトから分かります。太陽の場合は、他の天体とのハードな配置を持っていても、乗り越えていく力や行動力が強いため、それを成長の糧にしていくことが可能です。</span>
                     </p>
                 </div>
+
+                @php 
+                    $sunHouse = mb_strlen($explain->get('SUN')->get('house_pattern')->content ?? '', 'UTF-8');
+                    $key2 = mb_strlen($explain['SUN']['aspect_pattern'][2]->content ?? '', 'UTF-8');
+                    $key3 = mb_strlen($explain['SUN']['aspect_pattern'][3]->content ?? '', 'UTF-8');
+                    $sunKey01 = $totalLength['SUN']['key01'];
+                    $sunKey23 = $totalLength['SUN']['key23'];
+                @endphp
+
                 <div class="page-block page-block--5">
                     {{-- @if (!$explain->get('SUN')->get('aspect_pattern')->isNotEmpty())
                         <p class="page__text">
@@ -1282,7 +1425,27 @@
                                     <p></p>
                                 @endif
                             @else
-                                @if ($key < 2)
+                                @php
+                                    switch (true) {
+                                        case $sunKey01 > 300 && $sunKey01 < 350:
+                                            $show = ($sunHouse<160) ? ($sunKey23 < 280 ? 4 : 3) : ($sunKey23 < 50 ? 4 : 3);
+                                            break;
+
+                                        case $sunKey01 > 250 && $sunKey01 < 300:
+                                            $show = ($sunHouse<160) ? ($sunKey23 < 180 ? 4 : 3) : ($sunKey23 < 150 ? 4 : 3);
+                                            break;
+
+                                        case $sunKey01 > 50:
+                                            $show = ($sunHouse<160) ? ($sunKey23 < 371 && $key2 > 150 ? 4 : 3) : ($sunKey23 < 50 ? 4 : 3);
+                                            break;
+
+                                        case $sunKey01 < 50:
+                                            $show = ($sunHouse<160) ? ($sunKey23 < 371 && $key2 > 150 ? 4 : 3) : ($sunKey23 < 50 ? 4 : 3);
+                                            break;
+                                    }
+                                @endphp
+
+                                @if ($key < $show)
                                     <div class="page-block--5__half">
                                         <p class="planet page-block--5__title icon-sign icon-sign" style="font-size: 16px !important">
                                              <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
@@ -1348,6 +1511,7 @@
                                         </p>
                                         <p class="page__text">{!! nl2br($item->content) !!}</p>
                                     </div>
+                                    @php $sunAspectFirstPage[] = $key; @endphp
                                 @endif
                             @endif
                         @endforeach
@@ -1361,10 +1525,14 @@
         </div>
         {{-- @if ($explain->get('SUN')->get('aspect_pattern')->count() > 0 && $explain->get('SUN')->get('aspect_pattern')[2] !== null) --}}
         {{-- @if ($explain->get('SUN')->get('aspect_pattern')->count() > 0 && !empty($explain->get('SUN')->get('aspect_pattern')[2])) --}}
-        @if ($explain->get('SUN')->get('aspect_pattern')->forget([0,1])->values()->count() > 0)
+        @if ($explain->get('SUN')->get('aspect_pattern')->forget($sunAspectFirstPage)->values()->count() > 0)
             @php
-                $items = $explain->get('SUN')->get('aspect_pattern')->forget([0,1])->values();
-                $itemPairs = array_chunk($items->all(), 4);
+                $items = $explain->get('SUN')->get('aspect_pattern')->forget($sunAspectFirstPage)->values();
+                foreach($items as $item){
+                    $length+= mb_strlen($item->content ?? '','UTF-8'); 
+                }
+                $showPage2 = ($length <= 900) ? 5 : 4;
+                $itemPairs = array_chunk($items->all(), $showPage2);
             @endphp
             @foreach($itemPairs as $itemPair)
             @if ($itemPair[0] !== null)
@@ -1386,7 +1554,7 @@
                                 @else
                                     {{-- @if ($key >= 2) --}}
                                         {{-- <div class="page-block--5__half"> --}}
-                                            <div class="page-block--5__half @if ($key >= 2) flex-margin-top @endif">
+                                            <div class="page-block--5__half">
                                             <p class="planet page-block--5__title icon-sign icon-sign" style="font-size: 16px !important">
                                                  <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
                                                     
@@ -1543,6 +1711,15 @@
                         <span>あなたが自分の野心をまっすぐに注ぎ達成することが出来るか、もしくは困難に多く突き当たるかといったことが他の天体とのかかわりからわかります。</span>
                     </p>
                 </div>
+
+                @php 
+                    $marsHouse = mb_strlen($explain->get('MARS')->get('house_pattern')->content ?? '', 'UTF-8');
+                    $key2 = mb_strlen($explain['MARS']['aspect_pattern'][2]->content ?? '', 'UTF-8');
+                    $key3 = mb_strlen($explain['MARS']['aspect_pattern'][3]->content ?? '', 'UTF-8');
+                    $marsKey01 = $totalLength['MARS']['key01'];
+                    $marsKey23 = $totalLength['MARS']['key23'];
+                @endphp
+
                 <div class="page-block page-block--5">
                     {{-- @if (!$explain->get('MARS')->get('aspect_pattern')->isNotEmpty())
                         <p class="page__text">
@@ -1560,7 +1737,32 @@
                                     <p></p>
                                 @endif
                             @else
-                                @if ($key < 2)
+                                @php
+                                    switch (true) {
+                                        /*case $length <250 && $marsHouse <300:
+                                            $show = 5;
+                                            break;*/
+                                        case $marsKey01 > 300 && $marsKey01 <350:
+                                            $show = ($marsHouse<160) ? ($marsKey23 < 280 ? 4 : 3) : ($marsKey23 < 50 ? 4 : 3);
+                                            break;
+
+                                        case $marsKey01 > 250 && $marsKey01 < 300 :
+                                            $show = ($marsHouse<160) ? ($marsKey23 < 180 ? 4 : 3) : ($marsKey23 < 150 ? 4 : 3);
+                                            break;
+                                        case $marsKey01 < 250 && $marsKey01 > 50 :
+                                            $show = ($marsHouse<160) ? ($marsKey23 < 150 ? 4 : 3) : ($marsKey23 < 150 ? 4 : 3);
+                                            break;
+                                        case $marsKey01 > 50:
+                                            $show = ($marsHouse<160) ? ($marsKey23 < 371 && $key2 > 150 ? 4 : 3) : ($marsKey23 < 50 ? 4 : 3);
+                                            break;
+
+                                        case $marsKey01 < 50:
+                                            $show = ($marsHouse<160) ? ($marsKey23 < 371 && $key2 > 150 ? 4 : 3) : ($marsKey23 < 50 ? 4 : 3);
+                                            break;
+                                    }
+                                @endphp
+
+                                @if ($key < $show)
                                     <div class="page-block--5__half">
                                         <p class="planet page-block--5__title icon-sign icon-sign" style="font-size: 16px !important">
                                              <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
@@ -1626,6 +1828,7 @@
                                         </p>
                                         <p class="page__text">{!! nl2br($item->content) !!}</p>
                                     </div>
+                                    @php $marsAspectFirstPage[] = $key; @endphp
                                 @endif
                             @endif
                         @endforeach
@@ -1638,10 +1841,15 @@
             </div>
         </div>
         {{-- @if ($explain->get('MARS')->get('aspect_pattern')->count() > 0 && $explain->get('MARS')->get('aspect_pattern')[2] !== null) --}}
-        @if ($explain->get('MARS')->get('aspect_pattern')->forget([0,1])->values()->count() > 0)
+        {{-- @if ($explain->get('MARS')->get('aspect_pattern')->count() > 0 && !empty($explain->get('MARS')->get('aspect_pattern')[2])) --}}
+        @if ($explain->get('MARS')->get('aspect_pattern')->forget($marsAspectFirstPage)->values()->count() > 0)
             @php
-                $items = $explain->get('MARS')->get('aspect_pattern')->forget([0,1])->values();
-                $itemPairs = array_chunk($items->all(), 4);
+                $items = $explain->get('MARS')->get('aspect_pattern')->forget($marsAspectFirstPage)->values();
+                foreach($items as $item){
+                    $length+= mb_strlen($item->content ?? '','UTF-8'); 
+                }
+                $showPage2 = ($length <= 900) ? 5 : 4;
+                $itemPairs = array_chunk($items->all(), $showPage2);
             @endphp
             @foreach($itemPairs as $itemPair)
             @if ($itemPair[0] !== null)
@@ -1663,7 +1871,7 @@
                                 @else
                                     {{-- @if ($key >= 2) --}}
                                         {{-- <div class="page-block--5__half"> --}}
-                                            <div class="page-block--5__half @if ($key >= 2) flex-margin-top @endif">
+                                            <div class="page-block--5__half">
                                             <p class="planet page-block--5__title icon-sign icon-sign" style="font-size: 16px !important">
                                                  <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
                                                     
@@ -1822,6 +2030,19 @@
                             　トランスサタニアンとのアスペクトは世代的な傾向でもあり、わりと漠然としたものとなりますが、参考にはなるでしょう。</span>
                     </p>
                 </div>
+
+                @php 
+                    $jupiterHouse = mb_strlen($explain->get('JUPITER')->get('house_pattern')->content ?? '', 'UTF-8');
+                    $key2 = mb_strlen($explain['JUPITER']['aspect_pattern'][2]->content ?? '', 'UTF-8');
+                    $key3 = mb_strlen($explain['JUPITER']['aspect_pattern'][3]->content ?? '', 'UTF-8');
+                    $jupiterKey01 = $totalLength['JUPITER']['key01'];
+                    $jupiterKey23 = $totalLength['JUPITER']['key23'];
+                    $length = 0;
+                    foreach($explain['JUPITER']['aspect_pattern'] as $item){
+                        $length+= mb_strlen($item->content ?? '','UTF-8'); 
+                    }
+                @endphp
+                
                 <div class="page-block page-block--5">
                     {{-- @if (!$explain->get('JUPITER')->get('aspect_pattern')->isNotEmpty())
                         <p class="page__text">
@@ -1839,7 +2060,33 @@
                                     <p></p>
                                 @endif
                             @else
-                                @if ($key < 2)
+
+                                @php
+                                    switch (true) {
+                                        /*case $length <250 && $jupiterHouse <300:
+                                            $show = 5;
+                                            break;*/
+                                        case $jupiterKey01 > 300 && $jupiterKey01 <350:
+                                            $show = ($jupiterHouse<160) ? ($jupiterKey23 < 280 ? 4 : 3) : ($jupiterKey23 < 50 ? 4 : 3);
+                                            break;
+
+                                        case $jupiterKey01 > 250 && $jupiterKey01 < 300 :
+                                            $show = ($jupiterHouse<160) ? ($jupiterKey23 < 180 ? 4 : 3) : ($jupiterKey23 < 150 ? 4 : 3);
+                                            break;
+                                        case $jupiterKey01 < 250 && $jupiterKey01 > 50 :
+                                            $show = ($jupiterHouse<160) ? ($jupiterKey23 < 150 ? 4 : 3) : ($jupiterKey23 < 150 ? 4 : 3);
+                                            break;
+                                        case $jupiterKey01 > 50:
+                                            $show = ($jupiterHouse<160) ? ($jupiterKey23 < 371 && $key2 > 150 ? 4 : 3) : ($jupiterKey23 < 50 ? 4 : 3);
+                                            break;
+
+                                        case $jupiterKey01 < 50:
+                                            $show = ($jupiterHouse<160) ? ($jupiterKey23 < 371 && $key2 > 150 ? 4 : 3) : ($jupiterKey23 < 50 ? 4 : 3);
+                                            break;
+                                    }
+                                @endphp
+
+                                @if ($key < $show)
                                     <div class="page-block--5__half">
                                         <p class="planet page-block--5__title icon-sign icon-sign" style="font-size: 16px !important">
                                              <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
@@ -1907,6 +2154,7 @@
                                         </p>
                                         <p class="page__text">{!! nl2br($item->content) !!}</p>
                                     </div>
+                                    @php $jupiterAspectFirstPage[] = $key; @endphp
                                 @endif
                             @endif
                         @endforeach
@@ -1920,10 +2168,15 @@
         </div>
         {{-- @if ($explain->get('JUPITER')->get('aspect_pattern')->count() > 0 && $explain->get('JUPITER')->get('aspect_pattern')[2] !== null) --}}
         {{-- @if ($explain->get('JUPITER')->get('aspect_pattern')->count() > 0 && !empty($explain->get('JUPITER')->get('aspect_pattern')[2])) --}}
-        @if ($explain->get('JUPITER')->get('aspect_pattern')->forget([0,1])->values()->count() > 0)
+        @if ($explain->get('JUPITER')->get('aspect_pattern')->forget($jupiterAspectFirstPage)->values()->count() > 0)
             @php
-                $items = $explain->get('JUPITER')->get('aspect_pattern')->forget([0,1])->values();
-                $itemPairs = array_chunk($items->all(), 4);
+                $items = $explain->get('JUPITER')->get('aspect_pattern')->forget($jupiterAspectFirstPage)->values();
+                foreach($items as $item){
+                    $length+= mb_strlen($item->content ?? '','UTF-8'); 
+                }
+                $showPage2 = ($length <= 900) ? 5 : 4;
+                $itemPairs = array_chunk($items->all(), $showPage2);
+                //$itemPairs = array_chunk($items->all(), 4);
             @endphp
             @foreach($itemPairs as $itemPair)
             @if ($itemPair[0] !== null)
@@ -1945,7 +2198,7 @@
                                 @else
                                     {{-- @if ($key >= 2) --}}
                                         {{-- <div class="page-block--5__half"> --}}
-                                            <div class="page-block--5__half @if ($key >= 2) flex-margin-top @endif">
+                                        <div class="page-block--5__half">
                                             <p class="planet page-block--5__title icon-sign icon-sign" style="font-size: 16px !important">
                                                  <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
                                                     
@@ -2107,6 +2360,19 @@
                         <span>土星は他の天体とアスペクトすると、その天体の意味するテーマに制限をかけたり「苦手」にしてしまうことが多くなります。アスペクトがあればすでに出ている天体の箇所に記載済みです。天王星、海王星、冥王星とのアスペクトをお持ちの場合はここに記載されます。世代的な傾向ではありますが、社会生活の中で感じられる面も多いと思います。</span>
                     </p>
                 </div>
+
+                @php 
+                    $saturnHouse = mb_strlen($explain->get('SATURN')->get('house_pattern')->content ?? '', 'UTF-8');
+                    $key2 = mb_strlen($explain['SATURN']['aspect_pattern'][2]->content ?? '', 'UTF-8');
+                    $key3 = mb_strlen($explain['SATURN']['aspect_pattern'][3]->content ?? '', 'UTF-8');
+                    $saturnKey01 = $totalLength['SATURN']['key01'];
+                    $saturnKey23 = $totalLength['SATURN']['key23'];
+                    $length = 0;
+                    foreach($explain['SATURN']['aspect_pattern'] as $item){
+                        $length+= mb_strlen($item->content ?? '','UTF-8'); 
+                    }
+                @endphp
+
                 <div class="page-block page-block--5">
                     {{-- @if (!$explain->get('SATURN')->get('aspect_pattern')->isNotEmpty())
                         <p class="page__text">
@@ -2124,7 +2390,32 @@
                                     <p></p>
                                 @endif
                             @else
-                                @if ($key < 2)
+                                @php
+                                    switch (true) {
+                                        /*case $length <250 && $saturnHouse <300:
+                                            $show = 5;
+                                            break;*/
+                                        case $saturnKey01 > 300 && $saturnKey01 <350:
+                                            $show = ($saturnHouse<160) ? ($saturnKey23 < 280 ? 4 : 3) : ($saturnKey23 < 50 ? 4 : 3);
+                                            break;
+
+                                        case $saturnKey01 > 250 && $saturnKey01 < 300 :
+                                            $show = ($saturnHouse<160) ? ($saturnKey23 < 180 ? 4 : 3) : ($saturnKey23 < 150 ? 4 : 3);
+                                            break;
+                                        case $saturnKey01 < 250 && $saturnKey01 > 50 :
+                                            $show = ($saturnHouse<160) ? ($saturnKey23 < 150 ? 4 : 3) : ($saturnKey23 < 150 ? 4 : 3);
+                                            break;
+                                        case $saturnKey01 > 50:
+                                            $show = ($saturnHouse<160) ? ($saturnKey23 < 371 && $key2 > 150 ? 4 : 3) : ($saturnKey23 < 50 ? 4 : 3);
+                                            break;
+
+                                        case $saturnKey01 < 50:
+                                            $show = ($saturnHouse<160) ? ($saturnKey23 < 371 && $key2 > 150 ? 4 : 3) : ($saturnKey23 < 50 ? 4 : 3);
+                                            break;
+                                    }
+                                @endphp
+
+                                @if ($key < $show)
                                     <div class="page-block--5__half">
                                         <p class="planet page-block--5__title icon-sign icon-sign" style="font-size: 16px !important">
                                              <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
@@ -2192,6 +2483,7 @@
                                         </p>
                                         <p class="page__text">{!! nl2br($item->content) !!}</p>
                                     </div>
+                                    @php $saturnAspectFirstPage[] = $key; @endphp
                                 @endif
                             @endif
                         @endforeach
@@ -2205,10 +2497,15 @@
         </div>
         {{-- @if ($explain->get('SATURN')->get('aspect_pattern')->count() > 2 && $explain->get('SATURN')->get('aspect_pattern')[2] !== null) --}}
         {{-- @if ($explain->get('SATURN')->get('aspect_pattern')->count() > 2 && !empty($explain->get('SATURN')->get('aspect_pattern')[2])) --}}
-        @if ($explain->get('SATURN')->get('aspect_pattern')->forget([0,1])->values()->count() > 0)
+        @if ($explain->get('SATURN')->get('aspect_pattern')->forget($saturnAspectFirstPage)->values()->count() > 0)
             @php
-                $items = $explain->get('SATURN')->get('aspect_pattern')->forget([0,1])->values();
-                $itemPairs = array_chunk($items->all(), 4);
+                $items = $explain->get('SATURN')->get('aspect_pattern')->forget($saturnAspectFirstPage)->values();
+                foreach($items as $item){
+                    $length+= mb_strlen($item->content ?? '','UTF-8'); 
+                }
+                $showPage2 = ($length <= 900) ? 5 : 4;
+                $itemPairs = array_chunk($items->all(), $showPage2);
+                //$itemPairs = array_chunk($items->all(), 4);
             @endphp
             @foreach($itemPairs as $itemPair)
             @if ($itemPair[0] !== null)
@@ -2230,7 +2527,7 @@
                                 @else
                                     {{-- @if ($key >= 2) --}}
                                         {{-- <div class="page-block--5__half"> --}}
-                                            <div class="page-block--5__half @if ($key >= 2) flex-margin-top @endif">
+                                        <div class="page-block--5__half">
                                             <p class="planet page-block--5__title icon-sign icon-sign" style="font-size: 16px !important">
                                                  <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
                                                     
