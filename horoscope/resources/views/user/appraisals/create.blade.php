@@ -359,7 +359,7 @@
                                             </dl>
                                             <dl class="C-form-block-child C-form-block--hasbutton C-form-block--couponno on" v-else>
                                                 <input type="hidden" name="discount_price" placeholder="0000" v-model="discountPrice" onkeypress="return event.charCode >= 48 && event.charCode <= 57"><span
-                                                    class="C-form-block--couponno__tag">円</span>
+                                                    class="C-form-block--couponno__tag" v-if="false">円</span>
                                             </dl>
                                         </dd>
                                     </dl>
