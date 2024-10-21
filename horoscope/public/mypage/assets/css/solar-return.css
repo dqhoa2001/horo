@@ -310,6 +310,12 @@
 .logo-banner {
     right: 30px;
 }
+.C-appraisal-message-aspect {
+	position: relative;
+    display: flex;
+    justify-content: center;
+	bottom: 30px;
+}
 
 /* 惑星マーク */
 .C-appraisal-content--MOON .C-appraisal-content-header-data__mark::before,
@@ -515,7 +521,7 @@
 
 	/*----- 個人鑑定詳細 */
     .C-appraisal-content-header-data__year{
-        border-top: 1px solid rgba(56,98,128,.5);
+        border-top: 1px solid rgb(241, 116, 36);
     }
 
     .C-appraisal-content-header__first-message{

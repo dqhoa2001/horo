@@ -19,6 +19,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Library\GetBccMail;
 use App\Library\GetPrefNum;
 use App\Mail\User\BookbindingBankInfoMailForBankSolar;
+use App\Mail\User\BookbindingUserApplyMailForCredit;
 use App\Mail\User\BookbindingUserApplySolarMailForBank;
 use App\Models\BankInfo;
 use App\Models\AppraisalApply;
@@ -172,6 +173,10 @@ class SolarBookbindingController extends Controller
 
                     // 請求データ作成
                     AppraisalClaimService::createForCredit(auth()->guard('user')->user()->id, $request, $solarAppraisalApply, $bookbindingUserSolarApply->id, $paymentIntent, $contentType);
+                    // dd($solarAppraisalApply->id === $solarAppraisalApply->last()->id);
+                    if ($solarAppraisalApply->id === $solarAppraisalApply->last()->id) {
+                        \Mail::to(auth()->guard('user')->user()->email)->send(new BookbindingUserApplyMailForCredit($bookbindingUserApply, auth()->guard('user')->user()));
+                    }
                 }
 
                 \DB::commit();

@@ -31,6 +31,35 @@
 </head>
 
 <body>
+    @php
+        $totalLength = [];
+        $sunAspectFirstPage = [];
+        $moonAspectFirstPage = [];
+        $mercuryAspectFirstPage = [];
+        $venusAspectFirstPage = [];
+        $marsAspectFirstPage = [];
+        $jupiterAspectFirstPage = [];
+        $planets = $explain->keys();
+        $sortAspect =[];
+
+        foreach ($planets as $planet) {
+            $aspectPattern = $explain->get($planet)->get('aspect_pattern')->sortByDesc(function ($item) {
+                return mb_strlen($item->content_solar ?? '', 'UTF-8');
+            })->values();
+            $sortAspect[$planet] = $aspectPattern;
+            $explain->get($planet)->put('aspect_pattern', $aspectPattern);
+
+            $contentSolarLengths = []; 
+            foreach ($aspectPattern as $key => $item) {
+                $contentSolarLengths[$key] = mb_strlen($item->content_solar ?? '', 'UTF-8');
+            }
+            $totalLength[$planet]['key01'] = array_sum(array_slice($contentSolarLengths, 0, 2));
+            $totalLength[$planet]['key23'] = array_sum(array_slice($contentSolarLengths, 2, 2));
+
+            $length[$planet] = array_slice($contentSolarLengths, 0, 4);
+        }
+    @endphp
+    {{--@dd($maxLengths['SUN']['key01MaxLength'], $maxLengths['SUN']['key23MaxLength'], $maxLengths)--}}
     <div class="basewidth">
         @php
             $page = 1;
@@ -272,12 +301,15 @@
                     <span> 太陽が他の天体とどうかかわっているかがこの一年を読み解く重要なカギになります。一つひとつ丁寧に読み解いて、自分がやりたいことと比較し、進むヒントにしてください。</span>
                 </p>
             </div>
+
+            @php 
+                $sunHouse = mb_strlen($explain->get('SUN')->get('house_pattern')->content_solar ?? '', 'UTF-8');
+                $key2 = mb_strlen($explain['SUN']['aspect_pattern'][2]->content_solar ?? '', 'UTF-8');
+                $key3 = mb_strlen($explain['SUN']['aspect_pattern'][3]->content_solar ?? '', 'UTF-8');
+                $sunKey01 = $totalLength['SUN']['key01'];
+                $sunKey23 = $totalLength['SUN']['key23'];
+            @endphp
             <div class="page-block page-block--5">
-                {{-- @if (!$explain->get('SUN')->get('aspect_pattern')->isNotEmpty())
-                    <p class="page__text">
-                        <span>この天体は他の天体との関わりがなく、天体の力をうまく発揮できないとされます。</span>
-                    </p>
-                @endif --}}
                 @if ($explain->get('SUN')->get('aspect_pattern')->isNotEmpty())
                     @foreach ($explain->get('SUN')->get('aspect_pattern') as $key => $item)
                         @if (is_null($item))
@@ -287,90 +319,112 @@
                                 </p>
                             @else
                                 <p></p>
-                            @endif
+                            @endif 
                         @else
-                            @if ($key < 2)
+                            @php
+                                switch (true) {
+                                    case $sunKey01 > 300 && $sunKey01 <350:
+                                        $show = ($sunHouse<160) ? ($sunKey23 < 280 ? 4 : 3) : ($sunKey23 < 50 ? 4 : 3);
+                                        break;
+
+                                    case $sunKey01 > 250 && $sunKey01 < 300 :
+                                        $show = ($sunHouse<160) ? ($sunKey23 < 180 ? 4 : 3) : ($sunKey23 < 150 ? 4 : 3);
+                                        break;
+
+                                    case $sunKey01 > 50:
+                                        $show = ($sunHouse<160) ? ($sunKey23 < 371 && $key2 > 150 ? 4 : 3) : ($sunKey23 < 50 ? 4 : 3);
+                                        break;
+
+                                    case $sunKey01 < 50:
+                                        $show = ($sunHouse<160) ? ($sunKey23 < 371 && $key2 > 150 ? 4 : 3) : ($sunKey23 < 50 ? 4 : 3);
+                                        break;
+                                }
+                            @endphp
+
+                            @if ($key < $show)
                                 <div class="page-block--5__half">
                                     <p class="planet page-block--5__title icon-sign icon-sign" style="font-size: 16px !important">
-                                         <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
+                                    <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
 
-                                            <svg xmlns:dc="http://purl.org/dc/elements/1.1/"
-                                                xmlns:cc="http://creativecommons.org/ns#"
-                                                xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-                                                xmlns:svg="http://www.w3.org/2000/svg"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-                                                xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-                                               width="12px" height="12px" viewBox="0 0 12 12" version="1.1"
-                                                id="svg9" sodipodi:docname="Pallas_symbol_(fixed_width).svg"
-                                                inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
+                                                <svg xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                    xmlns:cc="http://creativecommons.org/ns#"
+                                                    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                                                    xmlns:svg="http://www.w3.org/2000/svg"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+                                                    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+                                                width="12px" height="12px" viewBox="0 0 12 12"
+                                                    version="1.1" id="svg9"
+                                                    sodipodi:docname="Pallas_symbol_(fixed_width).svg"
+                                                    inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
                                                 style="margin-left: 5px ; margin-right: 5px">
-                                                <metadata id="metadata15">
-                                                    <rdf:RDF>
-                                                        <cc:Work rdf:about="">
-                                                            <dc:format>image/svg+xml</dc:format>
-                                                            <dc:type
-                                                                rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-                                                        </cc:Work>
-                                                    </rdf:RDF>
-                                                </metadata>
-                                                <defs id="defs13" />
-                                                <sodipodi:namedview pagecolor="#ffffff" bordercolor="#666666"
-                                                    borderopacity="1" objecttolerance="10" gridtolerance="10"
-                                                    guidetolerance="10" inkscape:pageopacity="0"
-                                                    inkscape:pageshadow="2" inkscape:window-width="1920"
-                                                    inkscape:window-height="1015" id="namedview11"
-                                                    showgrid="false" inkscape:zoom="29.5" inkscape:cx="7.5762712"
-                                                    inkscape:cy="5.9661012" inkscape:window-x="0"
-                                                    inkscape:window-y="0" inkscape:window-maximized="1"
-                                                    inkscape:current-layer="svg9" />
-                                                <path inkscape:connector-curvature="0" id="path4-3"
-                                                    d="M 11.00025,6 H 0.99975"
-                                                    style="fill:none;stroke: #BFB685;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-                                                    sodipodi:nodetypes="cc" />
-                                                <path inkscape:connector-curvature="0" id="path4-3-6-27-9"
-                                                    d="m 6.0000002,6.0000001 2.499937,4.3300179"
-                                                    style="fill:none;stroke: #BFB685;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-                                                    sodipodi:nodetypes="cc" />
-                                                <path inkscape:connector-curvature="0" id="path4-3-6-27-3"
-                                                    d="M 3.5000629,1.6699816 5.9999993,5.9999992"
-                                                    style="fill:none;stroke: #BFB685;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-                                                    sodipodi:nodetypes="cc" />
-                                                <path inkscape:connector-curvature="0" id="path4-3-6-1-6"
-                                                    d="M 8.4999375,1.6699816 6.0000005,5.9999999"
-                                                    style="fill:none;stroke: #BFB685;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-                                                    sodipodi:nodetypes="cc" />
-                                                <path inkscape:connector-curvature="0" id="path4-3-6-1-0"
-                                                    d="M 5.9999995,6.0000002 3.5000625,10.330018"
-                                                    style="fill:none;stroke: #BFB685;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-                                                    sodipodi:nodetypes="cc" />
-                                            </svg>
+                                                    <metadata id="metadata15">
+                                                        <rdf:RDF>
+                                                            <cc:Work rdf:about="">
+                                                                <dc:format>image/svg+xml</dc:format>
+                                                                <dc:type
+                                                                    rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+                                                            </cc:Work>
+                                                        </rdf:RDF>
+                                                    </metadata>
+                                                    <defs id="defs13" />
+                                                    <sodipodi:namedview pagecolor="#ffffff" bordercolor="#666666"
+                                                        borderopacity="1" objecttolerance="10" gridtolerance="10"
+                                                        guidetolerance="10" inkscape:pageopacity="0"
+                                                        inkscape:pageshadow="2" inkscape:window-width="1920"
+                                                        inkscape:window-height="1015" id="namedview11"
+                                                        showgrid="false" inkscape:zoom="29.5"
+                                                        inkscape:cx="7.5762712" inkscape:cy="5.9661012"
+                                                        inkscape:window-x="0" inkscape:window-y="0"
+                                                        inkscape:window-maximized="1"
+                                                        inkscape:current-layer="svg9" />
+                                                    <path inkscape:connector-curvature="0" id="path4-3"
+                                                        d="M 11.00025,6 H 0.99975"
+                                                        style="fill:none;stroke: #C08E9E;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+                                                        sodipodi:nodetypes="cc" />
+                                                    <path inkscape:connector-curvature="0" id="path4-3-6-27-9"
+                                                        d="m 6.0000002,6.0000001 2.499937,4.3300179"
+                                                        style="fill:none;stroke: #C08E9E;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+                                                        sodipodi:nodetypes="cc" />
+                                                    <path inkscape:connector-curvature="0" id="path4-3-6-27-3"
+                                                        d="M 3.5000629,1.6699816 5.9999993,5.9999992"
+                                                        style="fill:none;stroke: #C08E9E;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+                                                        sodipodi:nodetypes="cc" />
+                                                    <path inkscape:connector-curvature="0" id="path4-3-6-1-6"
+                                                        d="M 8.4999375,1.6699816 6.0000005,5.9999999"
+                                                        style="fill:none;stroke: #C08E9E;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+                                                        sodipodi:nodetypes="cc" />
+                                                    <path inkscape:connector-curvature="0" id="path4-3-6-1-0"
+                                                        d="M 5.9999995,6.0000002 3.5000625,10.330018"
+                                                        style="fill:none;stroke: #C08E9E;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+                                                        sodipodi:nodetypes="cc" />
+                                                </svg>
 
-                                        @else
+                                                @else
 
-                                            <span style="font-size: 12px">{{ $item->aspect->symbol }}</span>
+                                                <span style="font-size: 12px">{{ $item->aspect->symbol }}</span>
 
-                                        @endif
-                                        <span>{{ $item->toPlanet->symbol }}</span>
+                                                @endif
+                                                <span>{{ $item->toPlanet->symbol }}</span>
                                     </p>
                                     <p class="page__text">{!! nl2br($item->content_solar) !!}</p>
                                 </div>
+                                @php $sunAspectFirstPage[] = $key; @endphp
                             @endif
                         @endif
                     @endforeach
                 @else
                     <p class="page__text">
-                        <span>この天体は、他の天体とのかかわりがないため、この時期天体があらわすテーマをうまく発揮できない可能性があるとされます。他の天体との相乗効果がないだけで、上記の星座、サビアンシンボル、ハウスなどはいずれも該当いたします。</span>
+                        <span>この天体は他の天体との関わりがなく、天体の力をうまく発揮できないとされます。</span>
                     </p>
                 @endif
             </div>
         </div>
     </div>
-    {{-- @if ($explain->get('SUN')->get('aspect_pattern')->count() > 0 && $explain->get('SUN')->get('aspect_pattern')[2] !== null) --}}
-    {{-- @if ($explain->get('SUN')->get('aspect_pattern')->count() > 0 && !empty($explain->get('SUN')->get('aspect_pattern')[2])) --}}
-    @if ($explain->get('SUN')->get('aspect_pattern')->forget([0,1])->values()->count() > 0)
+    <!-- check item -->
+    @if ($explain->get('SUN')->get('aspect_pattern')->forget($sunAspectFirstPage)->values()->count() > 0)
         @php
-            $items = $explain->get('SUN')->get('aspect_pattern')->forget([0,1])->values();
+            $items = $explain->get('SUN')->get('aspect_pattern')->forget($sunAspectFirstPage)->values();
             $itemPairs = array_chunk($items->all(), 4);
         @endphp
         @foreach($itemPairs as $itemPair)
@@ -393,7 +447,7 @@
                             @else
                                 {{-- @if ($key >= 2) --}}
                                     {{-- <div class="page-block--5__half"> --}}
-                                        <div class="page-block--5__half @if ($key >= 2) flex-margin-top @endif">
+                                        <div class="page-block--5__half">
                                         <p class="planet page-block--5__title icon-sign icon-sign" style="font-size: 16px !important">
                                              <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
 
@@ -552,12 +606,15 @@
                     </p>
                 </div>
 
+                @php 
+                    $moonHouse = mb_strlen($explain->get('MOON')->get('house_pattern')->content_solar ?? '', 'UTF-8');
+                    $key2 = mb_strlen($explain['MOON']['aspect_pattern'][2]->content_solar ?? '', 'UTF-8');
+                    $key3 = mb_strlen($explain['MOON']['aspect_pattern'][3]->content_solar ?? '', 'UTF-8');
+                    $moonKey01 = $totalLength['MOON']['key01'];
+                    $moonKey23 = $totalLength['MOON']['key23'];
+                @endphp
+
                 <div class="page-block page-block--5">
-                    {{-- @if (!$explain->get('MOON')->get('aspect_pattern')->isNotEmpty())
-                        <p class="page__text">
-                            <span>この天体は他の天体との関わりがなく、天体の力をうまく発揮できないとされます。</span>
-                        </p>
-                    @endif --}}
                     @if ($explain->get('MOON')->get('aspect_pattern')->isNotEmpty())
                         @foreach ($explain->get('MOON')->get('aspect_pattern') as $key => $item)
                             @if (is_null($item))
@@ -567,87 +624,114 @@
                                     </p>
                                 @else
                                     <p></p>
-                                @endif
+                                @endif 
                             @else
-                                @if ($key <= 1)
+                                @php
+                                    switch (true) {
+                                        case $moonKey01 > 300 && $moonKey01 < 350:
+                                            $show = ($moonHouse<160) ? ($moonKey23 < 280 ? 4 : 3) : ($moonKey23 < 50 ? 4 : 3);
+                                            break;
+
+                                        case $moonKey01 > 250 && $moonKey01 < 300:
+                                            $show = ($moonHouse<160) ? ($moonKey23 < 180 ? 4 : 3) : ($moonKey23 < 150 ? 4 : 3);
+                                            break;
+
+                                        case $moonKey01 > 50:
+                                            $show = ($moonHouse<160) ? ($moonKey23 < 371 && $key2 > 150 ? 4 : 3) : ($moonKey23 < 50 ? 4 : 3);
+                                            break;
+
+                                        case $moonKey01 < 50:
+                                            $show = ($moonHouse<160) ? ($moonKey23 < 371 && $key2 > 150 ? 4 : 3) : ($moonKey23 < 50 ? 4 : 3);
+                                            break;
+                                    }
+                                @endphp
+
+                                @if ($key < $show)
                                     <div class="page-block--5__half">
                                         <p class="planet page-block--5__title icon-sign icon-sign" style="font-size: 16px !important">
-                                             <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
-                                                <svg xmlns:dc="http://purl.org/dc/elements/1.1/"
-                                                    xmlns:cc="http://creativecommons.org/ns#"
-                                                    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-                                                    xmlns:svg="http://www.w3.org/2000/svg"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-                                                    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-                                                    width="12px" height="12px" viewBox="0 0 12 12" version="1.1"
-                                                    id="svg9" sodipodi:docname="Pallas_symbol_(fixed_width).svg"
-                                                    inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
-                                                    style="margin-left: 5px ; margin-right: 5px">
-                                                    <metadata id="metadata15">
-                                                        <rdf:RDF>
-                                                            <cc:Work rdf:about="">
-                                                                <dc:format>image/svg+xml</dc:format>
-                                                                <dc:type
-                                                                    rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-                                                            </cc:Work>
-                                                        </rdf:RDF>
-                                                    </metadata>
-                                                    <defs id="defs13" />
-                                                    <sodipodi:namedview pagecolor="#ffffff" bordercolor="#666666"
-                                                        borderopacity="1" objecttolerance="10" gridtolerance="10"
-                                                        guidetolerance="10" inkscape:pageopacity="0"
-                                                        inkscape:pageshadow="2" inkscape:window-width="1920"
-                                                        inkscape:window-height="1015" id="namedview11"
-                                                        showgrid="false" inkscape:zoom="29.5" inkscape:cx="7.5762712"
-                                                        inkscape:cy="5.9661012" inkscape:window-x="0"
-                                                        inkscape:window-y="0" inkscape:window-maximized="1"
-                                                        inkscape:current-layer="svg9" />
-                                                    <path inkscape:connector-curvature="0" id="path4-3"
-                                                        d="M 11.00025,6 H 0.99975"
-                                                        style="fill:none;stroke: #748F9F;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-                                                        sodipodi:nodetypes="cc" />
-                                                    <path inkscape:connector-curvature="0" id="path4-3-6-27-9"
-                                                        d="m 6.0000002,6.0000001 2.499937,4.3300179"
-                                                        style="fill:none;stroke: #748F9F;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-                                                        sodipodi:nodetypes="cc" />
-                                                    <path inkscape:connector-curvature="0" id="path4-3-6-27-3"
-                                                        d="M 3.5000629,1.6699816 5.9999993,5.9999992"
-                                                        style="fill:none;stroke: #748F9F;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-                                                        sodipodi:nodetypes="cc" />
-                                                    <path inkscape:connector-curvature="0" id="path4-3-6-1-6"
-                                                        d="M 8.4999375,1.6699816 6.0000005,5.9999999"
-                                                        style="fill:none;stroke: #748F9F;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-                                                        sodipodi:nodetypes="cc" />
-                                                    <path inkscape:connector-curvature="0" id="path4-3-6-1-0"
-                                                        d="M 5.9999995,6.0000002 3.5000625,10.330018"
-                                                        style="fill:none;stroke: #748F9F;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-                                                        sodipodi:nodetypes="cc" />
-                                                </svg>
+                                        <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
+
+                                            <svg xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                xmlns:cc="http://creativecommons.org/ns#"
+                                                xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                                                xmlns:svg="http://www.w3.org/2000/svg"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+                                                xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+                                            width="12px" height="12px" viewBox="0 0 12 12"
+                                                version="1.1" id="svg9"
+                                                sodipodi:docname="Pallas_symbol_(fixed_width).svg"
+                                                inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
+                                            style="margin-left: 5px ; margin-right: 5px">
+                                                <metadata id="metadata15">
+                                                    <rdf:RDF>
+                                                        <cc:Work rdf:about="">
+                                                            <dc:format>image/svg+xml</dc:format>
+                                                            <dc:type
+                                                                rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+                                                        </cc:Work>
+                                                    </rdf:RDF>
+                                                </metadata>
+                                                <defs id="defs13" />
+                                                <sodipodi:namedview pagecolor="#ffffff" bordercolor="#666666"
+                                                    borderopacity="1" objecttolerance="10" gridtolerance="10"
+                                                    guidetolerance="10" inkscape:pageopacity="0"
+                                                    inkscape:pageshadow="2" inkscape:window-width="1920"
+                                                    inkscape:window-height="1015" id="namedview11"
+                                                    showgrid="false" inkscape:zoom="29.5"
+                                                    inkscape:cx="7.5762712" inkscape:cy="5.9661012"
+                                                    inkscape:window-x="0" inkscape:window-y="0"
+                                                    inkscape:window-maximized="1"
+                                                    inkscape:current-layer="svg9" />
+                                                <path inkscape:connector-curvature="0" id="path4-3"
+                                                    d="M 11.00025,6 H 0.99975"
+                                                    style="fill:none;stroke: #C08E9E;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+                                                    sodipodi:nodetypes="cc" />
+                                                <path inkscape:connector-curvature="0" id="path4-3-6-27-9"
+                                                    d="m 6.0000002,6.0000001 2.499937,4.3300179"
+                                                    style="fill:none;stroke: #C08E9E;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+                                                    sodipodi:nodetypes="cc" />
+                                                <path inkscape:connector-curvature="0" id="path4-3-6-27-3"
+                                                    d="M 3.5000629,1.6699816 5.9999993,5.9999992"
+                                                    style="fill:none;stroke: #C08E9E;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+                                                    sodipodi:nodetypes="cc" />
+                                                <path inkscape:connector-curvature="0" id="path4-3-6-1-6"
+                                                    d="M 8.4999375,1.6699816 6.0000005,5.9999999"
+                                                    style="fill:none;stroke: #C08E9E;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+                                                    sodipodi:nodetypes="cc" />
+                                                <path inkscape:connector-curvature="0" id="path4-3-6-1-0"
+                                                    d="M 5.9999995,6.0000002 3.5000625,10.330018"
+                                                    style="fill:none;stroke: #C08E9E;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+                                                    sodipodi:nodetypes="cc" />
+                                            </svg>
+
                                             @else
-                                                <span style="font-size: 12px">{{ $item->aspect->symbol }}</span>
+
+                                            <span style="font-size: 12px">{{ $item->aspect->symbol }}</span>
+
                                             @endif
                                             <span>{{ $item->toPlanet->symbol }}</span>
                                         </p>
                                         <p class="page__text">{!! nl2br($item->content_solar) !!}</p>
                                     </div>
+                                    @php $moonAspectFirstPage[] = $key; @endphp
                                 @endif
                             @endif
                         @endforeach
                     @else
                         <p class="page__text">
-                            <span>この天体は、他の天体とのかかわりがないため、この時期天体があらわすテーマをうまく発揮できない可能性があるとされます。他の天体との相乗効果がないだけで、上記の星座、サビアンシンボル、ハウスなどはいずれも該当いたします。</span>
+                            <span>この天体は他の天体との関わりがなく、天体の力をうまく発揮できないとされます。</span>
                         </p>
                     @endif
-                </div>
+                </div>                           
             </div>
         </div>
         <div class="page-break-before"></div>
         {{-- @if ($explain->get('MOON')->get('aspect_pattern')->count() > 0 && $explain->get('MOON')->get('aspect_pattern')[2] !== null) --}}
         {{-- @if ($explain->get('MOON')->get('aspect_pattern')->count() > 0 && !empty($explain->get('MOON')->get('aspect_pattern')[2])) --}}
-        @if ($explain->get('MOON')->get('aspect_pattern')->forget([0,1])->values()->count() > 0)
+        @if ($explain->get('MOON')->get('aspect_pattern')->forget($moonAspectFirstPage)->values()->count() > 0)
             @php
-                $items = $explain->get('MOON')->get('aspect_pattern')->forget([0,1])->values();
+                $items = $explain->get('MOON')->get('aspect_pattern')->forget($moonAspectFirstPage)->values();
                 $itemPairs = array_chunk($items->all(), 4);
             @endphp
             @foreach($itemPairs as $itemPair)
@@ -670,7 +754,7 @@
                                 @else
                                     {{-- @if ($key >= 2) --}}
                                         {{-- <div class="page-block--5__half"> --}}
-                                            <div class="page-block--5__half @if ($key >= 2) flex-margin-top @endif">
+                                            <div class="page-block--5__half">
                                             <p class="planet page-block--5__title icon-sign icon-sign" style="font-size: 16px !important">
                                                  <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
 
@@ -829,12 +913,15 @@
                         <span> 言葉を用いたコミュニケーションや発信、情報の伝達などがどうなりそうか、どのように発揮され、活かされるかが示されています。</span>
                     </p>
                 </div>
+                @php 
+                    $mercuryHouse = mb_strlen($explain->get('MERCURY')->get('house_pattern')->content_solar ?? '', 'UTF-8');
+                    $key2 = mb_strlen($explain['MERCURY']['aspect_pattern'][2]->content_solar ?? '', 'UTF-8');
+                    $key3 = mb_strlen($explain['MERCURY']['aspect_pattern'][3]->content_solar ?? '', 'UTF-8');
+                    $mercuryKey01 = $totalLength['MERCURY']['key01'];
+                    $mercuryKey23 = $totalLength['MERCURY']['key23'];
+                @endphp
+
                 <div class="page-block page-block--5">
-                    {{-- @if (!$explain->get('MERCURY')->get('aspect_pattern')->isNotEmpty())
-                        <p class="page__text">
-                            <span>この天体は他の天体との関わりがなく、天体の力をうまく発揮できないとされます。</span>
-                        </p>
-                    @endif --}}
                     @if ($explain->get('MERCURY')->get('aspect_pattern')->isNotEmpty())
                         @foreach ($explain->get('MERCURY')->get('aspect_pattern') as $key => $item)
                             @if (is_null($item))
@@ -844,12 +931,32 @@
                                     </p>
                                 @else
                                     <p></p>
-                                @endif
+                                @endif 
                             @else
-                                @if ($key <= 1)
+                                @php
+                                    switch (true) {
+                                        case $mercuryKey01 > 300 && $mercuryKey01 < 350:
+                                            $show = ($mercuryHouse<160) ? ($mercuryKey23 < 280 ? 4 : 3) : ($mercuryKey23 < 50 ? 4 : 3);
+                                            break;
+
+                                        case $mercuryKey01 > 250 && $mercuryKey01 < 300:
+                                            $show = ($mercuryHouse<160) ? ($mercuryKey23 < 180 ? 4 : 3) : ($mercuryKey23 < 150 ? 4 : 3);
+                                            break;
+
+                                        case $mercuryKey01 > 50:
+                                            $show = ($mercuryHouse<160) ? ($mercuryKey23 < 371 && $key2 > 150 ? 4 : 3) : ($mercuryKey23 < 50 ? 4 : 3);
+                                            break;
+
+                                        case $mercuryKey01 < 50:
+                                            $show = ($mercuryHouse<160) ? ($mercuryKey23 < 371 && $key2 > 150 ? 4 : 3) : ($mercuryKey23 < 50 ? 4 : 3);
+                                            break;
+                                    }
+                                @endphp
+
+                                @if ($key < $show)
                                     <div class="page-block--5__half">
                                         <p class="planet page-block--5__title icon-sign icon-sign" style="font-size: 16px !important">
-                                             <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
+                                        <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
 
                                                 <svg xmlns:dc="http://purl.org/dc/elements/1.1/"
                                                     xmlns:cc="http://creativecommons.org/ns#"
@@ -858,10 +965,11 @@
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
                                                     xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-                                                   width="12px" height="12px" viewBox="0 0 12 12" version="1.1"
-                                                    id="svg9" sodipodi:docname="Pallas_symbol_(fixed_width).svg"
+                                                width="12px" height="12px" viewBox="0 0 12 12"
+                                                    version="1.1" id="svg9"
+                                                    sodipodi:docname="Pallas_symbol_(fixed_width).svg"
                                                     inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
-                                                    style="margin-left: 5px ; margin-right: 5px">
+                                                style="margin-left: 5px ; margin-right: 5px">
                                                     <metadata id="metadata15">
                                                         <rdf:RDF>
                                                             <cc:Work rdf:about="">
@@ -877,47 +985,49 @@
                                                         guidetolerance="10" inkscape:pageopacity="0"
                                                         inkscape:pageshadow="2" inkscape:window-width="1920"
                                                         inkscape:window-height="1015" id="namedview11"
-                                                        showgrid="false" inkscape:zoom="29.5" inkscape:cx="7.5762712"
-                                                        inkscape:cy="5.9661012" inkscape:window-x="0"
-                                                        inkscape:window-y="0" inkscape:window-maximized="1"
+                                                        showgrid="false" inkscape:zoom="29.5"
+                                                        inkscape:cx="7.5762712" inkscape:cy="5.9661012"
+                                                        inkscape:window-x="0" inkscape:window-y="0"
+                                                        inkscape:window-maximized="1"
                                                         inkscape:current-layer="svg9" />
                                                     <path inkscape:connector-curvature="0" id="path4-3"
                                                         d="M 11.00025,6 H 0.99975"
-                                                        style="fill:none;stroke: #719AA7;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+                                                        style="fill:none;stroke: #C08E9E;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
                                                         sodipodi:nodetypes="cc" />
                                                     <path inkscape:connector-curvature="0" id="path4-3-6-27-9"
                                                         d="m 6.0000002,6.0000001 2.499937,4.3300179"
-                                                        style="fill:none;stroke: #719AA7;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+                                                        style="fill:none;stroke: #C08E9E;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
                                                         sodipodi:nodetypes="cc" />
                                                     <path inkscape:connector-curvature="0" id="path4-3-6-27-3"
                                                         d="M 3.5000629,1.6699816 5.9999993,5.9999992"
-                                                        style="fill:none;stroke: #719AA7;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+                                                        style="fill:none;stroke: #C08E9E;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
                                                         sodipodi:nodetypes="cc" />
                                                     <path inkscape:connector-curvature="0" id="path4-3-6-1-6"
                                                         d="M 8.4999375,1.6699816 6.0000005,5.9999999"
-                                                        style="fill:none;stroke: #719AA7;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+                                                        style="fill:none;stroke: #C08E9E;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
                                                         sodipodi:nodetypes="cc" />
                                                     <path inkscape:connector-curvature="0" id="path4-3-6-1-0"
                                                         d="M 5.9999995,6.0000002 3.5000625,10.330018"
-                                                        style="fill:none;stroke: #719AA7;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+                                                        style="fill:none;stroke: #C08E9E;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
                                                         sodipodi:nodetypes="cc" />
                                                 </svg>
 
-                                            @else
+                                                @else
 
                                                 <span style="font-size: 12px">{{ $item->aspect->symbol }}</span>
 
-                                            @endif
-                                            <span>{{ $item->toPlanet->symbol }}</span>
+                                                @endif
+                                                <span>{{ $item->toPlanet->symbol }}</span>
                                         </p>
                                         <p class="page__text">{!! nl2br($item->content_solar) !!}</p>
                                     </div>
+                                    @php $mercuryAspectFirstPage[] = $key; @endphp
                                 @endif
                             @endif
                         @endforeach
                     @else
                         <p class="page__text">
-                            <span>この天体は、他の天体とのかかわりがないため、この時期天体があらわすテーマをうまく発揮できない可能性があるとされます。他の天体との相乗効果がないだけで、上記の星座、サビアンシンボル、ハウスなどはいずれも該当いたします。</span>
+                            <span>この天体は他の天体との関わりがなく、天体の力をうまく発揮できないとされます。</span>
                         </p>
                     @endif
                 </div>
@@ -925,9 +1035,9 @@
         </div>
         <div class="page-break-before"></div>
         {{-- @if ($explain->get('MERCURY')->get('aspect_pattern')->count() > 0 && $explain->get('MERCURY')->get('aspect_pattern')[2] !== null) --}}
-        @if ($explain->get('MERCURY')->get('aspect_pattern')->forget([0,1])->values()->count() > 0)
+        @if ($explain->get('MERCURY')->get('aspect_pattern')->forget($mercuryAspectFirstPage)->values()->count() > 0)
             @php
-                $items = $explain->get('MERCURY')->get('aspect_pattern')->forget([0,1])->values();
+                $items = $explain->get('MERCURY')->get('aspect_pattern')->forget($mercuryAspectFirstPage)->values();
                 $itemPairs = array_chunk($items->all(), 4);
             @endphp
             @foreach($itemPairs as $itemPair)
@@ -950,7 +1060,7 @@
                                 @else
                                     {{-- @if ($key >= 2) --}}
                                         {{-- <div class="page-block--5__half"> --}}
-                                            <div class="page-block--5__half @if ($key >= 2) flex-margin-top @endif">
+                                            <div class="page-block--5__half">
                                             <p class="planet page-block--5__title icon-sign icon-sign" style="font-size: 16px !important">
                                                  <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
 
@@ -961,7 +1071,7 @@
                                                         xmlns="http://www.w3.org/2000/svg"
                                                         xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
                                                         xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-                                                       width="12px" height="12px" viewBox="0 0 12 12"
+                                                    width="12px" height="12px" viewBox="0 0 12 12"
                                                         version="1.1" id="svg9"
                                                         sodipodi:docname="Pallas_symbol_(fixed_width).svg"
                                                         inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
@@ -1108,12 +1218,16 @@
                         <span> あなたの魅力や感性がうまく発揮されていきそうかが、他の天体とのかかわりから示されます。何らかの魅力や才能を獲得しやすいのか、逆に制限してしまうのか、感性が高まるのか、出会いが多いか、など、さまざまなことがここにあらわれます。</span>
                     </p>
                 </div>
+
+                @php 
+                    $venusHouse = mb_strlen($explain->get('VENUS')->get('house_pattern')->content_solar ?? '', 'UTF-8');
+                    $key2 = mb_strlen($explain['VENUS']['aspect_pattern'][2]->content_solar ?? '', 'UTF-8');
+                    $key3 = mb_strlen($explain['VENUS']['aspect_pattern'][3]->content_solar ?? '', 'UTF-8');
+                    $venusKey01 = $totalLength['VENUS']['key01'];
+                    $venusKey23 = $totalLength['VENUS']['key23'];
+                @endphp
+
                 <div class="page-block page-block--5">
-                    {{-- @if (!$explain->get('VENUS')->get('aspect_pattern')->isNotEmpty())
-                        <p class="page__text">
-                            <span>この天体は他の天体との関わりがなく、天体の力をうまく発揮できないとされます。</span>
-                        </p>
-                    @endif --}}
                     @if ($explain->get('VENUS')->get('aspect_pattern')->isNotEmpty())
                         @foreach ($explain->get('VENUS')->get('aspect_pattern') as $key => $item)
                             @if (is_null($item))
@@ -1123,12 +1237,32 @@
                                     </p>
                                 @else
                                     <p></p>
-                                @endif
+                                @endif 
                             @else
-                                @if ($key < 2)
+                                @php
+                                    switch (true) {
+                                        case $venusKey01 > 300 && $venusKey01 < 350:
+                                            $show = ($venusHouse<160) ? ($venusKey23 < 280 ? 4 : 3) : ($venusKey23 < 50 ? 4 : 3);
+                                            break;
+
+                                        case $venusKey01 > 250 && $venusKey01 < 300:
+                                            $show = ($venusHouse<160) ? ($venusKey23 < 180 ? 4 : 3) : ($venusKey23 < 150 ? 4 : 3);
+                                            break;
+
+                                        case $venusKey01 > 50:
+                                            $show = ($venusHouse<160) ? ($venusKey23 < 371 && $key2 > 150 ? 4 : 3) : ($venusKey23 < 50 ? 4 : 3);
+                                            break;
+
+                                        case $venusKey01 < 50:
+                                            $show = ($venusHouse<160) ? ($venusKey23 < 371 && $key2 > 150 ? 4 : 3) : ($venusKey23 < 50 ? 4 : 3);
+                                            break;
+                                    }
+                                @endphp
+
+                                @if ($key < $show)
                                     <div class="page-block--5__half">
                                         <p class="planet page-block--5__title icon-sign icon-sign" style="font-size: 16px !important">
-                                             <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
+                                        <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
 
                                                 <svg xmlns:dc="http://purl.org/dc/elements/1.1/"
                                                     xmlns:cc="http://creativecommons.org/ns#"
@@ -1137,10 +1271,11 @@
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
                                                     xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-                                                   width="12px" height="12px" viewBox="0 0 12 12" version="1.1"
-                                                    id="svg9" sodipodi:docname="Pallas_symbol_(fixed_width).svg"
+                                                width="12px" height="12px" viewBox="0 0 12 12"
+                                                    version="1.1" id="svg9"
+                                                    sodipodi:docname="Pallas_symbol_(fixed_width).svg"
                                                     inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
-                                                    style="margin-left: 5px ; margin-right: 5px">
+                                                style="margin-left: 5px ; margin-right: 5px">
                                                     <metadata id="metadata15">
                                                         <rdf:RDF>
                                                             <cc:Work rdf:about="">
@@ -1156,9 +1291,10 @@
                                                         guidetolerance="10" inkscape:pageopacity="0"
                                                         inkscape:pageshadow="2" inkscape:window-width="1920"
                                                         inkscape:window-height="1015" id="namedview11"
-                                                        showgrid="false" inkscape:zoom="29.5" inkscape:cx="7.5762712"
-                                                        inkscape:cy="5.9661012" inkscape:window-x="0"
-                                                        inkscape:window-y="0" inkscape:window-maximized="1"
+                                                        showgrid="false" inkscape:zoom="29.5"
+                                                        inkscape:cx="7.5762712" inkscape:cy="5.9661012"
+                                                        inkscape:window-x="0" inkscape:window-y="0"
+                                                        inkscape:window-maximized="1"
                                                         inkscape:current-layer="svg9" />
                                                     <path inkscape:connector-curvature="0" id="path4-3"
                                                         d="M 11.00025,6 H 0.99975"
@@ -1182,21 +1318,22 @@
                                                         sodipodi:nodetypes="cc" />
                                                 </svg>
 
-                                            @else
+                                                @else
 
                                                 <span style="font-size: 12px">{{ $item->aspect->symbol }}</span>
 
-                                            @endif
-                                            <span>{{ $item->toPlanet->symbol }}</span>
+                                                @endif
+                                                <span>{{ $item->toPlanet->symbol }}</span>
                                         </p>
                                         <p class="page__text">{!! nl2br($item->content_solar) !!}</p>
                                     </div>
+                                    @php $venusAspectFirstPage[] = $key; @endphp
                                 @endif
                             @endif
                         @endforeach
                     @else
                         <p class="page__text">
-                            <span>この天体は、他の天体とのかかわりがないため、この時期天体があらわすテーマをうまく発揮できない可能性があるとされます。他の天体との相乗効果がないだけで、上記の星座、サビアンシンボル、ハウスなどはいずれも該当いたします。</span>
+                            <span>この天体は他の天体との関わりがなく、天体の力をうまく発揮できないとされます。</span>
                         </p>
                     @endif
                 </div>
@@ -1204,9 +1341,9 @@
         </div>
         {{-- @if ($explain->get('VENUS')->get('aspect_pattern')->count() > 0 && $explain->get('VENUS')->get('aspect_pattern')[2] !== null) --}}
         {{-- @if ($explain->get('VENUS')->get('aspect_pattern')->count() > 0 && !empty($explain->get('VENUS')->get('aspect_pattern')[2])) --}}
-        @if ($explain->get('VENUS')->get('aspect_pattern')->forget([0,1])->values()->count() > 0)
+        @if ($explain->get('VENUS')->get('aspect_pattern')->forget($venusAspectFirstPage)->values()->count() > 0)
             @php
-                $items = $explain->get('VENUS')->get('aspect_pattern')->forget([0,1])->values();
+                $items = $explain->get('VENUS')->get('aspect_pattern')->forget($venusAspectFirstPage)->values();
                 $itemPairs = array_chunk($items->all(), 4);
             @endphp
             @foreach($itemPairs as $itemPair)
@@ -1229,7 +1366,7 @@
                                 @else
                                     {{-- @if ($key >= 2) --}}
                                         {{-- <div class="page-block--5__half"> --}}
-                                            <div class="page-block--5__half @if ($key >= 2) flex-margin-top @endif">
+                                            <div class="page-block--5__half">
                                             <p class="planet page-block--5__title icon-sign icon-sign" style="font-size: 16px !important">
                                                  <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
 
@@ -1388,104 +1525,131 @@
                         <span> 他の天体とうまく連携して志を達成できるのか、それにどのような変化が起ここるのか、他の天体からの制限や制約があるのか、といったことがわかります。</span>
                     </p>
                 </div>
+
+                @php 
+                    $marsHouse = mb_strlen($explain->get('MARS')->get('house_pattern')->content_solar ?? '', 'UTF-8');
+                    $key2 = mb_strlen($explain['MARS']['aspect_pattern'][2]->content_solar ?? '', 'UTF-8');
+                    $key3 = mb_strlen($explain['MARS']['aspect_pattern'][3]->content_solar ?? '', 'UTF-8');
+                    $marsKey01 = $totalLength['MARS']['key01'];
+                    $marsKey23 = $totalLength['MARS']['key23'];
+                @endphp
+
                 <div class="page-block page-block--5">
-                    {{-- @if (!$explain->get('MARS')->get('aspect_pattern')->isNotEmpty())
-                        <p class="page__text">
-                            <span>この天体は他の天体との関わりがなく、天体の力をうまく発揮できないとされます。</span>
-                        </p>
-                    @endif --}}
-                    @if ($explain->get('MARS')->get('aspect_pattern')->isNotEmpty())
-                        @foreach ($explain->get('MARS')->get('aspect_pattern') as $key => $item)
-                            @if (is_null($item))
-                                @if ($key == 0)
-                                    <p class="page__text">
-                                        <span>この天体は、他の天体とのかかわりがないため、この時期天体があらわすテーマをうまく発揮できない可能性があるとされます。他の天体との相乗効果がないだけで、上記の星座、サビアンシンボル、ハウスなどはいずれも該当いたします。</span>
-                                    </p>
-                                @else
-                                    <p></p>
-                                @endif
+                @if ($explain->get('MARS')->get('aspect_pattern')->isNotEmpty())
+                    @foreach ($explain->get('MARS')->get('aspect_pattern') as $key => $item)
+                        @if (is_null($item))
+                            @if ($key == 0)
+                                <p class="page__text">
+                                    <span>この天体は、他の天体とのかかわりがないため、この時期天体があらわすテーマをうまく発揮できない可能性があるとされます。他の天体との相乗効果がないだけで、上記の星座、サビアンシンボル、ハウスなどはいずれも該当いたします。</span>
+                                </p>
                             @else
-                                @if ($key < 2)
-                                    <div class="page-block--5__half">
-                                        <p class="planet page-block--5__title icon-sign icon-sign" style="font-size: 16px !important">
-                                             <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
+                                <p></p>
+                            @endif 
+                        @else
+                            @php
+                                switch (true) {
+                                    case $marsKey01 > 300 && $marsKey01 < 350:
+                                        $show = ($marsHouse<160) ? ($marsKey23 < 280 ? 4 : 3) : ($marsKey23 < 50 ? 4 : 3);
+                                        break;
 
-                                                <svg xmlns:dc="http://purl.org/dc/elements/1.1/"
-                                                    xmlns:cc="http://creativecommons.org/ns#"
-                                                    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-                                                    xmlns:svg="http://www.w3.org/2000/svg"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-                                                    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-                                                   width="12px" height="12px" viewBox="0 0 12 12" version="1.1"
-                                                    id="svg9" sodipodi:docname="Pallas_symbol_(fixed_width).svg"
-                                                    inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
-                                                    style="margin-left: 5px ; margin-right: 5px">
-                                                    <metadata id="metadata15">
-                                                        <rdf:RDF>
-                                                            <cc:Work rdf:about="">
-                                                                <dc:format>image/svg+xml</dc:format>
-                                                                <dc:type
-                                                                    rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-                                                            </cc:Work>
-                                                        </rdf:RDF>
-                                                    </metadata>
-                                                    <defs id="defs13" />
-                                                    <sodipodi:namedview pagecolor="#ffffff" bordercolor="#666666"
-                                                        borderopacity="1" objecttolerance="10" gridtolerance="10"
-                                                        guidetolerance="10" inkscape:pageopacity="0"
-                                                        inkscape:pageshadow="2" inkscape:window-width="1920"
-                                                        inkscape:window-height="1015" id="namedview11"
-                                                        showgrid="false" inkscape:zoom="29.5" inkscape:cx="7.5762712"
-                                                        inkscape:cy="5.9661012" inkscape:window-x="0"
-                                                        inkscape:window-y="0" inkscape:window-maximized="1"
-                                                        inkscape:current-layer="svg9" />
-                                                    <path inkscape:connector-curvature="0" id="path4-3"
-                                                        d="M 11.00025,6 H 0.99975"
-                                                        style="fill:none;stroke: #B56E6C;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-                                                        sodipodi:nodetypes="cc" />
-                                                    <path inkscape:connector-curvature="0" id="path4-3-6-27-9"
-                                                        d="m 6.0000002,6.0000001 2.499937,4.3300179"
-                                                        style="fill:none;stroke: #B56E6C;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-                                                        sodipodi:nodetypes="cc" />
-                                                    <path inkscape:connector-curvature="0" id="path4-3-6-27-3"
-                                                        d="M 3.5000629,1.6699816 5.9999993,5.9999992"
-                                                        style="fill:none;stroke: #B56E6C;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-                                                        sodipodi:nodetypes="cc" />
-                                                    <path inkscape:connector-curvature="0" id="path4-3-6-1-6"
-                                                        d="M 8.4999375,1.6699816 6.0000005,5.9999999"
-                                                        style="fill:none;stroke: #B56E6C;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-                                                        sodipodi:nodetypes="cc" />
-                                                    <path inkscape:connector-curvature="0" id="path4-3-6-1-0"
-                                                        d="M 5.9999995,6.0000002 3.5000625,10.330018"
-                                                        style="fill:none;stroke: #B56E6C;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-                                                        sodipodi:nodetypes="cc" />
-                                                </svg>
+                                    case $marsKey01 > 250 && $marsKey01 < 300:
+                                        $show = ($marsHouse<160) ? ($marsKey23 < 180 ? 4 : 3) : ($marsKey23 < 150 ? 4 : 3);
+                                        break;
 
-                                            @else
+                                    case $marsKey01 > 50:
+                                        $show = ($marsHouse<160) ? ($marsKey23 < 371 && $key2 > 150 ? 4 : 3) : ($marsKey23 < 50 ? 4 : 3);
+                                        break;
 
-                                                <span style="font-size: 12px">{{ $item->aspect->symbol }}</span>
+                                    case $marsKey01 < 50:
+                                        $show = ($marsHouse<160) ? ($marsKey23 < 371 && $key2 > 150 ? 4 : 3) : ($marsKey23 < 50 ? 4 : 3);
+                                        break;
+                                }
+                            @endphp
 
-                                            @endif
-                                            <span>{{ $item->toPlanet->symbol }}</span>
-                                        </p>
-                                        <p class="page__text">{!! nl2br($item->content_solar) !!}</p>
-                                    </div>
-                                @endif
+                            @if ($key < $show)
+                                <div class="page-block--5__half">
+                                    <p class="planet page-block--5__title icon-sign icon-sign" style="font-size: 16px !important">
+                                    <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
+
+                                        <svg xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                            xmlns:cc="http://creativecommons.org/ns#"
+                                            xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                                            xmlns:svg="http://www.w3.org/2000/svg"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+                                            xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+                                        width="12px" height="12px" viewBox="0 0 12 12"
+                                            version="1.1" id="svg9"
+                                            sodipodi:docname="Pallas_symbol_(fixed_width).svg"
+                                            inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
+                                        style="margin-left: 5px ; margin-right: 5px">
+                                            <metadata id="metadata15">
+                                                <rdf:RDF>
+                                                    <cc:Work rdf:about="">
+                                                        <dc:format>image/svg+xml</dc:format>
+                                                        <dc:type
+                                                            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+                                                    </cc:Work>
+                                                </rdf:RDF>
+                                            </metadata>
+                                            <defs id="defs13" />
+                                            <sodipodi:namedview pagecolor="#ffffff" bordercolor="#666666"
+                                                borderopacity="1" objecttolerance="10" gridtolerance="10"
+                                                guidetolerance="10" inkscape:pageopacity="0"
+                                                inkscape:pageshadow="2" inkscape:window-width="1920"
+                                                inkscape:window-height="1015" id="namedview11"
+                                                showgrid="false" inkscape:zoom="29.5"
+                                                inkscape:cx="7.5762712" inkscape:cy="5.9661012"
+                                                inkscape:window-x="0" inkscape:window-y="0"
+                                                inkscape:window-maximized="1"
+                                                inkscape:current-layer="svg9" />
+                                            <path inkscape:connector-curvature="0" id="path4-3"
+                                                d="M 11.00025,6 H 0.99975"
+                                                style="fill:none;stroke: #C08E9E;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+                                                sodipodi:nodetypes="cc" />
+                                            <path inkscape:connector-curvature="0" id="path4-3-6-27-9"
+                                                d="m 6.0000002,6.0000001 2.499937,4.3300179"
+                                                style="fill:none;stroke: #C08E9E;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+                                                sodipodi:nodetypes="cc" />
+                                            <path inkscape:connector-curvature="0" id="path4-3-6-27-3"
+                                                d="M 3.5000629,1.6699816 5.9999993,5.9999992"
+                                                style="fill:none;stroke: #C08E9E;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+                                                sodipodi:nodetypes="cc" />
+                                            <path inkscape:connector-curvature="0" id="path4-3-6-1-6"
+                                                d="M 8.4999375,1.6699816 6.0000005,5.9999999"
+                                                style="fill:none;stroke: #C08E9E;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+                                                sodipodi:nodetypes="cc" />
+                                            <path inkscape:connector-curvature="0" id="path4-3-6-1-0"
+                                                d="M 5.9999995,6.0000002 3.5000625,10.330018"
+                                                style="fill:none;stroke: #C08E9E;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+                                                sodipodi:nodetypes="cc" />
+                                        </svg>
+
+                                        @else
+
+                                        <span style="font-size: 12px">{{ $item->aspect->symbol }}</span>
+
+                                        @endif
+                                        <span>{{ $item->toPlanet->symbol }}</span>
+                                    </p>
+                                    <p class="page__text">{!! nl2br($item->content_solar) !!}</p>
+                                </div>
+                                @php $marsAspectFirstPage[] = $key; @endphp
                             @endif
-                        @endforeach
-                    @else
-                        <p class="page__text">
-                            <span>この天体は、他の天体とのかかわりがないため、この時期天体があらわすテーマをうまく発揮できない可能性があるとされます。他の天体との相乗効果がないだけで、上記の星座、サビアンシンボル、ハウスなどはいずれも該当いたします。</span>
-                        </p>
-                    @endif
-                </div>
+                        @endif
+                    @endforeach
+                @else
+                    <p class="page__text">
+                        <span>この天体は他の天体との関わりがなく、天体の力をうまく発揮できないとされます。</span>
+                    </p>
+                @endif
+            </div>
             </div>
         </div>
         {{-- @if ($explain->get('MARS')->get('aspect_pattern')->count() > 0 && $explain->get('MARS')->get('aspect_pattern')[2] !== null) --}}
-        @if ($explain->get('MARS')->get('aspect_pattern')->forget([0,1])->values()->count() > 0)
+        @if ($explain->get('MARS')->get('aspect_pattern')->forget($marsAspectFirstPage)->values()->count() > 0)
             @php
-                $items = $explain->get('MARS')->get('aspect_pattern')->forget([0,1])->values();
+                $items = $explain->get('MARS')->get('aspect_pattern')->forget($marsAspectFirstPage)->values();
                 $itemPairs = array_chunk($items->all(), 4);
             @endphp
             @foreach($itemPairs as $itemPair)
@@ -1508,7 +1672,7 @@
                                 @else
                                     {{-- @if ($key >= 2) --}}
                                         {{-- <div class="page-block--5__half"> --}}
-                                            <div class="page-block--5__half @if ($key >= 2) flex-margin-top @endif">
+                                            <div class="page-block--5__half">
                                             <p class="planet page-block--5__title icon-sign icon-sign" style="font-size: 16px !important">
                                                  <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
 
@@ -1671,107 +1835,134 @@
                         <span> 木星と個人天体がかかわると、その天体の意味を拡大させ、幸運につながりますので、非常に重要です。記載済みのものも改めてご覧ください。また、ここに鑑定内容が記載される土星やトランスサタニアンとのアスペクトは時代的な意味が強まりますので、だれにとっても今がそういう時期なのだと理解しましょう。</span>
                     </p>
                 </div>
-                <div class="page-block page-block--5">
-                    {{-- @if (!$explain->get('JUPITER')->get('aspect_pattern')->isNotEmpty())
-                        <p class="page__text">
-                            <span>この天体は他の天体との関わりがなく、天体の力をうまく発揮できないとされます。</span>
-                        </p>
-                    @endif --}}
-                    @if ($explain->get('JUPITER')->get('aspect_pattern')->isNotEmpty())
-                        @foreach ($explain->get('JUPITER')->get('aspect_pattern') as $key => $item)
-                            @if (is_null($item))
-                                @if ($key == 0)
-                                    <p class="page__text">
-                                        <span>この天体は、他の天体とのかかわりがないため、この時期天体があらわすテーマをうまく発揮できない可能性があるとされます。他の天体との相乗効果がないだけで、上記の星座、サビアンシンボル、ハウスなどはいずれも該当いたします。</span>
-                                    </p>
-                                @else
-                                    <p></p>
-                                @endif
-                            @else
-                                @if ($key < 2)
-                                    <div class="page-block--5__half">
-                                        <p class="planet page-block--5__title icon-sign icon-sign" style="font-size: 16px !important">
-                                             <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
 
-                                                <svg xmlns:dc="http://purl.org/dc/elements/1.1/"
-                                                    xmlns:cc="http://creativecommons.org/ns#"
-                                                    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-                                                    xmlns:svg="http://www.w3.org/2000/svg"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-                                                    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-                                                   width="12px" height="12px" viewBox="0 0 12 12"
-                                                    version="1.1" id="svg9"
-                                                    sodipodi:docname="Pallas_symbol_(fixed_width).svg"
-                                                    inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
-                                                    style="margin-left: 5px ; margin-right: 5px">
-                                                    <metadata id="metadata15">
-                                                        <rdf:RDF>
-                                                            <cc:Work rdf:about="">
-                                                                <dc:format>image/svg+xml</dc:format>
-                                                                <dc:type
-                                                                    rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-                                                            </cc:Work>
-                                                        </rdf:RDF>
-                                                    </metadata>
-                                                    <defs id="defs13" />
-                                                    <sodipodi:namedview pagecolor="#ffffff" bordercolor="#666666"
-                                                        borderopacity="1" objecttolerance="10" gridtolerance="10"
-                                                        guidetolerance="10" inkscape:pageopacity="0"
-                                                        inkscape:pageshadow="2" inkscape:window-width="1920"
-                                                        inkscape:window-height="1015" id="namedview11"
-                                                        showgrid="false" inkscape:zoom="29.5"
-                                                        inkscape:cx="7.5762712" inkscape:cy="5.9661012"
-                                                        inkscape:window-x="0" inkscape:window-y="0"
-                                                        inkscape:window-maximized="1"
-                                                        inkscape:current-layer="svg9" />
-                                                    <path inkscape:connector-curvature="0" id="path4-3"
-                                                        d="M 11.00025,6 H 0.99975"
-                                                        style="fill:none;stroke: #739082;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-                                                        sodipodi:nodetypes="cc" />
-                                                    <path inkscape:connector-curvature="0" id="path4-3-6-27-9"
-                                                        d="m 6.0000002,6.0000001 2.499937,4.3300179"
-                                                        style="fill:none;stroke: #739082;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-                                                        sodipodi:nodetypes="cc" />
-                                                    <path inkscape:connector-curvature="0" id="path4-3-6-27-3"
-                                                        d="M 3.5000629,1.6699816 5.9999993,5.9999992"
-                                                        style="fill:none;stroke: #739082;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-                                                        sodipodi:nodetypes="cc" />
-                                                    <path inkscape:connector-curvature="0" id="path4-3-6-1-6"
-                                                        d="M 8.4999375,1.6699816 6.0000005,5.9999999"
-                                                        style="fill:none;stroke: #739082;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-                                                        sodipodi:nodetypes="cc" />
-                                                    <path inkscape:connector-curvature="0" id="path4-3-6-1-0"
-                                                        d="M 5.9999995,6.0000002 3.5000625,10.330018"
-                                                        style="fill:none;stroke: #739082;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-                                                        sodipodi:nodetypes="cc" />
-                                                </svg>
+                @php 
+                    $jupiterHouse = mb_strlen($explain->get('JUPITER')->get('house_pattern')->content_solar ?? '', 'UTF-8');
+                    $key2 = mb_strlen($explain['JUPITER']['aspect_pattern'][2]->content_solar ?? '', 'UTF-8');
+                    $key3 = mb_strlen($explain['JUPITER']['aspect_pattern'][3]->content_solar ?? '', 'UTF-8');
+                    $jupiterKey01 = $totalLength['JUPITER']['key01'];
+                    $jupiterKey23 = $totalLength['JUPITER']['key23'];
+                @endphp
+
+                <div class="page-block page-block--5">
+                @if ($explain->get('JUPITER')->get('aspect_pattern')->isNotEmpty())
+                    @foreach ($explain->get('JUPITER')->get('aspect_pattern') as $key => $item)
+                        @if (is_null($item))
+                            @if ($key == 0)
+                                <p class="page__text">
+                                    <span>この天体は、他の天体とのかかわりがないため、この時期天体があらわすテーマをうまく発揮できない可能性があるとされます。他の天体との相乗効果がないだけで、上記の星座、サビアンシンボル、ハウスなどはいずれも該当いたします。</span>
+                                </p>
+                            @else
+                                <p></p>
+                            @endif 
+                        @else
+                            @php
+                                switch (true) {
+                                    case $jupiterKey01 > 300 && $jupiterKey01 <350:
+                                        $show = ($jupiterHouse<160) ? ($jupiterKey23 < 280 ? 4 : 3) : ($jupiterKey23 < 50 ? 4 : 3);
+                                        break;
+
+                                    case $jupiterKey01 > 250 && $jupiterKey01 < 300 :
+                                        $show = ($jupiterHouse<160) ? ($jupiterKey23 < 180 ? 4 : 3) : ($jupiterKey23 < 150 ? 4 : 3);
+                                        break;
+                                    case $jupiterKey01 < 250 && $jupiterKey01 > 50 :
+                                        $show = ($jupiterHouse<160) ? ($jupiterKey23 < 150 ? 4 : 3) : ($jupiterKey23 < 150 ? 4 : 3);
+                                        break;
+                                    case $jupiterKey01 > 50:
+                                        $show = ($jupiterHouse<160) ? ($jupiterKey23 < 371 && $key2 > 150 ? 4 : 3) : ($jupiterKey23 < 50 ? 4 : 3);
+                                        break;
+
+                                    case $jupiterKey01 < 50:
+                                        $show = ($jupiterHouse<160) ? ($jupiterKey23 < 371 && $key2 > 150 ? 4 : 3) : ($jupiterKey23 < 50 ? 4 : 3);
+                                        break;
+                                }
+                            @endphp
+
+                            @if ($key < $show)
+                                <div class="page-block--5__half">
+                                    <p class="planet page-block--5__title icon-sign icon-sign" style="font-size: 16px !important">
+                                    <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
+
+                                            <svg xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                xmlns:cc="http://creativecommons.org/ns#"
+                                                xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                                                xmlns:svg="http://www.w3.org/2000/svg"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+                                                xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+                                            width="12px" height="12px" viewBox="0 0 12 12"
+                                                version="1.1" id="svg9"
+                                                sodipodi:docname="Pallas_symbol_(fixed_width).svg"
+                                                inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
+                                            style="margin-left: 5px ; margin-right: 5px">
+                                                <metadata id="metadata15">
+                                                    <rdf:RDF>
+                                                        <cc:Work rdf:about="">
+                                                            <dc:format>image/svg+xml</dc:format>
+                                                            <dc:type
+                                                                rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+                                                        </cc:Work>
+                                                    </rdf:RDF>
+                                                </metadata>
+                                                <defs id="defs13" />
+                                                <sodipodi:namedview pagecolor="#ffffff" bordercolor="#666666"
+                                                    borderopacity="1" objecttolerance="10" gridtolerance="10"
+                                                    guidetolerance="10" inkscape:pageopacity="0"
+                                                    inkscape:pageshadow="2" inkscape:window-width="1920"
+                                                    inkscape:window-height="1015" id="namedview11"
+                                                    showgrid="false" inkscape:zoom="29.5"
+                                                    inkscape:cx="7.5762712" inkscape:cy="5.9661012"
+                                                    inkscape:window-x="0" inkscape:window-y="0"
+                                                    inkscape:window-maximized="1"
+                                                    inkscape:current-layer="svg9" />
+                                                <path inkscape:connector-curvature="0" id="path4-3"
+                                                    d="M 11.00025,6 H 0.99975"
+                                                    style="fill:none;stroke: #C08E9E;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+                                                    sodipodi:nodetypes="cc" />
+                                                <path inkscape:connector-curvature="0" id="path4-3-6-27-9"
+                                                    d="m 6.0000002,6.0000001 2.499937,4.3300179"
+                                                    style="fill:none;stroke: #C08E9E;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+                                                    sodipodi:nodetypes="cc" />
+                                                <path inkscape:connector-curvature="0" id="path4-3-6-27-3"
+                                                    d="M 3.5000629,1.6699816 5.9999993,5.9999992"
+                                                    style="fill:none;stroke: #C08E9E;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+                                                    sodipodi:nodetypes="cc" />
+                                                <path inkscape:connector-curvature="0" id="path4-3-6-1-6"
+                                                    d="M 8.4999375,1.6699816 6.0000005,5.9999999"
+                                                    style="fill:none;stroke: #C08E9E;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+                                                    sodipodi:nodetypes="cc" />
+                                                <path inkscape:connector-curvature="0" id="path4-3-6-1-0"
+                                                    d="M 5.9999995,6.0000002 3.5000625,10.330018"
+                                                    style="fill:none;stroke: #C08E9E;stroke-width:0.60000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+                                                    sodipodi:nodetypes="cc" />
+                                            </svg>
 
                                             @else
 
-                                                <span style="font-size: 12px">{{ $item->aspect->symbol }}</span>
+                                            <span style="font-size: 12px">{{ $item->aspect->symbol }}</span>
 
                                             @endif
                                             <span>{{ $item->toPlanet->symbol }}</span>
-                                        </p>
-                                        <p class="page__text">{!! nl2br($item->content_solar) !!}</p>
-                                    </div>
-                                @endif
-                            @endif
-                        @endforeach
-                    @else
-                        <p class="page__text">
-                            <span>この天体は、他の天体とのかかわりがないため、この時期天体があらわすテーマをうまく発揮できない可能性があるとされます。他の天体との相乗効果がないだけで、上記の星座、サビアンシンボル、ハウスなどはいずれも該当いたします。</span>
-                        </p>
-                    @endif
-                </div>
+                                    </p>
+                                    <p class="page__text">{!! nl2br($item->content_solar) !!}</p>
+                                </div>
+                                @php $jupiterAspectFirstPage[] = $key; @endphp
+                            @endif 
+                        @endif
+                    @endforeach
+                @else
+                    <p class="page__text">
+                        <span>この天体は他の天体との関わりがなく、天体の力をうまく発揮できないとされます。</span>
+                    </p>
+                @endif
+            </div>
             </div>
         </div>
         {{-- @if ($explain->get('JUPITER')->get('aspect_pattern')->count() > 0 && $explain->get('JUPITER')->get('aspect_pattern')[2] !== null) --}}
         {{-- @if ($explain->get('JUPITER')->get('aspect_pattern')->count() > 0 && !empty($explain->get('JUPITER')->get('aspect_pattern')[2])) --}}
-        @if ($explain->get('JUPITER')->get('aspect_pattern')->forget([0,1])->values()->count() > 0)
+        @if ($explain->get('JUPITER')->get('aspect_pattern')->forget($jupiterAspectFirstPage)->values()->count() > 0)
             @php
-                $items = $explain->get('JUPITER')->get('aspect_pattern')->forget([0,1])->values();
+                $items = $explain->get('JUPITER')->get('aspect_pattern')->forget($jupiterAspectFirstPage)->values();
                 $itemPairs = array_chunk($items->all(), 4);
             @endphp
             @foreach($itemPairs as $itemPair)
@@ -1794,7 +1985,7 @@
                                 @else
                                     {{-- @if ($key >= 2) --}}
                                         {{-- <div class="page-block--5__half"> --}}
-                                            <div class="page-block--5__half @if ($key >= 2) flex-margin-top @endif">
+                                            <div class="page-block--5__half">
                                             <p class="planet page-block--5__title icon-sign icon-sign" style="font-size: 16px !important">
                                                  <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
 

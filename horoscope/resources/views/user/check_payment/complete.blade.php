@@ -40,8 +40,11 @@
                             @endif
                         @else
                         <!--銀行振り込みの場合-->
-                            <p class="C-form-block--text">
+                            <p class="C-form-block--text pc">
                                 銀行振込を選択した会員様は、振り込みが完了出来次第<br>鑑定結果が閲覧できます
+                            </p>
+                            <p class="C-form-block--text sp">
+                                銀行振込を選択した会員様は、振り込みが完了出来次第鑑定結果が閲覧できます
                             </p>
                             <br>
                             <p class="C-form-block--text">

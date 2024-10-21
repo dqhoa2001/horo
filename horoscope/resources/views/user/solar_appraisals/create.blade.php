@@ -339,8 +339,7 @@
                                                 <dt class="C-form-block__title">ご紹介ポイントを使用</dt>
                                                 <dd class="C-form-block__body">
                                                     <div class="C-form-block__field">
-                                                        <input type="number" name="discount_price" placeholder="0000" v-model="discountPrice" onkeypress="return event.charCode >= 48 && event.charCode <= 57"><span
-                                                            class="C-form-block--couponno__tag">円</span>
+                                                        <input type="number" name="discount_price" placeholder="0000" v-model="discountPrice" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                                                     </div>
                                                     {{-- <div class="C-form-block__button">適用する</div> --}}
                                                     <p class="C-form-block--couponno__text"><span>あなたの現在使用可能なポイント ： <strong>{{
@@ -367,7 +366,7 @@
                                             </dl>
                                             <dl class="C-form-block-child C-form-block--hasbutton C-form-block--couponno on" v-else>
                                                 <input type="hidden" name="discount_price" placeholder="0000" v-model="discountPrice" onkeypress="return event.charCode >= 48 && event.charCode <= 57"><span
-                                                    class="C-form-block--couponno__tag">円</span>
+                                                    class="C-form-block--couponno__tag" v-if="false">円</span>
                                             </dl>
                                         </dd>
                                     </dl>

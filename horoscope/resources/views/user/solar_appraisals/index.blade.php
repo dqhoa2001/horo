@@ -35,18 +35,31 @@
                                 <img src="{{ asset('mypage/assets/images/solarappraisal/solar_img_title_3.svg') }}" alt="PERSONAL APPRAISAL">
                             </picture>
                         </h2>
-						<p class="Pageframe-main__firstmessage">{{auth()->user()->full_name}}さんのソーラーリターンの鑑定をします。<br>
+						<p class="Pageframe-main__firstmessage pc">{{auth()->user()->full_name}}さんのソーラーリターンの鑑定をします。<br>
                             太陽が生まれた場所に戻った時の星の配置から、あなたの一年間の運勢を詳細に読み解くこと<br>
                             ができます。よりよい一年とするためにぜひご活用ください。<br>
                             <br>
                             @if ($latestSolarAppraisalApply)
-                                ソーラーリターンについて詳しくは<a style="text-decoration: underline" href="{{route('user.solar_appraisals.show', $latestSolarAppraisalApply)}}">こちら</a>
+                                ソーラーリターンについて詳しくは<a style="text-decoration: underline" href="https://hoshinomai.jp/solar-return">こちら</a>
                             @else
-                                ソーラーリターンについて詳しくは<a style="text-decoration: underline" href="{{route('user.solar_appraisals.create')}}">こちら</a>
+                                ソーラーリターンについて詳しくは<a style="text-decoration: underline" href="https://hoshinomai.jp/solar-return">こちら</a>
                             @endif
                             <br>
                             <br>
                             <span> 太陽回帰 (SolarReturn) はすでにステラブループリントを購入済み、もしくはご自身の出生図 <br>を読める(読んでもらったことがある)人向けのものになります。</span>
+                        </p>
+						<p class="Pageframe-main__firstmessage sp">{{auth()->user()->full_name}}さんのソーラーリターンの鑑定をします。<br>
+                            太陽が生まれた場所に戻った時の星の配置から、あなたの一年間の運勢を詳細に読み解くことができます。
+                            <br>よりよい一年とするためにぜひご活用ください。<br>
+                            <br>
+                            @if ($latestSolarAppraisalApply)
+                                ソーラーリターンについて詳しくは<a style="text-decoration: underline" href="https://hoshinomai.jp/solar-return">こちら</a>
+                            @else
+                                ソーラーリターンについて詳しくは<a style="text-decoration: underline" href="https://hoshinomai.jp/solar-return">こちら</a>
+                            @endif
+                            <br>
+                            <br>
+                            <span> 太陽回帰 (SolarReturn) はすでにステラブループリントを購入済み、もしくはご自身の出生図を読める(読んでもらったことがある)人向けのものになります。</span>
                         </p>
 						<div class="Pageframe-main__body">
                             <!-- Combobox -->
