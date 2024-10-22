@@ -40,9 +40,9 @@
                             ができます。よりよい一年とするためにぜひご活用ください。<br>
                             <br>
                             @if ($latestSolarAppraisalApply)
-                                ソーラーリターンについて詳しくは<a style="text-decoration: underline" href="https://hoshinomai.jp/solar-return">こちら</a>
+                                ソーラーリターンについて詳しくは<a style="text-decoration: underline" href="https://hoshinomai.jp/solar-return" target=”_blank”>こちら</a>
                             @else
-                                ソーラーリターンについて詳しくは<a style="text-decoration: underline" href="https://hoshinomai.jp/solar-return">こちら</a>
+                                ソーラーリターンについて詳しくは<a style="text-decoration: underline" href="https://hoshinomai.jp/solar-return" target=”_blank”>こちら</a>
                             @endif
                             <br>
                             <br>
@@ -53,9 +53,9 @@
                             <br>よりよい一年とするためにぜひご活用ください。<br>
                             <br>
                             @if ($latestSolarAppraisalApply)
-                                ソーラーリターンについて詳しくは<a style="text-decoration: underline" href="https://hoshinomai.jp/solar-return">こちら</a>
+                                ソーラーリターンについて詳しくは<a style="text-decoration: underline" href="https://hoshinomai.jp/solar-return" target=”_blank”>こちら</a>
                             @else
-                                ソーラーリターンについて詳しくは<a style="text-decoration: underline" href="https://hoshinomai.jp/solar-return">こちら</a>
+                                ソーラーリターンについて詳しくは<a style="text-decoration: underline" href="https://hoshinomai.jp/solar-return" target=”_blank”>こちら</a>
                             @endif
                             <br>
                             <br>
