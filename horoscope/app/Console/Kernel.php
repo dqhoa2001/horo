@@ -14,11 +14,11 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
 
-        // DBバックアップコマンド
-        if (app()->isProduction()) {
-            $schedule->command('backup:clean --disable-notifications')->dailyAt('07:50');
-            $schedule->command('backup:run --only-db --disable-notifications')->dailyAt('17:00');
-        }
+        // // DBバックアップコマンド
+        // if (app()->isProduction()) {
+        //     $schedule->command('backup:clean --disable-notifications')->dailyAt('07:50');
+        //     $schedule->command('backup:run --only-db --disable-notifications')->dailyAt('17:00');
+        // }
 
         // stg環境と本番環境のみ実行（製本直送APIからの結果レスポンスはstg環境と本番環境のみのため）
         if (env('APP_ENV') !== 'development') {
