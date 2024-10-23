@@ -7,6 +7,7 @@ use App\Models\Template;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use App\Library\CompileTemplate;
+use App\Models\AppraisalApply;
 use App\Models\BookbindingUserApply;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -26,6 +27,8 @@ class BookbindingUserApplyMail extends Mailable implements ShouldQueue
 
     public array $data;
 
+    public AppraisalApply $appraisalApply;
+
     /**
      * Create a new message instance.
      *
@@ -35,7 +38,8 @@ class BookbindingUserApplyMail extends Mailable implements ShouldQueue
     {
         $this->bookbindingUserApply = $bookbindingUserApply;
         $this->user = $user;
-        $this->template = Template::where('class_name', class_basename($this))->first();
+        $this->appraisalApply = $bookbindingUserApply->appraisalClaim->appraisalApply;
+        $this->template = Template::where('class_name', ($this->appraisalApply->solar_return != 0) ? 'BookbindingUserApplyMailForCredit' : class_basename($this))->first();
         $this->footerTemplate = Template::where('class_name', 'footer')->first();
 
         // テンプレートからメール本文を生成
@@ -46,7 +50,7 @@ class BookbindingUserApplyMail extends Mailable implements ShouldQueue
             'address'            => $this->bookbindingUserApply->address,
             'building'            => $this->bookbindingUserApply->building,
             'tel'                => $this->bookbindingUserApply->tel,
-            'scheduled_shipping_date' => $this->bookbindingUserApply->scheduled_shipping_date->format('Y年m月d日'),
+            'scheduled_shipping_date' => ($this->bookbindingUserApply->scheduled_shipping_date) ? $this->bookbindingUserApply->scheduled_shipping_date->format('Y年m月d日') : 'N\A',
             // 'scheduled_shipping_date' => $this->bookbindingUserApply->scheduled_shipping_date,
             'homepage_url'       => config('app.home_url'),
             'contact_url'        => route('user.contacts.create'),
