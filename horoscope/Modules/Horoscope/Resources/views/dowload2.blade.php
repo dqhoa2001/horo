@@ -64,27 +64,27 @@
         @php
             $page = 1;
         @endphp
-        <div class="page page0">
+        <div class="page page0" style="position: relative">
 			<div class="page__inner">
 				<div class="page0-header">
-					<p class="page0-header__logo">
-                        <img src="{{ public_path('/assets/images/logo1.svg') }}" alt="HOSI NO MAI">
-                    </p>
-					<p class="page0-header__name">HOSHI NO MAI</p>
+					{{-- <p class="page0-header__name">HOSHI NO MAI</p> --}}
 					<p class="page0-header__name"></p>
 					<p class="page0-header__catchcopy handfont1">
-                        {{-- <img src="{{ public_path('/assets/images/cathcopy1.svg') }}" alt="Know the universe , Live your life"> --}}
-                        <img src="{{ public_path('/assets/images/Know〜.png') }}" alt="Know the universe , Live your life">
+                        {{-- <img src="{{ public_path('/assets/images/cathcopy2.svg') }}" alt="Know the universe , Live your life"> --}}
                     </p>
 				</div>
 				<div class="page0-pdftitle">
-                    <img src="{{ public_path('/assets/images/logo_text1.svg') }}" alt="STELLAR BLUEPRINT">
+                    {{-- <img src="{{ public_path('/assets/images/logo_text2.svg') }}" alt="STELLAR BLUEPRINT"> --}}
                 </div>
+				<p class="page0-header__logo">
+                    {{-- <img src="{{ public_path('/assets/images/logo2.svg') }}" alt="HOSI NO MAI"> --}}
+                </p>
 				<div class="page0-footer">
-					<p class="page0-footer__text">Blueprint of</p>
+					{{-- <p class="page0-footer__text">Blueprint of</p> --}}
 					{{-- <p class="page0-footer__text"></p> --}}
+
                     <p class="page0-footer__name">{{ $formData['bookbinding_name'] }}</p>
-				</div>
+                </div>
 			</div>
 		</div>
         <div class="page-break-before"></div>
@@ -93,7 +93,9 @@
 				<div class="page01-header">
 					<p class="page01-header__logo"><img src="{{ public_path('/assets/images/logo1.svg') }}" alt="HOSI NO MAI"></p>
 					<p class="page01-header__name">HOSHI NO MAI</p>
-					<p class="page01-header__catchcopy handfont1"><img src="{{ public_path('/assets/images/Know〜.png') }}" alt="Know the universe , Live your life"></p>
+					<p class="page01-header__catchcopy handfont1">
+                        <img src="{{ public_path('/assets/images/Know〜.png') }}" alt="Know the universe , Live your life">
+                    </p>
 				</div>
 				<div class="page01-pdftitle"><img src="{{ public_path('/assets/images/logo_text1.svg') }}" alt="STELLAR BLUEPRINT"></div>
 				<div class="page01-footer">
@@ -498,6 +500,10 @@
                                         case $moonKey01 > 350 && $moonKey01 <650:
                                             $show = ($moonHouse<160) ? ( $key2 < 120 ? 3 : 2) : ($key2 < 50 ? 3 : 2);
                                             break;
+                                            
+                                        case $moonKey01 > 50 && $moonKey01 < 250:
+                                            $show = ($moonHouse<160) ? ($moonKey23 < 371 && $key2 > 150 ? 4 : 3) : ($moonKey23 < 50 ? 4 : 3);
+                                            break;
 
                                         case $moonKey01 < 50:
                                             $show = ($moonHouse<160) ? ($moonKey23 < 371 && $key2 > 150 ? 4 : 3) : ($moonKey23 < 50 ? 4 : 3);
@@ -807,7 +813,11 @@
                                             $show = ($mercuryHouse<160) ? ($mercuryKey23 < 180 ? 4 : 3) : ($mercuryKey23 < 150 ? 4 : 3);
                                             break;
 
-                                        case $mercuryKey01 > 50:
+                                        case $mercuryKey01 > 350 && $mercuryKey01 <650:
+                                            $show = ($mercuryHouse<160) ? ( $key2 < 120 ? 3 : 2) : ($key2 < 50 ? 3 : 2);
+                                            break;
+                                            
+                                        case $mercuryKey01 > 50 && $mercuryKey01 < 250:
                                             $show = ($mercuryHouse<160) ? ($mercuryKey23 < 371 && $key2 > 150 ? 4 : 3) : ($mercuryKey23 < 50 ? 4 : 3);
                                             break;
 
@@ -901,6 +911,7 @@
         @if ($explain->get('MERCURY')->get('aspect_pattern')->forget($mercuryAspectFirstPage)->values()->count() > 0)
             @php
                 $items = $explain->get('MERCURY')->get('aspect_pattern')->forget($mercuryAspectFirstPage)->values();
+                $length=0;
                 foreach($items as $item){
                     $length+= mb_strlen($item->content ?? '','UTF-8'); 
                 }
@@ -927,7 +938,7 @@
                                 @else
                                     {{-- @if ($key >= 2) --}}
                                         {{-- <div class="page-block--5__half"> --}}
-                                            <div class="page-block--5__half">
+                                            <div class="page-block--5__half @if ($key >= 2) flex-margin-top @endif">
                                             <p class="planet page-block--5__title icon-sign icon-sign" style="font-size: 16px !important">
                                                  <span>{{ $item->fromPlanet->symbol }}</span> @if ($item->aspect->symbol === 'q')
                                                     
@@ -1123,7 +1134,10 @@
                                             $show = ($venusHouse<160) ? ($venusKey23 < 180 ? 4 : 3) : ($venusKey23 < 150 ? 4 : 3);
                                             break;
 
-                                        case $venusKey01 > 50:
+                                        case $venusKey01 > 350 && $venusKey01 <650:
+                                            $show = ($venusHouse<160) ? ( $key2 < 120 ? 3 : 2) : ($key2 < 50 ? 3 : 2);
+                                            break;
+                                        case $venusKey01 > 50 && $venusKey01 < 250:
                                             $show = ($venusHouse<160) ? ($venusKey23 < 371 && $key2 > 150 ? 4 : 3) : ($venusKey23 < 50 ? 4 : 3);
                                             break;
 
@@ -1216,6 +1230,7 @@
         @if ($explain->get('VENUS')->get('aspect_pattern')->forget($venusAspectFirstPage)->values()->count() > 0)
             @php
                 $items = $explain->get('VENUS')->get('aspect_pattern')->forget($venusAspectFirstPage)->values();
+                $length=0;
                 foreach($items as $item){
                     $length+= mb_strlen($item->content ?? '','UTF-8'); 
                 }
@@ -1436,7 +1451,10 @@
                                             $show = ($sunHouse<160) ? ($sunKey23 < 180 ? 4 : 3) : ($sunKey23 < 150 ? 4 : 3);
                                             break;
 
-                                        case $sunKey01 > 50:
+                                        case $sunKey01 > 350 && $sunKey01 <650:
+                                            $show = ($sunHouse<160) ? ( $key2 < 120 ? 3 : 2) : ($key2 < 50 ? 3 : 2);
+                                            break;
+                                        case $sunKey01 > 50 && $sunKey01 < 250:
                                             $show = ($sunHouse<160) ? ($sunKey23 < 371 && $key2 > 150 ? 4 : 3) : ($sunKey23 < 50 ? 4 : 3);
                                             break;
 
@@ -1529,6 +1547,7 @@
         @if ($explain->get('SUN')->get('aspect_pattern')->forget($sunAspectFirstPage)->values()->count() > 0)
             @php
                 $items = $explain->get('SUN')->get('aspect_pattern')->forget($sunAspectFirstPage)->values();
+                $length=0;
                 foreach($items as $item){
                     $length+= mb_strlen($item->content ?? '','UTF-8'); 
                 }
@@ -1740,9 +1759,6 @@
                             @else
                                 @php
                                     switch (true) {
-                                        /*case $length <250 && $marsHouse <300:
-                                            $show = 5;
-                                            break;*/
                                         case $marsKey01 > 300 && $marsKey01 <350:
                                             $show = ($marsHouse<160) ? ($marsKey23 < 280 ? 4 : 3) : ($marsKey23 < 50 ? 4 : 3);
                                             break;
@@ -1750,10 +1766,10 @@
                                         case $marsKey01 > 250 && $marsKey01 < 300 :
                                             $show = ($marsHouse<160) ? ($marsKey23 < 180 ? 4 : 3) : ($marsKey23 < 150 ? 4 : 3);
                                             break;
-                                        case $marsKey01 < 250 && $marsKey01 > 50 :
-                                            $show = ($marsHouse<160) ? ($marsKey23 < 150 ? 4 : 3) : ($marsKey23 < 150 ? 4 : 3);
+                                        case $marsKey01 > 350 && $marsKey01 <650:
+                                            $show = ($marsHouse<160) ? ( $key2 < 120 ? 3 : 2) : ($key2 < 50 ? 3 : 2);
                                             break;
-                                        case $marsKey01 > 50:
+                                        case $marsKey01 > 50 && $marsKey01 < 250:
                                             $show = ($marsHouse<160) ? ($marsKey23 < 371 && $key2 > 150 ? 4 : 3) : ($marsKey23 < 50 ? 4 : 3);
                                             break;
 
@@ -1846,6 +1862,7 @@
         @if ($explain->get('MARS')->get('aspect_pattern')->forget($marsAspectFirstPage)->values()->count() > 0)
             @php
                 $items = $explain->get('MARS')->get('aspect_pattern')->forget($marsAspectFirstPage)->values();
+                $length=0;
                 foreach($items as $item){
                     $length+= mb_strlen($item->content ?? '','UTF-8'); 
                 }
@@ -2064,9 +2081,6 @@
 
                                 @php
                                     switch (true) {
-                                        /*case $length <250 && $jupiterHouse <300:
-                                            $show = 5;
-                                            break;*/
                                         case $jupiterKey01 > 300 && $jupiterKey01 <350:
                                             $show = ($jupiterHouse<160) ? ($jupiterKey23 < 280 ? 4 : 3) : ($jupiterKey23 < 50 ? 4 : 3);
                                             break;
@@ -2074,10 +2088,10 @@
                                         case $jupiterKey01 > 250 && $jupiterKey01 < 300 :
                                             $show = ($jupiterHouse<160) ? ($jupiterKey23 < 180 ? 4 : 3) : ($jupiterKey23 < 150 ? 4 : 3);
                                             break;
-                                        case $jupiterKey01 < 250 && $jupiterKey01 > 50 :
-                                            $show = ($jupiterHouse<160) ? ($jupiterKey23 < 150 ? 4 : 3) : ($jupiterKey23 < 150 ? 4 : 3);
+                                        case $jupiterKey01 > 350 && $jupiterKey01 <650:
+                                            $show = ($jupiterHouse<160) ? ( $key2 < 120 ? 3 : 2) : ($key2 < 50 ? 3 : 2);
                                             break;
-                                        case $jupiterKey01 > 50:
+                                        case $jupiterKey01 > 50 && $jupiterKey01 < 250:
                                             $show = ($jupiterHouse<160) ? ($jupiterKey23 < 371 && $key2 > 150 ? 4 : 3) : ($jupiterKey23 < 50 ? 4 : 3);
                                             break;
 
@@ -2172,6 +2186,7 @@
         @if ($explain->get('JUPITER')->get('aspect_pattern')->forget($jupiterAspectFirstPage)->values()->count() > 0)
             @php
                 $items = $explain->get('JUPITER')->get('aspect_pattern')->forget($jupiterAspectFirstPage)->values();
+                $length=0;
                 foreach($items as $item){
                     $length+= mb_strlen($item->content ?? '','UTF-8'); 
                 }
@@ -2393,9 +2408,6 @@
                             @else
                                 @php
                                     switch (true) {
-                                        /*case $length <250 && $saturnHouse <300:
-                                            $show = 5;
-                                            break;*/
                                         case $saturnKey01 > 300 && $saturnKey01 <350:
                                             $show = ($saturnHouse<160) ? ($saturnKey23 < 280 ? 4 : 3) : ($saturnKey23 < 50 ? 4 : 3);
                                             break;
@@ -2403,10 +2415,10 @@
                                         case $saturnKey01 > 250 && $saturnKey01 < 300 :
                                             $show = ($saturnHouse<160) ? ($saturnKey23 < 180 ? 4 : 3) : ($saturnKey23 < 150 ? 4 : 3);
                                             break;
-                                        case $saturnKey01 < 250 && $saturnKey01 > 50 :
-                                            $show = ($saturnHouse<160) ? ($saturnKey23 < 150 ? 4 : 3) : ($saturnKey23 < 150 ? 4 : 3);
+                                        case $saturnKey01 > 350 && $saturnKey01 <650:
+                                            $show = ($saturnHouse<160) ? ( $key2 < 120 ? 3 : 2) : ($key2 < 50 ? 3 : 2);
                                             break;
-                                        case $saturnKey01 > 50:
+                                        case $saturnKey01 > 50 && $saturnKey01 < 250:
                                             $show = ($saturnHouse<160) ? ($saturnKey23 < 371 && $key2 > 150 ? 4 : 3) : ($saturnKey23 < 50 ? 4 : 3);
                                             break;
 
@@ -2501,6 +2513,7 @@
         @if ($explain->get('SATURN')->get('aspect_pattern')->forget($saturnAspectFirstPage)->values()->count() > 0)
             @php
                 $items = $explain->get('SATURN')->get('aspect_pattern')->forget($saturnAspectFirstPage)->values();
+                $length=0;
                 foreach($items as $item){
                     $length+= mb_strlen($item->content ?? '','UTF-8'); 
                 }
