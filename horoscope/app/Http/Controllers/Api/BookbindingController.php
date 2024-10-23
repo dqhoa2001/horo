@@ -50,6 +50,8 @@ class BookbindingController extends Controller
         // $bookbindingUserApply = $firstBookbindingUserApply;
         $user = $firstBookbindingUserApply->appraisalClaim->user;
         $paymentType = $firstBookbindingUserApply->appraisalClaim->payment_type;
+        // $appraisalApply = $firstBookbindingUserApply->appraisalClaim->appraisalApply;
+        // \Log::info('appraisalApply:', ['appraisalApply' => $appraisalApply]);
         if ($paymentType === AppraisalClaim::CREDIT) {
             \Mail::to($user->email)->send(new BookbindingUserApplyMail($firstBookbindingUserApply, $user));
         }

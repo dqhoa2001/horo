@@ -28,7 +28,6 @@ use App\Mail\User\BookbindingUserApplyMail;
 use App\Services\BookbindingUserApplyService;
 use App\Mail\User\BookbindingBankInfoMailForBank;
 use App\Mail\User\BookbindingUserApplyMailForBank;
-use App\Mail\User\BookbindingUserApplyMailForCredit;
 use App\Http\Requests\User\BookbindingController\ApplyRequest;
 use App\Http\Requests\User\BookbindingController\ConfirmRequest;
 

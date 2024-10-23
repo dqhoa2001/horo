@@ -19,8 +19,6 @@ use Illuminate\Http\RedirectResponse;
 use App\Library\GetBccMail;
 use App\Library\GetPrefNum;
 use App\Mail\User\BookbindingBankInfoMailForBankSolar;
-use App\Mail\User\BookbindingUserApplyMail;
-use App\Mail\User\BookbindingUserApplyMailForCredit;
 use App\Mail\User\BookbindingUserApplySolarMailForBank;
 use App\Models\BankInfo;
 use App\Models\AppraisalApply;
