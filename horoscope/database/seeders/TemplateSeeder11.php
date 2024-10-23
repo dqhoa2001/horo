@@ -14,7 +14,7 @@ class TemplateSeeder11 extends Seeder
     {
         \DB::table('templates')->insert([
             [
-                'template_name' => 'StellarBlueprintMailForCredit',
+                'template_name' => 'SolarReturnMailForCredit',
                 'class_name' => 'BookbindingUserApplyMailForCredit',
                 'title' => '【星の舞】製本のお申し込みありがとうございました',
                 'content' => '

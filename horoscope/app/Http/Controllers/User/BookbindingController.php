@@ -28,7 +28,6 @@ use App\Mail\User\BookbindingUserApplyMail;
 use App\Services\BookbindingUserApplyService;
 use App\Mail\User\BookbindingBankInfoMailForBank;
 use App\Mail\User\BookbindingUserApplyMailForBank;
-use App\Mail\User\BookbindingUserApplyMailForCredit;
 use App\Http\Requests\User\BookbindingController\ApplyRequest;
 use App\Http\Requests\User\BookbindingController\ConfirmRequest;
 
@@ -216,11 +215,11 @@ class BookbindingController extends Controller
             } catch (\Stripe\Exception\CardException $e) {
                 // エラーハンドリング: ログ記録
                 \Log::error("支払いに失敗しました。stripeのエラー" . $e->getMessage());
-                return to_route('user.bookbindings.create')->with('flash_alert', '1決済に失敗しました。違うカードをお試しするか、銀行振込をご指定ください。')->withInput();
+                return to_route('user.bookbindings.create')->with('flash_alert', '決済に失敗しました。違うカードをお試しするか、銀行振込をご指定ください。')->withInput();
             } catch (\Exception $e) {
                 \DB::rollback();
                 \Log::error("支払いに失敗しました。General Error: {$e->getMessage()}");
-                return to_route('user.bookbindings.create')->with('flash_alert', '2決済に失敗しました。違うカードをお試しするか、銀行振込をご指定ください。')->withInput();
+                return to_route('user.bookbindings.create')->with('flash_alert', '決済に失敗しました。違うカードをお試しするか、銀行振込をご指定ください。')->withInput();
             }
 
             //銀行振込の場合
