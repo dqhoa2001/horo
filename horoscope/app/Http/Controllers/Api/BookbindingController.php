@@ -10,7 +10,6 @@ use App\Mail\Admin\ShippingError;
 use App\Http\Controllers\Controller;
 use App\Models\BookbindingUserApply;
 use App\Mail\User\BookbindingUserApplyMail;
-use App\Mail\User\PayStatusChange;
 use App\Mail\User\BookbindingUserApplyMailForBankComplete;
 
 class BookbindingController extends Controller
@@ -59,7 +58,8 @@ class BookbindingController extends Controller
         }
         if ($paymentType === AppraisalClaim::BANK) {
             $bccMails = GetBccMail::getBccMail();
-            \Mail::to($user->email)->bcc($bccMails)->send(new PayStatusChange($appraisalClaim));
+            \Mail::to($user->email)->bcc($bccMails)->send(new BookbindingUserApplyMailForBankComplete($firstBookbindingUserApply, $user));
+
         }
     }
 

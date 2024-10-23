@@ -122,9 +122,9 @@ class UserController extends Controller
             }
             $appraisalClaim->save();
             
-            // if ($appraisalClaim->is_paid) {
-            //     \Mail::to($appraisalClaim->user->email)->send(new PayStatusChange($appraisalClaim));
-            // }
+            if ($appraisalClaim->is_paid) {
+                \Mail::to($appraisalClaim->user->email)->send(new PayStatusChange($appraisalClaim));
+            }
     
             // 一括製本の場合、その他の製本も支払状態を更新
             $message = '支払状態を更新しました';
