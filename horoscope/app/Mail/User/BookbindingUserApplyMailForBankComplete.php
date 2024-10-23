@@ -35,7 +35,7 @@ class BookbindingUserApplyMailForBankComplete extends Mailable implements Should
     {
         $this->bookbindingUserApply = $bookbindingUserApply;
         $this->user = $user;
-        $this->template = Template::where('class_name', class_basename($this))->first();
+        $this->template = Template::where('class_name', ($this->bookbindingUserApply->appraisalApply->solar_return != 0) ? 'BookbindingUserApplySolarMailForBankComplete' : class_basename($this))->first();
         $this->footerTemplate = Template::where('class_name', 'footer')->first();
 
         // テンプレートからメール本文を生成

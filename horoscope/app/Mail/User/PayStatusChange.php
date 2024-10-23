@@ -59,26 +59,26 @@ class PayStatusChange extends Mailable implements ShouldQueue
         $this->bccMails = [];
         $this->appraisalApply = $appraisalClaim->appraisalApply;
 
-        if ($this->bookbindingUserApply) {
+        // if ($this->bookbindingUserApply) {
 
-            $this->template = Template::where('class_name', ($this->appraisalApply->solar_return != 0) ? 'BookbindingUserApplySolarMailForBankComplete' : 'BookbindingUserApplyMailForBankComplete')->first();
-            $this->footerTemplate = Template::where('class_name', 'footer')->first();
+        //     $this->template = Template::where('class_name', ($this->appraisalApply->solar_return != 0) ? 'PayStatusSolarChange' : 'PayStatusChange')->first();
+        //     $this->footerTemplate = Template::where('class_name', 'footer')->first();
     
-            $this->data = [
-                'full_name' => $this->user->full_name,
-                'purchase_name' => $this->bookbindingUserApply->name,
-                'post_number' => $this->bookbindingUserApply->post_number,
-                'address' => $this->bookbindingUserApply->address,
-                'building' => $this->bookbindingUserApply->building,
-                'tel' => $this->bookbindingUserApply->tel,
-                'scheduled_shipping_date' => $this->bookbindingUserApply->scheduled_shipping_date 
-                    ? $this->bookbindingUserApply->scheduled_shipping_date->format('Y年m月d日') 
-                    : 'N/A',
-                'homepage_url' => config('app.home_url'),
-                'contact_url' => route('user.contacts.create'),
-                'admin_email' => config('app.email'),
-            ];
-        } else {
+        //     $this->data = [
+        //         'full_name' => $this->user->full_name,
+        //         'purchase_name' => $this->bookbindingUserApply->name,
+        //         'post_number' => $this->bookbindingUserApply->post_number,
+        //         'address' => $this->bookbindingUserApply->address,
+        //         'building' => $this->bookbindingUserApply->building,
+        //         'tel' => $this->bookbindingUserApply->tel,
+        //         'scheduled_shipping_date' => $this->bookbindingUserApply->scheduled_shipping_date 
+        //             ? $this->bookbindingUserApply->scheduled_shipping_date->format('Y年m月d日') 
+        //             : 'N/A',
+        //         'homepage_url' => config('app.home_url'),
+        //         'contact_url' => route('user.contacts.create'),
+        //         'admin_email' => config('app.email'),
+        //     ];
+        // } else {
             $this->allAdminMailAddresses = AdminMail::pluck('email')->toArray();
             $this->minnaBcc = config('mail.minna_bcc');
             $this->minnaBccArray = [$this->minnaBcc]; // 文字列を配列に変換
@@ -99,7 +99,7 @@ class PayStatusChange extends Mailable implements ShouldQueue
                 'contact_url'        => route('user.contacts.create'),
                 'admin_email'        => config('app.email'),
             ];
-        }
+        // }
     }
     
     /**
