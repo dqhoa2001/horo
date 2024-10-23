@@ -175,9 +175,9 @@ class SolarBookbindingController extends Controller
                     // 請求データ作成
                     AppraisalClaimService::createForCredit(auth()->guard('user')->user()->id, $request, $solarAppraisalApply, $bookbindingUserSolarApply->id, $paymentIntent, $contentType);
                     // dd($solarAppraisalApply->id === $solarAppraisalApply->last()->id);
-                    if ($solarAppraisalApply->id === $solarAppraisalApplies->last()->id) {
-                        \Mail::to(auth()->guard('user')->user()->email)->send(new BookbindingUserApplyMail($bookbindingUserSolarApply, auth()->guard('user')->user()));
-                    }
+                    //    if ($solarAppraisalApply->id === $solarAppraisalApplies->last()->id) {
+                    //     \Mail::to(auth()->guard('user')->user()->email)->send(new BookbindingUserApplyMail($bookbindingUserSolarApply, auth()->guard('user')->user()));
+                    // }
                 }
 
                 \DB::commit();
