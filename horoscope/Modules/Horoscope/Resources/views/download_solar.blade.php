@@ -1611,6 +1611,7 @@
                                         </p>
                                         <p class="page__text">{!! nl2br($item->content_solar) !!}</p>
                                     </div>
+                                    @php $marsAspectFirstPage[] = $key; @endphp
                                 @endif
                             @endif
                         @endforeach
