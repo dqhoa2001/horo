@@ -468,6 +468,10 @@
                     $key3 = mb_strlen($explain['MOON']['aspect_pattern'][3]->content ?? '', 'UTF-8');
                     $moonKey01 = $totalLength['MOON']['key01'];
                     $moonKey23 = $totalLength['MOON']['key23'];
+                    $length = 0;
+                    foreach($explain['MOON']['aspect_pattern'] as $item){
+                        $length+= mb_strlen($item->content ?? '','UTF-8'); 
+                    }
                 @endphp
 
                 <div class="page-block page-block--5">
@@ -489,6 +493,9 @@
                             @else
                                 @php
                                     switch (true) {
+                                        case $length < 150:
+                                            $show = ($moonHouse<250) ? 5 : 4;
+                                            break;
                                         case $moonKey01 > 300 && $moonKey01 <350:
                                             $show = ($moonHouse<160) ? ($moonKey23 < 280 ? 4 : 3) : ($moonKey23 < 50 ? 4 : 3);
                                             break;
@@ -498,12 +505,12 @@
                                             break;
 
                                         case $moonKey01 > 350 && $moonKey01 <650:
-                                            $show = ($moonHouse<160) ? ( $key2 < 120 ? 3 : 2) : ($key2 < 50 ? 3 : 2);
+                                            $show = ($moonHouse<160) ? ( $key2 < 180 ? 3 : 2) : ($key2 <= 150 ? 3 : 2);
                                             break;
                                             
                                         case $moonKey01 > 50 && $moonKey01 < 250:
                                             //$show = ($moonHouse<160) ? ($moonKey23 < 371 && $key2 > 150 ? 4 : 3) : ($moonKey23 < 50 ? 4 : 3);
-                                            $show = ($moonHouse<160) ? ($moonKey23 < 90 ? 4 : 3) : ($moonKey23 < 40 ? 4 : 3);
+                                            $show = ($moonHouse<160) ? ($moonKey23 < 250 ? 4 : 3) : ($moonKey23 < 150 ? 4 : 3);
                                             break;
 
                                         case $moonKey01 < 50:
@@ -785,6 +792,10 @@
                     $key3 = mb_strlen($explain['MERCURY']['aspect_pattern'][3]->content ?? '', 'UTF-8');
                     $mercuryKey01 = $totalLength['MERCURY']['key01'];
                     $mercuryKey23 = $totalLength['MERCURY']['key23'];
+                    $length = 0;
+                    foreach($explain['MERCURY']['aspect_pattern'] as $item){
+                        $length+= mb_strlen($item->content ?? '','UTF-8'); 
+                    }
                 @endphp
 
                 <div class="page-block page-block--5">
@@ -806,6 +817,9 @@
                             @else
                                 @php
                                     switch (true) {
+                                        case $length < 150:
+                                            $show = ($mercuryHouse<250) ? 5 : 4;
+                                            break;
                                         case $mercuryKey01 > 300 && $mercuryKey01 <350:
                                             $show = ($mercuryHouse<160) ? ($mercuryKey23 < 280 ? 4 : 3) : ($mercuryKey23 < 50 ? 4 : 3);
                                             break;
@@ -815,12 +829,12 @@
                                             break;
 
                                         case $mercuryKey01 > 350 && $mercuryKey01 <650:
-                                            $show = ($mercuryHouse<160) ? ( $key2 < 120 ? 3 : 2) : ($key2 < 50 ? 3 : 2);
+                                            $show = ($mercuryHouse<160) ? ( $key2 < 180 ? 3 : 2) : ($key2 <= 150 ? 3 : 2);
                                             break;
                                             
                                         case $mercuryKey01 > 50 && $mercuryKey01 < 250:
                                             //$show = ($mercuryHouse<160) ? ($mercuryKey23 < 371 && $key2 > 150 ? 4 : 3) : ($mercuryKey23 < 50 ? 4 : 3);
-                                            $show = ($mercuryHouse<160) ? ($mercuryKey23 < 90 ? 4 : 3) : ($mercuryKey23 < 40 ? 4 : 3);
+                                            $show = ($mercuryHouse<160) ? ($mercuryKey23 < 250 ? 4 : 3) : ($mercuryKey23 < 150 ? 4 : 3);
                                             break;
 
                                         case $mercuryKey01 < 50:
@@ -1106,6 +1120,10 @@
                     $key3 = mb_strlen($explain['VENUS']['aspect_pattern'][3]->content ?? '', 'UTF-8');
                     $venusKey01 = $totalLength['VENUS']['key01'];
                     $venusKey23 = $totalLength['VENUS']['key23'];
+                    $length = 0;
+                    foreach($explain['VENUS']['aspect_pattern'] as $item){
+                        $length+= mb_strlen($item->content ?? '','UTF-8'); 
+                    }
                 @endphp
 
                 <div class="page-block page-block--5">
@@ -1127,7 +1145,10 @@
                             @else
 
                                 @php
-                                    switch (true) {
+                                  switch (true) {
+                                        case $length < 150:
+                                            $show = ($venusHouse<250) ? 5 : 4;
+                                            break;
                                         case $venusKey01 > 300 && $venusKey01 < 350:
                                             $show = ($venusHouse<160) ? ($venusKey23 < 280 ? 4 : 3) : ($venusKey23 < 50 ? 4 : 3);
                                             break;
@@ -1137,11 +1158,11 @@
                                             break;
 
                                         case $venusKey01 > 350 && $venusKey01 <650:
-                                            $show = ($venusHouse<160) ? ( $key2 < 120 ? 3 : 2) : ($key2 < 50 ? 3 : 2);
+                                            $show = ($venusHouse<160) ? ( $key2 < 180 ? 3 : 2) : ($key2 <= 150 ? 3 : 2);
                                             break;
                                         case $venusKey01 > 50 && $venusKey01 < 250:
                                             //$show = ($venusHouse<160) ? ($venusKey23 < 371 && $key2 > 150 ? 4 : 3) : ($venusKey23 < 50 ? 4 : 3);
-                                            $show = ($venusHouse<160) ? ($venusKey23 < 90 ? 4 : 3) : ($venusKey23 < 40 ? 4 : 3);
+                                            $show = ($venusHouse<160) ? ($venusKey23 < 250 ? 4 : 3) : ($venusKey23 < 150 ? 4 : 3);
                                             break;
 
                                         case $venusKey01 < 50:
@@ -1425,6 +1446,10 @@
                     $key3 = mb_strlen($explain['SUN']['aspect_pattern'][3]->content ?? '', 'UTF-8');
                     $sunKey01 = $totalLength['SUN']['key01'];
                     $sunKey23 = $totalLength['SUN']['key23'];
+                    $length = 0;
+                    foreach($explain['SUN']['aspect_pattern'] as $item){
+                        $length+= mb_strlen($item->content ?? '','UTF-8'); 
+                    }
                 @endphp
 
                 <div class="page-block page-block--5">
@@ -1446,6 +1471,9 @@
                             @else
                                 @php
                                     switch (true) {
+                                        case $length < 150:
+                                            $show = ($sunHouse<250) ? 5 : 4;
+                                            break;
                                         case $sunKey01 > 300 && $sunKey01 < 350:
                                             $show = ($sunHouse<160) ? ($sunKey23 < 280 ? 4 : 3) : ($sunKey23 < 50 ? 4 : 3);
                                             break;
@@ -1455,11 +1483,11 @@
                                             break;
 
                                         case $sunKey01 > 350 && $sunKey01 <650:
-                                            $show = ($sunHouse<160) ? ( $key2 < 120 ? 3 : 2) : ($key2 < 50 ? 3 : 2);
+                                            $show = ($sunHouse<160) ? ( $key2 < 180 ? 3 : 2) : ($key2 <= 150 ? 3 : 2);
                                             break;
                                         case $sunKey01 > 50 && $sunKey01 < 250:
                                             //$show = ($sunHouse<160) ? ($sunKey23 < 371 && $key2 > 150 ? 4 : 3) : ($sunKey23 < 50 ? 4 : 3);
-                                            $show = ($sunHouse<160) ? ($sunKey23 < 90 ? 4 : 3) : ($sunKey23 < 40 ? 4 : 3);
+                                            $show = ($sunHouse<160) ? ($sunKey23 < 250 ? 4 : 3) : ($sunKey23 < 150 ? 4 : 3);
                                             break;
 
                                         case $sunKey01 < 50:
@@ -1742,6 +1770,10 @@
                     $key3 = mb_strlen($explain['MARS']['aspect_pattern'][3]->content ?? '', 'UTF-8');
                     $marsKey01 = $totalLength['MARS']['key01'];
                     $marsKey23 = $totalLength['MARS']['key23'];
+                    $length = 0;
+                    foreach($explain['MARS']['aspect_pattern'] as $item){
+                        $length+= mb_strlen($item->content ?? '','UTF-8'); 
+                    }
                 @endphp
 
                 <div class="page-block page-block--5">
@@ -1763,6 +1795,9 @@
                             @else
                                 @php
                                     switch (true) {
+                                        case $length < 150:
+                                            $show = ($marsHouse<250) ? 5 : 4;
+                                            break;
                                         case $marsKey01 > 300 && $marsKey01 <350:
                                             $show = ($marsHouse<160) ? ($marsKey23 < 280 ? 4 : 3) : ($marsKey23 < 50 ? 4 : 3);
                                             break;
@@ -1771,11 +1806,11 @@
                                             $show = ($marsHouse<160) ? ($marsKey23 < 180 ? 4 : 3) : ($marsKey23 < 150 ? 4 : 3);
                                             break;
                                         case $marsKey01 > 350 && $marsKey01 <650:
-                                            $show = ($marsHouse<160) ? ( $key2 < 120 ? 3 : 2) : ($key2 < 50 ? 3 : 2);
+                                            $show = ($marsHouse<160) ? ( $key2 < 180 ? 3 : 2) : ($key2 <= 150 ? 3 : 2);
                                             break;
                                         case $marsKey01 > 50 && $marsKey01 < 250:
                                             //$show = ($marsHouse<160) ? ($marsKey23 < 371 && $key2 > 150 ? 4 : 3) : ($marsKey23 < 50 ? 4 : 3);
-                                            $show = ($marsHouse<160) ? ($marsKey23 < 90 ? 4 : 3) : ($marsKey23 < 40 ? 4 : 3);
+                                            $show = ($marsHouse<160) ? ($marsKey23 < 250 ? 4 : 3) : ($marsKey23 < 150 ? 4 : 3);
                                             break;
 
                                         case $marsKey01 < 50:
@@ -2086,6 +2121,9 @@
 
                                 @php
                                     switch (true) {
+                                        case $length < 150:
+                                            $show = ($jupiterHouse<250) ? 5 : 4;
+                                            break;
                                         case $jupiterKey01 > 300 && $jupiterKey01 <350:
                                             $show = ($jupiterHouse<160) ? ($jupiterKey23 < 280 ? 4 : 3) : ($jupiterKey23 < 50 ? 4 : 3);
                                             break;
@@ -2094,11 +2132,11 @@
                                             $show = ($jupiterHouse<160) ? ($jupiterKey23 < 180 ? 4 : 3) : ($jupiterKey23 < 150 ? 4 : 3);
                                             break;
                                         case $jupiterKey01 > 350 && $jupiterKey01 <650:
-                                            $show = ($jupiterHouse<160) ? ( $key2 < 120 ? 3 : 2) : ($key2 < 50 ? 3 : 2);
+                                            $show = ($jupiterHouse<160) ? ( $key2 < 180 ? 3 : 2) : ($key2 <= 150 ? 3 : 2);
                                             break;
                                         case $jupiterKey01 > 50 && $jupiterKey01 < 250:
                                             //$show = ($jupiterHouse<160) ? ($jupiterKey23 < 371 && $key2 > 150 ? 4 : 3) : ($jupiterKey23 < 50 ? 4 : 3);
-                                            $show = ($jupiterHouse<160) ? ($jupiterKey23 < 90 ? 4 : 3) : ($jupiterKey23 < 40 ? 4 : 3);
+                                            $show = ($jupiterHouse<160) ? ($jupiterKey23 < 250 ? 4 : 3) : ($jupiterKey23 < 150 ? 4 : 3);
                                             break;
 
                                         case $jupiterKey01 < 50:
@@ -2414,6 +2452,9 @@
                             @else
                                 @php
                                     switch (true) {
+                                        case $length < 150:
+                                            $show = ($saturnHouse<250) ? 5 : 4;
+                                            break;
                                         case $saturnKey01 > 300 && $saturnKey01 <350:
                                             $show = ($saturnHouse<160) ? ($saturnKey23 < 280 ? 4 : 3) : ($saturnKey23 < 50 ? 4 : 3);
                                             break;
@@ -2422,11 +2463,11 @@
                                             $show = ($saturnHouse<160) ? ($saturnKey23 < 180 ? 4 : 3) : ($saturnKey23 < 150 ? 4 : 3);
                                             break;
                                         case $saturnKey01 > 350 && $saturnKey01 <650:
-                                            $show = ($saturnHouse<160) ? ( $key2 < 120 ? 3 : 2) : ($key2 < 50 ? 3 : 2);
+                                            $show = ($saturnHouse<160) ? ( $key2 < 180 ? 3 : 2) : ($key2 <= 150 ? 3 : 2);
                                             break;
                                         case $saturnKey01 > 50 && $saturnKey01 < 250:
                                             //$show = ($saturnHouse<160) ? ($saturnKey23 < 371 && $key2 > 150 ? 4 : 3) : ($saturnKey23 < 50 ? 4 : 3);
-                                            $show = ($saturnHouse<160) ? ($saturnKey23 < 90 ? 4 : 3) : ($saturnKey23 < 40 ? 4 : 3);
+                                            $show = ($saturnHouse<160) ? ($saturnKey23 < 250 ? 4 : 3) : ($saturnKey23 < 150 ? 4 : 3);
                                             break;
 
                                         case $saturnKey01 < 50:
