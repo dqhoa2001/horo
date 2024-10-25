@@ -331,7 +331,10 @@
                                         $show = ($sunHouse<160) ? ($sunKey23 < 180 ? 4 : 3) : ($sunKey23 < 150 ? 4 : 3);
                                         break;
 
-                                    case $sunKey01 > 50:
+                                    case $sunKey01 > 350:
+                                        $show = ($sunHouse<160) ? ( $key2 < 120 ? 4 : 3) : ($key2 <90 ? 4 : 3);
+                                        break;
+                                    case $sunKey01 > 50 && $sunKey01 < 250:
                                         $show = ($sunHouse<160) ? ($sunKey23 < 371 && $key2 > 150 ? 4 : 3) : ($sunKey23 < 50 ? 4 : 3);
                                         break;
 
@@ -631,7 +634,11 @@
                                             $show = ($moonHouse<160) ? ($moonKey23 < 180 ? 4 : 3) : ($moonKey23 < 150 ? 4 : 3);
                                             break;
 
-                                        case $moonKey01 > 50:
+                                        case $moonKey01 > 350:
+                                            $show = ($moonHouse<160) ? ( $key2 < 120 ? 4 : 3) : ($key2 < 90 ? 4 : 3);
+                                            break;
+                                            
+                                        case $moonKey01 > 50 && $moonKey01 < 250:
                                             $show = ($moonHouse<160) ? ($moonKey23 < 371 && $key2 > 150 ? 4 : 3) : ($moonKey23 < 50 ? 4 : 3);
                                             break;
 
@@ -928,7 +935,11 @@
                                             $show = ($mercuryHouse<160) ? ($mercuryKey23 < 180 ? 4 : 3) : ($mercuryKey23 < 150 ? 4 : 3);
                                             break;
 
-                                        case $mercuryKey01 > 50:
+                                        case $mercuryKey01 > 350:
+                                            $show = ($mercuryHouse<160) ? ( $key2 < 120 ? 4 : 3) : ($key2 < 90 ? 4 : 3);
+                                            break;
+                                            
+                                        case $mercuryKey01 > 50 && $mercuryKey01 < 250:
                                             $show = ($mercuryHouse<160) ? ($mercuryKey23 < 371 && $key2 > 150 ? 4 : 3) : ($mercuryKey23 < 50 ? 4 : 3);
                                             break;
 
@@ -1230,10 +1241,12 @@
                                             $show = ($venusHouse<160) ? ($venusKey23 < 180 ? 4 : 3) : ($venusKey23 < 150 ? 4 : 3);
                                             break;
 
-                                        case $venusKey01 > 50:
+                                        case $venusKey01 > 350:
+                                            $show = ($venusHouse<160) ? ( $key2 < 120 ? 4 : 3) : ($key2 < 90 ? 4 : 3);
+                                            break;
+                                        case $venusKey01 > 50 && $venusKey01 < 250:
                                             $show = ($venusHouse<160) ? ($venusKey23 < 371 && $key2 > 150 ? 4 : 3) : ($venusKey23 < 50 ? 4 : 3);
                                             break;
-
                                         case $venusKey01 < 50:
                                             $show = ($venusHouse<160) ? ($venusKey23 < 371 && $key2 > 150 ? 4 : 3) : ($venusKey23 < 50 ? 4 : 3);
                                             break;
@@ -1534,8 +1547,10 @@
                                     case $marsKey01 > 250 && $marsKey01 < 300:
                                         $show = ($marsHouse<160) ? ($marsKey23 < 180 ? 4 : 3) : ($marsKey23 < 150 ? 4 : 3);
                                         break;
-
-                                    case $marsKey01 > 50:
+                                    case $marsKey01 > 350:
+                                        $show = ($marsHouse<160) ? ( $key2 < 120 ? 4 : 3) : ($key2 < 90 ? 4 : 3);
+                                        break;
+                                    case $marsKey01 > 50 && $marsKey01 < 250:
                                         $show = ($marsHouse<160) ? ($marsKey23 < 371 && $key2 > 150 ? 4 : 3) : ($marsKey23 < 50 ? 4 : 3);
                                         break;
 
@@ -1611,6 +1626,7 @@
                                         </p>
                                         <p class="page__text">{!! nl2br($item->content_solar) !!}</p>
                                     </div>
+                                    @php $marsAspectFirstPage[] = $key; @endphp
                                 @endif
                             @endif
                         @endforeach
@@ -1841,10 +1857,10 @@
                                     case $jupiterKey01 > 250 && $jupiterKey01 < 300 :
                                         $show = ($jupiterHouse<160) ? ($jupiterKey23 < 180 ? 4 : 3) : ($jupiterKey23 < 150 ? 4 : 3);
                                         break;
-                                    case $jupiterKey01 < 250 && $jupiterKey01 > 50 :
-                                        $show = ($jupiterHouse<160) ? ($jupiterKey23 < 150 ? 4 : 3) : ($jupiterKey23 < 150 ? 4 : 3);
+                                    case $jupiterKey01 > 350:
+                                        $show = ($jupiterHouse<160) ? ( $key2 < 120 ? 4 : 3) : ($key2 < 90 ? 4 : 3);
                                         break;
-                                    case $jupiterKey01 > 50:
+                                    case $jupiterKey01 > 50 && $jupiterKey01 < 250:
                                         $show = ($jupiterHouse<160) ? ($jupiterKey23 < 371 && $key2 > 150 ? 4 : 3) : ($jupiterKey23 < 50 ? 4 : 3);
                                         break;
 

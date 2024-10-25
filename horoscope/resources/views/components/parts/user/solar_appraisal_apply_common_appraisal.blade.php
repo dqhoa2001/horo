@@ -449,9 +449,9 @@
                                     土星のアスペクトについては、月から木星とのかかわりがある場合には記載済みです。この項目に該当するアスペクトはありません。
                                 </dd>
                             </dl>
-                            <div class="C-appraisal-message-aspect">
+                            <!-- <div class="C-appraisal-message-aspect">
                                 <span>この天体は、他の天体とのかかわりがないため、この時期天体があらわすテーマをうまく発揮できない可能性があるとされます。他の天体との相乗効果がないだけで、上記の星座、サビアンシンボル、ハウスなどはいずれも該当いたします。</span>
-                            </div>
+                            </div> -->
                         @endif
                         {{-- @if ($planet == 'CHIRON')
                             <dl class="C-appraisal-content-header-message">
